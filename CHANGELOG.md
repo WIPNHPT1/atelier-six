@@ -8,3 +8,4 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 - Project scaffold, tooling, CI and Netlify deploy.
 - Design system: tokens, finishes, components, logo, app shell.
+- Music core: theory, shape notation, generated chord library, progressions, rhythms, tunings.

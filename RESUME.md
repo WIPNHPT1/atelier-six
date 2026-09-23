@@ -9,5 +9,5 @@ Last result: -
 Done so far:
 - -
 Next action:
-- Run /next
+- new session (⌘N), then /next
 Updated: 2026-09-23

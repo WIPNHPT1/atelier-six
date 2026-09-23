@@ -1,6 +1,6 @@
 # Progress
 
-Current: Gate 2
+Current: 3.1
 Legend: [ ] todo · [x] done · BLOCKED: reason
 Rule: update "Current" and tick the box in the same commit as the step. Unfinished work lives in `RESUME.md`.
 Milestones: v1.0 = Phases 0–10 · v1.1 = 11–15 · v1.2 = 16–17 · v2.0 = 18–22 · v2.x = 23–24 (final).
@@ -12,6 +12,7 @@ Recorded numbers (fill in as you go): LIVE_URL=https://ateliersix.netlify.app ·
 | ----- | ------------- | ------------- |
 | 0     | 2026-09-23    | 1             |
 | 1     | 2026-09-23    | 1             |
+| 2     | 2026-09-23    | ?             |
 
 ## Phase 0 — Repo foundation
 
@@ -42,7 +43,7 @@ Recorded numbers (fill in as you go): LIVE_URL=https://ateliersix.netlify.app ·
 - [x] 2.2 Shape types + validator
 - [x] 2.3 Chord data generator
 - [x] 2.4 Progressions, rhythms, tunings
-- [ ] Gate 2
+- [x] Gate 2
 
 ## Phase 3 — Transition engine
 
