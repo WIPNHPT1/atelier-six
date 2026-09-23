@@ -1,0 +1,22 @@
+.heading {
+  font-family: var(--font-display);
+  font-weight: 400;
+  color: var(--bone);
+  margin: 0;
+}
+
+.level1 {
+  font-size: var(--t-56);
+}
+
+.level2 {
+  font-size: var(--t-40);
+}
+
+.level3 {
+  font-size: var(--t-28);
+}
+
+.level4 {
+  font-size: var(--t-20);
+}

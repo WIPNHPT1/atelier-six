@@ -1,0 +1,19 @@
+.text {
+  font-family: var(--font-ui);
+  font-size: var(--t-16);
+  line-height: 1.5;
+  color: var(--bone);
+  margin: 0;
+}
+
+.dim {
+  color: var(--bone-dim);
+}
+
+.sizeSmall {
+  font-size: var(--t-14);
+}
+
+.sizeLarge {
+  font-size: var(--t-20);
+}

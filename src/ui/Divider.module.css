@@ -1,0 +1,12 @@
+.divider {
+  border: none;
+  height: 1px;
+  background: var(--hairline);
+  margin: 0;
+}
+
+.vertical {
+  height: auto;
+  width: 1px;
+  align-self: stretch;
+}

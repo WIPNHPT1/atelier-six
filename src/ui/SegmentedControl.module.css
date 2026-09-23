@@ -1,0 +1,26 @@
+.group {
+  display: inline-flex;
+  padding: 2px;
+  border-radius: var(--r-hair);
+  background: var(--rosewood);
+  gap: 2px;
+}
+
+.segment {
+  border: none;
+  border-radius: var(--r-hair);
+  background: transparent;
+  color: var(--bone-dim);
+  font-family: var(--font-ui);
+  font-size: var(--t-14);
+  font-weight: 500;
+  padding: var(--s-2) var(--s-4);
+  height: 36px;
+  cursor: pointer;
+  transition: background calc(var(--dur-ui) * var(--motion-scale)) var(--ease);
+}
+
+.selected {
+  background: var(--rosewood-2);
+  color: var(--bone);
+}

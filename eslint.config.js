@@ -31,8 +31,14 @@ export default tseslint.config(
       'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
       'react/jsx-no-literals': [
         'error',
-        { noStrings: true, allowedStrings: ['Atelier Six'], ignoreProps: false },
+        { noStrings: true, allowedStrings: ['Atelier Six'], ignoreProps: true },
       ],
+    },
+  },
+  {
+    files: ['**/*.test.{ts,tsx}', 'tests/**/*.{ts,tsx}'],
+    rules: {
+      'react/jsx-no-literals': 'off',
     },
   },
   {

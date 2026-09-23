@@ -1,0 +1,30 @@
+.toggle {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  width: 44px;
+  height: 24px;
+  padding: 2px;
+  border: none;
+  border-radius: var(--r-pill);
+  background: var(--rosewood-2);
+  cursor: pointer;
+  transition: background calc(var(--dur-ui) * var(--motion-scale)) var(--ease);
+}
+
+.on {
+  background: var(--brass);
+}
+
+.knob {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--bone);
+  transform: translateX(0);
+  transition: transform calc(var(--dur-ui) * var(--motion-scale)) var(--ease);
+}
+
+.on .knob {
+  transform: translateX(20px);
+}

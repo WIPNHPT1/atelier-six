@@ -1,0 +1,25 @@
+.wrapper {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s-2);
+}
+
+.track {
+  stroke: var(--hairline);
+  fill: none;
+}
+
+.fill {
+  stroke: var(--brass);
+  fill: none;
+  stroke-linecap: round;
+  transition: stroke-dashoffset calc(var(--dur-show) * var(--motion-scale)) var(--ease);
+}
+
+.label {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  color: var(--bone);
+  font-size: var(--t-14);
+}

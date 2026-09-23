@@ -1,0 +1,10 @@
+.panel {
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-hair);
+  background: var(--rosewood);
+  padding: var(--s-4);
+}
+
+.raised {
+  background: var(--rosewood-2);
+}

@@ -33,3 +33,8 @@ Areas: build, ts, lint, test, e2e, audio, pwa, ui, data, engine, ci, netlify, de
 
 ## Learned during build
 - [build] eslint/vitest/playwright crash parsing binary files → external drive writes AppleDouble `._*` sidecar files for every file → ignore/exclude `**/._*` in eslint.config.js, vitest.config.ts and playwright.config.ts (0.1-0.4)
+- [test] RTL "multiple elements found" across `it` blocks → no auto-cleanup because vitest config doesn't set `globals: true` → call `afterEach(cleanup)` from `@testing-library/react` in `src/test/setup.ts` (1.2)
+- [build] npm install/read on node_modules fails with EPERM inside the sandbox on this external-drive project → rerun with sandbox disabled, same as git config (all)
+- [lint] real components fail on every SVG/DOM attribute (`role`, `type`, `d`, `cx`…) → `react/jsx-no-literals` had `ignoreProps: false` from phase 0 → set `ignoreProps: true`; it still catches hardcoded JSX text children (1.2)
+- [ts] template literals with a numeric var fail `restrict-template-expressions` under strictTypeChecked → wrap with `String(n)` (1.2)
+- [build] `git add`/`git log` print "non-monotonic index" for `.git/objects/pack/._pack-*` → external drive wrote AppleDouble sidecars for git's own pack files → `rm -f .git/objects/pack/._pack-*` (safe, they're not real objects); repeat if `git gc`/repack recreates them (all)
