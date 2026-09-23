@@ -19,3 +19,6 @@ START-HERE.md
 # Hand-maintained, line-budgeted build-loop files (CLAUDE.md controls their exact format)
 LESSONS.md
 RESUME.md
+
+# Generated data (scripts/data/build-chords.ts) — never hand-edited or read back in chat
+src/data/chords.json

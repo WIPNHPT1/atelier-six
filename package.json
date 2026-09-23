@@ -16,6 +16,7 @@
     "test": "vitest run --reporter=dot",
     "verify": "npm run lint --silent && npm run typecheck --silent && npm run test --silent",
     "check:contrast": "tsx scripts/check-contrast.ts",
+    "data:chords": "tsx scripts/data/build-chords.ts",
     "icons": "tsx scripts/icons.ts",
     "e2e": "playwright test --reporter=line",
     "prepare": "husky"

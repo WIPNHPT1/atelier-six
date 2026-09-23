@@ -1,0 +1,5170 @@
+{
+  "A": [
+    {
+      "id": "A.barre.a",
+      "chord": "A",
+      "notes": [
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": 12,
+          "finger": 1
+        },
+        {
+          "fret": 14,
+          "finger": 2
+        },
+        {
+          "fret": 14,
+          "finger": 3
+        },
+        {
+          "fret": 14,
+          "finger": 4
+        },
+        {
+          "fret": 12,
+          "finger": 1
+        }
+      ],
+      "register": "high",
+      "tags": [
+        "barre"
+      ],
+      "barre": {
+        "fret": 12,
+        "from": 1,
+        "to": 5,
+        "finger": 1
+      }
+    },
+    {
+      "id": "A.barre.e",
+      "chord": "A",
+      "notes": [
+        {
+          "fret": 5,
+          "finger": 1
+        },
+        {
+          "fret": 7,
+          "finger": 3
+        },
+        {
+          "fret": 7,
+          "finger": 4
+        },
+        {
+          "fret": 6,
+          "finger": 2
+        },
+        {
+          "fret": 5,
+          "finger": 1
+        },
+        {
+          "fret": 5,
+          "finger": 1
+        }
+      ],
+      "register": "mid",
+      "tags": [
+        "barre"
+      ],
+      "barre": {
+        "fret": 5,
+        "from": 0,
+        "to": 5,
+        "finger": 1
+      }
+    },
+    {
+      "id": "A.open.a",
+      "chord": "A",
+      "notes": [
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": 0,
+          "finger": 0
+        },
+        {
+          "fret": 2,
+          "finger": 1
+        },
+        {
+          "fret": 2,
+          "finger": 2
+        },
+        {
+          "fret": 2,
+          "finger": 3
+        },
+        {
+          "fret": 0,
+          "finger": 0
+        }
+      ],
+      "register": "low",
+      "tags": [
+        "open"
+      ]
+    },
+    {
+      "id": "A.open.b",
+      "chord": "A",
+      "notes": [
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": 0,
+          "finger": 0
+        },
+        {
+          "fret": 2,
+          "finger": 2
+        },
+        {
+          "fret": 2,
+          "finger": 1
+        },
+        {
+          "fret": 2,
+          "finger": 3
+        },
+        {
+          "fret": 0,
+          "finger": 0
+        }
+      ],
+      "register": "low",
+      "tags": [
+        "open"
+      ]
+    }
+  ],
+  "A#": [
+    {
+      "id": "A#.barre.a",
+      "chord": "A#",
+      "notes": [
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": 1,
+          "finger": 1
+        },
+        {
+          "fret": 3,
+          "finger": 2
+        },
+        {
+          "fret": 3,
+          "finger": 3
+        },
+        {
+          "fret": 3,
+          "finger": 4
+        },
+        {
+          "fret": 1,
+          "finger": 1
+        }
+      ],
+      "register": "low",
+      "tags": [
+        "barre"
+      ],
+      "barre": {
+        "fret": 1,
+        "from": 1,
+        "to": 5,
+        "finger": 1
+      }
+    },
+    {
+      "id": "A#.barre.e",
+      "chord": "A#",
+      "notes": [
+        {
+          "fret": 6,
+          "finger": 1
+        },
+        {
+          "fret": 8,
+          "finger": 3
+        },
+        {
+          "fret": 8,
+          "finger": 4
+        },
+        {
+          "fret": 7,
+          "finger": 2
+        },
+        {
+          "fret": 6,
+          "finger": 1
+        },
+        {
+          "fret": 6,
+          "finger": 1
+        }
+      ],
+      "register": "mid",
+      "tags": [
+        "barre"
+      ],
+      "barre": {
+        "fret": 6,
+        "from": 0,
+        "to": 5,
+        "finger": 1
+      }
+    }
+  ],
+  "A#5": [
+    {
+      "id": "A#5.power.2.a",
+      "chord": "A#5",
+      "notes": [
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": 1,
+          "finger": 1
+        },
+        {
+          "fret": 3,
+          "finger": 3
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        }
+      ],
+      "register": "low",
+      "tags": [
+        "power"
+      ]
+    },
+    {
+      "id": "A#5.power.2.e",
+      "chord": "A#5",
+      "notes": [
+        {
+          "fret": 6,
+          "finger": 1
+        },
+        {
+          "fret": 8,
+          "finger": 3
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        }
+      ],
+      "register": "mid",
+      "tags": [
+        "power"
+      ]
+    },
+    {
+      "id": "A#5.power.3.a",
+      "chord": "A#5",
+      "notes": [
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": 1,
+          "finger": 1
+        },
+        {
+          "fret": 3,
+          "finger": 3
+        },
+        {
+          "fret": 3,
+          "finger": 4
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        }
+      ],
+      "register": "low",
+      "tags": [
+        "power"
+      ]
+    },
+    {
+      "id": "A#5.power.3.e",
+      "chord": "A#5",
+      "notes": [
+        {
+          "fret": 6,
+          "finger": 1
+        },
+        {
+          "fret": 8,
+          "finger": 3
+        },
+        {
+          "fret": 8,
+          "finger": 4
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        }
+      ],
+      "register": "mid",
+      "tags": [
+        "power"
+      ]
+    },
+    {
+      "id": "A#5.power.oct.a",
+      "chord": "A#5",
+      "notes": [
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": 1,
+          "finger": 1
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": 3,
+          "finger": 4
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        }
+      ],
+      "register": "low",
+      "tags": [
+        "power"
+      ]
+    },
+    {
+      "id": "A#5.power.oct.e",
+      "chord": "A#5",
+      "notes": [
+        {
+          "fret": 6,
+          "finger": 1
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": 8,
+          "finger": 4
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        }
+      ],
+      "register": "mid",
+      "tags": [
+        "power"
+      ]
+    }
+  ],
+  "A#m": [
+    {
+      "id": "A#m.barre.a",
+      "chord": "A#m",
+      "notes": [
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": 1,
+          "finger": 1
+        },
+        {
+          "fret": 3,
+          "finger": 3
+        },
+        {
+          "fret": 3,
+          "finger": 4
+        },
+        {
+          "fret": 2,
+          "finger": 2
+        },
+        {
+          "fret": 1,
+          "finger": 1
+        }
+      ],
+      "register": "low",
+      "tags": [
+        "barre"
+      ],
+      "barre": {
+        "fret": 1,
+        "from": 1,
+        "to": 5,
+        "finger": 1
+      }
+    },
+    {
+      "id": "A#m.barre.e",
+      "chord": "A#m",
+      "notes": [
+        {
+          "fret": 6,
+          "finger": 1
+        },
+        {
+          "fret": 8,
+          "finger": 3
+        },
+        {
+          "fret": 8,
+          "finger": 4
+        },
+        {
+          "fret": 6,
+          "finger": 1
+        },
+        {
+          "fret": 6,
+          "finger": 1
+        },
+        {
+          "fret": 6,
+          "finger": 1
+        }
+      ],
+      "register": "mid",
+      "tags": [
+        "barre"
+      ],
+      "barre": {
+        "fret": 6,
+        "from": 0,
+        "to": 5,
+        "finger": 1
+      }
+    }
+  ],
+  "A5": [
+    {
+      "id": "A5.open",
+      "chord": "A5",
+      "notes": [
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": 0,
+          "finger": 0
+        },
+        {
+          "fret": 2,
+          "finger": 1
+        },
+        {
+          "fret": 2,
+          "finger": 2
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        }
+      ],
+      "register": "low",
+      "tags": [
+        "power"
+      ]
+    },
+    {
+      "id": "A5.power.2.a",
+      "chord": "A5",
+      "notes": [
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": 12,
+          "finger": 1
+        },
+        {
+          "fret": 14,
+          "finger": 3
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        }
+      ],
+      "register": "high",
+      "tags": [
+        "power"
+      ]
+    },
+    {
+      "id": "A5.power.2.e",
+      "chord": "A5",
+      "notes": [
+        {
+          "fret": 5,
+          "finger": 1
+        },
+        {
+          "fret": 7,
+          "finger": 3
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        }
+      ],
+      "register": "mid",
+      "tags": [
+        "power"
+      ]
+    },
+    {
+      "id": "A5.power.3.a",
+      "chord": "A5",
+      "notes": [
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": 12,
+          "finger": 1
+        },
+        {
+          "fret": 14,
+          "finger": 3
+        },
+        {
+          "fret": 14,
+          "finger": 4
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        }
+      ],
+      "register": "high",
+      "tags": [
+        "power"
+      ]
+    },
+    {
+      "id": "A5.power.3.e",
+      "chord": "A5",
+      "notes": [
+        {
+          "fret": 5,
+          "finger": 1
+        },
+        {
+          "fret": 7,
+          "finger": 3
+        },
+        {
+          "fret": 7,
+          "finger": 4
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        }
+      ],
+      "register": "mid",
+      "tags": [
+        "power"
+      ]
+    },
+    {
+      "id": "A5.power.oct.a",
+      "chord": "A5",
+      "notes": [
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": 12,
+          "finger": 1
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": 14,
+          "finger": 4
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        }
+      ],
+      "register": "high",
+      "tags": [
+        "power"
+      ]
+    },
+    {
+      "id": "A5.power.oct.e",
+      "chord": "A5",
+      "notes": [
+        {
+          "fret": 5,
+          "finger": 1
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": 7,
+          "finger": 4
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        }
+      ],
+      "register": "mid",
+      "tags": [
+        "power"
+      ]
+    }
+  ],
+  "A7": [
+    {
+      "id": "A7.open",
+      "chord": "A7",
+      "notes": [
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": 0,
+          "finger": 0
+        },
+        {
+          "fret": 2,
+          "finger": 2
+        },
+        {
+          "fret": 0,
+          "finger": 0
+        },
+        {
+          "fret": 2,
+          "finger": 3
+        },
+        {
+          "fret": 0,
+          "finger": 0
+        }
+      ],
+      "register": "low",
+      "tags": [
+        "open"
+      ]
+    }
+  ],
+  "A7sus4": [
+    {
+      "id": "A7sus4.anchored",
+      "chord": "A7sus4",
+      "notes": [
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": 0,
+          "finger": 0
+        },
+        {
+          "fret": 2,
+          "finger": 1
+        },
+        {
+          "fret": 0,
+          "finger": 0
+        },
+        {
+          "fret": 3,
+          "finger": 3
+        },
+        {
+          "fret": 3,
+          "finger": 4
+        }
+      ],
+      "register": "low",
+      "tags": [
+        "anchored"
+      ]
+    }
+  ],
+  "Am": [
+    {
+      "id": "Am.barre.a",
+      "chord": "Am",
+      "notes": [
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": 12,
+          "finger": 1
+        },
+        {
+          "fret": 14,
+          "finger": 3
+        },
+        {
+          "fret": 14,
+          "finger": 4
+        },
+        {
+          "fret": 13,
+          "finger": 2
+        },
+        {
+          "fret": 12,
+          "finger": 1
+        }
+      ],
+      "register": "high",
+      "tags": [
+        "barre"
+      ],
+      "barre": {
+        "fret": 12,
+        "from": 1,
+        "to": 5,
+        "finger": 1
+      }
+    },
+    {
+      "id": "Am.barre.e",
+      "chord": "Am",
+      "notes": [
+        {
+          "fret": 5,
+          "finger": 1
+        },
+        {
+          "fret": 7,
+          "finger": 3
+        },
+        {
+          "fret": 7,
+          "finger": 4
+        },
+        {
+          "fret": 5,
+          "finger": 1
+        },
+        {
+          "fret": 5,
+          "finger": 1
+        },
+        {
+          "fret": 5,
+          "finger": 1
+        }
+      ],
+      "register": "mid",
+      "tags": [
+        "barre"
+      ],
+      "barre": {
+        "fret": 5,
+        "from": 0,
+        "to": 5,
+        "finger": 1
+      }
+    },
+    {
+      "id": "Am.open",
+      "chord": "Am",
+      "notes": [
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": 0,
+          "finger": 0
+        },
+        {
+          "fret": 2,
+          "finger": 2
+        },
+        {
+          "fret": 2,
+          "finger": 3
+        },
+        {
+          "fret": 1,
+          "finger": 1
+        },
+        {
+          "fret": 0,
+          "finger": 0
+        }
+      ],
+      "register": "low",
+      "tags": [
+        "open"
+      ]
+    }
+  ],
+  "B": [
+    {
+      "id": "B.barre.a",
+      "chord": "B",
+      "notes": [
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": 2,
+          "finger": 1
+        },
+        {
+          "fret": 4,
+          "finger": 2
+        },
+        {
+          "fret": 4,
+          "finger": 3
+        },
+        {
+          "fret": 4,
+          "finger": 4
+        },
+        {
+          "fret": 2,
+          "finger": 1
+        }
+      ],
+      "register": "low",
+      "tags": [
+        "barre"
+      ],
+      "barre": {
+        "fret": 2,
+        "from": 1,
+        "to": 5,
+        "finger": 1
+      }
+    },
+    {
+      "id": "B.barre.e",
+      "chord": "B",
+      "notes": [
+        {
+          "fret": 7,
+          "finger": 1
+        },
+        {
+          "fret": 9,
+          "finger": 3
+        },
+        {
+          "fret": 9,
+          "finger": 4
+        },
+        {
+          "fret": 8,
+          "finger": 2
+        },
+        {
+          "fret": 7,
+          "finger": 1
+        },
+        {
+          "fret": 7,
+          "finger": 1
+        }
+      ],
+      "register": "mid",
+      "tags": [
+        "barre"
+      ],
+      "barre": {
+        "fret": 7,
+        "from": 0,
+        "to": 5,
+        "finger": 1
+      }
+    }
+  ],
+  "B5": [
+    {
+      "id": "B5.power.2.a",
+      "chord": "B5",
+      "notes": [
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": 2,
+          "finger": 1
+        },
+        {
+          "fret": 4,
+          "finger": 3
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        }
+      ],
+      "register": "low",
+      "tags": [
+        "power"
+      ]
+    },
+    {
+      "id": "B5.power.2.e",
+      "chord": "B5",
+      "notes": [
+        {
+          "fret": 7,
+          "finger": 1
+        },
+        {
+          "fret": 9,
+          "finger": 3
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        }
+      ],
+      "register": "mid",
+      "tags": [
+        "power"
+      ]
+    },
+    {
+      "id": "B5.power.3.a",
+      "chord": "B5",
+      "notes": [
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": 2,
+          "finger": 1
+        },
+        {
+          "fret": 4,
+          "finger": 3
+        },
+        {
+          "fret": 4,
+          "finger": 4
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        }
+      ],
+      "register": "low",
+      "tags": [
+        "power"
+      ]
+    },
+    {
+      "id": "B5.power.3.e",
+      "chord": "B5",
+      "notes": [
+        {
+          "fret": 7,
+          "finger": 1
+        },
+        {
+          "fret": 9,
+          "finger": 3
+        },
+        {
+          "fret": 9,
+          "finger": 4
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        }
+      ],
+      "register": "mid",
+      "tags": [
+        "power"
+      ]
+    },
+    {
+      "id": "B5.power.oct.a",
+      "chord": "B5",
+      "notes": [
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": 2,
+          "finger": 1
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": 4,
+          "finger": 4
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        }
+      ],
+      "register": "low",
+      "tags": [
+        "power"
+      ]
+    },
+    {
+      "id": "B5.power.oct.e",
+      "chord": "B5",
+      "notes": [
+        {
+          "fret": 7,
+          "finger": 1
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": 9,
+          "finger": 4
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        }
+      ],
+      "register": "mid",
+      "tags": [
+        "power"
+      ]
+    }
+  ],
+  "Bm": [
+    {
+      "id": "Bm.barre.a",
+      "chord": "Bm",
+      "notes": [
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": 2,
+          "finger": 1
+        },
+        {
+          "fret": 4,
+          "finger": 3
+        },
+        {
+          "fret": 4,
+          "finger": 4
+        },
+        {
+          "fret": 3,
+          "finger": 2
+        },
+        {
+          "fret": 2,
+          "finger": 1
+        }
+      ],
+      "register": "low",
+      "tags": [
+        "barre"
+      ],
+      "barre": {
+        "fret": 2,
+        "from": 1,
+        "to": 5,
+        "finger": 1
+      }
+    },
+    {
+      "id": "Bm.barre.e",
+      "chord": "Bm",
+      "notes": [
+        {
+          "fret": 7,
+          "finger": 1
+        },
+        {
+          "fret": 9,
+          "finger": 3
+        },
+        {
+          "fret": 9,
+          "finger": 4
+        },
+        {
+          "fret": 7,
+          "finger": 1
+        },
+        {
+          "fret": 7,
+          "finger": 1
+        },
+        {
+          "fret": 7,
+          "finger": 1
+        }
+      ],
+      "register": "mid",
+      "tags": [
+        "barre"
+      ],
+      "barre": {
+        "fret": 7,
+        "from": 0,
+        "to": 5,
+        "finger": 1
+      }
+    }
+  ],
+  "C": [
+    {
+      "id": "C.barre.a",
+      "chord": "C",
+      "notes": [
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": 3,
+          "finger": 1
+        },
+        {
+          "fret": 5,
+          "finger": 2
+        },
+        {
+          "fret": 5,
+          "finger": 3
+        },
+        {
+          "fret": 5,
+          "finger": 4
+        },
+        {
+          "fret": 3,
+          "finger": 1
+        }
+      ],
+      "register": "low",
+      "tags": [
+        "barre"
+      ],
+      "barre": {
+        "fret": 3,
+        "from": 1,
+        "to": 5,
+        "finger": 1
+      }
+    },
+    {
+      "id": "C.barre.e",
+      "chord": "C",
+      "notes": [
+        {
+          "fret": 8,
+          "finger": 1
+        },
+        {
+          "fret": 10,
+          "finger": 3
+        },
+        {
+          "fret": 10,
+          "finger": 4
+        },
+        {
+          "fret": 9,
+          "finger": 2
+        },
+        {
+          "fret": 8,
+          "finger": 1
+        },
+        {
+          "fret": 8,
+          "finger": 1
+        }
+      ],
+      "register": "high",
+      "tags": [
+        "barre"
+      ],
+      "barre": {
+        "fret": 8,
+        "from": 0,
+        "to": 5,
+        "finger": 1
+      }
+    },
+    {
+      "id": "C.open.a",
+      "chord": "C",
+      "notes": [
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": 3,
+          "finger": 3
+        },
+        {
+          "fret": 2,
+          "finger": 2
+        },
+        {
+          "fret": 0,
+          "finger": 0
+        },
+        {
+          "fret": 1,
+          "finger": 1
+        },
+        {
+          "fret": 0,
+          "finger": 0
+        }
+      ],
+      "register": "low",
+      "tags": [
+        "open"
+      ]
+    }
+  ],
+  "C#": [
+    {
+      "id": "C#.barre.a",
+      "chord": "C#",
+      "notes": [
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": 4,
+          "finger": 1
+        },
+        {
+          "fret": 6,
+          "finger": 2
+        },
+        {
+          "fret": 6,
+          "finger": 3
+        },
+        {
+          "fret": 6,
+          "finger": 4
+        },
+        {
+          "fret": 4,
+          "finger": 1
+        }
+      ],
+      "register": "mid",
+      "tags": [
+        "barre"
+      ],
+      "barre": {
+        "fret": 4,
+        "from": 1,
+        "to": 5,
+        "finger": 1
+      }
+    },
+    {
+      "id": "C#.barre.e",
+      "chord": "C#",
+      "notes": [
+        {
+          "fret": 9,
+          "finger": 1
+        },
+        {
+          "fret": 11,
+          "finger": 3
+        },
+        {
+          "fret": 11,
+          "finger": 4
+        },
+        {
+          "fret": 10,
+          "finger": 2
+        },
+        {
+          "fret": 9,
+          "finger": 1
+        },
+        {
+          "fret": 9,
+          "finger": 1
+        }
+      ],
+      "register": "high",
+      "tags": [
+        "barre"
+      ],
+      "barre": {
+        "fret": 9,
+        "from": 0,
+        "to": 5,
+        "finger": 1
+      }
+    }
+  ],
+  "C#5": [
+    {
+      "id": "C#5.power.2.a",
+      "chord": "C#5",
+      "notes": [
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": 4,
+          "finger": 1
+        },
+        {
+          "fret": 6,
+          "finger": 3
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        }
+      ],
+      "register": "mid",
+      "tags": [
+        "power"
+      ]
+    },
+    {
+      "id": "C#5.power.2.e",
+      "chord": "C#5",
+      "notes": [
+        {
+          "fret": 9,
+          "finger": 1
+        },
+        {
+          "fret": 11,
+          "finger": 3
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        }
+      ],
+      "register": "high",
+      "tags": [
+        "power"
+      ]
+    },
+    {
+      "id": "C#5.power.3.a",
+      "chord": "C#5",
+      "notes": [
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": 4,
+          "finger": 1
+        },
+        {
+          "fret": 6,
+          "finger": 3
+        },
+        {
+          "fret": 6,
+          "finger": 4
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        }
+      ],
+      "register": "mid",
+      "tags": [
+        "power"
+      ]
+    },
+    {
+      "id": "C#5.power.3.e",
+      "chord": "C#5",
+      "notes": [
+        {
+          "fret": 9,
+          "finger": 1
+        },
+        {
+          "fret": 11,
+          "finger": 3
+        },
+        {
+          "fret": 11,
+          "finger": 4
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        }
+      ],
+      "register": "high",
+      "tags": [
+        "power"
+      ]
+    },
+    {
+      "id": "C#5.power.oct.a",
+      "chord": "C#5",
+      "notes": [
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": 4,
+          "finger": 1
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": 6,
+          "finger": 4
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        }
+      ],
+      "register": "mid",
+      "tags": [
+        "power"
+      ]
+    },
+    {
+      "id": "C#5.power.oct.e",
+      "chord": "C#5",
+      "notes": [
+        {
+          "fret": 9,
+          "finger": 1
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": 11,
+          "finger": 4
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        }
+      ],
+      "register": "high",
+      "tags": [
+        "power"
+      ]
+    }
+  ],
+  "C#m": [
+    {
+      "id": "C#m.barre.a",
+      "chord": "C#m",
+      "notes": [
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": 4,
+          "finger": 1
+        },
+        {
+          "fret": 6,
+          "finger": 3
+        },
+        {
+          "fret": 6,
+          "finger": 4
+        },
+        {
+          "fret": 5,
+          "finger": 2
+        },
+        {
+          "fret": 4,
+          "finger": 1
+        }
+      ],
+      "register": "mid",
+      "tags": [
+        "barre"
+      ],
+      "barre": {
+        "fret": 4,
+        "from": 1,
+        "to": 5,
+        "finger": 1
+      }
+    },
+    {
+      "id": "C#m.barre.e",
+      "chord": "C#m",
+      "notes": [
+        {
+          "fret": 9,
+          "finger": 1
+        },
+        {
+          "fret": 11,
+          "finger": 3
+        },
+        {
+          "fret": 11,
+          "finger": 4
+        },
+        {
+          "fret": 9,
+          "finger": 1
+        },
+        {
+          "fret": 9,
+          "finger": 1
+        },
+        {
+          "fret": 9,
+          "finger": 1
+        }
+      ],
+      "register": "high",
+      "tags": [
+        "barre"
+      ],
+      "barre": {
+        "fret": 9,
+        "from": 0,
+        "to": 5,
+        "finger": 1
+      }
+    }
+  ],
+  "C5": [
+    {
+      "id": "C5.power.2.a",
+      "chord": "C5",
+      "notes": [
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": 3,
+          "finger": 1
+        },
+        {
+          "fret": 5,
+          "finger": 3
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        }
+      ],
+      "register": "low",
+      "tags": [
+        "power"
+      ]
+    },
+    {
+      "id": "C5.power.2.e",
+      "chord": "C5",
+      "notes": [
+        {
+          "fret": 8,
+          "finger": 1
+        },
+        {
+          "fret": 10,
+          "finger": 3
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        }
+      ],
+      "register": "high",
+      "tags": [
+        "power"
+      ]
+    },
+    {
+      "id": "C5.power.3.a",
+      "chord": "C5",
+      "notes": [
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": 3,
+          "finger": 1
+        },
+        {
+          "fret": 5,
+          "finger": 3
+        },
+        {
+          "fret": 5,
+          "finger": 4
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        }
+      ],
+      "register": "low",
+      "tags": [
+        "power"
+      ]
+    },
+    {
+      "id": "C5.power.3.e",
+      "chord": "C5",
+      "notes": [
+        {
+          "fret": 8,
+          "finger": 1
+        },
+        {
+          "fret": 10,
+          "finger": 3
+        },
+        {
+          "fret": 10,
+          "finger": 4
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        }
+      ],
+      "register": "high",
+      "tags": [
+        "power"
+      ]
+    },
+    {
+      "id": "C5.power.oct.a",
+      "chord": "C5",
+      "notes": [
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": 3,
+          "finger": 1
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": 5,
+          "finger": 4
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        }
+      ],
+      "register": "low",
+      "tags": [
+        "power"
+      ]
+    },
+    {
+      "id": "C5.power.oct.e",
+      "chord": "C5",
+      "notes": [
+        {
+          "fret": 8,
+          "finger": 1
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": 10,
+          "finger": 4
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        }
+      ],
+      "register": "high",
+      "tags": [
+        "power"
+      ]
+    }
+  ],
+  "Cadd9": [
+    {
+      "id": "Cadd9.anchored",
+      "chord": "Cadd9",
+      "notes": [
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": 3,
+          "finger": 2
+        },
+        {
+          "fret": 2,
+          "finger": 1
+        },
+        {
+          "fret": 0,
+          "finger": 0
+        },
+        {
+          "fret": 3,
+          "finger": 3
+        },
+        {
+          "fret": 3,
+          "finger": 4
+        }
+      ],
+      "register": "low",
+      "tags": [
+        "anchored"
+      ]
+    }
+  ],
+  "Cm": [
+    {
+      "id": "Cm.barre.a",
+      "chord": "Cm",
+      "notes": [
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": 3,
+          "finger": 1
+        },
+        {
+          "fret": 5,
+          "finger": 3
+        },
+        {
+          "fret": 5,
+          "finger": 4
+        },
+        {
+          "fret": 4,
+          "finger": 2
+        },
+        {
+          "fret": 3,
+          "finger": 1
+        }
+      ],
+      "register": "low",
+      "tags": [
+        "barre"
+      ],
+      "barre": {
+        "fret": 3,
+        "from": 1,
+        "to": 5,
+        "finger": 1
+      }
+    },
+    {
+      "id": "Cm.barre.e",
+      "chord": "Cm",
+      "notes": [
+        {
+          "fret": 8,
+          "finger": 1
+        },
+        {
+          "fret": 10,
+          "finger": 3
+        },
+        {
+          "fret": 10,
+          "finger": 4
+        },
+        {
+          "fret": 8,
+          "finger": 1
+        },
+        {
+          "fret": 8,
+          "finger": 1
+        },
+        {
+          "fret": 8,
+          "finger": 1
+        }
+      ],
+      "register": "high",
+      "tags": [
+        "barre"
+      ],
+      "barre": {
+        "fret": 8,
+        "from": 0,
+        "to": 5,
+        "finger": 1
+      }
+    }
+  ],
+  "D": [
+    {
+      "id": "D.barre.a",
+      "chord": "D",
+      "notes": [
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": 5,
+          "finger": 1
+        },
+        {
+          "fret": 7,
+          "finger": 2
+        },
+        {
+          "fret": 7,
+          "finger": 3
+        },
+        {
+          "fret": 7,
+          "finger": 4
+        },
+        {
+          "fret": 5,
+          "finger": 1
+        }
+      ],
+      "register": "mid",
+      "tags": [
+        "barre"
+      ],
+      "barre": {
+        "fret": 5,
+        "from": 1,
+        "to": 5,
+        "finger": 1
+      }
+    },
+    {
+      "id": "D.barre.e",
+      "chord": "D",
+      "notes": [
+        {
+          "fret": 10,
+          "finger": 1
+        },
+        {
+          "fret": 12,
+          "finger": 3
+        },
+        {
+          "fret": 12,
+          "finger": 4
+        },
+        {
+          "fret": 11,
+          "finger": 2
+        },
+        {
+          "fret": 10,
+          "finger": 1
+        },
+        {
+          "fret": 10,
+          "finger": 1
+        }
+      ],
+      "register": "high",
+      "tags": [
+        "barre"
+      ],
+      "barre": {
+        "fret": 10,
+        "from": 0,
+        "to": 5,
+        "finger": 1
+      }
+    },
+    {
+      "id": "D.open",
+      "chord": "D",
+      "notes": [
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": 0,
+          "finger": 0
+        },
+        {
+          "fret": 2,
+          "finger": 1
+        },
+        {
+          "fret": 3,
+          "finger": 3
+        },
+        {
+          "fret": 2,
+          "finger": 2
+        }
+      ],
+      "register": "low",
+      "tags": [
+        "open"
+      ]
+    }
+  ],
+  "D#": [
+    {
+      "id": "D#.barre.a",
+      "chord": "D#",
+      "notes": [
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": 6,
+          "finger": 1
+        },
+        {
+          "fret": 8,
+          "finger": 2
+        },
+        {
+          "fret": 8,
+          "finger": 3
+        },
+        {
+          "fret": 8,
+          "finger": 4
+        },
+        {
+          "fret": 6,
+          "finger": 1
+        }
+      ],
+      "register": "mid",
+      "tags": [
+        "barre"
+      ],
+      "barre": {
+        "fret": 6,
+        "from": 1,
+        "to": 5,
+        "finger": 1
+      }
+    },
+    {
+      "id": "D#.barre.e",
+      "chord": "D#",
+      "notes": [
+        {
+          "fret": 11,
+          "finger": 1
+        },
+        {
+          "fret": 13,
+          "finger": 3
+        },
+        {
+          "fret": 13,
+          "finger": 4
+        },
+        {
+          "fret": 12,
+          "finger": 2
+        },
+        {
+          "fret": 11,
+          "finger": 1
+        },
+        {
+          "fret": 11,
+          "finger": 1
+        }
+      ],
+      "register": "high",
+      "tags": [
+        "barre"
+      ],
+      "barre": {
+        "fret": 11,
+        "from": 0,
+        "to": 5,
+        "finger": 1
+      }
+    }
+  ],
+  "D#5": [
+    {
+      "id": "D#5.power.2.a",
+      "chord": "D#5",
+      "notes": [
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": 6,
+          "finger": 1
+        },
+        {
+          "fret": 8,
+          "finger": 3
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        }
+      ],
+      "register": "mid",
+      "tags": [
+        "power"
+      ]
+    },
+    {
+      "id": "D#5.power.2.e",
+      "chord": "D#5",
+      "notes": [
+        {
+          "fret": 11,
+          "finger": 1
+        },
+        {
+          "fret": 13,
+          "finger": 3
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        }
+      ],
+      "register": "high",
+      "tags": [
+        "power"
+      ]
+    },
+    {
+      "id": "D#5.power.3.a",
+      "chord": "D#5",
+      "notes": [
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": 6,
+          "finger": 1
+        },
+        {
+          "fret": 8,
+          "finger": 3
+        },
+        {
+          "fret": 8,
+          "finger": 4
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        }
+      ],
+      "register": "mid",
+      "tags": [
+        "power"
+      ]
+    },
+    {
+      "id": "D#5.power.3.e",
+      "chord": "D#5",
+      "notes": [
+        {
+          "fret": 11,
+          "finger": 1
+        },
+        {
+          "fret": 13,
+          "finger": 3
+        },
+        {
+          "fret": 13,
+          "finger": 4
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        }
+      ],
+      "register": "high",
+      "tags": [
+        "power"
+      ]
+    },
+    {
+      "id": "D#5.power.oct.a",
+      "chord": "D#5",
+      "notes": [
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": 6,
+          "finger": 1
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": 8,
+          "finger": 4
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        }
+      ],
+      "register": "mid",
+      "tags": [
+        "power"
+      ]
+    },
+    {
+      "id": "D#5.power.oct.e",
+      "chord": "D#5",
+      "notes": [
+        {
+          "fret": 11,
+          "finger": 1
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": 13,
+          "finger": 4
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        }
+      ],
+      "register": "high",
+      "tags": [
+        "power"
+      ]
+    }
+  ],
+  "D#m": [
+    {
+      "id": "D#m.barre.a",
+      "chord": "D#m",
+      "notes": [
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": 6,
+          "finger": 1
+        },
+        {
+          "fret": 8,
+          "finger": 3
+        },
+        {
+          "fret": 8,
+          "finger": 4
+        },
+        {
+          "fret": 7,
+          "finger": 2
+        },
+        {
+          "fret": 6,
+          "finger": 1
+        }
+      ],
+      "register": "mid",
+      "tags": [
+        "barre"
+      ],
+      "barre": {
+        "fret": 6,
+        "from": 1,
+        "to": 5,
+        "finger": 1
+      }
+    },
+    {
+      "id": "D#m.barre.e",
+      "chord": "D#m",
+      "notes": [
+        {
+          "fret": 11,
+          "finger": 1
+        },
+        {
+          "fret": 13,
+          "finger": 3
+        },
+        {
+          "fret": 13,
+          "finger": 4
+        },
+        {
+          "fret": 11,
+          "finger": 1
+        },
+        {
+          "fret": 11,
+          "finger": 1
+        },
+        {
+          "fret": 11,
+          "finger": 1
+        }
+      ],
+      "register": "high",
+      "tags": [
+        "barre"
+      ],
+      "barre": {
+        "fret": 11,
+        "from": 0,
+        "to": 5,
+        "finger": 1
+      }
+    }
+  ],
+  "D5": [
+    {
+      "id": "D5.power.2.a",
+      "chord": "D5",
+      "notes": [
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": 5,
+          "finger": 1
+        },
+        {
+          "fret": 7,
+          "finger": 3
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        }
+      ],
+      "register": "mid",
+      "tags": [
+        "power"
+      ]
+    },
+    {
+      "id": "D5.power.2.e",
+      "chord": "D5",
+      "notes": [
+        {
+          "fret": 10,
+          "finger": 1
+        },
+        {
+          "fret": 12,
+          "finger": 3
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        }
+      ],
+      "register": "high",
+      "tags": [
+        "power"
+      ]
+    },
+    {
+      "id": "D5.power.3.a",
+      "chord": "D5",
+      "notes": [
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": 5,
+          "finger": 1
+        },
+        {
+          "fret": 7,
+          "finger": 3
+        },
+        {
+          "fret": 7,
+          "finger": 4
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        }
+      ],
+      "register": "mid",
+      "tags": [
+        "power"
+      ]
+    },
+    {
+      "id": "D5.power.3.e",
+      "chord": "D5",
+      "notes": [
+        {
+          "fret": 10,
+          "finger": 1
+        },
+        {
+          "fret": 12,
+          "finger": 3
+        },
+        {
+          "fret": 12,
+          "finger": 4
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        }
+      ],
+      "register": "high",
+      "tags": [
+        "power"
+      ]
+    },
+    {
+      "id": "D5.power.oct.a",
+      "chord": "D5",
+      "notes": [
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": 5,
+          "finger": 1
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": 7,
+          "finger": 4
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        }
+      ],
+      "register": "mid",
+      "tags": [
+        "power"
+      ]
+    },
+    {
+      "id": "D5.power.oct.e",
+      "chord": "D5",
+      "notes": [
+        {
+          "fret": 10,
+          "finger": 1
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": 12,
+          "finger": 4
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        }
+      ],
+      "register": "high",
+      "tags": [
+        "power"
+      ]
+    }
+  ],
+  "D7": [
+    {
+      "id": "D7.open",
+      "chord": "D7",
+      "notes": [
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": 0,
+          "finger": 0
+        },
+        {
+          "fret": 2,
+          "finger": 2
+        },
+        {
+          "fret": 1,
+          "finger": 1
+        },
+        {
+          "fret": 2,
+          "finger": 3
+        }
+      ],
+      "register": "low",
+      "tags": [
+        "open"
+      ]
+    }
+  ],
+  "Dm": [
+    {
+      "id": "Dm.barre.a",
+      "chord": "Dm",
+      "notes": [
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": 5,
+          "finger": 1
+        },
+        {
+          "fret": 7,
+          "finger": 3
+        },
+        {
+          "fret": 7,
+          "finger": 4
+        },
+        {
+          "fret": 6,
+          "finger": 2
+        },
+        {
+          "fret": 5,
+          "finger": 1
+        }
+      ],
+      "register": "mid",
+      "tags": [
+        "barre"
+      ],
+      "barre": {
+        "fret": 5,
+        "from": 1,
+        "to": 5,
+        "finger": 1
+      }
+    },
+    {
+      "id": "Dm.barre.e",
+      "chord": "Dm",
+      "notes": [
+        {
+          "fret": 10,
+          "finger": 1
+        },
+        {
+          "fret": 12,
+          "finger": 3
+        },
+        {
+          "fret": 12,
+          "finger": 4
+        },
+        {
+          "fret": 10,
+          "finger": 1
+        },
+        {
+          "fret": 10,
+          "finger": 1
+        },
+        {
+          "fret": 10,
+          "finger": 1
+        }
+      ],
+      "register": "high",
+      "tags": [
+        "barre"
+      ],
+      "barre": {
+        "fret": 10,
+        "from": 0,
+        "to": 5,
+        "finger": 1
+      }
+    },
+    {
+      "id": "Dm.open",
+      "chord": "Dm",
+      "notes": [
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": 0,
+          "finger": 0
+        },
+        {
+          "fret": 2,
+          "finger": 2
+        },
+        {
+          "fret": 3,
+          "finger": 3
+        },
+        {
+          "fret": 1,
+          "finger": 1
+        }
+      ],
+      "register": "low",
+      "tags": [
+        "open"
+      ]
+    }
+  ],
+  "Dsus4": [
+    {
+      "id": "Dsus4.anchored",
+      "chord": "Dsus4",
+      "notes": [
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": 0,
+          "finger": 0
+        },
+        {
+          "fret": 2,
+          "finger": 1
+        },
+        {
+          "fret": 3,
+          "finger": 3
+        },
+        {
+          "fret": 3,
+          "finger": 4
+        }
+      ],
+      "register": "low",
+      "tags": [
+        "anchored"
+      ]
+    }
+  ],
+  "E": [
+    {
+      "id": "E.barre.a",
+      "chord": "E",
+      "notes": [
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": 7,
+          "finger": 1
+        },
+        {
+          "fret": 9,
+          "finger": 2
+        },
+        {
+          "fret": 9,
+          "finger": 3
+        },
+        {
+          "fret": 9,
+          "finger": 4
+        },
+        {
+          "fret": 7,
+          "finger": 1
+        }
+      ],
+      "register": "mid",
+      "tags": [
+        "barre"
+      ],
+      "barre": {
+        "fret": 7,
+        "from": 1,
+        "to": 5,
+        "finger": 1
+      }
+    },
+    {
+      "id": "E.barre.e",
+      "chord": "E",
+      "notes": [
+        {
+          "fret": 12,
+          "finger": 1
+        },
+        {
+          "fret": 14,
+          "finger": 3
+        },
+        {
+          "fret": 14,
+          "finger": 4
+        },
+        {
+          "fret": 13,
+          "finger": 2
+        },
+        {
+          "fret": 12,
+          "finger": 1
+        },
+        {
+          "fret": 12,
+          "finger": 1
+        }
+      ],
+      "register": "high",
+      "tags": [
+        "barre"
+      ],
+      "barre": {
+        "fret": 12,
+        "from": 0,
+        "to": 5,
+        "finger": 1
+      }
+    },
+    {
+      "id": "E.open",
+      "chord": "E",
+      "notes": [
+        {
+          "fret": 0,
+          "finger": 0
+        },
+        {
+          "fret": 2,
+          "finger": 2
+        },
+        {
+          "fret": 2,
+          "finger": 3
+        },
+        {
+          "fret": 1,
+          "finger": 1
+        },
+        {
+          "fret": 0,
+          "finger": 0
+        },
+        {
+          "fret": 0,
+          "finger": 0
+        }
+      ],
+      "register": "low",
+      "tags": [
+        "open"
+      ]
+    }
+  ],
+  "E5": [
+    {
+      "id": "E5.open",
+      "chord": "E5",
+      "notes": [
+        {
+          "fret": 0,
+          "finger": 0
+        },
+        {
+          "fret": 2,
+          "finger": 1
+        },
+        {
+          "fret": 2,
+          "finger": 2
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        }
+      ],
+      "register": "low",
+      "tags": [
+        "power"
+      ]
+    },
+    {
+      "id": "E5.power.2.a",
+      "chord": "E5",
+      "notes": [
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": 7,
+          "finger": 1
+        },
+        {
+          "fret": 9,
+          "finger": 3
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        }
+      ],
+      "register": "mid",
+      "tags": [
+        "power"
+      ]
+    },
+    {
+      "id": "E5.power.2.e",
+      "chord": "E5",
+      "notes": [
+        {
+          "fret": 12,
+          "finger": 1
+        },
+        {
+          "fret": 14,
+          "finger": 3
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        }
+      ],
+      "register": "high",
+      "tags": [
+        "power"
+      ]
+    },
+    {
+      "id": "E5.power.3.a",
+      "chord": "E5",
+      "notes": [
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": 7,
+          "finger": 1
+        },
+        {
+          "fret": 9,
+          "finger": 3
+        },
+        {
+          "fret": 9,
+          "finger": 4
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        }
+      ],
+      "register": "mid",
+      "tags": [
+        "power"
+      ]
+    },
+    {
+      "id": "E5.power.3.e",
+      "chord": "E5",
+      "notes": [
+        {
+          "fret": 12,
+          "finger": 1
+        },
+        {
+          "fret": 14,
+          "finger": 3
+        },
+        {
+          "fret": 14,
+          "finger": 4
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        }
+      ],
+      "register": "high",
+      "tags": [
+        "power"
+      ]
+    },
+    {
+      "id": "E5.power.oct.a",
+      "chord": "E5",
+      "notes": [
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": 7,
+          "finger": 1
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": 9,
+          "finger": 4
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        }
+      ],
+      "register": "mid",
+      "tags": [
+        "power"
+      ]
+    },
+    {
+      "id": "E5.power.oct.e",
+      "chord": "E5",
+      "notes": [
+        {
+          "fret": 12,
+          "finger": 1
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": 14,
+          "finger": 4
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        }
+      ],
+      "register": "high",
+      "tags": [
+        "power"
+      ]
+    }
+  ],
+  "E7": [
+    {
+      "id": "E7.open",
+      "chord": "E7",
+      "notes": [
+        {
+          "fret": 0,
+          "finger": 0
+        },
+        {
+          "fret": 2,
+          "finger": 2
+        },
+        {
+          "fret": 0,
+          "finger": 0
+        },
+        {
+          "fret": 1,
+          "finger": 1
+        },
+        {
+          "fret": 0,
+          "finger": 0
+        },
+        {
+          "fret": 0,
+          "finger": 0
+        }
+      ],
+      "register": "low",
+      "tags": [
+        "open"
+      ]
+    }
+  ],
+  "Em": [
+    {
+      "id": "Em.barre.a",
+      "chord": "Em",
+      "notes": [
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": 7,
+          "finger": 1
+        },
+        {
+          "fret": 9,
+          "finger": 3
+        },
+        {
+          "fret": 9,
+          "finger": 4
+        },
+        {
+          "fret": 8,
+          "finger": 2
+        },
+        {
+          "fret": 7,
+          "finger": 1
+        }
+      ],
+      "register": "mid",
+      "tags": [
+        "barre"
+      ],
+      "barre": {
+        "fret": 7,
+        "from": 1,
+        "to": 5,
+        "finger": 1
+      }
+    },
+    {
+      "id": "Em.barre.e",
+      "chord": "Em",
+      "notes": [
+        {
+          "fret": 12,
+          "finger": 1
+        },
+        {
+          "fret": 14,
+          "finger": 3
+        },
+        {
+          "fret": 14,
+          "finger": 4
+        },
+        {
+          "fret": 12,
+          "finger": 1
+        },
+        {
+          "fret": 12,
+          "finger": 1
+        },
+        {
+          "fret": 12,
+          "finger": 1
+        }
+      ],
+      "register": "high",
+      "tags": [
+        "barre"
+      ],
+      "barre": {
+        "fret": 12,
+        "from": 0,
+        "to": 5,
+        "finger": 1
+      }
+    },
+    {
+      "id": "Em.open.a",
+      "chord": "Em",
+      "notes": [
+        {
+          "fret": 0,
+          "finger": 0
+        },
+        {
+          "fret": 2,
+          "finger": 2
+        },
+        {
+          "fret": 2,
+          "finger": 3
+        },
+        {
+          "fret": 0,
+          "finger": 0
+        },
+        {
+          "fret": 0,
+          "finger": 0
+        },
+        {
+          "fret": 0,
+          "finger": 0
+        }
+      ],
+      "register": "low",
+      "tags": [
+        "open"
+      ]
+    },
+    {
+      "id": "Em.open.b",
+      "chord": "Em",
+      "notes": [
+        {
+          "fret": 0,
+          "finger": 0
+        },
+        {
+          "fret": 2,
+          "finger": 1
+        },
+        {
+          "fret": 2,
+          "finger": 2
+        },
+        {
+          "fret": 0,
+          "finger": 0
+        },
+        {
+          "fret": 0,
+          "finger": 0
+        },
+        {
+          "fret": 0,
+          "finger": 0
+        }
+      ],
+      "register": "low",
+      "tags": [
+        "open"
+      ]
+    }
+  ],
+  "Em7": [
+    {
+      "id": "Em7.anchored",
+      "chord": "Em7",
+      "notes": [
+        {
+          "fret": 0,
+          "finger": 0
+        },
+        {
+          "fret": 2,
+          "finger": 1
+        },
+        {
+          "fret": 2,
+          "finger": 2
+        },
+        {
+          "fret": 0,
+          "finger": 0
+        },
+        {
+          "fret": 3,
+          "finger": 3
+        },
+        {
+          "fret": 3,
+          "finger": 4
+        }
+      ],
+      "register": "low",
+      "tags": [
+        "anchored"
+      ]
+    }
+  ],
+  "F": [
+    {
+      "id": "F.barre.a",
+      "chord": "F",
+      "notes": [
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": 8,
+          "finger": 1
+        },
+        {
+          "fret": 10,
+          "finger": 2
+        },
+        {
+          "fret": 10,
+          "finger": 3
+        },
+        {
+          "fret": 10,
+          "finger": 4
+        },
+        {
+          "fret": 8,
+          "finger": 1
+        }
+      ],
+      "register": "high",
+      "tags": [
+        "barre"
+      ],
+      "barre": {
+        "fret": 8,
+        "from": 1,
+        "to": 5,
+        "finger": 1
+      }
+    },
+    {
+      "id": "F.barre.e",
+      "chord": "F",
+      "notes": [
+        {
+          "fret": 1,
+          "finger": 1
+        },
+        {
+          "fret": 3,
+          "finger": 3
+        },
+        {
+          "fret": 3,
+          "finger": 4
+        },
+        {
+          "fret": 2,
+          "finger": 2
+        },
+        {
+          "fret": 1,
+          "finger": 1
+        },
+        {
+          "fret": 1,
+          "finger": 1
+        }
+      ],
+      "register": "low",
+      "tags": [
+        "barre"
+      ],
+      "barre": {
+        "fret": 1,
+        "from": 0,
+        "to": 5,
+        "finger": 1
+      }
+    }
+  ],
+  "F#": [
+    {
+      "id": "F#.barre.a",
+      "chord": "F#",
+      "notes": [
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": 9,
+          "finger": 1
+        },
+        {
+          "fret": 11,
+          "finger": 2
+        },
+        {
+          "fret": 11,
+          "finger": 3
+        },
+        {
+          "fret": 11,
+          "finger": 4
+        },
+        {
+          "fret": 9,
+          "finger": 1
+        }
+      ],
+      "register": "high",
+      "tags": [
+        "barre"
+      ],
+      "barre": {
+        "fret": 9,
+        "from": 1,
+        "to": 5,
+        "finger": 1
+      }
+    },
+    {
+      "id": "F#.barre.e",
+      "chord": "F#",
+      "notes": [
+        {
+          "fret": 2,
+          "finger": 1
+        },
+        {
+          "fret": 4,
+          "finger": 3
+        },
+        {
+          "fret": 4,
+          "finger": 4
+        },
+        {
+          "fret": 3,
+          "finger": 2
+        },
+        {
+          "fret": 2,
+          "finger": 1
+        },
+        {
+          "fret": 2,
+          "finger": 1
+        }
+      ],
+      "register": "low",
+      "tags": [
+        "barre"
+      ],
+      "barre": {
+        "fret": 2,
+        "from": 0,
+        "to": 5,
+        "finger": 1
+      }
+    }
+  ],
+  "F#5": [
+    {
+      "id": "F#5.power.2.a",
+      "chord": "F#5",
+      "notes": [
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": 9,
+          "finger": 1
+        },
+        {
+          "fret": 11,
+          "finger": 3
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        }
+      ],
+      "register": "high",
+      "tags": [
+        "power"
+      ]
+    },
+    {
+      "id": "F#5.power.2.e",
+      "chord": "F#5",
+      "notes": [
+        {
+          "fret": 2,
+          "finger": 1
+        },
+        {
+          "fret": 4,
+          "finger": 3
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        }
+      ],
+      "register": "low",
+      "tags": [
+        "power"
+      ]
+    },
+    {
+      "id": "F#5.power.3.a",
+      "chord": "F#5",
+      "notes": [
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": 9,
+          "finger": 1
+        },
+        {
+          "fret": 11,
+          "finger": 3
+        },
+        {
+          "fret": 11,
+          "finger": 4
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        }
+      ],
+      "register": "high",
+      "tags": [
+        "power"
+      ]
+    },
+    {
+      "id": "F#5.power.3.e",
+      "chord": "F#5",
+      "notes": [
+        {
+          "fret": 2,
+          "finger": 1
+        },
+        {
+          "fret": 4,
+          "finger": 3
+        },
+        {
+          "fret": 4,
+          "finger": 4
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        }
+      ],
+      "register": "low",
+      "tags": [
+        "power"
+      ]
+    },
+    {
+      "id": "F#5.power.oct.a",
+      "chord": "F#5",
+      "notes": [
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": 9,
+          "finger": 1
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": 11,
+          "finger": 4
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        }
+      ],
+      "register": "high",
+      "tags": [
+        "power"
+      ]
+    },
+    {
+      "id": "F#5.power.oct.e",
+      "chord": "F#5",
+      "notes": [
+        {
+          "fret": 2,
+          "finger": 1
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": 4,
+          "finger": 4
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        }
+      ],
+      "register": "low",
+      "tags": [
+        "power"
+      ]
+    }
+  ],
+  "F#m": [
+    {
+      "id": "F#m.barre.a",
+      "chord": "F#m",
+      "notes": [
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": 9,
+          "finger": 1
+        },
+        {
+          "fret": 11,
+          "finger": 3
+        },
+        {
+          "fret": 11,
+          "finger": 4
+        },
+        {
+          "fret": 10,
+          "finger": 2
+        },
+        {
+          "fret": 9,
+          "finger": 1
+        }
+      ],
+      "register": "high",
+      "tags": [
+        "barre"
+      ],
+      "barre": {
+        "fret": 9,
+        "from": 1,
+        "to": 5,
+        "finger": 1
+      }
+    },
+    {
+      "id": "F#m.barre.e",
+      "chord": "F#m",
+      "notes": [
+        {
+          "fret": 2,
+          "finger": 1
+        },
+        {
+          "fret": 4,
+          "finger": 3
+        },
+        {
+          "fret": 4,
+          "finger": 4
+        },
+        {
+          "fret": 2,
+          "finger": 1
+        },
+        {
+          "fret": 2,
+          "finger": 1
+        },
+        {
+          "fret": 2,
+          "finger": 1
+        }
+      ],
+      "register": "low",
+      "tags": [
+        "barre"
+      ],
+      "barre": {
+        "fret": 2,
+        "from": 0,
+        "to": 5,
+        "finger": 1
+      }
+    }
+  ],
+  "F5": [
+    {
+      "id": "F5.power.2.a",
+      "chord": "F5",
+      "notes": [
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": 8,
+          "finger": 1
+        },
+        {
+          "fret": 10,
+          "finger": 3
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        }
+      ],
+      "register": "high",
+      "tags": [
+        "power"
+      ]
+    },
+    {
+      "id": "F5.power.2.e",
+      "chord": "F5",
+      "notes": [
+        {
+          "fret": 1,
+          "finger": 1
+        },
+        {
+          "fret": 3,
+          "finger": 3
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        }
+      ],
+      "register": "low",
+      "tags": [
+        "power"
+      ]
+    },
+    {
+      "id": "F5.power.3.a",
+      "chord": "F5",
+      "notes": [
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": 8,
+          "finger": 1
+        },
+        {
+          "fret": 10,
+          "finger": 3
+        },
+        {
+          "fret": 10,
+          "finger": 4
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        }
+      ],
+      "register": "high",
+      "tags": [
+        "power"
+      ]
+    },
+    {
+      "id": "F5.power.3.e",
+      "chord": "F5",
+      "notes": [
+        {
+          "fret": 1,
+          "finger": 1
+        },
+        {
+          "fret": 3,
+          "finger": 3
+        },
+        {
+          "fret": 3,
+          "finger": 4
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        }
+      ],
+      "register": "low",
+      "tags": [
+        "power"
+      ]
+    },
+    {
+      "id": "F5.power.oct.a",
+      "chord": "F5",
+      "notes": [
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": 8,
+          "finger": 1
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": 10,
+          "finger": 4
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        }
+      ],
+      "register": "high",
+      "tags": [
+        "power"
+      ]
+    },
+    {
+      "id": "F5.power.oct.e",
+      "chord": "F5",
+      "notes": [
+        {
+          "fret": 1,
+          "finger": 1
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": 3,
+          "finger": 4
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        }
+      ],
+      "register": "low",
+      "tags": [
+        "power"
+      ]
+    }
+  ],
+  "Fm": [
+    {
+      "id": "Fm.barre.a",
+      "chord": "Fm",
+      "notes": [
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": 8,
+          "finger": 1
+        },
+        {
+          "fret": 10,
+          "finger": 3
+        },
+        {
+          "fret": 10,
+          "finger": 4
+        },
+        {
+          "fret": 9,
+          "finger": 2
+        },
+        {
+          "fret": 8,
+          "finger": 1
+        }
+      ],
+      "register": "high",
+      "tags": [
+        "barre"
+      ],
+      "barre": {
+        "fret": 8,
+        "from": 1,
+        "to": 5,
+        "finger": 1
+      }
+    },
+    {
+      "id": "Fm.barre.e",
+      "chord": "Fm",
+      "notes": [
+        {
+          "fret": 1,
+          "finger": 1
+        },
+        {
+          "fret": 3,
+          "finger": 3
+        },
+        {
+          "fret": 3,
+          "finger": 4
+        },
+        {
+          "fret": 1,
+          "finger": 1
+        },
+        {
+          "fret": 1,
+          "finger": 1
+        },
+        {
+          "fret": 1,
+          "finger": 1
+        }
+      ],
+      "register": "low",
+      "tags": [
+        "barre"
+      ],
+      "barre": {
+        "fret": 1,
+        "from": 0,
+        "to": 5,
+        "finger": 1
+      }
+    }
+  ],
+  "G": [
+    {
+      "id": "G.anchored",
+      "chord": "G",
+      "notes": [
+        {
+          "fret": 3,
+          "finger": 2
+        },
+        {
+          "fret": 2,
+          "finger": 1
+        },
+        {
+          "fret": 0,
+          "finger": 0
+        },
+        {
+          "fret": 0,
+          "finger": 0
+        },
+        {
+          "fret": 3,
+          "finger": 3
+        },
+        {
+          "fret": 3,
+          "finger": 4
+        }
+      ],
+      "register": "low",
+      "tags": [
+        "anchored"
+      ]
+    },
+    {
+      "id": "G.barre.a",
+      "chord": "G",
+      "notes": [
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": 10,
+          "finger": 1
+        },
+        {
+          "fret": 12,
+          "finger": 2
+        },
+        {
+          "fret": 12,
+          "finger": 3
+        },
+        {
+          "fret": 12,
+          "finger": 4
+        },
+        {
+          "fret": 10,
+          "finger": 1
+        }
+      ],
+      "register": "high",
+      "tags": [
+        "barre"
+      ],
+      "barre": {
+        "fret": 10,
+        "from": 1,
+        "to": 5,
+        "finger": 1
+      }
+    },
+    {
+      "id": "G.barre.e",
+      "chord": "G",
+      "notes": [
+        {
+          "fret": 3,
+          "finger": 1
+        },
+        {
+          "fret": 5,
+          "finger": 3
+        },
+        {
+          "fret": 5,
+          "finger": 4
+        },
+        {
+          "fret": 4,
+          "finger": 2
+        },
+        {
+          "fret": 3,
+          "finger": 1
+        },
+        {
+          "fret": 3,
+          "finger": 1
+        }
+      ],
+      "register": "low",
+      "tags": [
+        "barre"
+      ],
+      "barre": {
+        "fret": 3,
+        "from": 0,
+        "to": 5,
+        "finger": 1
+      }
+    },
+    {
+      "id": "G.open.a",
+      "chord": "G",
+      "notes": [
+        {
+          "fret": 3,
+          "finger": 2
+        },
+        {
+          "fret": 2,
+          "finger": 1
+        },
+        {
+          "fret": 0,
+          "finger": 0
+        },
+        {
+          "fret": 0,
+          "finger": 0
+        },
+        {
+          "fret": 0,
+          "finger": 0
+        },
+        {
+          "fret": 3,
+          "finger": 3
+        }
+      ],
+      "register": "low",
+      "tags": [
+        "open"
+      ]
+    },
+    {
+      "id": "G.open.b",
+      "chord": "G",
+      "notes": [
+        {
+          "fret": 3,
+          "finger": 3
+        },
+        {
+          "fret": 2,
+          "finger": 2
+        },
+        {
+          "fret": 0,
+          "finger": 0
+        },
+        {
+          "fret": 0,
+          "finger": 0
+        },
+        {
+          "fret": 0,
+          "finger": 0
+        },
+        {
+          "fret": 3,
+          "finger": 4
+        }
+      ],
+      "register": "low",
+      "tags": [
+        "open"
+      ]
+    }
+  ],
+  "G#": [
+    {
+      "id": "G#.barre.a",
+      "chord": "G#",
+      "notes": [
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": 11,
+          "finger": 1
+        },
+        {
+          "fret": 13,
+          "finger": 2
+        },
+        {
+          "fret": 13,
+          "finger": 3
+        },
+        {
+          "fret": 13,
+          "finger": 4
+        },
+        {
+          "fret": 11,
+          "finger": 1
+        }
+      ],
+      "register": "high",
+      "tags": [
+        "barre"
+      ],
+      "barre": {
+        "fret": 11,
+        "from": 1,
+        "to": 5,
+        "finger": 1
+      }
+    },
+    {
+      "id": "G#.barre.e",
+      "chord": "G#",
+      "notes": [
+        {
+          "fret": 4,
+          "finger": 1
+        },
+        {
+          "fret": 6,
+          "finger": 3
+        },
+        {
+          "fret": 6,
+          "finger": 4
+        },
+        {
+          "fret": 5,
+          "finger": 2
+        },
+        {
+          "fret": 4,
+          "finger": 1
+        },
+        {
+          "fret": 4,
+          "finger": 1
+        }
+      ],
+      "register": "mid",
+      "tags": [
+        "barre"
+      ],
+      "barre": {
+        "fret": 4,
+        "from": 0,
+        "to": 5,
+        "finger": 1
+      }
+    }
+  ],
+  "G#5": [
+    {
+      "id": "G#5.power.2.a",
+      "chord": "G#5",
+      "notes": [
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": 11,
+          "finger": 1
+        },
+        {
+          "fret": 13,
+          "finger": 3
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        }
+      ],
+      "register": "high",
+      "tags": [
+        "power"
+      ]
+    },
+    {
+      "id": "G#5.power.2.e",
+      "chord": "G#5",
+      "notes": [
+        {
+          "fret": 4,
+          "finger": 1
+        },
+        {
+          "fret": 6,
+          "finger": 3
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        }
+      ],
+      "register": "mid",
+      "tags": [
+        "power"
+      ]
+    },
+    {
+      "id": "G#5.power.3.a",
+      "chord": "G#5",
+      "notes": [
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": 11,
+          "finger": 1
+        },
+        {
+          "fret": 13,
+          "finger": 3
+        },
+        {
+          "fret": 13,
+          "finger": 4
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        }
+      ],
+      "register": "high",
+      "tags": [
+        "power"
+      ]
+    },
+    {
+      "id": "G#5.power.3.e",
+      "chord": "G#5",
+      "notes": [
+        {
+          "fret": 4,
+          "finger": 1
+        },
+        {
+          "fret": 6,
+          "finger": 3
+        },
+        {
+          "fret": 6,
+          "finger": 4
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        }
+      ],
+      "register": "mid",
+      "tags": [
+        "power"
+      ]
+    },
+    {
+      "id": "G#5.power.oct.a",
+      "chord": "G#5",
+      "notes": [
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": 11,
+          "finger": 1
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": 13,
+          "finger": 4
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        }
+      ],
+      "register": "high",
+      "tags": [
+        "power"
+      ]
+    },
+    {
+      "id": "G#5.power.oct.e",
+      "chord": "G#5",
+      "notes": [
+        {
+          "fret": 4,
+          "finger": 1
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": 6,
+          "finger": 4
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        }
+      ],
+      "register": "mid",
+      "tags": [
+        "power"
+      ]
+    }
+  ],
+  "G#m": [
+    {
+      "id": "G#m.barre.a",
+      "chord": "G#m",
+      "notes": [
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": 11,
+          "finger": 1
+        },
+        {
+          "fret": 13,
+          "finger": 3
+        },
+        {
+          "fret": 13,
+          "finger": 4
+        },
+        {
+          "fret": 12,
+          "finger": 2
+        },
+        {
+          "fret": 11,
+          "finger": 1
+        }
+      ],
+      "register": "high",
+      "tags": [
+        "barre"
+      ],
+      "barre": {
+        "fret": 11,
+        "from": 1,
+        "to": 5,
+        "finger": 1
+      }
+    },
+    {
+      "id": "G#m.barre.e",
+      "chord": "G#m",
+      "notes": [
+        {
+          "fret": 4,
+          "finger": 1
+        },
+        {
+          "fret": 6,
+          "finger": 3
+        },
+        {
+          "fret": 6,
+          "finger": 4
+        },
+        {
+          "fret": 4,
+          "finger": 1
+        },
+        {
+          "fret": 4,
+          "finger": 1
+        },
+        {
+          "fret": 4,
+          "finger": 1
+        }
+      ],
+      "register": "mid",
+      "tags": [
+        "barre"
+      ],
+      "barre": {
+        "fret": 4,
+        "from": 0,
+        "to": 5,
+        "finger": 1
+      }
+    }
+  ],
+  "G5": [
+    {
+      "id": "G5.power.2.a",
+      "chord": "G5",
+      "notes": [
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": 10,
+          "finger": 1
+        },
+        {
+          "fret": 12,
+          "finger": 3
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        }
+      ],
+      "register": "high",
+      "tags": [
+        "power"
+      ]
+    },
+    {
+      "id": "G5.power.2.e",
+      "chord": "G5",
+      "notes": [
+        {
+          "fret": 3,
+          "finger": 1
+        },
+        {
+          "fret": 5,
+          "finger": 3
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        }
+      ],
+      "register": "low",
+      "tags": [
+        "power"
+      ]
+    },
+    {
+      "id": "G5.power.3.a",
+      "chord": "G5",
+      "notes": [
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": 10,
+          "finger": 1
+        },
+        {
+          "fret": 12,
+          "finger": 3
+        },
+        {
+          "fret": 12,
+          "finger": 4
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        }
+      ],
+      "register": "high",
+      "tags": [
+        "power"
+      ]
+    },
+    {
+      "id": "G5.power.3.e",
+      "chord": "G5",
+      "notes": [
+        {
+          "fret": 3,
+          "finger": 1
+        },
+        {
+          "fret": 5,
+          "finger": 3
+        },
+        {
+          "fret": 5,
+          "finger": 4
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        }
+      ],
+      "register": "low",
+      "tags": [
+        "power"
+      ]
+    },
+    {
+      "id": "G5.power.oct.a",
+      "chord": "G5",
+      "notes": [
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": 10,
+          "finger": 1
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": 12,
+          "finger": 4
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        }
+      ],
+      "register": "high",
+      "tags": [
+        "power"
+      ]
+    },
+    {
+      "id": "G5.power.oct.e",
+      "chord": "G5",
+      "notes": [
+        {
+          "fret": 3,
+          "finger": 1
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": 5,
+          "finger": 4
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": null,
+          "finger": null
+        }
+      ],
+      "register": "low",
+      "tags": [
+        "power"
+      ]
+    }
+  ],
+  "Gm": [
+    {
+      "id": "Gm.barre.a",
+      "chord": "Gm",
+      "notes": [
+        {
+          "fret": null,
+          "finger": null
+        },
+        {
+          "fret": 10,
+          "finger": 1
+        },
+        {
+          "fret": 12,
+          "finger": 3
+        },
+        {
+          "fret": 12,
+          "finger": 4
+        },
+        {
+          "fret": 11,
+          "finger": 2
+        },
+        {
+          "fret": 10,
+          "finger": 1
+        }
+      ],
+      "register": "high",
+      "tags": [
+        "barre"
+      ],
+      "barre": {
+        "fret": 10,
+        "from": 1,
+        "to": 5,
+        "finger": 1
+      }
+    },
+    {
+      "id": "Gm.barre.e",
+      "chord": "Gm",
+      "notes": [
+        {
+          "fret": 3,
+          "finger": 1
+        },
+        {
+          "fret": 5,
+          "finger": 3
+        },
+        {
+          "fret": 5,
+          "finger": 4
+        },
+        {
+          "fret": 3,
+          "finger": 1
+        },
+        {
+          "fret": 3,
+          "finger": 1
+        },
+        {
+          "fret": 3,
+          "finger": 1
+        }
+      ],
+      "register": "low",
+      "tags": [
+        "barre"
+      ],
+      "barre": {
+        "fret": 3,
+        "from": 0,
+        "to": 5,
+        "finger": 1
+      }
+    }
+  ]
+}
