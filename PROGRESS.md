@@ -11,6 +11,7 @@ Recorded numbers (fill in as you go): LIVE_URL=https://ateliersix.netlify.app ·
 | Phase | Date finished | Usage windows |
 | ----- | ------------- | ------------- |
 | 0     | 2026-09-23    | 1             |
+| 1     | 2026-09-23    | 1             |
 
 ## Phase 0 — Repo foundation
 
