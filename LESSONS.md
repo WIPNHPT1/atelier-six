@@ -38,3 +38,6 @@ Areas: build, ts, lint, test, e2e, audio, pwa, ui, data, engine, ci, netlify, de
 - [lint] real components fail on every SVG/DOM attribute (`role`, `type`, `d`, `cx`…) → `react/jsx-no-literals` had `ignoreProps: false` from phase 0 → set `ignoreProps: true`; it still catches hardcoded JSX text children (1.2)
 - [ts] template literals with a numeric var fail `restrict-template-expressions` under strictTypeChecked → wrap with `String(n)` (1.2)
 - [build] `git add`/`git log` print "non-monotonic index" for `.git/objects/pack/._pack-*` → external drive wrote AppleDouble sidecars for git's own pack files → `rm -f .git/objects/pack/._pack-*` (safe, they're not real objects); repeat if `git gc`/repack recreates them (all)
+- [test] `window.matchMedia is not a function` in jsdom → not implemented → stub it in `src/test/setup.ts` (1.3)
+- [ts] `npm run verify` never caught real type errors → root `tsconfig.json` has `files: []` + references, so plain `tsc --noEmit` checks nothing → script must be `tsc -b --noEmit` to actually build-check the referenced projects (1.3)
+- [ts] CSS Modules import types as an index signature → `noUncheckedIndexedAccess` makes every `styles.foo` a `string | undefined` → don't put them straight into a `Record<K, string>`; type such maps `Record<K, string | undefined>` and join classnames with a small `cx()` helper (`src/ui/cx.ts`) (1.3)

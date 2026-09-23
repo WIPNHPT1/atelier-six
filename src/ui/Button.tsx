@@ -1,5 +1,6 @@
 import type { ButtonHTMLAttributes, ReactNode } from 'react'
 import styles from './Button.module.css'
+import { cx } from './cx'
 
 type ButtonVariant = 'primary' | 'quiet' | 'ghost'
 type ButtonSize = 'small' | 'medium' | 'large'
@@ -11,13 +12,13 @@ export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   children: ReactNode
 }
 
-const variantClass: Record<ButtonVariant, string> = {
+const variantClass: Record<ButtonVariant, string | undefined> = {
   primary: styles.primary,
   quiet: styles.quiet,
   ghost: styles.ghost,
 }
 
-const sizeClass: Record<ButtonSize, string> = {
+const sizeClass: Record<ButtonSize, string | undefined> = {
   small: styles.sizeSmall,
   medium: styles.sizeMedium,
   large: styles.sizeLarge,
@@ -32,9 +33,7 @@ export function Button({
   children,
   ...rest
 }: ButtonProps) {
-  const classes = [styles.button, variantClass[variant], sizeClass[size], className]
-    .filter(Boolean)
-    .join(' ')
+  const classes = cx(styles.button, variantClass[variant], sizeClass[size], className)
 
   return (
     <button

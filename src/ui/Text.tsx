@@ -1,5 +1,6 @@
 import type { HTMLAttributes, ReactNode } from 'react'
 import styles from './Text.module.css'
+import { cx } from './cx'
 
 type TextSize = 'small' | 'medium' | 'large'
 
@@ -9,15 +10,14 @@ export type TextProps = HTMLAttributes<HTMLParagraphElement> & {
   children: ReactNode
 }
 
-const sizeClass: Partial<Record<TextSize, string>> = {
+const sizeClass: Record<TextSize, string | undefined> = {
   small: styles.sizeSmall,
+  medium: undefined,
   large: styles.sizeLarge,
 }
 
 export function Text({ dim = false, size = 'medium', className, children, ...rest }: TextProps) {
-  const classes = [styles.text, dim ? styles.dim : '', sizeClass[size] ?? '', className]
-    .filter(Boolean)
-    .join(' ')
+  const classes = cx(styles.text, dim ? styles.dim : undefined, sizeClass[size], className)
 
   return (
     <p className={classes} {...rest}>

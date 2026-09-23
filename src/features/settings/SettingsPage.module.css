@@ -1,0 +1,21 @@
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-4);
+  padding: var(--s-4) 0;
+  border-bottom: 1px solid var(--hairline);
+}
+
+.rowLabel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-1);
+}
+
+.sliderRow {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+  width: 220px;
+}

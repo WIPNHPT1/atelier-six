@@ -1,0 +1,26 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--ebony);
+  padding: var(--s-8) 0 var(--s-4);
+  transition:
+    padding calc(var(--dur-ui) * var(--motion-scale)) var(--ease),
+    font-size calc(var(--dur-ui) * var(--motion-scale)) var(--ease);
+}
+
+.breadcrumb {
+  color: var(--bone-dim);
+  font-family: var(--font-ui);
+  font-size: var(--t-14);
+  margin: 0 0 var(--s-2);
+}
+
+.compact {
+  padding: var(--s-3) 0;
+}
+
+.compact :global(h1),
+.compact :global(h2) {
+  font-size: var(--t-20) !important;
+}

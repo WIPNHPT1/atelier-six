@@ -42,6 +42,12 @@ export default tseslint.config(
     },
   },
   {
+    files: ['src/app/routes.tsx'],
+    rules: {
+      'react-refresh/only-export-components': 'off',
+    },
+  },
+  {
     files: ['src/core/**/*.{ts,tsx}'],
     rules: {
       'no-restricted-imports': [

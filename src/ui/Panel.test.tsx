@@ -9,7 +9,11 @@ describe('Panel', () => {
   })
 
   it('supports a raised variant', () => {
-    render(<Panel raised data-testid="panel" />)
+    render(
+      <Panel raised data-testid="panel">
+        Content
+      </Panel>,
+    )
     expect(screen.getByTestId('panel').className).toMatch(/raised/)
   })
 })

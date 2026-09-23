@@ -1,0 +1,34 @@
+.skipLink {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 50;
+  background: var(--brass);
+  color: var(--ebony);
+  padding: var(--s-2) var(--s-4);
+  border-radius: var(--r-hair);
+}
+
+.skipLink:focus {
+  left: var(--s-4);
+  top: var(--s-4);
+}
+
+.content {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 var(--s-6) calc(96px + env(safe-area-inset-bottom));
+}
+
+@media (min-width: 640px) {
+  .content {
+    margin-left: 72px;
+    padding: 0 var(--s-12) var(--s-8);
+  }
+}
+
+@media (min-width: 1200px) {
+  .content {
+    margin-left: 248px;
+  }
+}
