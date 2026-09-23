@@ -1,0 +1,15 @@
+.lockup {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-3);
+}
+
+.wordmark {
+  font-family: var(--font-ui);
+  font-weight: 500;
+  font-size: var(--t-14);
+  text-transform: uppercase;
+  letter-spacing: 0.34em;
+  color: var(--bone);
+  white-space: nowrap;
+}

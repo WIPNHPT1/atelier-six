@@ -2,11 +2,14 @@ import { NavLink } from 'react-router-dom'
 import styles from './Sidebar.module.css'
 import { navItems } from './navItems'
 import { copy } from '../../content/copy.en-GB'
+import { Logo } from '../../ui/Logo'
 
 export function Sidebar() {
   return (
     <nav className={styles.sidebar} aria-label="Primary" data-testid="nav-sidebar">
-      <p className={styles.wordmark}>{copy.brand.name}</p>
+      <div className={styles.wordmark}>
+        <Logo variant="lockup" size={32} />
+      </div>
       {navItems.map((item) => (
         <NavLink
           key={item.to}

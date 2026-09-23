@@ -24,12 +24,6 @@
 
 .wordmark {
   margin: 0 0 var(--s-6) var(--s-3);
-  font-family: var(--font-ui);
-  font-weight: 500;
-  font-size: var(--t-14);
-  text-transform: uppercase;
-  letter-spacing: 0.34em;
-  color: var(--bone);
 }
 
 .item {

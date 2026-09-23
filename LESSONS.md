@@ -41,3 +41,4 @@ Areas: build, ts, lint, test, e2e, audio, pwa, ui, data, engine, ci, netlify, de
 - [test] `window.matchMedia is not a function` in jsdom → not implemented → stub it in `src/test/setup.ts` (1.3)
 - [ts] `npm run verify` never caught real type errors → root `tsconfig.json` has `files: []` + references, so plain `tsc --noEmit` checks nothing → script must be `tsc -b --noEmit` to actually build-check the referenced projects (1.3)
 - [ts] CSS Modules import types as an index signature → `noUncheckedIndexedAccess` makes every `styles.foo` a `string | undefined` → don't put them straight into a `Record<K, string>`; type such maps `Record<K, string | undefined>` and join classnames with a small `cx()` helper (`src/ui/cx.ts`) (1.3)
+- [ui] `<Logo variant="lockup" size={28}>` silently dropped the wordmark → the "small drawing below 32px" auto-switch also applies to lockup, so any size <32 skips the wordmark span → pick a size ≥32 wherever the lockup/wordmark must show (1.4)

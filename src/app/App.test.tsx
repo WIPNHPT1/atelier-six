@@ -5,6 +5,6 @@ import App from '../App'
 describe('App', () => {
   it('renders Atelier Six', () => {
     render(<App />)
-    expect(screen.getByText('Atelier Six')).toBeInTheDocument()
+    expect(screen.getByTestId('logo-wordmark')).toHaveTextContent('Atelier Six')
   })
 })
