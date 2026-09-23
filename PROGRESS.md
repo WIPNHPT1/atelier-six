@@ -1,6 +1,6 @@
 # Progress
 
-Current: Gate 0
+Current: 1.1
 Legend: [ ] todo · [x] done · BLOCKED: reason
 Rule: update "Current" and tick the box in the same commit as the step. Unfinished work lives in `RESUME.md`.
 Milestones: v1.0 = Phases 0–10 · v1.1 = 11–15 · v1.2 = 16–17 · v2.0 = 18–22 · v2.x = 23–24 (final).
@@ -10,6 +10,7 @@ Recorded numbers (fill in as you go): LIVE_URL=https://ateliersix.netlify.app ·
 
 | Phase | Date finished | Usage windows |
 | ----- | ------------- | ------------- |
+| 0     | 2026-09-23    | 1             |
 
 ## Phase 0 — Repo foundation
 
@@ -22,7 +23,7 @@ Recorded numbers (fill in as you go): LIVE_URL=https://ateliersix.netlify.app ·
 - [x] 0.7 GitHub Actions CI
 - [x] 0.8 Netlify config + first deploy (USER ACTION)
 - [x] 0.9 Name and artist-reference check (USER ACTION)
-- [ ] Gate 0
+- [x] Gate 0
 
 ## Phase 1 — Design system
 
