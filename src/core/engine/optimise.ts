@@ -25,111 +25,77 @@ function isBetter(costA: number, idA: string, costB: number, idB: string): boole
   return idA < idB;
 }
 
+function isNonEmpty<T>(arr: T[]): arr is [T, ...T[]] {
+  return arr.length > 0;
+}
+
 function totalCandidates(chords: Shape[][]): number {
   return chords.reduce((sum, candidates) => sum + candidates.length, 0);
 }
 
-type Row = { candidates: Shape[]; costs: number[] };
+type Node = { shape: Shape; path: Shape[]; cost: number };
 type Chain = { shapes: Shape[]; transitions: Transition[]; total: number };
 
-function nextRow(prev: Row, currCandidates: Shape[]): { row: Row; back: number[] } {
-  const costs: number[] = [];
-  const back: number[] = [];
+function nextNodes(prevNodes: Node[], currCandidates: Shape[]): Node[] {
+  if (!isNonEmpty(prevNodes)) return [];
+  const [firstPrev, ...restPrev] = prevNodes;
 
-  for (const shapeK of currCandidates) {
-    let bestCost = Infinity;
-    let bestId = '';
-    let bestJ = 0;
+  return currCandidates.map((shapeK) => {
+    let best = {
+      cost: firstPrev.cost + transitionCost(analyseTransition(firstPrev.shape, shapeK)),
+      id: firstPrev.shape.id,
+      path: firstPrev.path,
+    };
 
-    prev.candidates.forEach((shapeJ, j) => {
-      const prevCost = prev.costs[j];
-      if (prevCost === undefined) return;
-      const edgeCost = transitionCost(analyseTransition(shapeJ, shapeK));
-      const candidateCost = prevCost + edgeCost;
-      if (isBetter(candidateCost, shapeJ.id, bestCost, bestId)) {
-        bestCost = candidateCost;
-        bestId = shapeJ.id;
-        bestJ = j;
+    for (const prevNode of restPrev) {
+      const candidateCost =
+        prevNode.cost + transitionCost(analyseTransition(prevNode.shape, shapeK));
+      if (isBetter(candidateCost, prevNode.shape.id, best.cost, best.id)) {
+        best = { cost: candidateCost, id: prevNode.shape.id, path: prevNode.path };
       }
-    });
-
-    costs.push(shapeDifficulty(shapeK) + bestCost);
-    back.push(bestJ);
-  }
-
-  return { row: { candidates: currCandidates, costs }, back };
-}
-
-function bestIndex(row: Row): { cost: number; index: number } {
-  let bestCost = Infinity;
-  let bestId = '';
-  let bestK = 0;
-
-  row.candidates.forEach((shape, k) => {
-    const cost = row.costs[k];
-    if (cost === undefined) return;
-    if (isBetter(cost, shape.id, bestCost, bestId)) {
-      bestCost = cost;
-      bestId = shape.id;
-      bestK = k;
     }
-  });
 
-  return { cost: bestCost, index: bestK };
+    return {
+      shape: shapeK,
+      path: [...best.path, shapeK],
+      cost: shapeDifficulty(shapeK) + best.cost,
+    };
+  });
 }
 
-function backtrack(backRows: number[][], finalIndex: number): number[] {
-  const pathIndices: number[] = [finalIndex];
-
-  for (let i = backRows.length - 1; i >= 0; i--) {
-    const backRow = backRows[i];
-    const current = pathIndices[0];
-    if (backRow === undefined || current === undefined) break;
-    const prevIndex = backRow[current];
-    if (prevIndex === undefined) break;
-    pathIndices.unshift(prevIndex);
-  }
-
-  return pathIndices;
+function buildTransitions(shapes: Shape[]): Transition[] {
+  return shapes.reduce<{ prev: Shape | null; result: Transition[] }>(
+    (acc, shape) => {
+      if (acc.prev !== null) acc.result.push(analyseTransition(acc.prev, shape));
+      return { prev: shape, result: acc.result };
+    },
+    { prev: null, result: [] },
+  ).result;
 }
 
 function runChain(chords: Shape[][]): Chain {
-  const [first, ...rest] = chords;
-  if (first === undefined) {
-    return { shapes: [], transitions: [], total: 0 };
-  }
+  let nodes: Node[] = [];
 
-  let row: Row = { candidates: first, costs: first.map((shape) => shapeDifficulty(shape)) };
-  const backRows: number[][] = [];
-
-  for (const currCandidates of rest) {
-    const { row: nextR, back } = nextRow(row, currCandidates);
-    backRows.push(back);
-    row = nextR;
-  }
-
-  const { cost: total, index: finalIndex } = bestIndex(row);
-  const pathIndices = backtrack(backRows, finalIndex);
-
-  const shapes: Shape[] = [];
   chords.forEach((candidates, i) => {
-    const idx = pathIndices[i];
-    const shape = idx === undefined ? undefined : candidates[idx];
-    if (shape !== undefined) shapes.push(shape);
+    nodes =
+      i === 0
+        ? candidates.map((shape) => ({ shape, path: [shape], cost: shapeDifficulty(shape) }))
+        : nextNodes(nodes, candidates);
   });
 
-  const transitions: Transition[] = [];
-  for (let i = 1; i < shapes.length; i++) {
-    const from = shapes[i - 1];
-    const to = shapes[i];
-    if (from !== undefined && to !== undefined) transitions.push(analyseTransition(from, to));
+  if (!isNonEmpty(nodes)) return { shapes: [], transitions: [], total: 0 };
+
+  const [firstNode, ...restNodes] = nodes;
+  let best = firstNode;
+  for (const node of restNodes) {
+    if (isBetter(node.cost, node.shape.id, best.cost, best.shape.id)) best = node;
   }
 
-  return { shapes, transitions, total: round2(total) };
+  return { shapes: best.path, transitions: buildTransitions(best.path), total: round2(best.cost) };
 }
 
 export function optimise(chords: Shape[][], options: OptimiseOptions = {}): Result {
-  if (chords.length === 0) return { shapes: [], transitions: [], total: 0 };
+  if (!isNonEmpty(chords)) return { shapes: [], transitions: [], total: 0 };
 
   if (totalCandidates(chords) > MAX_CANDIDATES) {
     throw new Error(
@@ -142,9 +108,6 @@ export function optimise(chords: Shape[][], options: OptimiseOptions = {}): Resu
   }
 
   const [firstCandidates, ...rest] = chords;
-  if (firstCandidates === undefined) {
-    return { shapes: [], transitions: [], total: 0 };
-  }
 
   let best: Chain | null = null;
   let bestStartId = '';

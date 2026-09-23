@@ -4,10 +4,11 @@ import type { Move, Position, RealFinger } from './types.ts';
 const FINGER_ORDER: RealFinger[] = [1, 2, 3, 4, 'T'];
 
 function findFinger(shape: Shape, finger: RealFinger): Position | undefined {
-  const string = shape.notes.findIndex((note) => note.finger === finger);
-  if (string === -1) return undefined;
-  const fret = shape.notes[string]?.fret;
-  return fret === null || fret === undefined ? undefined : { string, fret };
+  for (const [string, note] of shape.notes.entries()) {
+    if (note.finger !== finger) continue;
+    return note.fret === null ? undefined : { string, fret: note.fret };
+  }
+  return undefined;
 }
 
 export function classifyMoves(a: Shape, b: Shape): Move[] {

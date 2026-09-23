@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { parseShape } from '../shapes/parseShape.ts';
+import type { Shape } from '../shapes/types.ts';
 import { classifyMoves } from './classifyMoves.ts';
 
 describe('classifyMoves', () => {
@@ -58,5 +59,25 @@ describe('classifyMoves', () => {
     const b = parseShape('b', 'X', '020100', 'T2-1--');
 
     expect(classifyMoves(a, b).map((m) => m.finger)).toEqual([1, 2, 'T']);
+  });
+
+  it('treats a finger recorded on a muted string as not present', () => {
+    const mutedFinger: Shape = {
+      id: 'malformed',
+      chord: 'X',
+      notes: [
+        { fret: null, finger: 1 },
+        { fret: null, finger: null },
+        { fret: null, finger: null },
+        { fret: null, finger: null },
+        { fret: null, finger: null },
+        { fret: null, finger: null },
+      ],
+      register: 'low',
+      tags: [],
+    };
+    const empty = parseShape('empty', 'X', '000000', '------');
+
+    expect(classifyMoves(mutedFinger, empty).find((m) => m.finger === 1)).toBeUndefined();
   });
 });

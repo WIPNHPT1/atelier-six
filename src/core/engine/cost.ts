@@ -22,7 +22,7 @@ export const WEIGHTS = {
   },
 };
 
-function moveCost(move: Move): number {
+export function moveCost(move: Move): number {
   switch (move.type) {
     case 'anchor':
       return WEIGHTS.move.anchor;
@@ -47,7 +47,7 @@ function moveCost(move: Move): number {
   }
 }
 
-function groupCost(group: Group): number {
+export function groupCost(group: Group): number {
   const dFret = Math.abs(group.vector.dFret);
   return group.kind === 'slide'
     ? WEIGHTS.group.slide.base + WEIGHTS.group.slide.perFret * dFret

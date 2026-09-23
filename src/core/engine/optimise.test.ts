@@ -70,6 +70,25 @@ describe('optimise', () => {
     expect(optimise([])).toEqual({ shapes: [], transitions: [], total: 0 });
   });
 
+  it('a chord with no candidates makes the whole progression unresolvable', () => {
+    const cheap = parseShape('cheap', 'X', 'x00000', '------');
+    expect(optimise([[cheap], []])).toEqual({ shapes: [], transitions: [], total: 0 });
+  });
+
+  it('a chord with no candidates makes every loop start unresolvable', () => {
+    const cheap = parseShape('cheap', 'X', 'x00000', '------');
+    expect(optimise([[cheap], []], { loop: true })).toEqual({
+      shapes: [],
+      transitions: [],
+      total: 0,
+    });
+  });
+
+  it('a chord with no candidates in the middle strands the chords after it too', () => {
+    const cheap = parseShape('cheap', 'X', 'x00000', '------');
+    expect(optimise([[cheap], [], [cheap]])).toEqual({ shapes: [], transitions: [], total: 0 });
+  });
+
   it('throws when candidates exceed 400', () => {
     const shape = parseShape('dup', 'X', 'x00000', '------');
     const tooMany = [new Array<Shape>(401).fill(shape)];

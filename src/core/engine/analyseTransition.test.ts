@@ -62,6 +62,18 @@ describe('analyseTransition', () => {
     ]);
   });
 
+  it('two different vectors with >=2 fingers each make two groups, ordered by lowest finger', () => {
+    const a = parseShape('a', 'X', '11x22x', '12-34-');
+    const b = parseShape('b', 'X', 'x1144x', '-1234-');
+
+    const { groups } = analyseTransition(a, b);
+
+    expect(groups).toEqual([
+      { kind: 'shift', fingers: [1, 2], vector: { dString: 1, dFret: 0 } },
+      { kind: 'slide', fingers: [3, 4], vector: { dString: 0, dFret: 2 } },
+    ]);
+  });
+
   it('never groups anchors, even when several share vector (0,0)', () => {
     const a = parseShape('a', 'X', '020100', 'T2-1--');
     const b = parseShape('b', 'X', '020100', 'T2-1--');

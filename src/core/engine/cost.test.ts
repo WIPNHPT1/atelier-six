@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { parseShape } from '../shapes/parseShape.ts';
 import { analyseTransition } from './analyseTransition.ts';
-import { shapeDifficulty, transitionCost } from './cost.ts';
+import { moveCost, shapeDifficulty, transitionCost } from './cost.ts';
 
 describe('transitionCost', () => {
   it('Em open → Am open: place(2) + shift group(1.5) = 3.5', () => {
@@ -47,6 +47,17 @@ describe('transitionCost', () => {
   });
 });
 
+describe('moveCost', () => {
+  it('a grouped move costs nothing on its own (its cost is counted via the group)', () => {
+    expect(moveCost({ finger: 1, type: 'group', groupIndex: 0 })).toBe(0);
+  });
+
+  it('guide/lift moves without endpoints fall back to a zero delta', () => {
+    expect(moveCost({ finger: 1, type: 'guide' })).toBe(1);
+    expect(moveCost({ finger: 1, type: 'lift' })).toBe(3);
+  });
+});
+
 describe('shapeDifficulty', () => {
   it('E-shape F barre: span 2 (free), barre +2 → 2', () => {
     const f = parseShape('F.barre', 'F', '133211', '134211', {
@@ -63,5 +74,10 @@ describe('shapeDifficulty', () => {
   it('x3x010-style shape: 1 interior mute → 0.5', () => {
     const shape = parseShape('shape', 'X', 'x3x010', '-3-1--');
     expect(shapeDifficulty(shape)).toBe(0.5);
+  });
+
+  it('a thumb fretting note adds 1', () => {
+    const shape = parseShape('E7.thumb', 'E7', '020100', 'T2-1--');
+    expect(shapeDifficulty(shape)).toBe(1);
   });
 });
