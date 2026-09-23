@@ -83,7 +83,7 @@
 }
 
 .labelHidden {
-  visibility: hidden;
+  color: transparent;
 }
 
 .spinner {
