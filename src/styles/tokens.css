@@ -1,0 +1,71 @@
+:root {
+  /* Colour — dark (default) */
+  --ebony: #121110;
+  --rosewood: #2b211d;
+  --rosewood-2: #3a2d27;
+  --bone: #efeae1;
+  --bone-dim: #a69e92;
+  --hairline: rgba(239, 234, 225, 0.12);
+  --brass: #b8925a;
+  --brass-hi: #d9b77e;
+
+  /* Finger colours */
+  --f1: #8fa68a;
+  --f2: #6f84a0;
+  --f3: #c07a5a;
+  --f4: #9a7aa0;
+  --fT: #b8925a;
+
+  /* Type */
+  --font-display: 'Instrument Serif', serif;
+  --font-ui: 'Geist', sans-serif;
+  --font-mono: 'Geist Mono', monospace;
+  --t-12: 12px;
+  --t-14: 14px;
+  --t-16: 16px;
+  --t-20: 20px;
+  --t-28: 28px;
+  --t-40: 40px;
+  --t-56: 56px;
+
+  /* Spacing (4px base) */
+  --s-1: 4px;
+  --s-2: 8px;
+  --s-3: 12px;
+  --s-4: 16px;
+  --s-6: 24px;
+  --s-8: 32px;
+  --s-12: 48px;
+  --s-16: 64px;
+
+  /* Radius */
+  --r-hair: 2px;
+  --r-pill: 999px;
+
+  /* Motion */
+  --dur-ui: 180ms;
+  --dur-show: 420ms;
+  --ease: cubic-bezier(0.2, 0.7, 0.1, 1);
+  --motion-scale: 1;
+
+  /* Finish surface (overridden per [data-finish]) */
+  --surface-texture: none;
+  --glow: none;
+}
+
+[data-mode='light'] {
+  --ebony: #efeae1;
+  --rosewood: #e3dccf;
+  --rosewood-2: #d6cdbb;
+  --bone: #121110;
+  --bone-dim: #5b5550;
+  --hairline: rgba(18, 17, 16, 0.12);
+  --brass: #7a5c37;
+  --brass-hi: #9b815b;
+
+  --f1: #81957c;
+  --f2: #647790;
+  --f3: #ad6e51;
+  --f4: #8b6e90;
+  --fT: #7a5c37;
+}
