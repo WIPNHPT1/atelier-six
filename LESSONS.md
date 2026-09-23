@@ -32,3 +32,4 @@ Areas: build, ts, lint, test, e2e, audio, pwa, ui, data, engine, ci, netlify, de
 - [build] npm or Playwright can't reach a site → host not in sandbox allowedDomains → name the host on the command so auto mode can review it; add it to settings only if it's needed every session (all)
 
 ## Learned during build
+- [build] eslint/vitest/playwright crash parsing binary files → external drive writes AppleDouble `._*` sidecar files for every file → ignore/exclude `**/._*` in eslint.config.js, vitest.config.ts and playwright.config.ts (0.1-0.4)

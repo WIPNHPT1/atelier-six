@@ -1,6 +1,6 @@
 # Progress
 
-Current: 0.4
+Current: 0.5
 Legend: [ ] todo · [x] done · BLOCKED: reason
 Rule: update "Current" and tick the box in the same commit as the step. Unfinished work lives in `RESUME.md`.
 Milestones: v1.0 = Phases 0–10 · v1.1 = 11–15 · v1.2 = 16–17 · v2.0 = 18–22 · v2.x = 23–24 (final).
@@ -14,7 +14,7 @@ Recorded numbers (fill in as you go): LIVE_URL= · JS_KB= · FRAME_MS= · LH= ·
 - [x] 0.1 Scaffold Vite + React + TS (strict)
 - [x] 0.2 ESLint, Prettier, npm scripts
 - [x] 0.3 Vitest + Testing Library
-- [ ] 0.4 Playwright smoke test
+- [x] 0.4 Playwright smoke test
 - [ ] 0.5 Husky, lint-staged, commitlint
 - [ ] 0.6 Repo community + config files
 - [ ] 0.7 GitHub Actions CI

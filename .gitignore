@@ -32,3 +32,8 @@ eval/tmp/
 
 # External-drive AppleDouble files
 ._*
+
+# Playwright
+/test-results/
+/playwright-report/
+/playwright/.cache/

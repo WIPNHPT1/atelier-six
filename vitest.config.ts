@@ -8,7 +8,7 @@ export default mergeConfig(
     test: {
       environment: 'jsdom',
       setupFiles: ['src/test/setup.ts'],
-      exclude: ['**/node_modules/**', '**/dist/**', '**/._*'],
+      exclude: ['**/node_modules/**', '**/dist/**', '**/._*', 'tests/e2e/**'],
       coverage: {
         provider: 'v8',
         thresholds: {
