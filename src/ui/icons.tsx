@@ -140,6 +140,15 @@ export function CheckIcon(props: IconProps) {
   )
 }
 
+export function SearchIcon(props: IconProps) {
+  return (
+    <svg {...base(props)}>
+      <circle cx="9" cy="9" r="5.5" />
+      <path d="M13.2 13.2L17 17" />
+    </svg>
+  )
+}
+
 export function CloseIcon(props: IconProps) {
   return (
     <svg {...base(props)}>

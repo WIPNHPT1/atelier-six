@@ -24,7 +24,12 @@ export function PageHeader({ title, breadcrumb, children }: PageHeaderProps) {
   return (
     <header className={[styles.header, compact ? styles.compact : ''].filter(Boolean).join(' ')}>
       {breadcrumb ? <p className={styles.breadcrumb}>{breadcrumb}</p> : null}
-      <Heading level={compact ? 3 : 1}>{title}</Heading>
+      <Heading
+        level={compact ? 3 : 1}
+        style={{ viewTransitionName: 'page-title' }}
+      >
+        {title}
+      </Heading>
       {children}
     </header>
   )

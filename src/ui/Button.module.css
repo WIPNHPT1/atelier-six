@@ -10,8 +10,9 @@
   font-weight: 500;
   cursor: pointer;
   transition:
-    transform calc(var(--dur-ui) * var(--motion-scale)) var(--ease),
-    filter calc(var(--dur-ui) * var(--motion-scale)) var(--ease);
+    transform calc(120ms * var(--motion-scale)) var(--ease),
+    filter calc(var(--dur-ui) * var(--motion-scale)) var(--ease),
+    background calc(var(--dur-ui) * var(--motion-scale)) var(--ease);
 }
 
 .button:active:not(:disabled) {
@@ -21,6 +22,12 @@
 .button:disabled {
   cursor: not-allowed;
   opacity: 0.5;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .button:hover:not(:disabled):not(:active) {
+    transform: translateY(-1px);
+  }
 }
 
 .sizeSmall {

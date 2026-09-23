@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import { act, renderHook } from '@testing-library/react'
-import { useApplySettings, useSettingsStore } from './settingsStore'
+import { useApplySettings, useMotionEnabled, useSettingsStore } from './settingsStore'
 
 function resetStore() {
   useSettingsStore.setState({
@@ -11,6 +11,8 @@ function resetStore() {
     leftHanded: false,
     tuning: 'standard',
     capo: 0,
+    level: 'new',
+    onboardingComplete: false,
   })
 }
 
@@ -62,5 +64,16 @@ describe('settingsStore', () => {
     expect(document.documentElement.getAttribute('data-finish')).toBe('xerox')
     expect(document.documentElement.getAttribute('data-motion')).toBe('off')
     expect(document.documentElement.getAttribute('data-hand')).toBe('left')
+  })
+
+  it('resolves motion to a boolean', () => {
+    const { result, rerender } = renderHook(() => useMotionEnabled())
+    expect(result.current).toBe(true)
+
+    act(() => {
+      useSettingsStore.getState().setMotion('off')
+    })
+    rerender()
+    expect(result.current).toBe(false)
   })
 })

@@ -78,3 +78,14 @@ a {
   transition-duration: 0.001ms !important;
   scroll-behavior: auto !important;
 }
+
+::view-transition-old(page-title),
+::view-transition-new(page-title) {
+  animation-duration: calc(var(--dur-show) * var(--motion-scale));
+  animation-timing-function: var(--ease);
+}
+
+[data-motion='off']::view-transition-old(page-title),
+[data-motion='off']::view-transition-new(page-title) {
+  animation-duration: 0.001ms !important;
+}

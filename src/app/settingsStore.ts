@@ -6,6 +6,7 @@ export type ColorMode = 'dark' | 'light' | 'system'
 export type Finish = 'nitro' | 'xerox' | 'sunburst' | 'faded' | 'stencil'
 export type MotionSetting = 'on' | 'off' | 'system'
 export type Tuning = 'standard' | 'halfDown' | 'dropD'
+export type Level = 'new' | 'someChords' | 'confident'
 
 export type Settings = {
   mode: ColorMode
@@ -15,6 +16,8 @@ export type Settings = {
   leftHanded: boolean
   tuning: Tuning
   capo: number
+  level: Level
+  onboardingComplete: boolean
 }
 
 export type SettingsStore = Settings & {
@@ -25,6 +28,8 @@ export type SettingsStore = Settings & {
   setLeftHanded: (leftHanded: boolean) => void
   setTuning: (tuning: Tuning) => void
   setCapo: (capo: number) => void
+  setLevel: (level: Level) => void
+  setOnboardingComplete: (complete: boolean) => void
 }
 
 const defaultSettings: Settings = {
@@ -35,6 +40,8 @@ const defaultSettings: Settings = {
   leftHanded: false,
   tuning: 'standard',
   capo: 0,
+  level: 'new',
+  onboardingComplete: false,
 }
 
 export const useSettingsStore = create<SettingsStore>()(
@@ -62,6 +69,12 @@ export const useSettingsStore = create<SettingsStore>()(
       setCapo: (capo) => {
         set({ capo: Math.min(7, Math.max(0, capo)) })
       },
+      setLevel: (level) => {
+        set({ level })
+      },
+      setOnboardingComplete: (onboardingComplete) => {
+        set({ onboardingComplete })
+      },
     }),
     { name: 'a6.settings' },
   ),
@@ -75,6 +88,11 @@ function resolveMode(mode: ColorMode): 'dark' | 'light' {
 function resolveMotion(motion: MotionSetting): 'on' | 'off' {
   if (motion !== 'system') return motion
   return window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'off' : 'on'
+}
+
+export function useMotionEnabled(): boolean {
+  const motion = useSettingsStore((s) => s.motion)
+  return resolveMotion(motion) === 'on'
 }
 
 export function useApplySettings(): void {

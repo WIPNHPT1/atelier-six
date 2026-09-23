@@ -14,6 +14,22 @@
   top: var(--s-4);
 }
 
+.mobileSearch {
+  position: fixed;
+  top: var(--s-4);
+  right: var(--s-4);
+  z-index: 25;
+  background: var(--rosewood);
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-pill);
+}
+
+@media (min-width: 640px) {
+  .mobileSearch {
+    display: none;
+  }
+}
+
 .content {
   max-width: 1280px;
   margin: 0 auto;

@@ -1,8 +1,11 @@
 import { NavLink } from 'react-router-dom'
 import styles from './Dock.module.css'
 import { navItems } from './navItems'
+import { useMotionEnabled } from '../settingsStore'
 
 export function Dock() {
+  const motionEnabled = useMotionEnabled()
+
   return (
     <nav className={styles.dock} aria-label="Primary" data-testid="nav-dock">
       {navItems.map((item) => {
@@ -12,6 +15,7 @@ export function Dock() {
             key={item.to}
             to={item.to}
             end={item.to === '/'}
+            viewTransition={motionEnabled}
             aria-label={isPractise ? item.label : undefined}
             className={({ isActive }) =>
               [styles.item, isPractise ? styles.play : '', isActive ? styles.active : '']

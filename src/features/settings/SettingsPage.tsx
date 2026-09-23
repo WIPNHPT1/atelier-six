@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom'
 import { PageHeader } from '../../app/layout/PageHeader'
 import { Panel } from '../../ui/Panel'
 import { Text } from '../../ui/Text'
@@ -5,12 +6,14 @@ import { Mono } from '../../ui/Mono'
 import { Toggle } from '../../ui/Toggle'
 import { SegmentedControl } from '../../ui/SegmentedControl'
 import { Slider } from '../../ui/Slider'
+import { Button } from '../../ui/Button'
 import { copy } from '../../content/copy.en-GB'
 import { useSettingsStore } from '../../app/settingsStore'
 import styles from './SettingsPage.module.css'
 
 export default function SettingsPage() {
   const settings = useSettingsStore()
+  const navigate = useNavigate()
 
   return (
     <PageHeader title={copy.settings.title}>
@@ -95,6 +98,18 @@ export default function SettingsPage() {
               onChange={settings.setCapo}
             />
           </div>
+        </div>
+
+        <div className={styles.row}>
+          <Text>{copy.onboarding.restart}</Text>
+          <Button
+            variant="quiet"
+            onClick={() => {
+              void navigate('/onboarding')
+            }}
+          >
+            {copy.onboarding.restart}
+          </Button>
         </div>
       </Panel>
     </PageHeader>

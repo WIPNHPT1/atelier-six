@@ -1,4 +1,5 @@
 import { expect, test, type Page } from '@playwright/test'
+import { completeOnboarding } from './helpers.ts'
 
 async function expectPath(page: Page, path: string) {
   await expect.poll(() => new URL(page.url()).pathname).toBe(path)
@@ -15,7 +16,7 @@ const destinations = [
 test('navigates every destination via the visible nav and marks the active route', async ({
   page,
 }) => {
-  await page.goto('/')
+  await completeOnboarding(page)
   const width = page.viewportSize()?.width ?? 1440
 
   const dock = page.getByTestId('nav-dock')

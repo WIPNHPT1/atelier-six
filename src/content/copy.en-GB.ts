@@ -23,6 +23,21 @@ export const copy = {
   },
   onboarding: {
     title: 'Welcome to the atelier',
+    welcomeBody: 'A calm, focused way to learn guitar.',
+    handTitle: 'Which hand do you play with',
+    handLeft: 'Left-handed',
+    handRight: 'Right-handed',
+    levelTitle: 'Your level',
+    levelNew: 'New to guitar',
+    levelSomeChords: 'I know some chords',
+    levelConfident: 'Confident with chords',
+    tuningTitle: 'Tuning and capo',
+    next: 'Next',
+    back: 'Back',
+    skip: 'Skip',
+    done: 'Start',
+    stepLabel: 'Step {current} of {total}',
+    restart: 'Redo onboarding',
   },
   course: {
     title: 'Course',
@@ -94,6 +109,14 @@ export const copy = {
   },
   skipToContent: 'Skip to content',
   close: 'Close',
+  commandPalette: {
+    title: 'Command palette',
+    placeholder: 'Search lessons, chords, drills, settings…',
+    noResults: 'No matches',
+    recent: 'Recent',
+    startTuner: 'Start tuner',
+    search: 'Search',
+  },
 }
 
 type Copy = typeof copy
