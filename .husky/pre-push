@@ -1,0 +1,6 @@
+if git rev-parse --abbrev-ref --symbolic-full-name '@{u}' >/dev/null 2>&1; then
+  if git log '@{u}..HEAD' --format=%s | grep -qE '^wip'; then
+    echo "Refusing to push: wip commits must be squashed first (see CLAUDE.md > Checkpoints)."
+    exit 1
+  fi
+fi

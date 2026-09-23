@@ -1,21 +1,23 @@
 # Progress
 
-Current: 0.5
+Current: 0.6
 Legend: [ ] todo · [x] done · BLOCKED: reason
 Rule: update "Current" and tick the box in the same commit as the step. Unfinished work lives in `RESUME.md`.
 Milestones: v1.0 = Phases 0–10 · v1.1 = 11–15 · v1.2 = 16–17 · v2.0 = 18–22 · v2.x = 23–24 (final).
 Recorded numbers (fill in as you go): LIVE_URL= · JS_KB= · FRAME_MS= · LH= · DETECT_ACC= · CHUNKS= · REC_MB= · MORPH_FRAME_MS= · CAMERA_ACC=
 
 ## Pace log
+
 | Phase | Date finished | Usage windows |
-|---|---|---|
+| ----- | ------------- | ------------- |
 
 ## Phase 0 — Repo foundation
+
 - [x] 0.1 Scaffold Vite + React + TS (strict)
 - [x] 0.2 ESLint, Prettier, npm scripts
 - [x] 0.3 Vitest + Testing Library
 - [x] 0.4 Playwright smoke test
-- [ ] 0.5 Husky, lint-staged, commitlint
+- [x] 0.5 Husky, lint-staged, commitlint
 - [ ] 0.6 Repo community + config files
 - [ ] 0.7 GitHub Actions CI
 - [ ] 0.8 Netlify config + first deploy (USER ACTION)
@@ -23,6 +25,7 @@ Recorded numbers (fill in as you go): LIVE_URL= · JS_KB= · FRAME_MS= · LH= ·
 - [ ] Gate 0
 
 ## Phase 1 — Design system
+
 - [ ] 1.1 Tokens, finishes, global styles, fonts
 - [ ] 1.2 Base components
 - [ ] 1.3 App shell + settings store
@@ -32,6 +35,7 @@ Recorded numbers (fill in as you go): LIVE_URL= · JS_KB= · FRAME_MS= · LH= ·
 - [ ] Gate 1
 
 ## Phase 2 — Music core
+
 - [ ] 2.1 Pitch and key math
 - [ ] 2.2 Shape types + validator
 - [ ] 2.3 Chord data generator
@@ -39,6 +43,7 @@ Recorded numbers (fill in as you go): LIVE_URL= · JS_KB= · FRAME_MS= · LH= ·
 - [ ] Gate 2
 
 ## Phase 3 — Transition engine
+
 - [ ] 3.1 Move classifier
 - [ ] 3.2 Slide/shift grouping
 - [ ] 3.3 Costs + shape difficulty
@@ -48,6 +53,7 @@ Recorded numbers (fill in as you go): LIVE_URL= · JS_KB= · FRAME_MS= · LH= ·
 - [ ] Gate 3
 
 ## Phase 4 — Rendering
+
 - [ ] 4.1 Fretboard component
 - [ ] 4.2 TabLane component
 - [ ] 4.3 TransitionCard component
@@ -56,6 +62,7 @@ Recorded numbers (fill in as you go): LIVE_URL= · JS_KB= · FRAME_MS= · LH= ·
 - [ ] Gate 4
 
 ## Phase 5 — Audio
+
 - [ ] 5.1 Pure scheduler
 - [ ] 5.2 Guitar voice + strum
 - [ ] 5.3 Metronome + count-in
@@ -64,6 +71,7 @@ Recorded numbers (fill in as you go): LIVE_URL= · JS_KB= · FRAME_MS= · LH= ·
 - [ ] Gate 5
 
 ## Phase 6 — Lessons and drills
+
 - [ ] 6.0 Style sheets, riff builder, style lint
 - [ ] 6.1 Lesson data
 - [ ] 6.2 Lesson player + arrangement
@@ -77,18 +85,21 @@ Recorded numbers (fill in as you go): LIVE_URL= · JS_KB= · FRAME_MS= · LH= ·
 - [ ] Gate 6 (includes your listening review)
 
 ## Phase 7 — Tuner and listening
+
 - [ ] 7.1 Pitch → note/cents
 - [ ] 7.2 Tuner UI
 - [ ] 7.3 Root-note auto-advance
 - [ ] Gate 7
 
 ## Phase 8 — Hands-free and settings
+
 - [ ] 8.1 Keyboard/pedal shortcuts
 - [ ] 8.2 Voice commands
 - [ ] 8.3 Left-handed, tunings, finishes everywhere
 - [ ] Gate 8
 
 ## Phase 9 — PWA, UI candy, performance
+
 - [ ] 9.1 PWA offline + install
 - [ ] 9.2 Motion candy
 - [ ] 9.3 Living strings
@@ -98,6 +109,7 @@ Recorded numbers (fill in as you go): LIVE_URL= · JS_KB= · FRAME_MS= · LH= ·
 - [ ] Gate 9
 
 ## Phase 10 — Showcase and release
+
 - [ ] 10.1 README + docs + ADRs
 - [ ] 10.2 Demo mode (USER ACTION: record GIF)
 - [ ] 10.3 Beta with guitarists (USER ACTION)
@@ -105,9 +117,11 @@ Recorded numbers (fill in as you go): LIVE_URL= · JS_KB= · FRAME_MS= · LH= ·
 - [ ] Gate 10
 
 ---
+
 # v1.1 — Lead, thumb-over and Whammy (PRD §16)
 
 ## Phase 11 — v1.1 foundation
+
 - [ ] 11.1 Phrase notation parser
 - [ ] 11.2 Lead scheduling
 - [ ] 11.3 Lead voice + tone presets
@@ -116,6 +130,7 @@ Recorded numbers (fill in as you go): LIVE_URL= · JS_KB= · FRAME_MS= · LH= ·
 - [ ] Gate 11
 
 ## Phase 12 — Module 3: Lead
+
 - [ ] 12.1 Scale explorer
 - [ ] 12.2 Bend trainer
 - [ ] 12.3 Melody-to-solo
@@ -124,6 +139,7 @@ Recorded numbers (fill in as you go): LIVE_URL= · JS_KB= · FRAME_MS= · LH= ·
 - [ ] Gate 12
 
 ## Phase 13 — Module 4: Thumb-over
+
 - [ ] 13.1 Thumb-over shapes + comfort check
 - [ ] 13.2 Embellishment + double-stop generators
 - [ ] 13.3 Funk muting + bass bed
@@ -132,6 +148,7 @@ Recorded numbers (fill in as you go): LIVE_URL= · JS_KB= · FRAME_MS= · LH= ·
 - [ ] Gate 13
 
 ## Phase 14 — Module 5: Whammy
+
 - [ ] 14.1 Whammy in playback
 - [ ] 14.2 Pedal input: on-screen rocker + MIDI pedal
 - [ ] 14.3 Killswitch stutter drill
@@ -141,6 +158,7 @@ Recorded numbers (fill in as you go): LIVE_URL= · JS_KB= · FRAME_MS= · LH= ·
 - [ ] Gate 14
 
 ## Phase 15 — Cross-style, tone recipes, v1.1 release
+
 - [ ] 15.1 Cross-style lesson
 - [ ] 15.2 Tone recipes + "Your gear"
 - [ ] 15.3 Curriculum integration
@@ -148,9 +166,11 @@ Recorded numbers (fill in as you go): LIVE_URL= · JS_KB= · FRAME_MS= · LH= ·
 - [ ] Gate 15
 
 ---
+
 # v1.2 — The app hears chords (PRD §17)
 
 ## Phase 16 — Chord detection
+
 - [ ] 16.1 Audio capture worklet + pure DSP
 - [ ] 16.2 Basic Pitch engine in a worker
 - [ ] 16.3 Shape matching + engine choice
@@ -158,6 +178,7 @@ Recorded numbers (fill in as you go): LIVE_URL= · JS_KB= · FRAME_MS= · LH= ·
 - [ ] Gate 16
 
 ## Phase 17 — Auto-advance, adaptive tempo, v1.2 release
+
 - [ ] 17.1 Chord auto-advance
 - [ ] 17.2 Onset + timing analysis
 - [ ] 17.3 Mic-based adaptive tempo
@@ -165,9 +186,11 @@ Recorded numbers (fill in as you go): LIVE_URL= · JS_KB= · FRAME_MS= · LH= ·
 - [ ] Gate 17
 
 ---
+
 # v2.0 — Sync, studio, style morph, jam mode (PRD §18)
 
 ## Phase 18 — Accounts and sync
+
 - [ ] 18.1 Supabase project + schema (USER ACTION)
 - [ ] 18.2 Auth UI
 - [ ] 18.3 Offline-first sync engine
@@ -175,6 +198,7 @@ Recorded numbers (fill in as you go): LIVE_URL= · JS_KB= · FRAME_MS= · LH= ·
 - [ ] Gate 18
 
 ## Phase 19 — Desktop studio
+
 - [ ] 19.1 Record takes
 - [ ] 19.2 Compare view
 - [ ] 19.3 Layer mixer
@@ -183,11 +207,13 @@ Recorded numbers (fill in as you go): LIVE_URL= · JS_KB= · FRAME_MS= · LH= ·
 - [ ] Gate 19
 
 ## Phase 20 — Live style morph
+
 - [ ] 20.1 Morph planner (pure)
 - [ ] 20.2 Audio + visual morph
 - [ ] Gate 20
 
 ## Phase 21 — Jam mode
+
 - [ ] 21.1 Band pattern generators (pure)
 - [ ] 21.2 Band voices
 - [ ] 21.3 Follow tempo + follow sections
@@ -195,15 +221,18 @@ Recorded numbers (fill in as you go): LIVE_URL= · JS_KB= · FRAME_MS= · LH= ·
 - [ ] Gate 21
 
 ## Phase 22 — v2.0 polish and release
+
 - [ ] 22.1 Performance + accessibility pass
 - [ ] 22.2 Docs, ADRs, demo (USER ACTION: new GIF)
 - [ ] 22.3 Release v2.0.0
 - [ ] Gate 22
 
 ---
+
 # v2.x — Camera and app stores (PRD §19)
 
 ## Phase 23 — v2.1 Camera finger check
+
 - [ ] 23.1 Geometry (pure)
 - [ ] 23.2 Hand Landmarker in a worker
 - [ ] 23.3 Finger check UI (USER ACTION: test with guitar)
@@ -211,6 +240,7 @@ Recorded numbers (fill in as you go): LIVE_URL= · JS_KB= · FRAME_MS= · LH= ·
 - [ ] Gate 23
 
 ## Phase 24 — v2.2 App-store builds and final release
+
 - [ ] 24.1 Capacitor setup
 - [ ] 24.2 Native plugins
 - [ ] 24.3 CI native builds

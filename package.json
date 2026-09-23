@@ -15,13 +15,16 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run --reporter=dot",
     "verify": "npm run lint --silent && npm run typecheck --silent && npm run test --silent",
-    "e2e": "playwright test --reporter=line"
+    "e2e": "playwright test --reporter=line",
+    "prepare": "husky"
   },
   "dependencies": {
     "react": "^19.2.8",
     "react-dom": "^19.2.8"
   },
   "devDependencies": {
+    "@commitlint/cli": "^21.2.3",
+    "@commitlint/config-conventional": "^21.2.3",
     "@eslint/js": "^9.39.5",
     "@playwright/test": "^1.63.0",
     "@testing-library/jest-dom": "^7.0.1",
@@ -38,7 +41,9 @@
     "eslint-plugin-react-hooks": "^7.1.1",
     "eslint-plugin-react-refresh": "^0.5.7",
     "globals": "^17.12.0",
+    "husky": "^9.1.7",
     "jsdom": "^30.1.1",
+    "lint-staged": "^17.5.1",
     "prettier": "^3.9.9",
     "typescript": "~6.0.2",
     "typescript-eslint": "^8.70.1",
