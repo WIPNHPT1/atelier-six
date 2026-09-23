@@ -1,0 +1,483 @@
+<!doctype html>
+  <html lang="en-GB"><head><meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Atelier Six Mac Guide</title>
+  <style>
+  :root { --bg:#F4F0E8; --panel:#FFFDF8; --text:#1B1816; --dim:#5E5750; --line:rgba(27,24,22,.12);
+    --brass:#8A6A35; --code:#EDE6D9; --term:#2F5D50; --cc:#7A4E2D; --web:#2F4F7A; --app:#6A3F75; }
+  @media (prefers-color-scheme: dark) { :root { --bg:#121110; --panel:#1C1917; --text:#EFEAE1; --dim:#A69E92;
+    --line:rgba(239,234,225,.12); --brass:#D9B77E; --code:#2B211D; --term:#9CCBB9; --cc:#E3B08A; --web:#A9C3E8; --app:#D4AEDD; } }
+  * { box-sizing:border-box }
+  body { margin:0; background:var(--bg); color:var(--text); font:17px/1.6 -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif; }
+  main { max-width:820px; margin:0 auto; padding:32px 16px 96px; }
+  h1 { font:400 2.4rem/1.15 "New York", "Iowan Old Style", Georgia, serif; margin:.2em 0 .4em; }
+  h2 { font:400 1.7rem/1.2 "New York", "Iowan Old Style", Georgia, serif; margin:2.2em 0 .5em; padding-top:.6em; border-top:1px solid var(--line); }
+  h3 { font-size:1.1rem; margin:1.6em 0 .4em; }
+  a { color:var(--brass); }
+  hr { display:none; }
+  code { font:0.92em ui-monospace, "SF Mono", Menlo, monospace; background:var(--code); padding:.1em .35em; border-radius:4px; }
+  pre { position:relative; background:var(--code); padding:14px 16px; border-radius:8px; overflow-x:auto; border:1px solid var(--line); }
+  pre code { background:none; padding:0; font-size:.95rem; }
+  .copy { position:absolute; top:8px; right:8px; font:600 12px -apple-system, sans-serif; color:var(--text); background:var(--panel);
+    border:1px solid var(--line); border-radius:999px; padding:4px 10px; cursor:pointer; }
+  .copy:focus-visible { outline:2px solid var(--brass); outline-offset:2px; }
+  table { border-collapse:collapse; width:100%; margin:1em 0; font-size:.95rem; display:block; overflow-x:auto; }
+  th, td { text-align:left; padding:8px 10px; border-bottom:1px solid var(--line); vertical-align:top; }
+  blockquote { margin:1em 0; padding:12px 16px; background:var(--panel); border-left:3px solid var(--brass); border-radius:0 8px 8px 0; }
+  blockquote p { margin:0; }
+  .tag { display:inline-block; font-weight:600; font-size:.85em; padding:1px 8px; border-radius:999px; border:1px solid currentColor; white-space:nowrap; }
+  .term { color:var(--term) } .cc { color:var(--cc) } .web { color:var(--web) } .app { color:var(--app) }
+  nav { background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:12px 20px; }
+  nav ol { margin:.4em 0; padding-left:1.2em; }
+  nav li { margin:.15em 0; }
+  .kicker { color:var(--dim); font-size:.9rem; letter-spacing:.08em; text-transform:uppercase; margin-top:0; }
+  li.task { list-style:none; margin-left:-1.5em; padding-left:1.9em; text-indent:-1.9em; }
+  li.task input { width:18px; height:18px; margin:0 .6em 0 0; vertical-align:-3px; accent-color:var(--brass); cursor:pointer; }
+  li.task.done { color:var(--dim); }
+  li.task ul, li.task ol { text-indent:0; margin-top:.3em; }
+  .meter { position:sticky; top:0; z-index:5; display:flex; align-items:center; gap:12px; background:var(--bg); padding:10px 0; border-bottom:1px solid var(--line); font-size:.9rem; color:var(--dim); }
+  .meter .bar { flex:1; height:6px; border-radius:9px; background:var(--code); overflow:hidden; }
+  .meter .bar i { display:block; height:100%; width:0; background:var(--brass); }
+  .meter button { font:inherit; color:var(--text); background:var(--panel); border:1px solid var(--line); border-radius:999px; padding:3px 12px; cursor:pointer; }
+  @media print { .copy, nav, .meter { display:none } body { font-size:12pt } li.task input { -webkit-print-color-adjust:exact; } }
+  </style></head>
+  <body><main>
+  <p class="kicker">Atelier Six · build guide</p>
+  <h1>Building Atelier Six on a Mac: the baby-steps guide</h1><nav aria-label="Contents"><strong>Contents</strong><ol><li><a href="#s1">Part 0 — Before you start</a></li><li><a href="#s2">Part 1 — Get the Claude app ready</a></li><li><a href="#s3">Part 2 — Create your accounts (in the browser)</a></li><li><a href="#s4">Part 3 — Install two tools by clicking (one time)</a></li><li><a href="#s5">Part 4 — Put the kit in the right place</a></li><li><a href="#s6">Part 5 — Your first session</a></li><li><a href="#s7">Part 6 — The routine for every session</a></li><li><a href="#s8">Part 7 — When Claude needs you (click by click)</a></li><li><a href="#s9">Part 8 — When you run out of usage</a></li><li><a href="#s10">Part 9 — If something goes wrong</a></li><li><a href="#s11">Part 10 — Words you'll see</a></li><li><a href="#s12">Cheat sheet (every session)</a></li></ol></nav>
+<p>This guide assumes you've never written code. <strong>You won't need Terminal.</strong> Everything happens in the <strong>Claude app</strong> you already use: its <strong>Code</strong> tab is where Claude builds the app, and Claude runs every command itself. <strong><code>WALKTHROUGH.html</code> is the order of everything</strong>, with tick boxes; this guide has the click-by-click detail it points to. Follow this guide top to bottom the first time, then use the <strong>Cheat sheet</strong> at the end for every session after that.</p>
+<p>You don't need to understand the code. Your job is to be the <strong>project owner</strong>: you start each session, answer Claude's questions, click through a few websites, and check the app looks and sounds right. Claude writes, tests and fixes the code.</p>
+<hr />
+<h2 id="s1">Part 0 — Before you start</h2>
+<h3>What you'll need</h3>
+<ul>
+<li>A Mac running <strong>macOS 13 (Ventura) or newer</strong> (Apple menu  → About This Mac).</li>
+<li><strong>About 10 GB of free space</strong> (40 GB if you later want to test on an iPhone, because Apple's Xcode is big).</li>
+<li>A <strong>paid Claude plan (Pro or Max)</strong>. The free plan doesn't include Claude Code.</li>
+<li>About <strong>45 minutes</strong> for the one-time setup in Parts 1–5.</li>
+<li>Your guitar and headphones for the listening checks later.</li>
+</ul>
+<h3>The places you'll use</h3>
+<p>Every instruction in this guide says <strong>where</strong> to do it:</p>
+<table>
+<thead>
+<tr>
+<th>Label in this guide</th>
+<th>What it is</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><span class="tag cc">🤖 Claude Code</span></strong></td>
+<td>The <strong>Code</strong> tab of the Claude desktop app, with your project open. This is where you type <code>/next</code> and talk to Claude about the build.</td>
+</tr>
+<tr>
+<td><strong><span class="tag app">💬 Claude chat</span></strong></td>
+<td>The normal <strong>Chat</strong> tab of the Claude app, for general questions about the process.</td>
+</tr>
+<tr>
+<td><strong><span class="tag web">🌐 Browser</span></strong></td>
+<td>Safari or Chrome, for websites like GitHub and Netlify.</td>
+</tr>
+<tr>
+<td><strong>Finder</strong></td>
+<td>The Mac's file browser, for moving the kit and dropping in files.</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>The golden rule:</strong> in <span class="tag cc">🤖 Claude Code</span> you can type plain English ("the buttons look too small") as well as the slash commands like <code>/next</code>. You never need to type commands in Terminal. If Claude ever needs a keyboard-only step, it will say so and give you one line to paste.</p>
+</blockquote>
+<h3>How long it takes</h3>
+<p>On the Pro plan, using <strong>Sonnet</strong> as the main model, expect roughly <strong>1–1½ months to v1.0</strong> and <strong>3–4 months to the finished app</strong>, working most days. Using <strong>Opus 5.5</strong> for everything would take 3–5 times longer, so switch to it only when Claude or <code>START-HERE.md</code> suggests. The full breakdown is in <code>START-HERE.md</code> under "How long will this take?". To switch model, use the <strong>model menu</strong> next to the send button.</p>
+<hr />
+<h2 id="s2">Part 1 — Get the Claude app ready</h2>
+<ol>
+<li>If you don't have the desktop app yet: 🌐 <strong>claude.com/download</strong> → download for Mac → open the file → drag <strong>Claude</strong> into <strong>Applications</strong> → open it and sign in.</li>
+<li>If you already have it: menu <strong>Claude → Check for Updates…</strong> Some features in this guide need a recent version.</li>
+<li>At the top of the window, click <strong>Code</strong>. This is <strong><span class="tag cc">🤖 Claude Code</span></strong>.</li>
+<li>Get to know the Code tab:<ul>
+<li><strong>Left sidebar:</strong> your sessions (each one is a separate conversation), <strong>+ New session</strong> (or <strong>⌘N</strong>), and <strong>Routines</strong> (scheduled tasks, used later for autopilot).</li>
+<li><strong>Prompt box</strong> at the bottom, with some controls around it:</li>
+<li><strong>Environment:</strong> always choose <strong>Local</strong>, meaning "on this Mac".</li>
+<li><strong>Project folder:</strong> which folder Claude works in.</li>
+<li><strong>Model menu:</strong> choose <strong>Sonnet</strong>.</li>
+<li><strong>Mode selector</strong> (or <strong>⌘ Shift M</strong>): choose <strong>Auto</strong>.</li>
+<li><strong>Usage ring</strong> next to the model menu: click it to see how much of your plan's usage you've used.</li>
+</ul>
+</li>
+<li><strong>Keep your Mac awake while Claude works:</strong> Claude app → <strong>Settings</strong> → <strong>Desktop app → General</strong> → turn on <strong>Keep computer awake</strong>. Keep a MacBook plugged in and its lid open.</li>
+<li><strong>Notifications:</strong> the first time Claude asks to send notifications, click <strong>Allow</strong>. The app then tells you when Claude has finished or needs you, so you don't have to watch.</li>
+</ol>
+<hr />
+<h2 id="s3">Part 2 — Create your accounts (in the browser)</h2>
+<p>All free except Claude.</p>
+<ol>
+<li><strong>Claude (paid):</strong> make sure your account is on <strong>Pro</strong> or <strong>Max</strong> (claude.ai → Settings → Billing).</li>
+<li><strong>GitHub (free):</strong> 🌐 <strong>github.com</strong> → <strong>Sign up</strong>. Pick a username you're happy to show people; it appears in your project's web address. Verify your email. (You don't need to create the project on GitHub: Claude does it for you in Part 5.)</li>
+<li><strong>Netlify and Supabase:</strong> don't sign up yet. Claude will tell you when (Steps 0.8 and 18.1), and you'll sign in with your GitHub account in one click.</li>
+</ol>
+<hr />
+<h2 id="s4">Part 3 — Install two tools by clicking (one time)</h2>
+<p>These are ordinary Mac installers, the same as installing any app.</p>
+<h3>3.1 Node.js (runs the app's building tools)</h3>
+<ol>
+<li>🌐 <strong>nodejs.org</strong> → <strong>Download</strong> → choose the <strong>LTS</strong> version (24.x) → <strong>macOS Installer (.pkg)</strong>.</li>
+<li>Open the downloaded file from <strong>Downloads</strong>, click <strong>Continue</strong> through the installer, and enter your Mac password when asked.</li>
+</ol>
+<h3>3.2 GitHub CLI (lets Claude save your work to GitHub)</h3>
+<ol>
+<li>🌐 <strong>github.com/cli/cli/releases/latest</strong> → scroll to <strong>Assets</strong> → download the file ending in <strong><code>macOS_universal.pkg</code></strong>.</li>
+<li>Open it from Downloads and click through the installer.</li>
+</ol>
+<p>(Apple's developer tools, which include Git, are installed in Part 5: Claude makes the Mac show an <strong>Install</strong> button for you.)</p>
+<p><strong>Optional:</strong> <strong>VS Code</strong> (code.visualstudio.com) lets you browse the project's files in a friendlier way. It isn't required.</p>
+<hr />
+<h2 id="s5">Part 4 — Put the kit in the right place</h2>
+<h3>4.1 Download the kit</h3>
+<ol>
+<li>💬 In the Claude chat where you got this kit, click the <strong>atelier-six-kit.zip</strong> file card and download it. It goes to your <strong>Downloads</strong> folder.</li>
+<li>Open <strong>Finder</strong> → <strong>Downloads</strong>, and <strong>double-click</strong> <code>atelier-six-kit.zip</code>. A folder called <strong>atelier-six-kit</strong> appears.</li>
+</ol>
+<blockquote>
+<p><strong>Using an external drive instead?</strong> Follow Part A of <code>DRIVE-AND-AUTOPILOT.html</code> for this part, then come back to Part 5.</p>
+</blockquote>
+<h3>4.2 Make a Projects folder (not on the Desktop)</h3>
+<p>Your Desktop may be synced to iCloud, and iCloud struggles with the thousands of small files a code project creates. So keep the project in your home folder instead:</p>
+<ol>
+<li>In Finder, press <strong>⌘ Shift H</strong> to open your home folder (the one with the house icon).</li>
+<li><strong>File → New Folder</strong>, and name it <strong>Projects</strong>.</li>
+<li>Drag the <strong>atelier-six-kit</strong> folder from Downloads into <strong>Projects</strong>.</li>
+<li>Click it once, press <strong>Return</strong>, and rename it to <strong>atelier-six</strong>.</li>
+<li><strong>Optional:</strong> drag <strong>Projects</strong> into the Finder sidebar under Favourites.</li>
+</ol>
+<h3>4.3 Check the hidden files came across</h3>
+<p>Inside the <strong>atelier-six</strong> folder, press <strong>⌘ Shift .</strong> (full stop). A greyed-out <strong>.claude</strong> folder appears. It holds Claude's instructions for this project. Press the same keys again to hide it. <strong>Never delete it.</strong></p>
+<hr />
+<h2 id="s6">Part 5 — Your first session</h2>
+<h3>5.1 Open the project in Claude Code</h3>
+<ol>
+<li>Open the Claude app → <strong>Code</strong> → <strong>+ New session</strong> (⌘N).</li>
+<li>In the prompt box, set:<ul>
+<li><strong>Environment:</strong> <strong>Local</strong></li>
+<li><strong>Project folder:</strong> click it → <strong>Choose folder…</strong> → <strong>Projects</strong> → <strong>atelier-six</strong> → <strong>Open</strong></li>
+<li><strong>Model:</strong> <strong>Sonnet</strong></li>
+<li><strong>Mode:</strong> <strong>Auto</strong></li>
+</ul>
+</li>
+<li>If it asks whether you <strong>trust this folder</strong> (and its settings and hooks), choose <strong>Trust</strong>: they come from this kit.</li>
+</ol>
+<h3>5.2 Let Claude set up your Mac</h3>
+<p><span class="tag cc">🤖 Claude Code</span></p>
+<pre><code>/setup
+</code></pre>
+<p>Claude checks everything and does the setup itself. You'll be asked for a few clicks:</p>
+<ul>
+<li><strong>"Install command line developer tools?"</strong> A Mac window appears → <strong>Install</strong> → <strong>Agree</strong>. This takes 5–15 minutes. Then type <em>done</em>.</li>
+<li><strong>GitHub sign-in:</strong> Claude shows an 8-character code, and your browser opens GitHub (if it doesn't, go to <strong>github.com/login/device</strong>). Enter the code → <strong>Continue</strong> → <strong>Authorize GitHub CLI</strong>. Then type <em>done</em>.</li>
+<li>It then creates your <strong>atelier-six</strong> repository on GitHub and tells you its address.</li>
+</ul>
+<p>If a tool from Part 3 is missing, Claude tells you which installer to run.</p>
+<h3>5.3 Start building</h3>
+<p><span class="tag cc">🤖 Claude Code</span></p>
+<pre><code>/next
+</code></pre>
+<p>Claude reads the instructions and starts Phase 0. A short status line at the start of each session (such as <code>Current: 0.1 · nothing to recover</code>) is the kit telling Claude where the build is.</p>
+<h3>5.4 Permission questions</h3>
+<p>In <strong>Auto</strong> mode, Claude doesn't ask before normal building work. A built-in safety check blocks risky actions, and the kit fences commands into your project folder (details in <code>DRIVE-AND-AUTOPILOT.html</code>, Part B). Now and then a permission card still appears with buttons to allow or deny.</p>
+<ul>
+<li>For <code>npm</code>, <code>npx</code>, <code>git</code>, <code>node</code> or <code>gh</code> working in your project: <strong>allow</strong> (choose "always allow" if it's offered).</li>
+<li>For anything with <strong><code>sudo</code></strong>, anything deleting files <strong>outside</strong> your atelier-six folder, anything that asks for a password, or anything you're unsure about: <strong>deny</strong>, and type <em>"Why do you need this? Explain in plain English."</em></li>
+</ul>
+<h3>5.5 While it works</h3>
+<ul>
+<li>You don't need to watch. The Mac shows a notification when Claude finishes or needs you.</li>
+<li><strong>To interrupt Claude:</strong> click the <strong>Stop</strong> button by the prompt box (or press <strong>Esc</strong>), then type what you want, e.g. <em>"stop and explain what you're doing"</em>.</li>
+<li><strong>Seeing what it changed</strong> is optional: the <strong>+12 −1</strong> style counter opens the list of changed files.</li>
+<li><strong>Quitting the Claude app stops Claude.</strong> That's safe: work is saved at checkpoints, and <code>/pickup</code> carries on (Part 8).</li>
+</ul>
+<hr />
+<h2 id="s7">Part 6 — The routine for every session</h2>
+<p>This is the loop you'll repeat for weeks. It's also on the Cheat sheet.</p>
+<ol>
+<li>Open the Claude app → <strong>Code</strong> → <strong>+ New session</strong> (⌘N). Check the prompt box shows <strong>Local</strong>, <strong>atelier-six</strong>, <strong>Sonnet</strong> and <strong>Auto</strong>. (Claude remembers these after the first time.)</li>
+<li>🤖 <code>/progress</code> shows where you are (cheap).</li>
+<li>🤖 <code>/next</code> does the steps of the current phase and stops at the end of the phase.</li>
+<li>When it says <strong>"Phase steps done. Run /gate."</strong> → 🤖 <code>/gate</code> runs all the tests for that phase and releases it.</li>
+<li>When the gate passes → <strong>start a new session (⌘N)</strong>. A fresh session starts with a small memory, which <strong>saves a lot of usage</strong>. Then 🤖 <code>/next</code> again.</li>
+<li>Stop whenever you like. Old sessions stay in the sidebar; you can archive them (hover → archive icon).</li>
+</ol>
+<blockquote>
+<p><strong>Want it to carry on without you?</strong> Part B of <code>DRIVE-AND-AUTOPILOT.html</code> sets up <strong>autopilot</strong>: a scheduled task in the Claude app that keeps building every hour and pauses itself when it needs you.</p>
+</blockquote>
+<h3>Reading what Claude tells you</h3>
+<ul>
+<li><strong>"Step done … commit abc1234"</strong> → all good.</li>
+<li><strong>"USER ACTION"</strong> or a question → it needs you. Read Part 7 for that step, do it, then type your answer (e.g. <em>"done"</em>, or paste what it asked for).</li>
+<li><strong>"BLOCKED: …"</strong> → it tried 3 times and couldn't fix something. Read the reason. If it's a question, answer it. If it's gibberish to you, type <em>"Explain the problem in plain English and tell me my options"</em>.</li>
+</ul>
+<h3>Checking your progress without Claude</h3>
+<p>In Finder, open <strong>atelier-six</strong>, click <strong>PROGRESS.md</strong> once and press <strong>Space</strong>. You'll see the checklist with ticks. Press Space again to close.</p>
+<h3>Seeing the app</h3>
+<ul>
+<li><strong>Live site:</strong> the Netlify address Claude gives you in Step 0.8 (it ends in <code>.netlify.app</code>). Bookmark it and open it on your phone too.</li>
+<li><strong>Preview inside the Claude app:</strong> 🤖 type <em>"show me the app in the preview"</em>. Claude starts it in the <strong>Browser</strong> pane (<strong>⌘ Shift B</strong>), where you can click around the latest version before it goes live.</li>
+</ul>
+<h3>Talking to Claude</h3>
+<p>You can always use plain English:</p>
+<ul>
+<li><em>"What phase are we on and what's left?"</em></li>
+<li><em>"Explain what you just did in two sentences."</em></li>
+<li><em>"The tuner needle is jumpy on my phone"</em>, or better: 🤖 <code>/fix the tuner needle is jumpy on my phone</code></li>
+<li><em>"Make the buttons a bit bigger on mobile."</em></li>
+</ul>
+<hr />
+<h2 id="s8">Part 7 — When Claude needs you (click by click)</h2>
+<p>Claude will stop and ask at these points. Each one tells you what to do. Here is the extra detail.</p>
+<h3>Step 0.8 — Put the site online (Netlify)</h3>
+<ol>
+<li>🌐 <strong>netlify.com</strong> → <strong>Sign up</strong> → <strong>Sign up with GitHub</strong> → <strong>Authorize</strong>.</li>
+<li><strong>Add new project</strong> (or <strong>Add new site</strong>) → <strong>Import an existing project</strong> → <strong>GitHub</strong> → authorize if asked → pick <strong>atelier-six</strong>.</li>
+<li>Don't change any settings (the kit sets them) → <strong>Deploy</strong>.</li>
+<li>Wait for "Published". Copy the address shown (like <code>https://something.netlify.app</code>).</li>
+<li>🤖 Paste it into Claude Code and press Return.</li>
+<li><strong>Optional:</strong> Site configuration → Change site name → e.g. <code>atelier-six-yourname</code>, then tell Claude the new address.</li>
+</ol>
+<h3>Step 0.7 — Turn on GitHub's secret protection</h3>
+<p>🌐 github.com → your <strong>atelier-six</strong> repository → <strong>Settings</strong> → <strong>Code security</strong> (left menu). Make sure <strong>Secret scanning</strong> and <strong>Push protection</strong> are <strong>Enabled</strong>. 🤖 Type <em>"done"</em>.</p>
+<h3>Step 0.9 — Check nobody else owns the name</h3>
+<p>Claude Code writes a file called <code>legal-check.md</code> with links. Click each one, search for <strong>Atelier Six</strong>, and 🤖 tell Claude what you found, e.g. <em>"UK: nothing. App Store: a furniture shop called Atelier Six."</em> If something similar exists in music or apps, Claude Code will stop and ask whether to keep or change the name. This isn't legal advice; for a paid launch, ask a trade mark adviser.</p>
+<h3>Real-device checks (Gates 5, 7, 9, 17, 23 and 24)</h3>
+<p>Claude Code gives you a few rows from <code>device-checklist.md</code>, for example "On iPhone Safari, does sound play with the silent switch on?" Try each one on your own iPhone, iPad or Mac and 🤖 reply with what happened.</p>
+<h3>Step 1.5 — Approve the look</h3>
+<p>Open your live address with <strong>/design</strong> added on the end (e.g. <code>https://…netlify.app/design</code>). Look at colours, fonts and buttons. 🤖 Tell Claude in plain words: <em>"Looks great"</em> or <em>"the gold is too yellow, text feels small"</em>.</p>
+<h3>Listening checks (Steps 5.2, 11.3, 17.3, 20.2, 21.2, 21.4)</h3>
+<p>Put headphones on, open the page Claude names, press the buttons, and 🤖 tell Claude what you think in normal words. Wired headphones are best: Bluetooth adds a delay that confuses the timing features.</p>
+<h3>Guitar checks (Steps 7.2, 12.2, 17.3, 23.3)</h3>
+<p>Open the page on the device you practise with. When the browser asks to use the <strong>microphone</strong> (or <strong>camera</strong>), click <strong>Allow</strong>. Play what Claude asks and 🤖 report back, e.g. <em>"it said my bends were short when they sounded right"</em>.</p>
+<h3>Steps 10.2, 15.4, 22.2, 24.6 — Record the demo GIF</h3>
+<ol>
+<li>Open your live address with <strong>?demo=1</strong> on the end, e.g. <code>https://…netlify.app/?demo=1</code>, in a large browser window.</li>
+<li>Press <strong>⌘ Shift 5</strong> → choose <strong>Record Selected Portion</strong> → drag the box around the browser window → <strong>Record</strong>.</li>
+<li>When the tour finishes, click the <strong>Stop</strong> button (■) in the top menu bar. The video appears on your Desktop.</li>
+<li>🌐 Go to <strong>ezgif.com</strong> → <strong>Video to GIF</strong> → upload the video → set <strong>Size</strong> width to <strong>960</strong> → <strong>Convert to GIF</strong> → <strong>Save</strong>.</li>
+<li>Rename the file to <strong>demo.gif</strong> and drag it into <strong>atelier-six → docs</strong> in Finder.</li>
+<li>🤖 Type <em>"done"</em>.</li>
+</ol>
+<p>(Shortcut: you can instead 🤖 tell Claude <em>"the video is on my Desktop, please convert it to docs/demo.gif"</em>. It can usually do the conversion itself.)</p>
+<h3>Step 16.4 — Record your chords (optional)</h3>
+<ol>
+<li>Open the <strong>Voice Memos</strong> app on your Mac (or iPhone, synced by iCloud).</li>
+<li>Record each chord Claude lists for about 2 seconds, and rename each memo to the name Claude gives (e.g. <code>C.open.a</code>).</li>
+<li>Drag the memos from Voice Memos into <strong>atelier-six → eval → user</strong> in Finder.</li>
+<li>🤖 Type <em>"done, they're m4a files"</em>. Claude converts them.</li>
+</ol>
+<h3>Step 18.1 — Supabase (for syncing between devices)</h3>
+<ol>
+<li>🌐 <strong>supabase.com</strong> → <strong>Start your project</strong> → <strong>Continue with GitHub</strong>.</li>
+<li><strong>New project</strong> → Name: <strong>atelier-six</strong> → <strong>Database password</strong>: click <strong>Generate</strong>, and save it in the <strong>Passwords</strong> app → Region: <strong>West EU (London)</strong> → <strong>Create new project</strong>. Wait a minute.</li>
+<li>
+<p>Go to <strong>Project Settings → API</strong> (may be called <strong>API Keys</strong>). Copy:</p>
+<ul>
+<li>the <strong>Project URL</strong>,</li>
+<li>the <strong>anon / public</strong> key (may be called <strong>publishable</strong>).</li>
+</ul>
+<p><strong>Never</strong> copy or share the <strong>service_role</strong> / <strong>secret</strong> key.
+4. 🤖 Paste both into Claude Code.
+5. 🌐 Netlify → your site → <strong>Site configuration → Environment variables → Add a variable</strong>. Add <code>VITE_SUPABASE_URL</code> with the URL, then <code>VITE_SUPABASE_ANON_KEY</code> with the anon key. Then <strong>Deploys → Trigger deploy → Deploy site</strong>.
+6. 🌐 Supabase → <strong>Authentication → URL Configuration</strong>: paste the addresses Claude gives you into <strong>Site URL</strong> and <strong>Redirect URLs</strong> → <strong>Save</strong>.
+7. Claude may run <code>npx supabase login</code>. Your browser opens; click <strong>Authorize</strong>. 🤖 Type <em>"done"</em>.</p>
+</li>
+</ol>
+<h3>Step 18.4 — Try sync on two devices</h3>
+<p>Open your live site on your phone and laptop, sign in with the <strong>same email</strong> on both (click the link in the email each time), practise something on one, and check it appears on the other.</p>
+<h3>Step 19.5 — Check an export</h3>
+<p>Install <strong>MuseScore</strong> (free, musescore.org). Claude tells you where it saved the exported file (usually <strong>Downloads</strong>). Double-click it to open in MuseScore and 🤖 say whether it looks right.</p>
+<h3>End of each module — play it and score it (Gates 6, 12, 13 and 14)</h3>
+<p>This is how we make sure the music sounds right and is fun, not just technically correct.</p>
+<ol>
+<li>Open your live site on the device you practise with, plug in your guitar, and put wired headphones on.</li>
+<li>Open the module's <strong>tune</strong> (last card on the module page) and play it all the way through with the band. Then play the two lessons Claude Code names.</li>
+<li>
+<p>🤖 Type your three scores from 1 to 5, and a sentence on each if you like:</p>
+<ul>
+<li><strong>Playable:</strong> could your hands do it at the target speed?</li>
+<li><strong>Sounds like the style:</strong> does it feel like pop punk, Britpop, grunge, Frusciante or Morello?</li>
+<li><strong>Fun:</strong> did you want to play it again?</li>
+</ul>
+<p>For example: <em>"playable 5, style 3 (chorus feels too slow and polite), fun 4"</em>.
+4. Anything under 4 gets reworked, and Claude Code will ask you to try again. If you know another guitarist, ask them to try the tune too.</p>
+</li>
+</ol>
+<h3>Step 5.5 — Does it sound like a real guitar?</h3>
+<p>Open your live site with <strong>/design</strong> on the end, press play on the strummed chord, the palm-muted riff and the drum groove, and 🤖 say whether they sound like a real guitar and band.</p>
+<h3>Step 10.3 — The beta</h3>
+<p>Claude Code gives you a message to send to 3–5 guitar-playing friends with your live link and a two-minute feedback form. Send it however you like (text, WhatsApp, email). After about a week, 🤖 type <em>"feedback is in"</em>.</p>
+<h3>End of each phase — how long did it take?</h3>
+<p>Claude Code asks roughly how many usage windows the phase used. Count the times you hit the limit, add one, and 🤖 type the number. It uses these to give you a better finish date.</p>
+<h3>Step 24.1 — Choose the app ID</h3>
+<p>Claude suggests something like <code>com.yourname.ateliersix</code>. It can <strong>never change</strong> once the app is in a store, so pick something you're happy with and 🤖 type it.</p>
+<h3>Step 24.4 — Put the app on your phone</h3>
+<ul>
+<li><strong>Android:</strong> 🌐 your GitHub repo → <strong>Actions</strong> → the latest <strong>native</strong> run → <strong>Artifacts</strong> → download the APK. Send it to your phone (e.g. by email), open it, and allow "Install unknown apps" when asked.</li>
+<li><strong>iPhone (needs Xcode, ~15 GB):</strong> install <strong>Xcode</strong> from the App Store and open it once. Xcode → Settings → <strong>Accounts</strong> → add your Apple ID. On the iPhone: Settings → Privacy &amp; Security → <strong>Developer Mode</strong> → On (it restarts). Plug the iPhone in, then 🤖 tell Claude <em>"ready to install on my iPhone"</em>. It will guide you through the Xcode Run button. Free installs last 7 days.</li>
+</ul>
+<h3>Step 24.5 — App stores (optional, costs money)</h3>
+<p>Google Play is <strong>$25 once</strong>. Apple is <strong>$99 a year</strong>. 🤖 Type <em>"skip"</em> if you don't want this. Your app still installs free from the website.</p>
+<hr />
+<hr />
+<h2 id="s9">Part 8 — When you run out of usage</h2>
+<p>You <strong>will</strong> hit your Claude usage limit. Nothing is lost.</p>
+<p><strong>What you'll see:</strong> Claude says you've reached your usage limit and when it resets. The <strong>usage ring</strong> by the model menu shows how close you are.</p>
+<p><strong>If you notice you're close to the limit:</strong></p>
+<p><span class="tag cc">🤖 Claude Code</span></p>
+<pre><code>/checkpoint
+</code></pre>
+<p>It saves everything in a few seconds.</p>
+<p><strong>When your limit resets:</strong></p>
+<ol>
+<li><strong>Start a new session (⌘N)</strong>, not the old one. The old session carries its whole history, which uses up your allowance faster.</li>
+<li>Type this:</li>
+</ol>
+<p><span class="tag cc">🤖 Claude Code</span></p>
+<pre><code>/pickup
+</code></pre>
+<p>Claude re-checks where it stopped and carries on.</p>
+<p><strong>If autopilot is on</strong> (DRIVE-AND-AUTOPILOT, Part B), you don't need to do anything: its next hourly run after the reset picks up by itself.</p>
+<p><strong>Other things that pause:</strong></p>
+<ul>
+<li><strong>Live site shows "Site not available":</strong> Netlify's free monthly allowance ran out. Keep building. It comes back next month and Claude catches up automatically.</li>
+<li><strong>Sync stops working after a week off:</strong> 🌐 supabase.com → your project → <strong>Restore project</strong>.</li>
+</ul>
+<hr />
+<h2 id="s10">Part 9 — If something goes wrong</h2>
+<table>
+<thead>
+<tr>
+<th>What you see</th>
+<th>What to do</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Claude says <code>node</code>, <code>gh</code> or <code>git</code> isn't found</td>
+<td>🤖 <code>/setup</code>. It tells you which installer to run. If you've just installed something, quit the Claude app (⌘Q), reopen it and start a new session.</td>
+</tr>
+<tr>
+<td>Claude seems stuck</td>
+<td>Wait: tests can take 5–10 minutes. If it's been over 15 minutes, click <strong>Stop</strong> and type <em>"what were you doing? carry on"</em>.</td>
+</tr>
+<tr>
+<td>A permission card keeps coming back for normal project work</td>
+<td>Choose <strong>always allow</strong>.</td>
+</tr>
+<tr>
+<td>"BLOCKED" in Claude's reply</td>
+<td>🤖 <em>"Explain the problem in plain English and give me the options."</em></td>
+</tr>
+<tr>
+<td>"Operation not permitted"</td>
+<td>Usually the project's safety fence. Claude normally reruns the command itself. If it doesn't, type 🤖 <em>"rerun that outside the sandbox if it's safe"</em>.</td>
+</tr>
+<tr>
+<td>GitHub asks you to sign in again</td>
+<td>🤖 <code>/setup</code> and follow the GitHub sign-in steps.</td>
+</tr>
+<tr>
+<td>The Mac asks whether Claude may access files in a folder</td>
+<td>Click <strong>Allow</strong>.</td>
+</tr>
+<tr>
+<td>The site looks broken after an update</td>
+<td>🤖 <code>/fix</code> followed by what you see, e.g. <code>/fix the library page is blank on my iPhone</code>.</td>
+</tr>
+<tr>
+<td>You don't understand an error</td>
+<td>Copy it and paste it into <span class="tag app">💬 Claude chat</span> with <em>"I'm building Atelier Six in Claude's Code tab on a Mac. What does this mean and what should I do?"</em> Or just ask 🤖 <em>"explain that error in plain English"</em>.</td>
+</tr>
+<tr>
+<td>The Mac says the disk is full</td>
+<td>🤖 <em>"How much space is the project using, and what can safely be cleared?"</em></td>
+</tr>
+<tr>
+<td>You want to undo the last thing Claude did</td>
+<td>🤖 <em>"Undo your last step and explain what you undid."</em> It can roll back safely because every step is saved in Git.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="s11">Part 10 — Words you'll see</h2>
+<ul>
+<li><strong>Claude Code:</strong> Claude working on your project's files, here in the Code tab of the Claude app.</li>
+<li><strong>Session:</strong> one conversation with Claude in the Code tab. A new session (⌘N) starts with a fresh memory.</li>
+<li><strong>Terminal:</strong> the Mac's command window. You don't need it: Claude runs the commands.</li>
+<li><strong>Folder / directory:</strong> the same thing.</li>
+<li><strong>Repository (repo):</strong> your project folder, with its full history, also stored on GitHub.</li>
+<li><strong>Commit:</strong> a saved snapshot of the project. <strong>Push:</strong> send commits to GitHub.</li>
+<li><strong>Deploy:</strong> publish the latest version to your live website (Netlify does this after a push).</li>
+<li><strong>Phase / step / gate:</strong> the build plan's chapters, their small tasks, and the end-of-chapter test.</li>
+<li><strong>Checkpoint:</strong> an automatic save point inside a step.</li>
+<li><strong>Sandbox:</strong> a safety fence that keeps Claude's commands inside your project folder and on approved websites.</li>
+<li><strong>Routine / scheduled task:</strong> a job the Claude app starts by itself on a timetable (used for autopilot).</li>
+<li><strong>npm:</strong> the tool that installs code libraries. <strong>Node:</strong> what runs them.</li>
+<li><strong>Environment variable:</strong> a named setting (like a key) stored outside the code.</li>
+</ul>
+<hr />
+<h2 id="s12">Cheat sheet (every session)</h2>
+<pre><code>Claude app → Code → + New session (⌘N)
+Check: Local · atelier-six · Sonnet · Auto
+
+/progress      where am I?
+/next          build the next steps
+/gate          when it says &quot;Run /gate&quot;
+⌘N             new session after every gate
+/checkpoint    near your usage limit
+/pickup        first thing after a break or limit reset
+/fix &lt;what's wrong&gt;
+/setup         if a tool or the GitHub sign-in goes missing
+
+Stop button (or Esc) = interrupt Claude   ·   ⌘ Shift B = preview the app
+Plain English always works: &quot;explain that&quot;, &quot;what do you need from me?&quot;
+</code></pre>
+  </main>
+  <script>
+  (function(){
+    const boxes=[...document.querySelectorAll('li.task input')];
+    if(!boxes.length) return;
+    const key='atelier-six-MAC-GUIDE-ticks';
+    let saved={};
+    try { saved=JSON.parse(localStorage.getItem(key)||'{}'); } catch(e) {}
+    const meter=document.createElement('div'); meter.className='meter'; meter.setAttribute('role','status');
+    meter.innerHTML='<span class="count"></span><span class="bar"><i></i></span><button type="button">Clear ticks</button>';
+    document.querySelector('nav').after(meter);
+    const update=()=>{
+      const n=boxes.filter(b=>b.checked).length;
+      meter.querySelector('.count').textContent=n+' of '+boxes.length+' done';
+      meter.querySelector('i').style.width=(100*n/boxes.length)+'%';
+      boxes.forEach(b=>b.closest('li').classList.toggle('done',b.checked));
+    };
+    boxes.forEach(b=>{
+      b.checked=!!saved[b.dataset.k];
+      b.addEventListener('change',()=>{ saved[b.dataset.k]=b.checked; try { localStorage.setItem(key,JSON.stringify(saved)); } catch(e) {} update(); });
+    });
+    meter.querySelector('button').addEventListener('click',()=>{
+      if(!confirm('Clear every tick on this page?')) return;
+      saved={}; boxes.forEach(b=>b.checked=false); try { localStorage.removeItem(key); } catch(e) {} update();
+    });
+    update();
+  })();
+  document.querySelectorAll('pre').forEach(pre => {
+    const b = document.createElement('button');
+    b.className = 'copy'; b.type = 'button'; b.textContent = 'Copy';
+    b.setAttribute('aria-label', 'Copy this command');
+    b.onclick = async () => {
+      const text = pre.querySelector('code').innerText.replace(/\n$/, '');
+      try { await navigator.clipboard.writeText(text); } catch (e) {
+        const r = document.createRange(); r.selectNodeContents(pre.querySelector('code'));
+        const s = getSelection(); s.removeAllRanges(); s.addRange(r); document.execCommand('copy'); s.removeAllRanges();
+      }
+      b.textContent = 'Copied'; setTimeout(() => b.textContent = 'Copy', 1500);
+    };
+    pre.appendChild(b);
+  });
+  </script>
+  </body></html>

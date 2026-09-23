@@ -1,0 +1,315 @@
+<!doctype html>
+  <html lang="en-GB"><head><meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Drive and Autopilot</title>
+  <style>
+  :root { --bg:#F4F0E8; --panel:#FFFDF8; --text:#1B1816; --dim:#5E5750; --line:rgba(27,24,22,.12);
+    --brass:#8A6A35; --code:#EDE6D9; --term:#2F5D50; --cc:#7A4E2D; --web:#2F4F7A; --app:#6A3F75; }
+  @media (prefers-color-scheme: dark) { :root { --bg:#121110; --panel:#1C1917; --text:#EFEAE1; --dim:#A69E92;
+    --line:rgba(239,234,225,.12); --brass:#D9B77E; --code:#2B211D; --term:#9CCBB9; --cc:#E3B08A; --web:#A9C3E8; --app:#D4AEDD; } }
+  * { box-sizing:border-box }
+  body { margin:0; background:var(--bg); color:var(--text); font:17px/1.6 -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif; }
+  main { max-width:820px; margin:0 auto; padding:32px 16px 96px; }
+  h1 { font:400 2.4rem/1.15 "New York", "Iowan Old Style", Georgia, serif; margin:.2em 0 .4em; }
+  h2 { font:400 1.7rem/1.2 "New York", "Iowan Old Style", Georgia, serif; margin:2.2em 0 .5em; padding-top:.6em; border-top:1px solid var(--line); }
+  h3 { font-size:1.1rem; margin:1.6em 0 .4em; }
+  a { color:var(--brass); }
+  hr { display:none; }
+  code { font:0.92em ui-monospace, "SF Mono", Menlo, monospace; background:var(--code); padding:.1em .35em; border-radius:4px; }
+  pre { position:relative; background:var(--code); padding:14px 16px; border-radius:8px; overflow-x:auto; border:1px solid var(--line); }
+  pre code { background:none; padding:0; font-size:.95rem; }
+  .copy { position:absolute; top:8px; right:8px; font:600 12px -apple-system, sans-serif; color:var(--text); background:var(--panel);
+    border:1px solid var(--line); border-radius:999px; padding:4px 10px; cursor:pointer; }
+  .copy:focus-visible { outline:2px solid var(--brass); outline-offset:2px; }
+  table { border-collapse:collapse; width:100%; margin:1em 0; font-size:.95rem; display:block; overflow-x:auto; }
+  th, td { text-align:left; padding:8px 10px; border-bottom:1px solid var(--line); vertical-align:top; }
+  blockquote { margin:1em 0; padding:12px 16px; background:var(--panel); border-left:3px solid var(--brass); border-radius:0 8px 8px 0; }
+  blockquote p { margin:0; }
+  .tag { display:inline-block; font-weight:600; font-size:.85em; padding:1px 8px; border-radius:999px; border:1px solid currentColor; white-space:nowrap; }
+  .term { color:var(--term) } .cc { color:var(--cc) } .web { color:var(--web) } .app { color:var(--app) }
+  nav { background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:12px 20px; }
+  nav ol { margin:.4em 0; padding-left:1.2em; }
+  nav li { margin:.15em 0; }
+  .kicker { color:var(--dim); font-size:.9rem; letter-spacing:.08em; text-transform:uppercase; margin-top:0; }
+  li.task { list-style:none; margin-left:-1.5em; padding-left:1.9em; text-indent:-1.9em; }
+  li.task input { width:18px; height:18px; margin:0 .6em 0 0; vertical-align:-3px; accent-color:var(--brass); cursor:pointer; }
+  li.task.done { color:var(--dim); }
+  li.task ul, li.task ol { text-indent:0; margin-top:.3em; }
+  .meter { position:sticky; top:0; z-index:5; display:flex; align-items:center; gap:12px; background:var(--bg); padding:10px 0; border-bottom:1px solid var(--line); font-size:.9rem; color:var(--dim); }
+  .meter .bar { flex:1; height:6px; border-radius:9px; background:var(--code); overflow:hidden; }
+  .meter .bar i { display:block; height:100%; width:0; background:var(--brass); }
+  .meter button { font:inherit; color:var(--text); background:var(--panel); border:1px solid var(--line); border-radius:999px; padding:3px 12px; cursor:pointer; }
+  @media print { .copy, nav, .meter { display:none } body { font-size:12pt } li.task input { -webkit-print-color-adjust:exact; } }
+  </style></head>
+  <body><main>
+  <p class="kicker">Atelier Six · external drive and hands-off building</p>
+  <h1>Running the build from an external drive, hands-off</h1><nav aria-label="Contents"><strong>Contents</strong><ol><li><a href="#s1">Part A — The external drive</a></li><li style="margin-left:1.2em;list-style:none"><a href="#h1">A1. Pick the right drive</a></li><li style="margin-left:1.2em;list-style:none"><a href="#h2">A2. Format it for a Mac, encrypted (this ERASES the drive)</a></li><li style="margin-left:1.2em;list-style:none"><a href="#h3">A3. Let the drive respect file ownership</a></li><li style="margin-left:1.2em;list-style:none"><a href="#h4">A4. Put the kit on the drive</a></li><li style="margin-left:1.2em;list-style:none"><a href="#h5">A5. Let the Claude app use the drive</a></li><li style="margin-left:1.2em;list-style:none"><a href="#h6">A6. Keep the Mac and the drive awake</a></li><li style="margin-left:1.2em;list-style:none"><a href="#h7">A7. Stop the Mac wasting effort on the project, and back it up</a></li><li style="margin-left:1.2em;list-style:none"><a href="#h8">A8. If the drive gets unplugged mid-build</a></li><li style="margin-left:1.2em;list-style:none"><a href="#h9">A9. Using the drive on another Mac</a></li><li><a href="#s2">Part B — Less babysitting, still safe</a></li><li style="margin-left:1.2em;list-style:none"><a href="#h10">B1. The safety net you already have</a></li><li style="margin-left:1.2em;list-style:none"><a href="#h11">B2. Level 1: Auto mode (the kit sets it)</a></li><li style="margin-left:1.2em;list-style:none"><a href="#h12">B3. Level 2: the sandbox (already on)</a></li><li style="margin-left:1.2em;list-style:none"><a href="#h13">B4. Level 3: notifications, so you don't have to watch</a></li><li style="margin-left:1.2em;list-style:none"><a href="#h14">B5. Level 4: autopilot (a scheduled task that keeps building)</a></li><li style="margin-left:1.2em;list-style:none"><a href="#h15">B6. Never do these (they remove the safety net)</a></li><li style="margin-left:1.2em;list-style:none"><a href="#h16">B7. What will still need you</a></li><li style="margin-left:1.2em;list-style:none"><a href="#h17">B8. A low-effort weekly rhythm</a></li><li style="margin-left:1.2em;list-style:none"><a href="#h18">B9. Troubleshooting</a></li></ol></nav>
+<p>This guide covers two things, and neither needs Terminal:</p>
+<ol>
+<li><strong>Part A:</strong> keeping the whole project on a removable drive that stays plugged into your Mac.</li>
+<li><strong>Part B:</strong> letting Claude work through the build with as little checking from you as possible, while staying safe.</li>
+</ol>
+<p>It follows on from <code>MAC-GUIDE.html</code>: do Parts 1–3 there first (the Claude app, accounts, two installers). Where this guide and the Mac guide differ, follow this guide for the drive and the autopilot settings. Labels mean the same as in the Mac guide: <span class="tag cc">🤖 Claude Code</span> (the Code tab of the Claude app), <span class="tag web">🌐 Browser</span>.</p>
+<hr />
+<h2 id="s1">Part A — The external drive</h2>
+<h3 id="h1">A1. Pick the right drive</h3>
+<ul>
+<li>An <strong>SSD</strong> (solid-state drive) is best: installs and tests run much faster than on a spinning hard drive.</li>
+<li><strong>At least 64 GB free</strong>, or 128 GB if you'll do the iPhone step later.</li>
+<li>Plug it <strong>straight into the Mac</strong>, not through a cheap hub, and use a cable that stays put. If it disconnects mid-build nothing is lost (see A8), but it's a nuisance.</li>
+</ul>
+<h3 id="h2">A2. Format it for a Mac, encrypted (this ERASES the drive)</h3>
+<p>The project needs a Mac-format drive. Drives sold "for Windows and Mac" (exFAT) break some developer tools, such as file permissions, Git hooks and links between files. Encryption matters because your Supabase keys will live on this drive.</p>
+<blockquote>
+<p><strong>Warning:</strong> formatting wipes everything on the drive. Copy anything you need off it first.</p>
+</blockquote>
+<ol>
+<li>Open <strong>Disk Utility</strong> (⌘ Space → type <em>Disk Utility</em> → Return).</li>
+<li>Menu <strong>View → Show All Devices</strong>. In the left sidebar, select the <strong>drive itself</strong> (the top line for it, not the indented volume under it).</li>
+<li>Click <strong>Erase</strong> and set:<ul>
+<li><strong>Name:</strong> <code>Studio</code></li>
+<li><strong>Format:</strong> <strong>APFS (Encrypted)</strong></li>
+<li><strong>Scheme:</strong> <strong>GUID Partition Map</strong></li>
+</ul>
+</li>
+<li>Choose a password and store it in the <strong>Passwords</strong> app. Click <strong>Erase</strong>, then <strong>Done</strong>.</li>
+<li>When you next plug it in and macOS asks for the password, tick <strong>Remember this password in my keychain</strong>. The drive then unlocks by itself when you log in, so autopilot can carry on after a restart. It's still encrypted if the drive is lost away from your Mac.</li>
+</ol>
+<h3 id="h3">A3. Let the drive respect file ownership</h3>
+<ol>
+<li>In Finder, click the <strong>Studio</strong> drive in the sidebar, then <strong>File → Get Info</strong> (⌘ I).</li>
+<li>At the bottom, click the padlock and enter your Mac password.</li>
+<li><strong>Untick "Ignore ownership on this volume".</strong> Otherwise Git may refuse to work, with the message "detected dubious ownership".</li>
+</ol>
+<h3 id="h4">A4. Put the kit on the drive</h3>
+<ol>
+<li>In Finder, open <strong>Studio</strong>, make a folder called <strong>Projects</strong>, drag the unzipped <strong>atelier-six-kit</strong> folder into it, and rename it <strong>atelier-six</strong>.</li>
+<li>Press <strong>⌘ Shift .</strong> to check the hidden <strong>.claude</strong> folder came across, then press it again to hide it.</li>
+<li>In the Claude app → <strong>Code</strong> → <strong>+ New session</strong> → <strong>Project folder</strong> → <strong>Choose folder…</strong> → pick <strong>Studio</strong> under <strong>Locations</strong> in the sidebar → <strong>Projects</strong> → <strong>atelier-six</strong> → <strong>Open</strong>. Set <strong>Local</strong>, <strong>Sonnet</strong> and <strong>Auto</strong> as in Mac guide Part 5.</li>
+<li>🤖 <code>/setup</code>. Claude connects the folder to GitHub, exactly as in Mac guide Part 5.2. If Git complains about "dubious ownership", Claude fixes it itself.</li>
+</ol>
+<h3 id="h5">A5. Let the Claude app use the drive</h3>
+<p>The first time Claude touches the drive, macOS asks <strong>"Claude" would like to access files on a removable volume</strong>. Click <strong>Allow</strong>.
+If you missed it: <strong>System Settings → Privacy &amp; Security → Files &amp; Folders → Claude → turn on Removable Volumes</strong>.</p>
+<h3 id="h6">A6. Keep the Mac and the drive awake</h3>
+<p>If the Mac sleeps, Claude pauses and autopilot runs are skipped. If the drive spins down, things slow down or stall.</p>
+<ol>
+<li>Claude app → <strong>Settings</strong> → <strong>Desktop app → General</strong> → turn on <strong>Keep computer awake</strong>.</li>
+<li><strong>System Settings → Energy</strong> (on a laptop: <strong>Battery → Options</strong>) → turn <strong>off</strong> "Put hard disks to sleep when possible".</li>
+<li>Keep a MacBook <strong>plugged in</strong> and <strong>open</strong>. Closing the lid sleeps it, unless an external screen, keyboard and power are connected.</li>
+</ol>
+<h3 id="h7">A7. Stop the Mac wasting effort on the project, and back it up</h3>
+<ul>
+<li><strong>Spotlight:</strong> System Settings → <strong>Spotlight</strong> → <strong>Search Privacy…</strong> → <strong>+</strong> → add <strong>Studio/Projects</strong>. This stops macOS indexing thousands of temporary files.</li>
+<li><strong>Time Machine</strong> (optional, recommended): Time Machine skips external drives by default. System Settings → General → <strong>Time Machine</strong> → <strong>Options…</strong> → remove <strong>Studio</strong> from the excluded list.</li>
+<li><strong>GitHub is your main backup.</strong> Every finished phase is pushed there. Save points within a phase stay on the drive until the phase ends, so Time Machine protects that in-between work.</li>
+</ul>
+<h3 id="h8">A8. If the drive gets unplugged mid-build</h3>
+<ol>
+<li>Plug it back in and wait for <strong>Studio</strong> to appear in Finder.</li>
+<li>In the Claude app → <strong>Code</strong> → <strong>+ New session</strong> (check the project folder is still <strong>atelier-six</strong> on Studio).</li>
+<li>🤖 <code>/pickup</code>. Claude re-checks what's on disk and carries on from the last save point.</li>
+<li>If it mentions a file called <code>index.lock</code>, type 🤖 <em>"remove the stale git lock and continue"</em>.</li>
+<li><strong>Always eject before unplugging:</strong> in Finder, click ⏏ next to Studio. First pause autopilot (B5) and make sure no session is working.</li>
+</ol>
+<h3 id="h9">A9. Using the drive on another Mac</h3>
+<p>This works if that Mac has the Claude app and the two installers from Mac guide Parts 1 and 3. Open the folder in the Code tab and type 🤖 <code>/setup</code>: Claude signs GitHub in on that Mac and fixes any ownership warning. You'll enter the drive's password when you plug it in.</p>
+<hr />
+<h2 id="s2">Part B — Less babysitting, still safe</h2>
+<h3 id="h10">B1. The safety net you already have</h3>
+<p>Before loosening anything, it helps to know what already protects you:</p>
+<ul>
+<li><strong>Small steps with tests.</strong> Every step must pass its checks before it's committed, and every phase has a full test run.</li>
+<li><strong>Save points.</strong> Work is committed on your drive every few minutes, so nothing is lost.</li>
+<li><strong>GitHub history.</strong> Every finished phase is on GitHub, so any change can be undone.</li>
+<li><strong>Blocked commands.</strong> The kit's settings refuse force-pushing, <code>sudo</code>, deleting the drive or home folder, reading your SSH or AWS keys, and editing your shell or Claude settings files.</li>
+<li><strong>Claude Code's own protections.</strong> Changes to the project's <code>.git</code> and <code>.claude</code> folders are never waved through automatically, and bypass mode is switched off for this project.</li>
+</ul>
+<h3 id="h11">B2. Level 1: Auto mode (the kit sets it)</h3>
+<p>Pick <strong>Auto</strong> in the mode selector next to the send button (<strong>⌘ Shift M</strong>). The kit makes Auto the default for this project. Instead of asking you before each command, a second AI model checks each risky action and blocks things like:</p>
+<ul>
+<li>downloading and running scripts;</li>
+<li>force-pushing or wiping work (<code>git reset --hard</code>);</li>
+<li>deleting files that existed before the session;</li>
+<li>sending secrets anywhere.</li>
+</ul>
+<p>Ordinary building work (editing files, installing packages, running tests, committing, pushing at the end of a phase) goes ahead without asking.</p>
+<ul>
+<li>If the checker blocks something several times in a row, Claude stops and asks you. That's the safety working as intended.</li>
+<li><strong>You can set limits in plain English</strong>, and the checker respects them. For example: 🤖 <em>"Don't push anything today."</em></li>
+<li>If <strong>Auto</strong> isn't in the menu, choose <strong>Accept edits</strong>. You'll then be asked before commands; allow the normal project ones as in Mac guide Part 5.4.</li>
+</ul>
+<h3 id="h12">B3. Level 2: the sandbox (already on)</h3>
+<p>The sandbox is a macOS feature that fences in every command Claude runs. Commands can only write inside your project folder (plus the code-library and test-browser caches) and can only reach these websites:</p>
+<ul>
+<li><code>registry.npmjs.org</code> (code libraries)</li>
+<li>GitHub (<code>github.com</code>, <code>api.github.com</code> and GitHub's download sites)</li>
+<li>Playwright's download sites (test browsers)</li>
+</ul>
+<p>Inside that fence, commands run without prompts. <strong>The kit switches this on for the project, so there's nothing to set.</strong></p>
+<p>What you might notice:</p>
+<ul>
+<li>A few commands must step outside the fence: signing in to GitHub, pushing, and saving Git settings. Claude reruns them outside the sandbox, and Auto mode's checker reviews each one. If you're asked, allow it when it's clearly the project's own Git or GitHub work, and deny anything else.</li>
+<li>In Phase 18 Claude will need your Supabase address (<code>…supabase.co</code>); allow it when asked.</li>
+<li>If a step keeps failing with "operation not permitted", type 🤖 <em>"This looks like the sandbox blocking a tool. Explain what it needs and suggest the smallest change."</em></li>
+</ul>
+<h3 id="h13">B4. Level 3: notifications, so you don't have to watch</h3>
+<ul>
+<li>The Claude app shows a Mac notification when a session finishes while you're looking at something else, and when an autopilot run starts. If you don't see them: <strong>System Settings → Notifications → Claude</strong> → turn on <strong>Allow notifications</strong>.</li>
+<li>The kit adds a chime when Claude is waiting for your permission or answer. That one comes from macOS's scripting helper: if it doesn't appear, go to <strong>System Settings → Notifications → Script Editor</strong> and turn it on.</li>
+<li>Turn off <strong>Focus / Do Not Disturb</strong> while building, or add Claude to its allowed apps.</li>
+</ul>
+<h3 id="h14">B5. Level 4: autopilot (a scheduled task that keeps building)</h3>
+<p>Autopilot is a <strong>Routine</strong> in the Claude app. Every hour it starts a fresh session on your Mac and runs the kit's <code>/autopilot</code> instructions:</p>
+<ul>
+<li><strong>Unfinished step</strong> → it picks up where the last one stopped.</li>
+<li><strong>Next step or gate</strong> → it does the work, then stops after the phase's gate passes. The next run starts the next phase in a fresh session, which keeps usage low.</li>
+<li><strong>Needs you</strong> (a USER ACTION, a review on your guitar, a question) → it writes exactly what to do, <strong>pauses itself</strong> and notifies you.</li>
+<li><strong>Usage limit reached</strong> → that run stops. The hourly runs after the reset carry on by themselves.</li>
+<li><strong>Previous run still going</strong> → that hour is skipped, so runs never overlap.</li>
+</ul>
+<p><strong>Set it up once (5 minutes).</strong> You'll paste this line into the routine's instructions:</p>
+<pre><code>Follow .claude/commands/autopilot.md in this project exactly.
+</code></pre>
+<ol>
+<li>Claude app → <strong>Code</strong> → <strong>Routines</strong> in the sidebar (or in its <strong>More</strong> menu) → <strong>New routine</strong> → <strong>Local</strong>.</li>
+<li><strong>Name:</strong> <code>atelier-six-autopilot</code></li>
+<li><strong>Description:</strong> <code>Builds Atelier Six step by step</code></li>
+<li><strong>Instructions:</strong> paste the line above.</li>
+<li>Under the instructions:<ul>
+<li><strong>Permission mode:</strong> <strong>Auto</strong></li>
+<li><strong>Model:</strong> <strong>Sonnet</strong></li>
+<li><strong>Folder:</strong> <strong>atelier-six</strong> (on Studio if you use the drive)</li>
+<li><strong>Worktree:</strong> <strong>off</strong></li>
+</ul>
+</li>
+<li><strong>Schedule:</strong> <strong>Hourly</strong>. Then save.</li>
+<li>Open the routine and click <strong>Run now</strong>. Watch the first run for a few minutes. If a permission card appears for normal project work, choose <strong>always allow</strong>; later runs then won't ask.</li>
+</ol>
+<p><strong>Using it:</strong></p>
+<ul>
+<li><strong>Pause and restart:</strong> open the routine → <strong>Status</strong> → <strong>Paused</strong> or <strong>Active</strong>.</li>
+<li><strong>See what it did:</strong> each run appears under <strong>Scheduled</strong> in the sidebar. Open one to read it or answer a question.</li>
+<li><strong>When it says "Needs you":</strong> open a new session (⌘N) → 🤖 <code>/pickup</code> → do what it asks → when that step is done, set the routine back to <strong>Active</strong>.</li>
+<li><strong>To work with Claude yourself:</strong> pause the routine first, and set it back to <strong>Active</strong> when you finish. Never have both working on the project at once.</li>
+<li><strong>Hard steps:</strong> the routine uses Sonnet. If it stops with <strong>BLOCKED</strong> on one of the Opus steps listed in <code>START-HERE.md</code>, open a session with <strong>Opus</strong>, type 🤖 <code>/pickup</code>, then go back to Sonnet and the routine.</li>
+</ul>
+<p><strong>When to use autopilot vs sitting with it:</strong></p>
+<ul>
+<li><strong>Autopilot:</strong> coding-heavy phases where you aren't needed (most of Phases 2–5, 11, 16 and 19–21).</li>
+<li><strong>Sit with it:</strong> phases with a lot for you to do (0, 1, 18 and 24), and anything where Claude recently got stuck.</li>
+</ul>
+<h3 id="h15">B6. Never do these (they remove the safety net)</h3>
+<ul>
+<li><strong>Don't use bypass mode</strong> ("Bypass permissions"). It's for throwaway virtual machines, not your own Mac. The kit switches it off for this project; don't enable it in Settings.</li>
+<li><strong>Don't choose "always allow"</strong> for <code>sudo</code>, <code>rm -rf</code>, <code>git push --force</code>, or anything touching folders outside the project.</li>
+<li><strong>Don't paste passwords, the Supabase <code>service_role</code> key or signing keys into Claude.</strong> The only Supabase values Claude needs are the Project URL and the public anon key.</li>
+<li><strong>Don't turn the sandbox off</strong> to fix one error. Ask Claude for the smallest change instead.</li>
+<li><strong>Don't run two sessions on the project at once</strong>, including autopilot plus a session of your own. Pause the routine first.</li>
+<li><strong>Don't use the Cloud environment or a worktree for this project.</strong> Its save points and progress notes live in your folder, so always choose <strong>Local</strong> with worktree off.</li>
+</ul>
+<h3 id="h16">B7. What will still need you</h3>
+<p>Autopilot can't do these, by design:</p>
+<ul>
+<li><strong>Accounts and sign-ins:</strong> GitHub sign-in (<code>/setup</code>), Netlify (0.8), GitHub settings (0.7), Supabase (18.1), app-store accounts (24.5, optional).</li>
+<li><strong>Decisions:</strong> the name check (0.9), approving the look (1.5), the app ID (24.1).</li>
+<li><strong>Your ears and hands:</strong> the sound checks, the review at the end of each module, the real-device checks, and the beta (10.3).</li>
+<li><strong>Demo GIFs:</strong> 10.2, 15.4, 22.2, 24.6.</li>
+</ul>
+<p>Each takes minutes, and autopilot tells you exactly what to do.</p>
+<h3 id="h17">B8. A low-effort weekly rhythm</h3>
+<ul>
+<li><strong>Morning:</strong> check the routine is <strong>Active</strong> and the Mac is plugged in, then get on with your day.</li>
+<li><strong>When a notification says "Needs you":</strong> spend 5–15 minutes on it, then set the routine back to <strong>Active</strong>.</li>
+<li><strong>Once a week:</strong> open your live site on your phone and look around, and glance at <code>PROGRESS.md</code> (select it in Finder and press Space).</li>
+</ul>
+<h3 id="h18">B9. Troubleshooting</h3>
+<table>
+<thead>
+<tr>
+<th>What you see</th>
+<th>What to do</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Routine history says <strong>Skipped: computer was asleep</strong></td>
+<td>Turn on <strong>Keep computer awake</strong> (A6) and keep the lid open.</td>
+</tr>
+<tr>
+<td>Routine history says <strong>Skipped: previous run still in progress</strong></td>
+<td>Normal: a long run is still going.</td>
+</tr>
+<tr>
+<td>A run stopped with a usage-limit message</td>
+<td>Nothing to do: the first run after your limit resets carries on.</td>
+</tr>
+<tr>
+<td>The same step fails run after run</td>
+<td>Pause the routine, open a new session, type 🤖 <code>/pickup</code> and read what's stuck.</td>
+</tr>
+<tr>
+<td>"Can't find PROGRESS.md" or the project is missing</td>
+<td>Check <strong>Studio</strong> is in Finder's sidebar. If you renamed or moved the folder, edit the routine's <strong>Folder</strong>.</td>
+</tr>
+<tr>
+<td>Notifications never appear</td>
+<td>See B4.</td>
+</tr>
+<tr>
+<td>Everything is very slow</td>
+<td>Check the drive is plugged straight into the Mac, and that Spotlight is excluded (A7).</td>
+</tr>
+<tr>
+<td>"dubious ownership"</td>
+<td>🤖 <code>/setup</code> fixes it. A3 stops it happening again.</td>
+</tr>
+<tr>
+<td>"Operation not permitted"</td>
+<td>Usually the sandbox (B3) or the removable-drive permission (A5).</td>
+</tr>
+</tbody>
+</table>
+  </main>
+  <script>
+  (function(){
+    const boxes=[...document.querySelectorAll('li.task input')];
+    if(!boxes.length) return;
+    const key='atelier-six-DRIVE-AND-AUTOPILOT-ticks';
+    let saved={};
+    try { saved=JSON.parse(localStorage.getItem(key)||'{}'); } catch(e) {}
+    const meter=document.createElement('div'); meter.className='meter'; meter.setAttribute('role','status');
+    meter.innerHTML='<span class="count"></span><span class="bar"><i></i></span><button type="button">Clear ticks</button>';
+    document.querySelector('nav').after(meter);
+    const update=()=>{
+      const n=boxes.filter(b=>b.checked).length;
+      meter.querySelector('.count').textContent=n+' of '+boxes.length+' done';
+      meter.querySelector('i').style.width=(100*n/boxes.length)+'%';
+      boxes.forEach(b=>b.closest('li').classList.toggle('done',b.checked));
+    };
+    boxes.forEach(b=>{
+      b.checked=!!saved[b.dataset.k];
+      b.addEventListener('change',()=>{ saved[b.dataset.k]=b.checked; try { localStorage.setItem(key,JSON.stringify(saved)); } catch(e) {} update(); });
+    });
+    meter.querySelector('button').addEventListener('click',()=>{
+      if(!confirm('Clear every tick on this page?')) return;
+      saved={}; boxes.forEach(b=>b.checked=false); try { localStorage.removeItem(key); } catch(e) {} update();
+    });
+    update();
+  })();
+  document.querySelectorAll('pre').forEach(pre => {
+    const b = document.createElement('button');
+    b.className = 'copy'; b.type = 'button'; b.textContent = 'Copy';
+    b.setAttribute('aria-label', 'Copy this command');
+    b.onclick = async () => {
+      const text = pre.querySelector('code').innerText.replace(/\n$/, '');
+      try { await navigator.clipboard.writeText(text); } catch (e) {
+        const r = document.createRange(); r.selectNodeContents(pre.querySelector('code'));
+        const s = getSelection(); s.removeAllRanges(); s.addRange(r); document.execCommand('copy'); s.removeAllRanges();
+      }
+      b.textContent = 'Copied'; setTimeout(() => b.textContent = 'Copy', 1500);
+    };
+    pre.appendChild(b);
+  });
+  </script>
+  </body></html>

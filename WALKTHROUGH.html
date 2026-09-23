@@ -1,0 +1,457 @@
+<!doctype html>
+  <html lang="en-GB"><head><meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Atelier Six Walkthrough</title>
+  <style>
+  :root { --bg:#F4F0E8; --panel:#FFFDF8; --text:#1B1816; --dim:#5E5750; --line:rgba(27,24,22,.12);
+    --brass:#8A6A35; --code:#EDE6D9; --term:#2F5D50; --cc:#7A4E2D; --web:#2F4F7A; --app:#6A3F75; }
+  @media (prefers-color-scheme: dark) { :root { --bg:#121110; --panel:#1C1917; --text:#EFEAE1; --dim:#A69E92;
+    --line:rgba(239,234,225,.12); --brass:#D9B77E; --code:#2B211D; --term:#9CCBB9; --cc:#E3B08A; --web:#A9C3E8; --app:#D4AEDD; } }
+  * { box-sizing:border-box }
+  body { margin:0; background:var(--bg); color:var(--text); font:17px/1.6 -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif; }
+  main { max-width:820px; margin:0 auto; padding:32px 16px 96px; }
+  h1 { font:400 2.4rem/1.15 "New York", "Iowan Old Style", Georgia, serif; margin:.2em 0 .4em; }
+  h2 { font:400 1.7rem/1.2 "New York", "Iowan Old Style", Georgia, serif; margin:2.2em 0 .5em; padding-top:.6em; border-top:1px solid var(--line); }
+  h3 { font-size:1.1rem; margin:1.6em 0 .4em; }
+  a { color:var(--brass); }
+  hr { display:none; }
+  code { font:0.92em ui-monospace, "SF Mono", Menlo, monospace; background:var(--code); padding:.1em .35em; border-radius:4px; }
+  pre { position:relative; background:var(--code); padding:14px 16px; border-radius:8px; overflow-x:auto; border:1px solid var(--line); }
+  pre code { background:none; padding:0; font-size:.95rem; }
+  .copy { position:absolute; top:8px; right:8px; font:600 12px -apple-system, sans-serif; color:var(--text); background:var(--panel);
+    border:1px solid var(--line); border-radius:999px; padding:4px 10px; cursor:pointer; }
+  .copy:focus-visible { outline:2px solid var(--brass); outline-offset:2px; }
+  table { border-collapse:collapse; width:100%; margin:1em 0; font-size:.95rem; display:block; overflow-x:auto; }
+  th, td { text-align:left; padding:8px 10px; border-bottom:1px solid var(--line); vertical-align:top; }
+  blockquote { margin:1em 0; padding:12px 16px; background:var(--panel); border-left:3px solid var(--brass); border-radius:0 8px 8px 0; }
+  blockquote p { margin:0; }
+  .tag { display:inline-block; font-weight:600; font-size:.85em; padding:1px 8px; border-radius:999px; border:1px solid currentColor; white-space:nowrap; }
+  .term { color:var(--term) } .cc { color:var(--cc) } .web { color:var(--web) } .app { color:var(--app) }
+  nav { background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:12px 20px; }
+  nav ol { margin:.4em 0; padding-left:1.2em; }
+  nav li { margin:.15em 0; }
+  .kicker { color:var(--dim); font-size:.9rem; letter-spacing:.08em; text-transform:uppercase; margin-top:0; }
+  li.task { list-style:none; margin-left:-1.5em; padding-left:1.9em; text-indent:-1.9em; }
+  li.task input { width:18px; height:18px; margin:0 .6em 0 0; vertical-align:-3px; accent-color:var(--brass); cursor:pointer; }
+  li.task.done { color:var(--dim); }
+  li.task ul, li.task ol { text-indent:0; margin-top:.3em; }
+  .meter { position:sticky; top:0; z-index:5; display:flex; align-items:center; gap:12px; background:var(--bg); padding:10px 0; border-bottom:1px solid var(--line); font-size:.9rem; color:var(--dim); }
+  .meter .bar { flex:1; height:6px; border-radius:9px; background:var(--code); overflow:hidden; }
+  .meter .bar i { display:block; height:100%; width:0; background:var(--brass); }
+  .meter button { font:inherit; color:var(--text); background:var(--panel); border:1px solid var(--line); border-radius:999px; padding:3px 12px; cursor:pointer; }
+  @media print { .copy, nav, .meter { display:none } body { font-size:12pt } li.task input { -webkit-print-color-adjust:exact; } }
+  </style></head>
+  <body><main>
+  <p class="kicker">Atelier Six · start to finish</p>
+  <h1>The whole build, start to finish</h1><nav aria-label="Contents"><strong>Contents</strong><ol><li><a href="#s1">Stage 1 — Get ready (one time, about an hour)</a></li><li><a href="#s2">Stage 2 — Your first session (about 30 minutes)</a></li><li><a href="#s3">Stage 3 — How every session works (read once)</a></li><li><a href="#s4">Stage 4 — Turn on autopilot (optional, after Phase 1)</a></li><li><a href="#s5">Stage 5 — The build, phase by phase</a></li><li><a href="#s6">Stage 6 — After it's finished</a></li><li><a href="#s7">When something goes wrong</a></li><li><a href="#s8">Which file is for what</a></li></ol></nav>
+<p>This is the <strong>one page to follow</strong>. It takes you from the zip file to the finished app in the right order, and tells you which other file to open at each moment. Tick each box as you go. Ticks are saved in this browser, so you can close the page and come back.</p>
+<p>You never need Terminal. You'll use four places:</p>
+<table>
+<thead>
+<tr>
+<th>Label</th>
+<th>What it is</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><span class="tag cc">🤖 Claude Code</span></strong></td>
+<td>The <strong>Code</strong> tab of the Claude desktop app, with your project open. You type <code>/next</code> and plain English here.</td>
+</tr>
+<tr>
+<td><strong><span class="tag web">🌐 Browser</span></strong></td>
+<td>Safari or Chrome, for websites like GitHub and Netlify.</td>
+</tr>
+<tr>
+<td><strong><span class="tag app">💬 Claude chat</span></strong></td>
+<td>The normal Chat tab of the Claude app, for questions about the process.</td>
+</tr>
+<tr>
+<td><strong>🎸 Guitar</strong></td>
+<td>You, your guitar and headphones: listening and playing checks.</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>How it fits together:</strong> this page is the order of things. When a step says "see MAC-GUIDE Part 5" or "DRIVE-AND-AUTOPILOT B5", open that file for the click-by-click detail, then come back here and tick the box.</p>
+</blockquote>
+<hr />
+<h2 id="s1">Stage 1 — Get ready (one time, about an hour)</h2>
+<h3>1.1 Check you have what you need</h3>
+<ul>
+<li class="task"><input type="checkbox" data-k="1" aria-label="Done"> A Mac on <strong>macOS 13 (Ventura) or newer</strong> (Apple menu  → About This Mac).</li>
+<li class="task"><input type="checkbox" data-k="2" aria-label="Done"> A <strong>Claude Pro or Max</strong> plan (claude.ai → Settings → Billing). The free plan doesn't include Claude Code.</li>
+<li class="task"><input type="checkbox" data-k="3" aria-label="Done"> About <strong>10 GB</strong> free on the Mac, or an <strong>external SSD</strong> if you want the project on a drive.</li>
+<li class="task"><input type="checkbox" data-k="4" aria-label="Done"> Your guitar, a cable or microphone, and <strong>wired headphones</strong> for the listening checks later.</li>
+</ul>
+<h3>1.2 Unzip the kit</h3>
+<ul>
+<li class="task"><input type="checkbox" data-k="5" aria-label="Done"> 💬 Download <strong>atelier-six-kit.zip</strong> from the Claude chat. It goes to <strong>Downloads</strong>.</li>
+<li class="task"><input type="checkbox" data-k="6" aria-label="Done"> In Finder → <strong>Downloads</strong>, double-click the zip. A folder called <strong>atelier-six-kit</strong> appears.</li>
+<li class="task"><input type="checkbox" data-k="7" aria-label="Done"> Open the folder and double-click <strong>WALKTHROUGH.html</strong> (this page) so you're reading it from the kit from now on.</li>
+</ul>
+<h3>1.3 Decide where the project lives</h3>
+<p>Pick <strong>one</strong> of these and do only that one:</p>
+<ul>
+<li class="task"><input type="checkbox" data-k="8" aria-label="Done"> <strong>On your Mac (simplest):</strong> follow <strong>MAC-GUIDE Part 4.2–4.3</strong>. You'll end up with <strong>Projects → atelier-six</strong> in your home folder.</li>
+<li class="task"><input type="checkbox" data-k="9" aria-label="Done"> <strong>On an external drive that stays plugged in:</strong> follow <strong>DRIVE-AND-AUTOPILOT Part A, A1 to A7</strong> (format it as <code>Studio</code>, untick "Ignore ownership", copy the kit to <strong>Studio → Projects → atelier-six</strong>, allow the Claude app to use removable drives, stop it sleeping).</li>
+</ul>
+<blockquote>
+<p>From now on, "the project folder" means <strong>atelier-six</strong>, wherever you put it. Don't rename or move it once the build starts.</p>
+</blockquote>
+<h3>1.4 Get the Claude app ready (MAC-GUIDE Part 1)</h3>
+<ul>
+<li class="task"><input type="checkbox" data-k="10" aria-label="Done"> Install the Claude desktop app from <strong>claude.com/download</strong>, or update it (menu <strong>Claude → Check for Updates…</strong>).</li>
+<li class="task"><input type="checkbox" data-k="11" aria-label="Done"> Sign in, then click <strong>Code</strong> at the top of the window.</li>
+<li class="task"><input type="checkbox" data-k="12" aria-label="Done"> Claude app → <strong>Settings → Desktop app → General</strong> → turn on <strong>Keep computer awake</strong>.</li>
+<li class="task"><input type="checkbox" data-k="13" aria-label="Done"> Allow notifications from Claude when asked. (If you missed it: System Settings → Notifications → Claude → on.)</li>
+</ul>
+<h3>1.5 Make your GitHub account (MAC-GUIDE Part 2)</h3>
+<ul>
+<li class="task"><input type="checkbox" data-k="14" aria-label="Done"> 🌐 <strong>github.com → Sign up.</strong> Choose a username you're happy to show people, and verify your email. You don't need to create a project: Claude does that.</li>
+</ul>
+<h3>1.6 Install two tools by clicking (MAC-GUIDE Part 3)</h3>
+<ul>
+<li class="task"><input type="checkbox" data-k="15" aria-label="Done"> 🌐 <strong>nodejs.org → Download → LTS (24.x) → macOS Installer (.pkg)</strong>, then open it and click through.</li>
+<li class="task"><input type="checkbox" data-k="16" aria-label="Done"> 🌐 <strong>github.com/cli/cli/releases/latest → Assets →</strong> the file ending <strong>macOS_universal.pkg</strong>, then open it and click through.</li>
+</ul>
+<h3>1.7 Look at what you're building (optional, 10 minutes)</h3>
+<p>Double-click these in <strong>atelier-six → docs → design</strong> (they open in your browser):</p>
+<ul>
+<li class="task"><input type="checkbox" data-k="17" aria-label="Done"> <strong>mockup.html:</strong> the five key screens.</li>
+<li class="task"><input type="checkbox" data-k="18" aria-label="Done"> <strong>screens.html:</strong> every screen on desktop, tablet and mobile. Use the buttons at the top to filter.</li>
+<li class="task"><input type="checkbox" data-k="19" aria-label="Done"> <strong>logos.html:</strong> the logo options, with the VI Monogram marked as chosen.</li>
+</ul>
+<p>You don't need to do anything with these. Claude builds the app to match them.</p>
+<hr />
+<h2 id="s2">Stage 2 — Your first session (about 30 minutes)</h2>
+<h3>2.1 Open the project in Claude Code (MAC-GUIDE Part 5.1)</h3>
+<ul>
+<li class="task"><input type="checkbox" data-k="20" aria-label="Done"> Claude app → <strong>Code</strong> → <strong>+ New session</strong> (⌘N).</li>
+<li class="task"><input type="checkbox" data-k="21" aria-label="Done"> In the prompt box, set <strong>Environment: Local</strong>.</li>
+<li class="task"><input type="checkbox" data-k="22" aria-label="Done"> <strong>Project folder → Choose folder…</strong> → <strong>atelier-six</strong> → <strong>Open</strong>.</li>
+<li class="task"><input type="checkbox" data-k="23" aria-label="Done"> <strong>Model: Sonnet</strong> and <strong>Mode: Auto</strong>. (If Auto isn't offered, choose <strong>Accept edits</strong>.)</li>
+<li class="task"><input type="checkbox" data-k="24" aria-label="Done"> If it asks whether to <strong>trust</strong> the folder, choose <strong>Trust</strong>.</li>
+</ul>
+<h3>2.2 Let Claude set up your Mac (MAC-GUIDE Part 5.2)</h3>
+<ul>
+<li class="task"><input type="checkbox" data-k="25" aria-label="Done"> 🤖 Type <code>/setup</code> and press Return.</li>
+<li class="task"><input type="checkbox" data-k="26" aria-label="Done"> If a Mac window asks to install <strong>command line developer tools</strong>, click <strong>Install → Agree</strong>, wait 5–15 minutes, then type <em>done</em>.</li>
+<li class="task"><input type="checkbox" data-k="27" aria-label="Done"> When Claude shows an 8-character code: your browser opens GitHub (or go to <strong>github.com/login/device</strong>). Enter the code → <strong>Continue</strong> → <strong>Authorize GitHub CLI</strong>. Type <em>done</em>.</li>
+<li class="task"><input type="checkbox" data-k="28" aria-label="Done"> Claude says <strong>"Setup done"</strong> and gives you your GitHub repository address. Bookmark it.</li>
+</ul>
+<h3>2.3 Start building</h3>
+<ul>
+<li class="task"><input type="checkbox" data-k="29" aria-label="Done"> 🤖 Type <code>/next</code>. Claude starts Phase 0 and works on its own. You'll get a notification when it needs you or finishes.</li>
+</ul>
+<hr />
+<h2 id="s3">Stage 3 — How every session works (read once)</h2>
+<p>This loop repeats for the whole build. The Cheat sheet at the end of MAC-GUIDE has it on one card.</p>
+<ol>
+<li><strong>Start:</strong> Claude app → Code → <strong>+ New session</strong> (⌘N). Check it says <strong>Local · atelier-six · Sonnet · Auto</strong>.</li>
+<li>🤖 <code>/progress</code> shows where you are, cheaply.</li>
+<li>🤖 <code>/next</code> builds the next steps and stops at the end of the phase.</li>
+<li>When Claude needs you, it stops and says <strong>USER ACTION</strong> or asks a question. Do what it says (Stage 5 lists every one in order), then reply, e.g. <em>done</em>.</li>
+<li>When it says <strong>"Phase steps done. Run /gate."</strong> → 🤖 <code>/gate</code>. This tests everything and releases the phase.</li>
+<li>Claude asks <strong>how many usage windows</strong> the phase took. Count the times you hit your limit during the phase, add one, and type the number. It uses this to predict your finish date.</li>
+<li><strong>Start a new session (⌘N)</strong> after every gate, then <code>/next</code> again. A fresh session uses far less of your allowance.</li>
+</ol>
+<p><strong>When you hit your usage limit (you will, often):</strong></p>
+<ul>
+<li>Near the limit: 🤖 <code>/checkpoint</code> saves everything in seconds.</li>
+<li>After the reset time Claude shows you: <strong>new session (⌘N)</strong> → 🤖 <code>/pickup</code>. It carries on exactly where it stopped.</li>
+</ul>
+<p><strong>Using the stronger model for the hard steps.</strong> Stay on <strong>Sonnet</strong>, but switch the model menu to <strong>Opus</strong> for these steps, then back to Sonnet: <strong>3.4, 5.4, 6.0, 11.2, 12.3, 16.2–16.4, 18.3, 21.3, 23.1, 24.2</strong>, and any step marked <strong>BLOCKED</strong>. <code>/progress</code> tells you which step you're on.</p>
+<p><strong>If something looks wrong:</strong> 🤖 plain English always works, e.g. <em>"Explain the problem in plain English and give me my options."</em> For bugs you notice in the app: 🤖 <code>/fix the tuner needle jumps on my phone</code>.</p>
+<hr />
+<h2 id="s4">Stage 4 — Turn on autopilot (optional, after Phase 1)</h2>
+<p>Autopilot is a scheduled task in the Claude app that keeps building every hour, pauses itself when it needs you, and carries on after usage limits reset. Set it up <strong>after Gate 1</strong>, once you've approved the look, because Phases 0 and 1 need you a lot.</p>
+<ul>
+<li class="task"><input type="checkbox" data-k="30" aria-label="Done"> Read <strong>DRIVE-AND-AUTOPILOT Part B, B1 to B4</strong> (what keeps you safe).</li>
+<li class="task"><input type="checkbox" data-k="31" aria-label="Done"> Set up the routine: <strong>DRIVE-AND-AUTOPILOT B5 → "Set it up once"</strong> (Code tab → Routines → New routine → Local, paste the one line, choose Auto, Sonnet, the atelier-six folder, worktree off, Hourly).</li>
+<li class="task"><input type="checkbox" data-k="32" aria-label="Done"> Click <strong>Run now</strong> once and allow any normal project permission with <strong>always allow</strong>.</li>
+</ul>
+<p><strong>Rules while autopilot is on:</strong></p>
+<ul>
+<li>When a notification says <strong>"Needs you"</strong>: new session (⌘N) → 🤖 <code>/pickup</code> → do what it asks → set the routine back to <strong>Active</strong>.</li>
+<li><strong>Before you work with Claude yourself, pause the routine</strong> (Routines → the routine → Status → Paused). Never run both at once.</li>
+<li>It's best for the coding-heavy phases (2–5, 8, 11, 16, 19–21). Pause it and sit with Claude for the phases with lots of 🎸 checks.</li>
+</ul>
+<hr />
+<h2 id="s5">Stage 5 — The build, phase by phase</h2>
+<p>Each phase lists what Claude builds, then the boxes for <strong>your</strong> part, in the order they come up. Phases with no boxes need nothing from you except <code>/gate</code> and a new session. Full click-by-click detail for each action is in <strong>MAC-GUIDE Part 7</strong>.</p>
+<h3>Milestone v1.0 — the core app (about 3–6 weeks)</h3>
+<p><strong>Phase 0 — Project foundation.</strong> Claude sets up the code project, tests and automatic checks.</p>
+<ul>
+<li class="task"><input type="checkbox" data-k="33" aria-label="Done"> <strong>Step 0.7:</strong> after Claude's first push, 🌐 GitHub → your <strong>atelier-six</strong> repo → <strong>Settings → Code security</strong> → make sure <strong>Secret scanning</strong> and <strong>Push protection</strong> are on → 🤖 <em>done</em>.</li>
+<li class="task"><input type="checkbox" data-k="34" aria-label="Done"> <strong>Step 0.8 — put it online:</strong> 🌐 <strong>netlify.com → Sign up with GitHub → Add new project → Import an existing project → GitHub → atelier-six → Deploy</strong>. When it says Published, copy the address (ends <code>.netlify.app</code>) → 🤖 paste it. Bookmark it: this is your live app.</li>
+<li class="task"><input type="checkbox" data-k="35" aria-label="Done"> <strong>Step 0.9 — name check:</strong> open the links Claude gives you, search each for "Atelier Six", and 🤖 tell Claude what you found.</li>
+<li class="task"><input type="checkbox" data-k="36" aria-label="Done"> <strong>Gate 0:</strong> 🤖 <code>/gate</code> → answer the usage-windows question → new session (⌘N) → <code>/next</code>.</li>
+</ul>
+<p><strong>Phase 1 — Design system.</strong> Colours, fonts, buttons, the VI logo and the navigation.</p>
+<ul>
+<li class="task"><input type="checkbox" data-k="37" aria-label="Done"> <strong>Step 1.5 — approve the look:</strong> open your live address with <strong>/design</strong> on the end → 🤖 <em>"Looks great"</em> or what to change.</li>
+<li class="task"><input type="checkbox" data-k="38" aria-label="Done"> <strong>Gate 1</strong> → new session → <code>/next</code>. <em>(Good moment to set up autopilot: Stage 4.)</em></li>
+</ul>
+<p><strong>Phase 2 — Music core</strong> (notes, keys, chord shapes). Nothing needed from you.</p>
+<ul>
+<li class="task"><input type="checkbox" data-k="39" aria-label="Done"> <strong>Gate 2</strong> → new session → <code>/next</code>.</li>
+</ul>
+<p><strong>Phase 3 — Transition engine</strong> (the brain that finds the easiest fingering between chords). Use <strong>Opus</strong> for step 3.4.</p>
+<ul>
+<li class="task"><input type="checkbox" data-k="40" aria-label="Done"> <strong>Gate 3</strong> → new session → <code>/next</code>. After this gate Claude gives you an updated <strong>finish date</strong> based on your real pace.</li>
+</ul>
+<p><strong>Phase 4 — Tab and fretboard drawing.</strong> Nothing needed from you.</p>
+<ul>
+<li class="task"><input type="checkbox" data-k="41" aria-label="Done"> <strong>Gate 4</strong> → new session → <code>/next</code>.</li>
+</ul>
+<p><strong>Phase 5 — Sound.</strong> Use <strong>Opus</strong> for step 5.4.</p>
+<ul>
+<li class="task"><input type="checkbox" data-k="42" aria-label="Done"> <strong>Step 5.2</strong> 🎸 with headphones, listen to a few chords on your device and say if the tone needs changing.</li>
+<li class="task"><input type="checkbox" data-k="43" aria-label="Done"> <strong>Step 5.5</strong> 🎸 open <strong>/design</strong>, play the strummed chord, palm-muted riff and drum groove, and say whether they sound like a real guitar and band.</li>
+<li class="task"><input type="checkbox" data-k="44" aria-label="Done"> <strong>Gate 5 — device checks:</strong> Claude gives you a few rows from <strong>docs/device-checklist.md</strong> (e.g. "does sound play on iPhone with the silent switch on?"). Try each on your phone, tablet or Mac and 🤖 report back.</li>
+<li class="task"><input type="checkbox" data-k="45" aria-label="Done"> Gate 5 → new session → <code>/next</code>.</li>
+</ul>
+<p><strong>Phase 6 — Lessons, drills and the first modules.</strong> Use <strong>Opus</strong> for step 6.0.</p>
+<ul>
+<li class="task"><input type="checkbox" data-k="46" aria-label="Done"> <strong>Gate 6 — your first review</strong> 🎸: on your live site, play each module's <strong>tune</strong> and the two lessons Claude names, then 🤖 score each <strong>playable / sounds like the style / fun</strong> from 1 to 5 (MAC-GUIDE Part 7, "End of each module"). Anything under 4 gets reworked and you try again.</li>
+<li class="task"><input type="checkbox" data-k="47" aria-label="Done"> Gate 6 → new session → <code>/next</code>.</li>
+</ul>
+<p><strong>Phase 7 — Tuner and listening.</strong></p>
+<ul>
+<li class="task"><input type="checkbox" data-k="48" aria-label="Done"> <strong>Step 7.2</strong> 🎸 test the tuner with your guitar (allow the microphone) and say if readings look off.</li>
+<li class="task"><input type="checkbox" data-k="49" aria-label="Done"> <strong>Gate 7 — device checks</strong> (as Gate 5) → new session → <code>/next</code>.</li>
+</ul>
+<p><strong>Phase 8 — Hands-free and settings.</strong> Nothing needed from you.</p>
+<ul>
+<li class="task"><input type="checkbox" data-k="50" aria-label="Done"> <strong>Gate 8</strong> → new session → <code>/next</code>.</li>
+</ul>
+<p><strong>Phase 9 — Installable app, UI candy and speed.</strong></p>
+<ul>
+<li class="task"><input type="checkbox" data-k="51" aria-label="Done"> <strong>Gate 9 — device checks:</strong> install the app on your phone from the live site (iPhone: Safari → Share → <strong>Add to Home Screen</strong>), turn on flight mode, and check it still opens. 🤖 Report back.</li>
+<li class="task"><input type="checkbox" data-k="52" aria-label="Done"> Gate 9 → new session → <code>/next</code>.</li>
+</ul>
+<p><strong>Phase 10 — Showcase and v1.0 release.</strong></p>
+<ul>
+<li class="task"><input type="checkbox" data-k="53" aria-label="Done"> <strong>Step 10.2 — demo GIF:</strong> open your live address with <strong>?demo=1</strong> on the end, record it with <strong>⌘ Shift 5</strong>, turn it into a GIF at <strong>ezgif.com</strong>, and save it as <strong>atelier-six → docs → demo.gif</strong> (MAC-GUIDE Part 7 has every click). Or 🤖 <em>"the video is on my Desktop, please convert it to docs/demo.gif"</em>.</li>
+<li class="task"><input type="checkbox" data-k="54" aria-label="Done"> <strong>Step 10.3 — beta:</strong> send Claude's ready-made message to 3–5 guitarist friends. Wait about <strong>a week</strong>, then 🤖 <em>"feedback is in"</em>. (Pause autopilot during the beta week.)</li>
+<li class="task"><input type="checkbox" data-k="55" aria-label="Done"> <strong>Gate 10:</strong> <strong>v1.0 is live.</strong> 🎉 New session → <code>/next</code>.</li>
+</ul>
+<h3>Milestone v1.1 — three more styles (Lead, Thumb-over, Whammy)</h3>
+<p><strong>Phase 11 — v1.1 foundation.</strong> Use <strong>Opus</strong> for step 11.2.</p>
+<ul>
+<li class="task"><input type="checkbox" data-k="56" aria-label="Done"> <strong>Step 11.3</strong> 🎸 listen to the six lead tones and say if any need changing.</li>
+<li class="task"><input type="checkbox" data-k="57" aria-label="Done"> <strong>Gate 11</strong> → new session → <code>/next</code>.</li>
+</ul>
+<p><strong>Phase 12 — Module 3: Lead (Nirvana style).</strong> Use <strong>Opus</strong> for step 12.3.</p>
+<ul>
+<li class="task"><input type="checkbox" data-k="58" aria-label="Done"> <strong>Step 12.2</strong> 🎸 try three bends on your guitar and say whether the bend trainer's verdicts feel right.</li>
+<li class="task"><input type="checkbox" data-k="59" aria-label="Done"> <strong>Gate 12 — module review</strong> 🎸: play the tune and two lessons, score playable / style / fun.</li>
+<li class="task"><input type="checkbox" data-k="60" aria-label="Done"> Gate 12 → new session → <code>/next</code>.</li>
+</ul>
+<p><strong>Phase 13 — Module 4: Thumb-over (Frusciante style).</strong></p>
+<ul>
+<li class="task"><input type="checkbox" data-k="61" aria-label="Done"> <strong>Gate 13 — module review</strong> 🎸 → new session → <code>/next</code>.</li>
+</ul>
+<p><strong>Phase 14 — Module 5: Whammy (Morello style).</strong></p>
+<ul>
+<li class="task"><input type="checkbox" data-k="62" aria-label="Done"> <strong>Step 14.4 (optional)</strong> 🎸 if you have an audio interface, try <strong>Play through</strong> with headphones and report the latency shown. Otherwise type <em>skip</em>.</li>
+<li class="task"><input type="checkbox" data-k="63" aria-label="Done"> <strong>Gate 14 — module review</strong> 🎸 → new session → <code>/next</code>.</li>
+</ul>
+<p><strong>Phase 15 — Cross-style lesson, tone recipes, v1.1 release.</strong></p>
+<ul>
+<li class="task"><input type="checkbox" data-k="64" aria-label="Done"> <strong>Step 15.4 — new demo GIF</strong> (same as 10.2).</li>
+<li class="task"><input type="checkbox" data-k="65" aria-label="Done"> <strong>Gate 15:</strong> <strong>v1.1 is live.</strong> New session → <code>/next</code>.</li>
+</ul>
+<h3>Milestone v1.2 — the app hears your chords</h3>
+<p><strong>Phase 16 — Chord detection.</strong> Use <strong>Opus</strong> for steps 16.2–16.4.</p>
+<ul>
+<li class="task"><input type="checkbox" data-k="66" aria-label="Done"> <strong>Step 16.4 (optional, recommended)</strong> 🎸 record the 10 chords Claude lists in Voice Memos (about 2 seconds each), name each memo as Claude says, drag them into <strong>atelier-six → eval → user</strong>, and 🤖 <em>"done, they're m4a files"</em>.</li>
+<li class="task"><input type="checkbox" data-k="67" aria-label="Done"> <strong>Gate 16</strong> → new session → <code>/next</code>.</li>
+</ul>
+<p><strong>Phase 17 — Auto-advance, adaptive tempo, v1.2 release.</strong></p>
+<ul>
+<li class="task"><input type="checkbox" data-k="68" aria-label="Done"> <strong>Step 17.3</strong> 🎸 try a lesson with <strong>Listen</strong> on and say whether the Clean/Missed calls feel fair.</li>
+<li class="task"><input type="checkbox" data-k="69" aria-label="Done"> <strong>Gate 17 — device checks</strong> → <strong>v1.2 is live.</strong> New session → <code>/next</code>.</li>
+</ul>
+<h3>Milestone v2.0 — sync, studio, style morph and jam mode</h3>
+<p><strong>Phase 18 — Accounts and sync.</strong> Use <strong>Opus</strong> for step 18.3. Pause autopilot: this phase needs you.</p>
+<ul>
+<li class="task"><input type="checkbox" data-k="70" aria-label="Done"> <strong>Step 18.1 — Supabase:</strong> 🌐 <strong>supabase.com → Continue with GitHub → New project</strong>, name it <strong>atelier-six</strong>, generate a database password (save it in Passwords), region <strong>West EU (London)</strong>. Wait a minute.</li>
+<li class="task"><input type="checkbox" data-k="71" aria-label="Done"> Copy the <strong>Project URL</strong> and the <strong>anon / public</strong> key from Project Settings → API → 🤖 paste both. <strong>Never</strong> copy the service_role / secret key.</li>
+<li class="task"><input type="checkbox" data-k="72" aria-label="Done"> 🌐 Netlify → your site → <strong>Site configuration → Environment variables</strong>: add <code>VITE_SUPABASE_URL</code> and <code>VITE_SUPABASE_ANON_KEY</code> → <strong>Deploys → Trigger deploy</strong>.</li>
+<li class="task"><input type="checkbox" data-k="73" aria-label="Done"> 🌐 Supabase → <strong>Authentication → URL Configuration</strong>: paste the Site URL and Redirect URLs Claude gives you → <strong>Save</strong>.</li>
+<li class="task"><input type="checkbox" data-k="74" aria-label="Done"> If Claude runs a Supabase sign-in, click <strong>Authorize</strong> in the browser → 🤖 <em>done</em>.</li>
+<li class="task"><input type="checkbox" data-k="75" aria-label="Done"> <strong>Step 18.4</strong> sign in on your phone and laptop with the same email, practise on one and check it appears on the other.</li>
+<li class="task"><input type="checkbox" data-k="76" aria-label="Done"> <strong>Gate 18</strong> → new session → <code>/next</code>.</li>
+</ul>
+<p><strong>Phase 19 — Desktop studio and exports.</strong></p>
+<ul>
+<li class="task"><input type="checkbox" data-k="77" aria-label="Done"> <strong>Step 19.5</strong> install <strong>MuseScore</strong> (free, musescore.org), open the exported file Claude names, and say whether it looks right.</li>
+<li class="task"><input type="checkbox" data-k="78" aria-label="Done"> <strong>Gate 19</strong> → new session → <code>/next</code>.</li>
+</ul>
+<p><strong>Phase 20 — Live style morph.</strong></p>
+<ul>
+<li class="task"><input type="checkbox" data-k="79" aria-label="Done"> <strong>Step 20.2</strong> 🎸 switch styles while playing and say whether the changes sound smooth.</li>
+<li class="task"><input type="checkbox" data-k="80" aria-label="Done"> <strong>Gate 20</strong> → new session → <code>/next</code>.</li>
+</ul>
+<p><strong>Phase 21 — Jam mode (a band that follows you).</strong> Use <strong>Opus</strong> for step 21.3.</p>
+<ul>
+<li class="task"><input type="checkbox" data-k="81" aria-label="Done"> <strong>Step 21.2</strong> 🎸 listen to the five band styles and say if any sound wrong.</li>
+<li class="task"><input type="checkbox" data-k="82" aria-label="Done"> <strong>Step 21.4</strong> 🎸 jam for a few minutes and say whether the band follows you naturally.</li>
+<li class="task"><input type="checkbox" data-k="83" aria-label="Done"> <strong>Gate 21</strong> → new session → <code>/next</code>.</li>
+</ul>
+<p><strong>Phase 22 — v2.0 polish and release.</strong></p>
+<ul>
+<li class="task"><input type="checkbox" data-k="84" aria-label="Done"> <strong>Step 22.2 — new demo GIF</strong> (same as 10.2).</li>
+<li class="task"><input type="checkbox" data-k="85" aria-label="Done"> <strong>Gate 22:</strong> <strong>v2.0 is live.</strong> New session → <code>/next</code>.</li>
+</ul>
+<h3>Milestone v2.x — camera and phone apps (the final release)</h3>
+<p><strong>Phase 23 — Camera finger check.</strong> Use <strong>Opus</strong> for step 23.1.</p>
+<ul>
+<li class="task"><input type="checkbox" data-k="86" aria-label="Done"> <strong>Step 23.3</strong> 🎸 with your phone or laptop camera: calibrate, play C, G and Am, and tell Claude how often it was right.</li>
+<li class="task"><input type="checkbox" data-k="87" aria-label="Done"> <strong>Gate 23 — device checks</strong> → <strong>v2.1 is live.</strong> New session → <code>/next</code>.</li>
+</ul>
+<p><strong>Phase 24 — iPhone and Android apps.</strong> Use <strong>Opus</strong> for step 24.2.</p>
+<ul>
+<li class="task"><input type="checkbox" data-k="88" aria-label="Done"> <strong>Step 24.1</strong> choose the app ID Claude suggests (like <code>com.yourname.ateliersix</code>). It can never change later, so pick carefully.</li>
+<li class="task"><input type="checkbox" data-k="89" aria-label="Done"> <strong>Step 24.4 — Android:</strong> 🌐 GitHub → your repo → <strong>Actions</strong> → the latest <strong>native</strong> run → <strong>Artifacts</strong> → download the APK, send it to your phone, open it and allow "Install unknown apps".</li>
+<li class="task"><input type="checkbox" data-k="90" aria-label="Done"> <strong>Step 24.4 — iPhone (optional, needs Xcode, about 15 GB):</strong> install Xcode from the App Store, add your Apple ID in Xcode → Settings → Accounts, turn on Developer Mode on the iPhone, plug it in, and 🤖 <em>"ready to install on my iPhone"</em>.</li>
+<li class="task"><input type="checkbox" data-k="91" aria-label="Done"> <strong>Step 24.5 (optional, costs money):</strong> app-store accounts (Google Play $25 once, Apple $99 a year), or 🤖 <em>skip</em>.</li>
+<li class="task"><input type="checkbox" data-k="92" aria-label="Done"> <strong>Step 24.6 — final demo GIF</strong> (same as 10.2).</li>
+<li class="task"><input type="checkbox" data-k="93" aria-label="Done"> <strong>Gate 24 — device checks:</strong> <strong>v2.2 is live. The build is complete.</strong> 🎉</li>
+</ul>
+<hr />
+<h2 id="s6">Stage 6 — After it's finished</h2>
+<ul>
+<li class="task"><input type="checkbox" data-k="94" aria-label="Done"> If autopilot is on, it pauses itself with "Build complete". You can delete the routine (Routines → the routine → <strong>Delete</strong>).</li>
+<li class="task"><input type="checkbox" data-k="95" aria-label="Done"> Share your live link, the GitHub repo (README with demo GIF) and the <strong>/about</strong> page, which tells the story of how it was built.</li>
+<li class="task"><input type="checkbox" data-k="96" aria-label="Done"> <strong>Keep it running for free:</strong><ul>
+<li>Netlify's free allowance resets monthly. If the site shows "Site not available", it comes back next month.</li>
+<li>If you use sync, Supabase pauses a free project after a week without use: 🌐 supabase.com → your project → <strong>Restore project</strong>.</li>
+</ul>
+</li>
+<li class="task"><input type="checkbox" data-k="97" aria-label="Done"> Anything you want changed later: open a new session and describe it, or 🤖 <code>/fix &lt;what's wrong&gt;</code>.</li>
+</ul>
+<hr />
+<h2 id="s7">When something goes wrong</h2>
+<table>
+<thead>
+<tr>
+<th>What's happening</th>
+<th>Where to look</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Claude says BLOCKED, or you don't understand a message</td>
+<td>🤖 <em>"Explain the problem in plain English and give me my options."</em></td>
+</tr>
+<tr>
+<td>You hit your usage limit</td>
+<td>Stage 3 above, or MAC-GUIDE Part 8.</td>
+</tr>
+<tr>
+<td>A tool, GitHub sign-in or permission problem</td>
+<td>🤖 <code>/setup</code>, then MAC-GUIDE Part 9.</td>
+</tr>
+<tr>
+<td>External drive problems (unplugged, slow, "dubious ownership")</td>
+<td>DRIVE-AND-AUTOPILOT A8 and B9.</td>
+</tr>
+<tr>
+<td>Autopilot skipping runs or stuck</td>
+<td>DRIVE-AND-AUTOPILOT B9.</td>
+</tr>
+<tr>
+<td>The live site looks broken</td>
+<td>🤖 <code>/fix</code> plus what you see.</td>
+</tr>
+<tr>
+<td>You want to undo Claude's last step</td>
+<td>🤖 <em>"Undo your last step and explain what you undid."</em></td>
+</tr>
+</tbody>
+</table>
+<h2 id="s8">Which file is for what</h2>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>When you open it</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>WALKTHROUGH.html</strong> (this page)</td>
+<td>Always: it's the order of everything.</td>
+</tr>
+<tr>
+<td><strong>MAC-GUIDE.html</strong></td>
+<td>For click-by-click detail on setup (Parts 1–5), the daily routine (Part 6), every action Claude asks of you (Part 7), usage limits (Part 8) and problems (Part 9).</td>
+</tr>
+<tr>
+<td><strong>DRIVE-AND-AUTOPILOT.html</strong></td>
+<td>Only if you use an external drive (Part A) or want autopilot (Part B).</td>
+</tr>
+<tr>
+<td><strong>START-HERE.md</strong></td>
+<td>A short overview: costs, how long the build takes, and which model to use when.</td>
+</tr>
+<tr>
+<td><strong>docs/design/</strong> (screens, mockup, logos)</td>
+<td>To see what the finished app will look like.</td>
+</tr>
+<tr>
+<td><strong>PROGRESS.md</strong></td>
+<td>To see the checklist of every step with ticks: select it in Finder and press <strong>Space</strong>.</td>
+</tr>
+<tr>
+<td>Everything else (<strong>CLAUDE.md, PRD.md, LESSONS.md, RESUME.md, docs/build, .claude</strong>)</td>
+<td>For Claude. Leave them alone.</td>
+</tr>
+</tbody>
+</table>
+  </main>
+  <script>
+  (function(){
+    const boxes=[...document.querySelectorAll('li.task input')];
+    if(!boxes.length) return;
+    const key='atelier-six-WALKTHROUGH-ticks';
+    let saved={};
+    try { saved=JSON.parse(localStorage.getItem(key)||'{}'); } catch(e) {}
+    const meter=document.createElement('div'); meter.className='meter'; meter.setAttribute('role','status');
+    meter.innerHTML='<span class="count"></span><span class="bar"><i></i></span><button type="button">Clear ticks</button>';
+    document.querySelector('nav').after(meter);
+    const update=()=>{
+      const n=boxes.filter(b=>b.checked).length;
+      meter.querySelector('.count').textContent=n+' of '+boxes.length+' done';
+      meter.querySelector('i').style.width=(100*n/boxes.length)+'%';
+      boxes.forEach(b=>b.closest('li').classList.toggle('done',b.checked));
+    };
+    boxes.forEach(b=>{
+      b.checked=!!saved[b.dataset.k];
+      b.addEventListener('change',()=>{ saved[b.dataset.k]=b.checked; try { localStorage.setItem(key,JSON.stringify(saved)); } catch(e) {} update(); });
+    });
+    meter.querySelector('button').addEventListener('click',()=>{
+      if(!confirm('Clear every tick on this page?')) return;
+      saved={}; boxes.forEach(b=>b.checked=false); try { localStorage.removeItem(key); } catch(e) {} update();
+    });
+    update();
+  })();
+  document.querySelectorAll('pre').forEach(pre => {
+    const b = document.createElement('button');
+    b.className = 'copy'; b.type = 'button'; b.textContent = 'Copy';
+    b.setAttribute('aria-label', 'Copy this command');
+    b.onclick = async () => {
+      const text = pre.querySelector('code').innerText.replace(/\n$/, '');
+      try { await navigator.clipboard.writeText(text); } catch (e) {
+        const r = document.createRange(); r.selectNodeContents(pre.querySelector('code'));
+        const s = getSelection(); s.removeAllRanges(); s.addRange(r); document.execCommand('copy'); s.removeAllRanges();
+      }
+      b.textContent = 'Copied'; setTimeout(() => b.textContent = 'Copy', 1500);
+    };
+    pre.appendChild(b);
+  });
+  </script>
+  </body></html>
