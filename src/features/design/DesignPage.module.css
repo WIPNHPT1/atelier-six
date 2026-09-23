@@ -1,0 +1,80 @@
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+  padding: var(--s-8) 0;
+}
+
+.swatchGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: var(--s-4);
+}
+
+.swatch {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+}
+
+.swatchColor {
+  height: 64px;
+  border-radius: var(--r-hair);
+  border: 1px solid var(--hairline);
+}
+
+.contrastList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+}
+
+.typeScale {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+}
+
+.typeRow {
+  display: flex;
+  align-items: baseline;
+  gap: var(--s-4);
+}
+
+.spacingRow {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+}
+
+.spacingBox {
+  height: 16px;
+  background: var(--brass);
+  border-radius: var(--r-hair);
+}
+
+.componentRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-4);
+}
+
+.logoRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-8);
+}
+
+.controlsRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-8);
+}
+
+.controlGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+}
