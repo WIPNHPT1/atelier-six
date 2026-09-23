@@ -4,3 +4,18 @@ dist-ssr
 coverage
 playwright-report
 package-lock.json
+
+# Kit files (owned by the atelier-six-kit template, not app code)
+.claude/
+docs/build/
+docs/design/
+CLAUDE.md
+PRD.md
+MAC-GUIDE.*
+DRIVE-AND-AUTOPILOT.*
+WALKTHROUGH.*
+START-HERE.md
+
+# Hand-maintained, line-budgeted build-loop files (CLAUDE.md controls their exact format)
+LESSONS.md
+RESUME.md
