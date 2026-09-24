@@ -93,6 +93,22 @@ describe('TunerPage', () => {
     expect(screen.getByTestId('tuner-note')).toHaveTextContent('E2');
   });
 
+  it('shows the mic input level while listening', async () => {
+    const user = userEvent.setup();
+    detectPitch.mockReturnValue(null);
+    render(<TunerPage />);
+
+    await user.click(screen.getByRole('button', { name: copy.tunerScreen.start }));
+
+    const buffer = new Float32Array(4096);
+    buffer[0] = 0.5;
+    act(() => {
+      capturedFrame?.(buffer, 44100);
+    });
+
+    expect(screen.getByTestId('tuner-level')).toHaveTextContent('0.500');
+  });
+
   it('stops the mic and clears the note on Stop', async () => {
     const user = userEvent.setup();
     detectPitch.mockReturnValue({ freq: 82.41, clarity: 0.95 });

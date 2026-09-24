@@ -45,6 +45,7 @@ export default function TunerPage() {
   const [pitchInfo, setPitchInfo] = useState<PitchInfo | null>(null);
   const [displayedCents, setDisplayedCents] = useState(0);
   const [inTune, setInTune] = useState(false);
+  const [inputLevel, setInputLevel] = useState(0);
 
   const tuningArray = TUNINGS[settings.tuning];
   const settingsRef = useRef(settings);
@@ -66,6 +67,10 @@ export default function TunerPage() {
   );
 
   function handleFrame(buffer: Float32Array, sampleRate: number) {
+    let peak = 0;
+    for (const sample of buffer) peak = Math.max(peak, Math.abs(sample));
+    setInputLevel(peak);
+
     const result = detectPitch(buffer, sampleRate);
     if (!result) {
       setPitchInfo(null);
@@ -103,6 +108,7 @@ export default function TunerPage() {
       setPitchInfo(null);
       setDisplayedCents(0);
       setInTune(false);
+      setInputLevel(0);
       inTuneSinceRef.current = null;
       return;
     }
@@ -151,6 +157,11 @@ export default function TunerPage() {
           <Text dim={!calm} data-testid="tuner-status">
             {statusCopy[status]}
           </Text>
+          {status === 'listening' ? (
+            <Mono data-testid="tuner-level">
+              {copy.tunerScreen.inputLevel.replace('{level}', inputLevel.toFixed(3))}
+            </Mono>
+          ) : null}
         </div>
 
         {!calm ? (
