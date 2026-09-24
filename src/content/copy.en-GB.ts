@@ -106,6 +106,20 @@ export const copy = {
     sheetDemo: 'Sheet demo',
     sheetBody: 'This is a bottom sheet on mobile and a side panel from 640px up.',
     typeSample: 'Aa',
+    fretboard: 'Fretboard',
+  },
+  fretboard: {
+    barre: '{finger} finger barre {fromString} to {toString} string fret {fret}',
+    fingerFret: '{finger} finger {string} string fret {fret}',
+    openOne: '{strings} string open',
+    openMany: '{strings} strings open',
+    mutedOne: '{strings} string muted',
+    mutedMany: '{strings} strings muted',
+    and: 'and',
+    thumb: 'thumb',
+    startFret: '{fret}fr',
+    mutedSymbol: '×',
+    openSymbol: '○',
   },
   skipToContent: 'Skip to content',
   close: 'Close',
@@ -117,33 +131,33 @@ export const copy = {
     startTuner: 'Start tuner',
     search: 'Search',
   },
-}
+};
 
-type Copy = typeof copy
+type Copy = typeof copy;
 
 type Path<T> = T extends string
   ? never
   : {
-      [K in keyof T]: T[K] extends string ? K : `${K & string}.${Path<T[K]> & string}`
-    }[keyof T]
+      [K in keyof T]: T[K] extends string ? K : `${K & string}.${Path<T[K]> & string}`;
+    }[keyof T];
 
 function resolve(source: unknown, path: string): unknown {
   return path.split('.').reduce<unknown>((acc, key) => {
     if (acc && typeof acc === 'object' && key in acc) {
-      return (acc as Record<string, unknown>)[key]
+      return (acc as Record<string, unknown>)[key];
     }
-    return undefined
-  }, source)
+    return undefined;
+  }, source);
 }
 
 export function t(path: Path<Copy>, vars?: Record<string, string | number>): string {
-  const value = resolve(copy, path)
+  const value = resolve(copy, path);
   if (typeof value !== 'string') {
-    throw new Error(`Missing copy for "${path}"`)
+    throw new Error(`Missing copy for "${path}"`);
   }
-  if (!vars) return value
+  if (!vars) return value;
   return value.replace(/\{(\w+)\}/g, (match, key: string) => {
-    const replacement = vars[key]
-    return replacement === undefined ? match : String(replacement)
-  })
+    const replacement = vars[key];
+    return replacement === undefined ? match : String(replacement);
+  });
 }

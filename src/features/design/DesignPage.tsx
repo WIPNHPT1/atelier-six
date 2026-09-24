@@ -1,25 +1,31 @@
-import { useState } from 'react'
-import { PageHeader } from '../../app/layout/PageHeader'
-import { Panel } from '../../ui/Panel'
-import { Heading } from '../../ui/Heading'
-import { Text } from '../../ui/Text'
-import { Mono } from '../../ui/Mono'
-import { Divider } from '../../ui/Divider'
-import { Button } from '../../ui/Button'
-import { IconButton } from '../../ui/IconButton'
-import { Pill } from '../../ui/Pill'
-import { Toggle } from '../../ui/Toggle'
-import { SegmentedControl } from '../../ui/SegmentedControl'
-import { Slider } from '../../ui/Slider'
-import { Dial } from '../../ui/Dial'
-import { Sheet } from '../../ui/Sheet'
-import { Logo } from '../../ui/Logo'
-import { PlayIcon } from '../../ui/icons'
-import { copy } from '../../content/copy.en-GB'
-import { useSettingsStore } from '../../app/settingsStore'
-import { contrastRatio } from '../../core/colorContrast'
-import { useLiveTokens } from './useLiveTokens'
-import styles from './DesignPage.module.css'
+import { useState } from 'react';
+import { PageHeader } from '../../app/layout/PageHeader';
+import { Panel } from '../../ui/Panel';
+import { Heading } from '../../ui/Heading';
+import { Text } from '../../ui/Text';
+import { Mono } from '../../ui/Mono';
+import { Divider } from '../../ui/Divider';
+import { Button } from '../../ui/Button';
+import { IconButton } from '../../ui/IconButton';
+import { Pill } from '../../ui/Pill';
+import { Toggle } from '../../ui/Toggle';
+import { SegmentedControl } from '../../ui/SegmentedControl';
+import { Slider } from '../../ui/Slider';
+import { Dial } from '../../ui/Dial';
+import { Sheet } from '../../ui/Sheet';
+import { Logo } from '../../ui/Logo';
+import { Fretboard } from '../../ui/Fretboard/Fretboard';
+import { PlayIcon } from '../../ui/icons';
+import { copy } from '../../content/copy.en-GB';
+import { useSettingsStore } from '../../app/settingsStore';
+import { contrastRatio } from '../../core/colorContrast';
+import { getChord, getShapes } from '../../core/shapes/library';
+import { useLiveTokens } from './useLiveTokens';
+import styles from './DesignPage.module.css';
+
+const FRETBOARD_C = getChord('C')?.shapes[0];
+const FRETBOARD_F_BARRE = getShapes('F', { tags: ['barre'] })[0];
+const FRETBOARD_G5 = getShapes('G5', { tags: ['power'] })[0];
 
 const SWATCH_TOKENS = [
   'ebony',
@@ -34,25 +40,25 @@ const SWATCH_TOKENS = [
   'f3',
   'f4',
   'fT',
-] as const
+] as const;
 
 const CONTRAST_PAIRS = [
   ['bone', 'ebony'],
   ['bone', 'rosewood'],
   ['bone-dim', 'ebony'],
   ['ebony', 'brass'],
-] as const
+] as const;
 
-const TYPE_STEPS = [12, 14, 16, 20, 28, 40, 56]
-const SPACING_STEPS = [4, 8, 12, 16, 24, 32, 48, 64]
+const TYPE_STEPS = [12, 14, 16, 20, 28, 40, 56];
+const SPACING_STEPS = [4, 8, 12, 16, 24, 32, 48, 64];
 
 export default function DesignPage() {
-  const tokens = useLiveTokens()
-  const settings = useSettingsStore()
-  const [sliderValue, setSliderValue] = useState(90)
-  const [toggleOn, setToggleOn] = useState(true)
-  const [segment, setSegment] = useState('a')
-  const [sheetOpen, setSheetOpen] = useState(false)
+  const tokens = useLiveTokens();
+  const settings = useSettingsStore();
+  const [sliderValue, setSliderValue] = useState(90);
+  const [toggleOn, setToggleOn] = useState(true);
+  const [segment, setSegment] = useState('a');
+  const [sheetOpen, setSheetOpen] = useState(false);
 
   return (
     <PageHeader title={copy.design.title}>
@@ -60,7 +66,7 @@ export default function DesignPage() {
         <Heading level={2}>{copy.design.colours}</Heading>
         <div className={styles.swatchGrid}>
           {SWATCH_TOKENS.map((name) => {
-            const varName = `--${name}`
+            const varName = `--${name}`;
             return (
               <div className={styles.swatch} key={name}>
                 <div
@@ -73,21 +79,21 @@ export default function DesignPage() {
                   {tokens[name]}
                 </Text>
               </div>
-            )
+            );
           })}
         </div>
         <Divider />
         <div className={styles.contrastList}>
           {CONTRAST_PAIRS.map(([a, b]) => {
-            const ratio = contrastRatio(tokens[a], tokens[b])
-            const pairLabel = `--${a} / --${b}: `
-            const ratioLabel = `${ratio.toFixed(2)}:1`
+            const ratio = contrastRatio(tokens[a], tokens[b]);
+            const pairLabel = `--${a} / --${b}: `;
+            const ratioLabel = `${ratio.toFixed(2)}:1`;
             return (
               <Text key={`${a}-${b}`}>
                 {pairLabel}
                 <Mono>{ratioLabel}</Mono>
               </Text>
-            )
+            );
           })}
         </div>
       </section>
@@ -98,7 +104,7 @@ export default function DesignPage() {
         <Heading level={2}>{copy.design.typeScale}</Heading>
         <div className={styles.typeScale}>
           {TYPE_STEPS.map((step) => {
-            const pxLabel = `${String(step)}px`
+            const pxLabel = `${String(step)}px`;
             return (
               <div className={styles.typeRow} key={step}>
                 <Mono>{pxLabel}</Mono>
@@ -106,7 +112,7 @@ export default function DesignPage() {
                   {copy.design.typeSample}
                 </span>
               </div>
-            )
+            );
           })}
         </div>
       </section>
@@ -116,13 +122,13 @@ export default function DesignPage() {
       <section className={styles.section}>
         <Heading level={2}>{copy.design.spacing}</Heading>
         {SPACING_STEPS.map((step) => {
-          const pxLabel = `${String(step)}px`
+          const pxLabel = `${String(step)}px`;
           return (
             <div className={styles.spacingRow} key={step}>
               <Mono>{pxLabel}</Mono>
               <div className={styles.spacingBox} style={{ width: pxLabel }} />
             </div>
-          )
+          );
         })}
       </section>
 
@@ -172,7 +178,13 @@ export default function DesignPage() {
         </div>
 
         <Heading level={3}>{copy.design.slider}</Heading>
-        <Slider label={copy.design.slider} value={sliderValue} min={40} max={200} onChange={setSliderValue} />
+        <Slider
+          label={copy.design.slider}
+          value={sliderValue}
+          min={40}
+          max={200}
+          onChange={setSliderValue}
+        />
 
         <Heading level={3}>{copy.design.toggle}</Heading>
         <Toggle label={copy.design.toggle} checked={toggleOn} onChange={setToggleOn} />
@@ -195,7 +207,7 @@ export default function DesignPage() {
         <Button
           variant="quiet"
           onClick={() => {
-            setSheetOpen(true)
+            setSheetOpen(true);
           }}
         >
           {copy.design.openSheet}
@@ -204,11 +216,19 @@ export default function DesignPage() {
           title={copy.design.sheetDemo}
           open={sheetOpen}
           onClose={() => {
-            setSheetOpen(false)
+            setSheetOpen(false);
           }}
         >
           <Text>{copy.design.sheetBody}</Text>
         </Sheet>
+
+        <Heading level={3}>{copy.design.fretboard}</Heading>
+        <div className={styles.componentRow}>
+          {FRETBOARD_C ? <Fretboard shape={FRETBOARD_C} /> : null}
+          {FRETBOARD_F_BARRE ? <Fretboard shape={FRETBOARD_F_BARRE} /> : null}
+          {FRETBOARD_G5 ? <Fretboard shape={FRETBOARD_G5} orientation="neck" /> : null}
+          {FRETBOARD_C ? <Fretboard shape={FRETBOARD_C} leftHanded /> : null}
+        </div>
       </section>
 
       <Divider />
@@ -232,7 +252,7 @@ export default function DesignPage() {
               label={copy.design.finish}
               value={settings.finish}
               onChange={(value) => {
-                settings.setFinish(value as typeof settings.finish)
+                settings.setFinish(value as typeof settings.finish);
               }}
               segments={[
                 { value: 'nitro', label: 'Nitro' },
@@ -250,7 +270,7 @@ export default function DesignPage() {
               label={copy.design.mode}
               value={settings.mode}
               onChange={(value) => {
-                settings.setMode(value as typeof settings.mode)
+                settings.setMode(value as typeof settings.mode);
               }}
               segments={[
                 { value: 'dark', label: copy.settings.modeDark },
@@ -266,7 +286,7 @@ export default function DesignPage() {
               label={copy.design.motion}
               value={settings.motion}
               onChange={(value) => {
-                settings.setMotion(value as typeof settings.motion)
+                settings.setMotion(value as typeof settings.motion);
               }}
               segments={[
                 { value: 'on', label: copy.settings.motionOn },
@@ -278,5 +298,5 @@ export default function DesignPage() {
         </div>
       </section>
     </PageHeader>
-  )
+  );
 }

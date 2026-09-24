@@ -1,0 +1,64 @@
+.fretboard {
+  display: block;
+  overflow: visible;
+}
+
+.string {
+  stroke: var(--bone-dim);
+}
+
+.string[data-highlighted='true'] {
+  stroke: var(--brass);
+}
+
+.fret {
+  stroke: var(--hairline);
+  stroke-width: 1;
+}
+
+.nut {
+  stroke: var(--bone);
+  stroke-width: 3;
+}
+
+.fretLabel {
+  fill: var(--bone-dim);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  text-anchor: middle;
+  dominant-baseline: middle;
+}
+
+.dot {
+  stroke: none;
+}
+
+.dotLabel {
+  fill: var(--bone);
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 10px;
+  text-anchor: middle;
+  dominant-baseline: central;
+  pointer-events: none;
+}
+
+.barre {
+  stroke: var(--f1);
+  stroke-linecap: round;
+}
+
+.ghost {
+  fill: none;
+  stroke: var(--bone-dim);
+  stroke-width: 1.5;
+  opacity: 0.5;
+}
+
+.symbol {
+  fill: var(--bone-dim);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-anchor: middle;
+  dominant-baseline: middle;
+}
