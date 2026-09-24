@@ -1,4 +1,5 @@
 const FFT_SIZE = 4096;
+const SILENT_GAIN = 0;
 
 export class MicUnsupportedError extends Error {}
 export class MicPermissionDeniedError extends Error {}
@@ -10,6 +11,7 @@ type MicState = {
   audioContext: AudioContext;
   source: MediaStreamAudioSourceNode;
   analyser: AnalyserNode;
+  silentGain: GainNode;
   buffer: Float32Array;
   rafId: number;
 };
@@ -49,6 +51,12 @@ export async function startMic(onFrame: MicFrameListener): Promise<void> {
   const analyser = audioContext.createAnalyser();
   analyser.fftSize = FFT_SIZE;
   source.connect(analyser);
+  // Safari only pulls audio through nodes that reach the destination, so an analyser left
+  // as a dead end gets no data at all; route it out through a muted gain instead.
+  const silentGain = audioContext.createGain();
+  silentGain.gain.value = SILENT_GAIN;
+  analyser.connect(silentGain);
+  silentGain.connect(audioContext.destination);
   const buffer = new Float32Array(analyser.fftSize);
 
   function loop() {
@@ -58,7 +66,7 @@ export async function startMic(onFrame: MicFrameListener): Promise<void> {
     state.rafId = requestAnimationFrame(loop);
   }
 
-  state = { stream, audioContext, source, analyser, buffer, rafId: 0 };
+  state = { stream, audioContext, source, analyser, silentGain, buffer, rafId: 0 };
   state.rafId = requestAnimationFrame(loop);
 }
 
@@ -66,6 +74,7 @@ export function stopMic(): void {
   if (state === null) return;
   cancelAnimationFrame(state.rafId);
   state.source.disconnect();
+  state.silentGain.disconnect();
   state.stream.getTracks().forEach((track) => {
     track.stop();
   });

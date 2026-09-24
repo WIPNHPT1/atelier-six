@@ -3,20 +3,31 @@ import { MicPermissionDeniedError, MicUnsupportedError, startMic, stopMic } from
 
 class FakeAnalyser {
   fftSize = 2048;
+  connect = vi.fn();
   getFloatTimeDomainData(buffer: Float32Array) {
     buffer.fill(0);
   }
+}
+
+class FakeGain {
+  gain = { value: 1 };
+  connect = vi.fn();
+  disconnect = vi.fn();
 }
 
 class FakeAudioContext {
   sampleRate = 44100;
   closed = false;
   resumed = false;
+  destination = {};
   createMediaStreamSource() {
     return { connect: vi.fn(), disconnect: vi.fn() };
   }
   createAnalyser() {
     return new FakeAnalyser();
+  }
+  createGain() {
+    return new FakeGain();
   }
   resume() {
     this.resumed = true;
@@ -85,6 +96,17 @@ describe('mic', () => {
     const resume = vi.spyOn(FakeAudioContext.prototype, 'resume');
     await startMic(() => undefined);
     expect(resume).toHaveBeenCalled();
+  });
+
+  it('routes the analyser to the destination through a muted gain (Safari needs it in the graph)', async () => {
+    vi.stubGlobal('navigator', {
+      mediaDevices: { getUserMedia: vi.fn().mockResolvedValue(fakeStream().stream) },
+    });
+    const createGain = vi.spyOn(FakeAudioContext.prototype, 'createGain');
+    await startMic(() => undefined);
+    const gain = createGain.mock.results[0]?.value as FakeGain;
+    expect(gain.gain.value).toBe(0);
+    expect(gain.connect).toHaveBeenCalled();
   });
 
   it('stopMic releases the stream tracks', async () => {
