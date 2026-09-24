@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { detectPitch } from './detectPitch';
+import { detectPitch, detectPitchRaw } from './detectPitch';
 
 const SAMPLE_RATE = 44100;
 const BUFFER_SIZE = 2048;
@@ -62,5 +62,19 @@ describe('detectPitch', () => {
     // A long buffer so a 30 Hz tone still has enough periods for a confident autocorrelation.
     const result = detectPitch(sineBuffer(30, SAMPLE_RATE, BUFFER_SIZE * 8), SAMPLE_RATE);
     expect(result).toBeNull();
+  });
+});
+
+describe('detectPitchRaw', () => {
+  it('reports freq, clarity and rms without gating', () => {
+    const raw = detectPitchRaw(sineBuffer(110), SAMPLE_RATE);
+    expect(raw.freq).toBeCloseTo(110, 0);
+    expect(raw.clarity).toBeGreaterThan(0.9);
+    expect(raw.rms).toBeGreaterThan(0);
+  });
+
+  it('still reports a reading for silence, unlike detectPitch', () => {
+    const raw = detectPitchRaw(new Float32Array(BUFFER_SIZE), SAMPLE_RATE);
+    expect(raw.rms).toBe(0);
   });
 });

@@ -7,7 +7,7 @@ import {
   type Tuning as TuningName,
 } from '../../app/settingsStore';
 import { standard, halfDown, dropD, type Tuning } from '../../core/tuning';
-import { detectPitch } from '../../core/pitch/detectPitch';
+import { detectPitch, detectPitchRaw } from '../../core/pitch/detectPitch';
 import { freqToNote, midiToNote } from '../../core/pitch/freqToNote';
 import { nearestString } from '../../core/pitch/nearestString';
 import { smooth } from '../../core/pitch/smooth';
@@ -45,7 +45,7 @@ export default function TunerPage() {
   const [pitchInfo, setPitchInfo] = useState<PitchInfo | null>(null);
   const [displayedCents, setDisplayedCents] = useState(0);
   const [inTune, setInTune] = useState(false);
-  const [inputLevel, setInputLevel] = useState(0);
+  const [debug, setDebug] = useState({ rms: 0, freq: 0, clarity: 0 });
 
   const tuningArray = TUNINGS[settings.tuning];
   const settingsRef = useRef(settings);
@@ -67,9 +67,8 @@ export default function TunerPage() {
   );
 
   function handleFrame(buffer: Float32Array, sampleRate: number) {
-    let peak = 0;
-    for (const sample of buffer) peak = Math.max(peak, Math.abs(sample));
-    setInputLevel(peak);
+    const raw = detectPitchRaw(buffer, sampleRate);
+    setDebug({ rms: raw.rms, freq: raw.freq, clarity: raw.clarity });
 
     const result = detectPitch(buffer, sampleRate);
     if (!result) {
@@ -108,7 +107,7 @@ export default function TunerPage() {
       setPitchInfo(null);
       setDisplayedCents(0);
       setInTune(false);
-      setInputLevel(0);
+      setDebug({ rms: 0, freq: 0, clarity: 0 });
       inTuneSinceRef.current = null;
       return;
     }
@@ -159,7 +158,10 @@ export default function TunerPage() {
           </Text>
           {status === 'listening' ? (
             <Mono data-testid="tuner-level">
-              {copy.tunerScreen.inputLevel.replace('{level}', inputLevel.toFixed(3))}
+              {copy.tunerScreen.inputLevel
+                .replace('{level}', debug.rms.toFixed(3))
+                .replace('{freq}', debug.freq.toFixed(0))
+                .replace('{clarity}', debug.clarity.toFixed(2))}
             </Mono>
           ) : null}
         </div>

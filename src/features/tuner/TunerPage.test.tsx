@@ -12,6 +12,7 @@ const stopMic = vi.fn();
 const ensureAudio = vi.fn().mockResolvedValue(undefined);
 const playReferenceTone = vi.fn();
 const detectPitch = vi.fn();
+const detectPitchRaw = vi.fn();
 
 vi.mock('../../audio/mic', () => ({
   startMic: (onFrame: (buffer: Float32Array, sampleRate: number) => void): Promise<void> =>
@@ -36,6 +37,11 @@ vi.mock('../../core/pitch/detectPitch', () => ({
     sampleRate: number,
   ): { freq: number; clarity: number } | null =>
     detectPitch(buffer, sampleRate) as { freq: number; clarity: number } | null,
+  detectPitchRaw: (
+    buffer: Float32Array,
+    sampleRate: number,
+  ): { freq: number; clarity: number; rms: number } =>
+    detectPitchRaw(buffer, sampleRate) as { freq: number; clarity: number; rms: number },
 }));
 
 function resetSettings() {
@@ -63,6 +69,7 @@ describe('TunerPage', () => {
       return Promise.resolve();
     });
     detectPitch.mockReturnValue(null);
+    detectPitchRaw.mockReturnValue({ freq: 0, clarity: 0, rms: 0 });
   });
 
   afterEach(() => {
@@ -96,17 +103,19 @@ describe('TunerPage', () => {
   it('shows the mic input level while listening', async () => {
     const user = userEvent.setup();
     detectPitch.mockReturnValue(null);
+    detectPitchRaw.mockReturnValue({ freq: 132, clarity: 0.42, rms: 0.5 });
     render(<TunerPage />);
 
     await user.click(screen.getByRole('button', { name: copy.tunerScreen.start }));
 
-    const buffer = new Float32Array(4096);
-    buffer[0] = 0.5;
     act(() => {
-      capturedFrame?.(buffer, 44100);
+      capturedFrame?.(new Float32Array(4096), 44100);
     });
 
-    expect(screen.getByTestId('tuner-level')).toHaveTextContent('0.500');
+    const level = screen.getByTestId('tuner-level');
+    expect(level).toHaveTextContent('0.500');
+    expect(level).toHaveTextContent('132');
+    expect(level).toHaveTextContent('0.42');
   });
 
   it('stops the mic and clears the note on Stop', async () => {

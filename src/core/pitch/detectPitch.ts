@@ -28,13 +28,25 @@ export interface PitchResult {
   clarity: number;
 }
 
-export function detectPitch(buffer: Float32Array, sampleRate: number): PitchResult | null {
-  if (rms(buffer) < RMS_NOISE_GATE) return null;
+export interface RawPitch {
+  freq: number;
+  clarity: number;
+  rms: number;
+}
 
+// The ungated read: useful to see why a real frame is being rejected (a calm on-screen
+// readout beats asking a non-technical user to open a browser console).
+export function detectPitchRaw(buffer: Float32Array, sampleRate: number): RawPitch {
+  const level = rms(buffer);
   const detector = detectorFor(buffer.length);
   const [freq, clarity] = detector.findPitch(buffer, sampleRate);
+  return { freq, clarity, rms: level };
+}
 
-  if (clarity < CLARITY_THRESHOLD) return null;
-  if (freq < MIN_FREQ_HZ || freq > MAX_FREQ_HZ) return null;
-  return { freq, clarity };
+export function detectPitch(buffer: Float32Array, sampleRate: number): PitchResult | null {
+  const raw = detectPitchRaw(buffer, sampleRate);
+  if (raw.rms < RMS_NOISE_GATE) return null;
+  if (raw.clarity < CLARITY_THRESHOLD) return null;
+  if (raw.freq < MIN_FREQ_HZ || raw.freq > MAX_FREQ_HZ) return null;
+  return { freq: raw.freq, clarity: raw.clarity };
 }

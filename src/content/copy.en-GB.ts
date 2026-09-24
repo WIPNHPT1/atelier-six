@@ -463,7 +463,7 @@ export const copy = {
     inTune: 'In tune',
     listenForNote: 'Play a string to see its name here.',
     referenceToneLabel: 'Play {note} reference tone',
-    inputLevel: 'mic level {level}',
+    inputLevel: 'mic {level} · freq {freq}Hz · clarity {clarity}',
     tuning: 'Tuning',
     a4Label: 'A4 calibration',
   },
