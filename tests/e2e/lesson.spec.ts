@@ -118,6 +118,32 @@ test('the Britpop tune plays its layered band without errors', async ({ page, br
   expect(errors).toEqual([]);
 });
 
+test('the Metronome toggle actually plays the click track', async ({ page, browserName }) => {
+  test.skip(browserName !== 'chromium', 'audio gesture policy is Chromium-only in CI');
+  await page.goto('/lesson/power-vi-iv-i-v-d');
+  const main = page.locator('#main');
+  await main.getByRole('switch', { name: 'Metronome' }).click();
+  await main.getByRole('button', { name: 'Play', exact: true }).click();
+  await expect
+    .poll(() => page.evaluate(() => (window as unknown as { __a6clicks?: number }).__a6clicks), {
+      timeout: 5000,
+    })
+    .toBeGreaterThan(0);
+});
+
+test('Count-in plays clicks before the lesson starts', async ({ page, browserName }) => {
+  test.skip(browserName !== 'chromium', 'audio gesture policy is Chromium-only in CI');
+  await page.goto('/lesson/power-vi-iv-i-v-d');
+  const main = page.locator('#main');
+  // Metronome off, Count-in on (the default): any clicks heard must be the count-in.
+  await main.getByRole('button', { name: 'Play', exact: true }).click();
+  await expect
+    .poll(() => page.evaluate(() => (window as unknown as { __a6clicks?: number }).__a6clicks), {
+      timeout: 5000,
+    })
+    .toBeGreaterThan(0);
+});
+
 test('after a tempo change the chord shown stays with the bar being played', async ({
   page,
   browserName,

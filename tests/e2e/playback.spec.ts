@@ -9,6 +9,9 @@ test('Play advances the playhead and Stop freezes it', async ({ page, browserNam
 
   const lane = page.locator('[data-playhead-step]');
   const main = page.locator('#main');
+  // Count-in is on by default and now genuinely delays the first bar; this test is about the
+  // playhead mechanics, not the count-in, so turn it off to keep the timing simple.
+  await main.getByRole('switch', { name: 'Count-in' }).click();
   await main.getByRole('button', { name: 'Play', exact: true }).click();
 
   const first = await lane.getAttribute('data-playhead-step');

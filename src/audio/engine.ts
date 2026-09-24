@@ -53,6 +53,8 @@ const REFERENCE_TONE_VELOCITY = 0.6;
 declare global {
   interface Window {
     __a6audio?: { state: string };
+    // Count of metronome/count-in clicks actually triggered, for e2e verification.
+    __a6clicks?: number;
   }
 }
 
@@ -285,6 +287,7 @@ export function playClick(time: number, accent: boolean): void {
     CLICK_DURATION_SECONDS,
     time,
   );
+  window.__a6clicks = (window.__a6clicks ?? 0) + 1;
 }
 
 export function playBassNote(midi: number, time: number, duration: number, velocity = 0.8): void {
