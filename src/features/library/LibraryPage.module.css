@@ -1,0 +1,91 @@
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-3);
+  padding: var(--s-4) 0;
+}
+
+.disabledModule {
+  opacity: 0.5;
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: var(--s-4);
+  padding-bottom: var(--s-4);
+}
+
+.searchField {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-1);
+}
+
+.searchLabel {
+  color: var(--bone-dim);
+  font-size: var(--t-12);
+}
+
+.searchInput {
+  background: var(--rosewood);
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-hair);
+  color: var(--bone);
+  font-family: var(--font-ui);
+  font-size: var(--t-14);
+  padding: var(--s-2) var(--s-3);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: var(--s-4);
+  padding-bottom: var(--s-8);
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s-2);
+  background: var(--rosewood);
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-hair);
+  padding: var(--s-3);
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+}
+
+.sheetBody {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+  padding: var(--s-4) 0;
+}
+
+.shapeGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: var(--s-4);
+}
+
+.shapeCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s-1);
+}
+
+.compareSelect {
+  background: var(--rosewood);
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-hair);
+  color: var(--bone);
+  font-family: var(--font-ui);
+  font-size: var(--t-14);
+  padding: var(--s-2) var(--s-3);
+}

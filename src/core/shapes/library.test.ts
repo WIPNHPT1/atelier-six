@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { getChord, getShapes } from './library.ts';
+import { getChord, getShapes, listChordNames } from './library.ts';
 import { validateShape } from './validateShape.ts';
 import chordsData from '../../data/chords.json';
 import type { Shape } from './types.ts';
@@ -94,5 +94,17 @@ describe('getShapes', () => {
 
   it('returns an empty list for an unknown chord', () => {
     expect(getShapes('Nope')).toEqual([]);
+  });
+});
+
+describe('listChordNames', () => {
+  it('lists only chords with at least one power shape', () => {
+    const names = listChordNames({ tags: ['power'] });
+    expect(names).toContain('G5');
+    expect(names).not.toContain('Dsus4');
+  });
+
+  it('lists every chord with no filter', () => {
+    expect(listChordNames().length).toBe(Object.keys(DATA).length);
   });
 });

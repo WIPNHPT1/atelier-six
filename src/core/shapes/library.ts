@@ -35,3 +35,7 @@ export function getShapes(name: string, filter: ShapeFilter = {}): Shape[] {
     return true;
   });
 }
+
+export function listChordNames(filter: ShapeFilter = {}): string[] {
+  return Object.keys(DATA).filter((name) => getShapes(name, filter).length > 0);
+}
