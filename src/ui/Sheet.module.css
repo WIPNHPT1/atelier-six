@@ -20,6 +20,7 @@
   border-top-left-radius: 24px;
   border-top-right-radius: 24px;
   max-height: 85vh;
+  max-height: 85dvh;
   overflow: auto;
 }
 

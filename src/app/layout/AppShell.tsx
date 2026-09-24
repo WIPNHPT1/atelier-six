@@ -46,15 +46,18 @@ export function AppShell() {
       <Rail />
       <MiniPlayer />
       <Dock />
-      <IconButton
-        label={copy.commandPalette.search}
-        className={styles.mobileSearch}
-        onClick={() => {
-          setPaletteOpen(true);
-        }}
-      >
-        <SearchIcon />
-      </IconButton>
+      {/* Wrapper owns position/visibility: a class on IconButton itself loses to
+          IconButton's own `display` depending on CSS chunk order. */}
+      <div className={styles.mobileSearch} data-testid="mobile-search">
+        <IconButton
+          label={copy.commandPalette.search}
+          onClick={() => {
+            setPaletteOpen(true);
+          }}
+        >
+          <SearchIcon />
+        </IconButton>
+      </div>
       <main id="main" className={styles.content}>
         <Suspense fallback={<Skeleton width="100%" height={200} />}>
           <Outlet />

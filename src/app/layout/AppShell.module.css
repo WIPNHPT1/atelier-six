@@ -19,6 +19,8 @@
   top: var(--s-4);
   right: var(--s-4);
   z-index: 25;
+  display: flex;
+  overflow: hidden;
   background: var(--rosewood);
   border: 1px solid var(--hairline);
   border-radius: var(--r-pill);
