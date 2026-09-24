@@ -7,7 +7,7 @@ import {
 } from '../core/schedule/buildSchedule.ts';
 import { humanise } from '../core/schedule/humanise.ts';
 import { applyFreezes } from '../core/drills/drills.ts';
-import { remainingFromBar } from '../core/schedule/remainingFromBar.ts';
+import { resumePosition } from '../core/schedule/tempoChange.ts';
 import { useSettingsStore } from '../app/settingsStore.ts';
 import type { BandEvent } from '../core/band/band.ts';
 import { forgetRinging, playBand, playEvent } from './engine.ts';
@@ -179,6 +179,8 @@ export function stop(): void {
   currentSchedule = null;
 }
 
+// Changes tempo mid-play without losing the place: the whole section keeps looping and playback
+// carries on from the same bar and beat, so the tab and chord shown stay with the sound.
 export function setBpm(bpm: number): void {
   const transport = Tone.getTransport();
   if (currentSource === null) {
@@ -187,24 +189,16 @@ export function setBpm(bpm: number): void {
     return;
   }
 
-  const elapsedStep = Math.round(transport.seconds / (15 / currentBpm));
-  const resumeBar = Math.ceil(elapsedStep / 16);
-  const { shapes, bars } = remainingFromBar(currentSource.shapes, currentSource.bars, resumeBar);
-
+  const position = resumePosition(transport.seconds, currentBpm, bpm, getLoopSeconds());
   currentBpm = bpm;
   transport.bpm.value = bpm;
   transport.stop();
   transport.cancel();
-  transport.seconds = 0;
+  forgetRinging();
 
-  currentLoopSeconds = loopSecondsFor({ ...currentSource, shapes, bars }, bpm);
-  const schedule = scheduleFor({ ...currentSource, shapes, bars }, bpm);
-  currentSource = { ...currentSource, shapes, bars };
-  schedulePart(schedule, currentLoop);
-  currentLayers = currentLayers.map((layer) => {
-    const rest = remainingFromBar(layer.source.shapes, layer.source.bars, resumeBar);
-    return { ...layer, source: { ...layer.source, ...rest } };
-  });
+  currentLoopSeconds = loopSecondsFor(currentSource, bpm);
+  currentEndSeconds = currentLoopSeconds;
+  schedulePart(scheduleFor(currentSource, bpm), currentLoop);
   scheduleLayers(bpm, currentLoop);
-  transport.start();
+  transport.start(Tone.now(), position);
 }

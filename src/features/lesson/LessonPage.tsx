@@ -399,7 +399,7 @@ function LessonPlayer({ lesson }: { lesson: BuiltLesson }) {
           </div>
         </Panel>
 
-        <Panel className={styles.now}>
+        <Panel className={styles.now} data-now-bar={barIndex}>
           <div className={styles.boards}>
             <div className={styles.board}>
               <Mono className={styles.label}>{copy.lesson.now}</Mono>

@@ -82,3 +82,33 @@ test('the Britpop tune plays its layered band without errors', async ({ page, br
   await page.waitForTimeout(4000);
   expect(errors).toEqual([]);
 });
+
+test('after a tempo change the chord shown stays with the bar being played', async ({
+  page,
+  browserName,
+}) => {
+  test.skip(browserName !== 'chromium', 'audio gesture policy is Chromium-only in CI');
+  await openFirstOpenLesson(page);
+  const lane = page.locator('[data-playhead-step]');
+  const now = page.locator('[data-now-bar]');
+  const main = page.locator('#main');
+  await main.getByRole('button', { name: 'Play', exact: true }).click();
+  await expect
+    .poll(async () => Number(await lane.getAttribute('data-playhead-step')), { timeout: 15_000 })
+    .toBeGreaterThan(20);
+
+  const before = Number(await lane.getAttribute('data-playhead-step'));
+  await main.getByRole('button', { name: /^Clean/ }).click();
+  await page.waitForTimeout(300);
+  const after = Number(await lane.getAttribute('data-playhead-step'));
+  // Carries on from the same place (it used to jump back to the start).
+  expect(after).toBeGreaterThanOrEqual(before - 1);
+
+  for (let check = 0; check < 5; check++) {
+    const step = Number(await lane.getAttribute('data-playhead-step'));
+    const bar = Number(await now.getAttribute('data-now-bar'));
+    const bars = 4;
+    expect(Math.abs(bar - (Math.floor(step / 16) % bars))).toBeLessThanOrEqual(1);
+    await page.waitForTimeout(400);
+  }
+});

@@ -61,6 +61,8 @@ type GuitarPath = {
   muteFilter: Tone.Filter;
   muteHz: number;
   ringing: Map<number, number>;
+  // The chord the fretting hand is holding; moving to another one damps every string.
+  chord: number | null;
 };
 
 type AudioGraph = {
@@ -138,12 +140,19 @@ function buildGraph(): AudioGraph {
   return {
     chime,
     guitar: {
-      clean: { sampler: clean, muteFilter: cleanMute, muteHz: CLEAN_MUTE_HZ, ringing: new Map() },
+      clean: {
+        sampler: clean,
+        muteFilter: cleanMute,
+        muteHz: CLEAN_MUTE_HZ,
+        ringing: new Map(),
+        chord: null,
+      },
       driven: {
         sampler: driven,
         muteFilter: drivenMute,
         muteHz: DRIVEN_MUTE_HZ,
         ringing: new Map(),
+        chord: null,
       },
     },
     panned: new Map(),
@@ -176,7 +185,13 @@ export async function ensurePans(pans: number[]): Promise<void> {
       new Tone.Panner(pan),
       current.mix,
     );
-    current.panned.set(pan, { sampler, muteFilter, muteHz: CLEAN_MUTE_HZ, ringing: new Map() });
+    current.panned.set(pan, {
+      sampler,
+      muteFilter,
+      muteHz: CLEAN_MUTE_HZ,
+      ringing: new Map(),
+      chord: null,
+    });
   }
   await Tone.loaded();
 }
@@ -205,6 +220,18 @@ export function playEvent(
     muteFilter.frequency.linearRampTo(OPEN_FILTER_HZ, MUTE_RECOVER_SECONDS, time);
   }
 
+  // Changing chord lifts the fretting hand: strings the new strum doesn't hit stop ringing too,
+  // so the old chord never carries on under the new one.
+  if (event.chordIndex !== path.chord) {
+    const struck = new Set(event.strings.map((hit) => hit.string));
+    for (const [string, frequency] of ringing) {
+      if (struck.has(string)) continue;
+      sampler.triggerRelease(frequency, time);
+      ringing.delete(string);
+    }
+    path.chord = event.chordIndex;
+  }
+
   event.strings.forEach((hit) => {
     const frequency = Tone.Frequency(hit.midi, 'midi').toFrequency();
     const at = time + hit.offset;
@@ -230,6 +257,7 @@ export function forgetRinging(): void {
   if (graph === null) return;
   for (const path of [graph.guitar.clean, graph.guitar.driven, ...graph.panned.values()]) {
     path.ringing.clear();
+    path.chord = null;
   }
 }
 
