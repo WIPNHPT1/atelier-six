@@ -122,3 +122,7 @@ export function needsRethink(data: ProgressData): string[] {
     .sort(([a, x], [b, y]) => y.down - x.down || a.localeCompare(b))
     .map(([id]) => id);
 }
+
+export function recordHandWarmup(data: ProgressData, day: string): ProgressData {
+  return { ...data, handWarmup: day };
+}

@@ -34,12 +34,14 @@ export type ProgressData = {
   sessions: SessionRecord[];
   // "Was that fun?" taps per lesson or tune, kept only on this device.
   fun: Record<string, FunVotes>;
+  // The last day the hand-health warm-up was done or skipped ("YYYY-MM-DD"), so it's offered once.
+  handWarmup: string;
 };
 
 export type FunVotes = { up: number; down: number };
 
 // v2 had no review intervals on transitions.
-type ProgressV2 = Omit<ProgressData, 'version' | 'transitions' | 'fun'> & {
+type ProgressV2 = Omit<ProgressData, 'version' | 'transitions' | 'fun' | 'handWarmup'> & {
   version: 2;
   transitions: Record<string, TransitionV2>;
 };
@@ -57,7 +59,15 @@ function emptyV2(): ProgressV2 {
 }
 
 export function emptyProgress(): ProgressData {
-  return { version: VERSION, lessons: {}, transitions: {}, minutes: [], sessions: [], fun: {} };
+  return {
+    version: VERSION,
+    lessons: {},
+    transitions: {},
+    minutes: [],
+    sessions: [],
+    fun: {},
+    handWarmup: '',
+  };
 }
 
 function isObject(value: unknown): value is Record<string, unknown> {
@@ -69,7 +79,7 @@ function fromV2(data: ProgressV2): ProgressData {
   for (const [key, record] of Object.entries(data.transitions)) {
     transitions[key] = { ...record, interval: 1, reviewedOn: '' };
   }
-  return { ...data, version: VERSION, transitions, fun: {} };
+  return { ...data, version: VERSION, transitions, fun: {}, handWarmup: '' };
 }
 
 function fromV1(data: ProgressV1): ProgressV2 {

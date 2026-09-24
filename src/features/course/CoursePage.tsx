@@ -9,11 +9,14 @@ import { Text } from '../../ui/Text';
 import { MODULES, lessonsFor, listenRefs } from '../lesson/lessonData';
 import styles from './CoursePage.module.css';
 import { ProgressRing } from './ProgressRing';
+import { FOUNDATIONS } from '../foundations/data';
+import { useSettingsStore } from '../../app/settingsStore';
 import { useProgressData } from '../progress/store';
 import { moduleProgress } from '../progress/summary';
 
 export default function CoursePage() {
   const data = useProgressData();
+  const level = useSettingsStore((s) => s.level);
   return (
     <>
       <PageHeader title={copy.course.learnTitle}>
@@ -25,6 +28,23 @@ export default function CoursePage() {
         </div>
       </PageHeader>
       <ul className={styles.cards}>
+        <li>
+          <Link to="/foundations" className={styles.card} data-testid="foundations-card">
+            <div className={styles.cardTop}>
+              <Mono className={styles.finish}>{copy.foundations.style}</Mono>
+            </div>
+            <Heading level={2} className={styles.cardTitle}>
+              {copy.foundations.title}
+            </Heading>
+            <Text dim size="small">
+              {copy.foundations.intro}
+            </Text>
+            <div className={styles.pills}>
+              <Pill>{t('foundations.lessonCount', { count: FOUNDATIONS.length })}</Pill>
+              {level === 'confident' ? <Pill>{copy.foundations.optional}</Pill> : null}
+            </div>
+          </Link>
+        </li>
         {MODULES.map((module) => {
           const meta = copy.course.modules[module.id];
           const lessons = lessonsFor(module.id);

@@ -14,6 +14,7 @@ import { recordLessonAttempt, recordTransition, transitionKey } from '../../core
 import { useProgress } from '../progress/store';
 import { usePracticeTimer } from '../progress/usePracticeTimer';
 import { FunVote } from '../progress/FunVote';
+import { HandWarmupOffer } from '../foundations/HandWarmupOffer';
 import type { ArrangementSection, BuiltLesson, Layer } from '../../core/lessons/types';
 import type { Shape } from '../../core/shapes/types';
 import { TUNINGS } from '../../core/style/riffBuilder';
@@ -348,6 +349,8 @@ function LessonPlayer({ lesson }: { lesson: BuiltLesson }) {
           {copied ? copy.lesson.copied : copy.lesson.copyTab}
         </Button>
       </Panel>
+
+      <HandWarmupOffer lessonId={lesson.id} />
 
       {finished ? (
         <Panel className={styles.finish} role="status">

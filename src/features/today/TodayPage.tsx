@@ -21,6 +21,7 @@ const PLANNER_RIFFS = RIFFS.map((riff) => ({
 }));
 import { useProgressData } from '../progress/store';
 import styles from './TodayPage.module.css';
+import { HandWarmupOffer } from '../foundations/HandWarmupOffer';
 
 const WarmupClick = lazy(() => import('./WarmupClick'));
 const DAILY_GOAL_MINUTES = 20;
@@ -172,6 +173,7 @@ export default function TodayPage() {
       <PageHeader title={copy.today.title}>
         <Text dim>{copy.today.intro}</Text>
       </PageHeader>
+      <HandWarmupOffer />
       <Plan />
     </>
   );

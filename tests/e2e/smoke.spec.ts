@@ -1,15 +1,15 @@
-import { expect, test } from '@playwright/test'
+import { expect, test } from '@playwright/test';
 
 test('loads with no console errors', async ({ page }) => {
-  const errors: string[] = []
+  const errors: string[] = [];
   page.on('console', (msg) => {
     if (msg.type() === 'error') {
-      errors.push(msg.text())
+      errors.push(msg.text());
     }
-  })
+  });
 
-  await page.goto('/')
+  await page.goto('/');
 
-  await expect(page).toHaveTitle(/Atelier Six/)
-  expect(errors).toEqual([])
-})
+  await expect(page).toHaveTitle(/Atelier Six/);
+  expect(errors).toEqual([]);
+});

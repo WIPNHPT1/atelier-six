@@ -273,6 +273,122 @@ export const copy = {
     rethinkHint: 'Lessons you marked as not fun twice or more.',
     votes: '{down} thumbs down',
   },
+  foundations: {
+    title: 'Foundations',
+    style: 'Start here',
+    intro:
+      'Five short, hands-on lessons before the chords: reading tab, holding the guitar, tuning, clean notes and a hand warm-up.',
+    optional: 'Optional for you',
+    lessonCount: '{count} lessons',
+    minutes: '{minutes} min',
+    crumb: 'Learn · Foundations · {number} of {total}',
+    back: 'All foundations',
+    next: 'Next lesson',
+    start: 'Start',
+    done: 'Done',
+    lessons: {
+      'read-tab': {
+        title: 'How to read tab',
+        goal: 'Tap each number to see where it sits on the neck, then read a short line on your own.',
+      },
+      hold: {
+        title: 'Holding the guitar and the pick',
+        goal: 'Get comfortable before you play: posture, pick grip and where the picking hand rests.',
+      },
+      'tune-up': {
+        title: 'Your first tune-up',
+        goal: 'Go string by string, low to high, until every string matches its note.',
+      },
+      fretting: {
+        title: 'Fretting cleanly',
+        goal: 'Make each note ring: finger just behind the fret, thumb relaxed behind the neck.',
+      },
+      'hand-health': {
+        title: 'Hand-health warm-up',
+        goal: 'Two minutes of gentle movement to get your hands ready.',
+      },
+    },
+    tab: {
+      lines:
+        'Six lines are the six strings. The top line is the thinnest string, high e; the bottom is the thickest, low E.',
+      numbers: 'A number is the fret to press. 0 means play the string open, with no finger.',
+      counts:
+        'The row underneath is the count. Say "1 and 2 and…" and play each note on its count.',
+      muted:
+        'An x is a muted note: rest your fretting fingers on the string and strike it for a click.',
+      palmMute:
+        'P.M. means palm mute: rest the side of your picking hand on the strings by the bridge.',
+      picking: '↓ is a downstroke, ↑ an upstroke.',
+      symbol: 'Symbol {current} of {total}',
+      nextSymbol: 'Next symbol',
+      exercise: 'Tap a note',
+      noteLabel: 'Note {n}: {string} string, fret {fret}',
+      nowPlaying: '{string} string, fret {fret}',
+      check: 'Read and play',
+      checkIntro: 'Thirty seconds: read the line and answer three questions.',
+      checkStart: 'Start the check',
+      question: 'Which fret is note {n} on?',
+      fretOption: 'Fret {fret}',
+      score: '{correct} of {total} right.',
+      secondsLeft: '{seconds} s left',
+      timeUp: 'Time is up. {correct} of {total} right.',
+    },
+    hold: {
+      sitting:
+        'Sitting: guitar body on your right leg (left leg if you play left-handed), back straight, neck angled slightly up.',
+      standing: 'Standing: strap set so the guitar sits at the same height as when you sit.',
+      pick: 'Pick grip: hold the pick between the pad of your thumb and the side of your first finger, with just the tip showing.',
+      palm: 'Palm rest: for palm muting, the side of your picking hand rests lightly on the strings right by the bridge.',
+      sittingLabel: 'A player sitting with the guitar on one leg',
+      pickLabel: 'A pick held between thumb and first finger',
+      palmLabel: 'The side of the hand resting on the strings by the bridge',
+    },
+    tune: {
+      intro:
+        'Tune one string at a time, from the thickest to the thinnest. Play the reference note, then turn the peg until your string matches.',
+      sharp: 'Sharp means too high: loosen the string a little.',
+      flat: 'Flat means too low: tighten it a little. Tuning up to the note is steadier than tuning down.',
+      string: '{name} string · {note} · {hz} Hz',
+      play: 'Play {note}',
+      tuner: 'Open the tuner',
+    },
+    fret: {
+      tips1: 'Press just behind the fret wire, not on top of it or halfway back.',
+      tips2: 'Keep your thumb relaxed behind the neck, roughly behind your second finger.',
+      tips3:
+        'Buzzing usually means too far from the fret or not quite enough pressure; a dull thud means another finger is touching the string.',
+      check: 'Play the 3rd fret on each string and tell the app how it sounded.',
+      prompt: '{string} string, 3rd fret',
+      clean: 'Rang clearly',
+      buzzed: 'Buzzed or muffled',
+      allClean: 'Every string rang clearly. Nicely done.',
+      muffled:
+        'Muffled: {strings}. Move a little closer to the fret on those strings and try again.',
+      again: 'Try again',
+    },
+    health: {
+      intro: 'Two minutes of gentle movement. Go slowly and stay within what feels easy.',
+      stop: 'Stop if anything hurts. If pain carries on after you stop playing, see a doctor or physiotherapist.',
+      start: 'Start the warm-up',
+      pause: 'Pause',
+      resume: 'Resume',
+      timer: 'Warm-up time left',
+      left: '{seconds} s',
+      finished: 'All done. Your hands are ready.',
+      movements: {
+        shake: 'Let your arms hang and shake your hands loosely.',
+        fists: 'Make a soft fist, then open your hand wide. Slowly, ten times.',
+        spread: 'Spread your fingers apart, then bring them together.',
+        thumbs: 'Touch your thumb to each fingertip in turn, both hands.',
+        wrists: 'Circle your wrists gently, five times each way.',
+        breathe: 'Drop your shoulders, breathe out, and rest your hands.',
+      },
+    },
+    offer: 'This one is demanding on the hands. Warm up for two minutes first?',
+    offerLong: 'You have played for over half an hour today. A two-minute hand warm-up?',
+    offerGo: 'Do the warm-up',
+    offerSkip: 'Skip for today',
+  },
   practice: {
     feedback: 'How was that loop?',
     clean: 'Clean',

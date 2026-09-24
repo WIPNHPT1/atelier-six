@@ -1,0 +1,180 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-6);
+  padding-top: var(--s-8);
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--s-3);
+}
+
+.centre {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s-3);
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--s-4);
+}
+
+@media (min-width: 640px) {
+  .cards {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-3);
+}
+
+.grow {
+  flex: 1;
+  min-width: 0;
+}
+
+.label,
+.crumb {
+  color: var(--bone-dim);
+  font-size: var(--t-12);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.crumb {
+  color: var(--brass);
+}
+
+.title {
+  font-family: var(--font-display);
+}
+
+.index,
+.list {
+  display: flex;
+  flex-direction: column;
+  margin: var(--s-4) 0 0;
+  padding: 0;
+  list-style: none;
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-hair);
+  background: var(--rosewood);
+}
+
+.listRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-3);
+  padding: var(--s-3) var(--s-4);
+  border-bottom: 1px solid var(--hairline);
+}
+
+.listRow:last-child {
+  border-bottom: none;
+}
+
+.link,
+.primaryLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 var(--s-4);
+  border-radius: var(--r-pill);
+  font-size: var(--t-14);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.link {
+  border: 1px solid var(--hairline);
+  color: var(--bone);
+}
+
+.primaryLink {
+  background: var(--brass);
+  color: var(--ebony);
+}
+
+.drawing {
+  width: 100%;
+  max-width: 220px;
+  color: var(--bone);
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.warning {
+  padding-left: var(--s-3);
+  border-left: 2px solid var(--brass);
+}
+
+.tabGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.tabRow {
+  display: grid;
+  grid-template-columns: 1.5em repeat(8, minmax(44px, 1fr));
+  align-items: center;
+  background-image: linear-gradient(var(--hairline), var(--hairline));
+  background-position: 0 50%;
+  background-size: 100% 1px;
+  background-repeat: no-repeat;
+}
+
+.stringName,
+.count {
+  color: var(--bone-dim);
+  font-size: var(--t-12);
+  text-align: center;
+  background: var(--rosewood);
+}
+
+.tabGap {
+  min-height: 32px;
+}
+
+.tabNote {
+  justify-self: center;
+  min-width: 44px;
+  min-height: 44px;
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-pill);
+  background: var(--rosewood-2);
+  color: var(--bone);
+  font-family: var(--font-mono);
+  font-size: var(--t-14);
+  cursor: pointer;
+}
+
+.tabNoteOn {
+  background: var(--brass);
+  color: var(--ebony);
+}
+
+.lit {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-4);
+}

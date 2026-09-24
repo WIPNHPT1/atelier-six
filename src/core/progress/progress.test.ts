@@ -11,6 +11,7 @@ import {
   minutesThisWeek,
   needsRethink,
   recordFun,
+  recordHandWarmup,
   recordLessonAttempt,
   recordTransition,
   splitKey,
@@ -135,6 +136,13 @@ describe('fun votes', () => {
     data = recordFun(recordFun(data, 'c', false), 'c', false);
     expect(data.fun.a).toEqual({ up: 1, down: 2 });
     expect(needsRethink(data)).toEqual(['b', 'a', 'c']);
+  });
+});
+
+describe('hand warm-up', () => {
+  it('remembers the day it was done or skipped', () => {
+    expect(emptyProgress().handWarmup).toBe('');
+    expect(recordHandWarmup(emptyProgress(), '2026-09-24').handWarmup).toBe('2026-09-24');
   });
 });
 
