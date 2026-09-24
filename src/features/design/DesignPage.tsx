@@ -15,10 +15,12 @@ import { Dial } from '../../ui/Dial';
 import { Sheet } from '../../ui/Sheet';
 import { Logo } from '../../ui/Logo';
 import { Fretboard } from '../../ui/Fretboard/Fretboard';
+import { TransitionCard } from '../../ui/TransitionCard/TransitionCard';
 import { PlayIcon } from '../../ui/icons';
 import { copy } from '../../content/copy.en-GB';
 import { useSettingsStore } from '../../app/settingsStore';
 import { contrastRatio } from '../../core/colorContrast';
+import { analyseTransition } from '../../core/engine/analyseTransition';
 import { getChord, getShapes } from '../../core/shapes/library';
 import { useLiveTokens } from './useLiveTokens';
 import styles from './DesignPage.module.css';
@@ -26,6 +28,7 @@ import styles from './DesignPage.module.css';
 const FRETBOARD_C = getChord('C')?.shapes[0];
 const FRETBOARD_F_BARRE = getShapes('F', { tags: ['barre'] })[0];
 const FRETBOARD_G5 = getShapes('G5', { tags: ['power'] })[0];
+const TRANSITION_AM = getChord('Am')?.shapes[0];
 
 const SWATCH_TOKENS = [
   'ebony',
@@ -229,6 +232,15 @@ export default function DesignPage() {
           {FRETBOARD_G5 ? <Fretboard shape={FRETBOARD_G5} orientation="neck" /> : null}
           {FRETBOARD_C ? <Fretboard shape={FRETBOARD_C} leftHanded /> : null}
         </div>
+
+        <Heading level={3}>{copy.design.transitionCard}</Heading>
+        {FRETBOARD_C && TRANSITION_AM ? (
+          <TransitionCard
+            from={FRETBOARD_C}
+            to={TRANSITION_AM}
+            transition={analyseTransition(FRETBOARD_C, TRANSITION_AM)}
+          />
+        ) : null}
       </section>
 
       <Divider />

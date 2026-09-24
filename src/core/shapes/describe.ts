@@ -1,14 +1,8 @@
 import { t } from '../../content/copy.en-GB.ts';
+import { joinOrdinals, ordinal } from '../ordinal.ts';
 import type { Finger, Shape } from './types.ts';
 
 const STRING_COUNT = 6;
-const ORDINALS = ['1st', '2nd', '3rd', '4th', '5th', '6th'];
-
-function ordinal(n: number): string {
-  const word = ORDINALS[n - 1];
-  if (word === undefined) throw new Error(`No ordinal for ${String(n)}`);
-  return word;
-}
 
 function fingerLabel(finger: Finger): string {
   return finger === 'T' ? t('fretboard.thumb') : ordinal(finger);
@@ -16,14 +10,6 @@ function fingerLabel(finger: Finger): string {
 
 function stringNumber(index: number): number {
   return STRING_COUNT - index;
-}
-
-function joinOrdinals(numbers: number[]): string {
-  const words = numbers.map(ordinal);
-  if (words.length === 1) return words[0] as string;
-  const last = words[words.length - 1] as string;
-  const rest = words.slice(0, -1);
-  return `${rest.join(', ')} ${t('fretboard.and')} ${last}`;
 }
 
 export function describeShape(shape: Shape): string {
