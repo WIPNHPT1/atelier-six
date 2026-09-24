@@ -17,6 +17,8 @@
     "verify": "npm run lint --silent && npm run typecheck --silent && npm run test --silent",
     "check:contrast": "tsx scripts/check-contrast.ts",
     "data:chords": "tsx scripts/data/build-chords.ts",
+    "audio:ir": "tsx scripts/audio/make-ir.ts",
+    "size": "tsx scripts/check-size.ts",
     "icons": "tsx scripts/icons.ts",
     "e2e": "playwright test --reporter=line",
     "prepare": "husky"

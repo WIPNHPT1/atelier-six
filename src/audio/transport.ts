@@ -4,8 +4,17 @@ import {
   type ScheduleEvent,
   type ScheduleInput,
 } from '../core/schedule/buildSchedule.ts';
+import { humanise } from '../core/schedule/humanise.ts';
 import { remainingFromBar } from '../core/schedule/remainingFromBar.ts';
+import { useSettingsStore } from '../app/settingsStore.ts';
 import { playEvent } from './engine.ts';
+
+const HUMANISE_SEED = 6;
+
+function withHumanise(schedule: ScheduleEvent[]): ScheduleEvent[] {
+  if (useSettingsStore.getState().robotMode) return schedule;
+  return humanise(schedule, { seed: HUMANISE_SEED });
+}
 
 export type ScheduleSource = Omit<ScheduleInput, 'bpm'>;
 
@@ -54,7 +63,7 @@ export function play(source: ScheduleSource, bpm: number, opts: PlayOptions = {}
   currentBpm = bpm;
   currentLoop = opts.loop ?? false;
 
-  const schedule = buildSchedule({ ...source, bpm });
+  const schedule = withHumanise(buildSchedule({ ...source, bpm }));
   schedulePart(schedule, currentLoop);
   transport.start();
 }
@@ -87,7 +96,7 @@ export function setBpm(bpm: number): void {
   transport.cancel();
   transport.seconds = 0;
 
-  const schedule = buildSchedule({ ...currentSource, shapes, bars, bpm });
+  const schedule = withHumanise(buildSchedule({ ...currentSource, shapes, bars, bpm }));
   currentSource = { ...currentSource, shapes, bars };
   schedulePart(schedule, currentLoop);
   transport.start();

@@ -26,6 +26,7 @@ import { getChord, getShapes } from '../../core/shapes/library';
 import { renderTab } from '../../core/tab/renderTab';
 import { RHYTHMS } from '../../data/rhythms';
 import { standard } from '../../core/tuning';
+import { playDrumGrooveDemo, playPalmMutedRiffDemo, playStrummedChordDemo } from '../../audio/demo';
 import { useLiveTokens } from './useLiveTokens';
 import styles from './DesignPage.module.css';
 
@@ -273,6 +274,35 @@ export default function DesignPage() {
         {FRETBOARD_C ? (
           <TabLane columns={GHOST_TAB_COLUMNS} shapes={[FRETBOARD_C]} tuning={standard} />
         ) : null}
+      </section>
+
+      <Divider />
+
+      <section className={styles.section}>
+        <Heading level={2}>{copy.design.audio}</Heading>
+        <div className={styles.controlsRow}>
+          <Button
+            onClick={() => {
+              void playStrummedChordDemo();
+            }}
+          >
+            {copy.design.strummedChord}
+          </Button>
+          <Button
+            onClick={() => {
+              void playPalmMutedRiffDemo();
+            }}
+          >
+            {copy.design.palmMutedRiff}
+          </Button>
+          <Button
+            onClick={() => {
+              void playDrumGrooveDemo();
+            }}
+          >
+            {copy.design.drumGroove}
+          </Button>
+        </div>
       </section>
 
       <Divider />

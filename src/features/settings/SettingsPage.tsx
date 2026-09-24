@@ -1,19 +1,24 @@
-import { useNavigate } from 'react-router-dom'
-import { PageHeader } from '../../app/layout/PageHeader'
-import { Panel } from '../../ui/Panel'
-import { Text } from '../../ui/Text'
-import { Mono } from '../../ui/Mono'
-import { Toggle } from '../../ui/Toggle'
-import { SegmentedControl } from '../../ui/SegmentedControl'
-import { Slider } from '../../ui/Slider'
-import { Button } from '../../ui/Button'
-import { copy } from '../../content/copy.en-GB'
-import { useSettingsStore } from '../../app/settingsStore'
-import styles from './SettingsPage.module.css'
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { PageHeader } from '../../app/layout/PageHeader';
+import { Panel } from '../../ui/Panel';
+import { Text } from '../../ui/Text';
+import { Mono } from '../../ui/Mono';
+import { Toggle } from '../../ui/Toggle';
+import { SegmentedControl } from '../../ui/SegmentedControl';
+import { Slider } from '../../ui/Slider';
+import { Button } from '../../ui/Button';
+import { copy } from '../../content/copy.en-GB';
+import { useSettingsStore } from '../../app/settingsStore';
+import { downloadSoundsForOffline } from '../../audio/sampleCache';
+import styles from './SettingsPage.module.css';
+
+type DownloadState = 'idle' | 'downloading' | 'done';
 
 export default function SettingsPage() {
-  const settings = useSettingsStore()
-  const navigate = useNavigate()
+  const settings = useSettingsStore();
+  const navigate = useNavigate();
+  const [downloadState, setDownloadState] = useState<DownloadState>('idle');
 
   return (
     <PageHeader title={copy.settings.title}>
@@ -24,7 +29,7 @@ export default function SettingsPage() {
             label={copy.settings.mode}
             value={settings.mode}
             onChange={(value) => {
-              settings.setMode(value as typeof settings.mode)
+              settings.setMode(value as typeof settings.mode);
             }}
             segments={[
               { value: 'dark', label: copy.settings.modeDark },
@@ -40,7 +45,7 @@ export default function SettingsPage() {
             label={copy.settings.motion}
             value={settings.motion}
             onChange={(value) => {
-              settings.setMotion(value as typeof settings.motion)
+              settings.setMotion(value as typeof settings.motion);
             }}
             segments={[
               { value: 'on', label: copy.settings.motionOn },
@@ -74,7 +79,7 @@ export default function SettingsPage() {
             label={copy.settings.tuning}
             value={settings.tuning}
             onChange={(value) => {
-              settings.setTuning(value as typeof settings.tuning)
+              settings.setTuning(value as typeof settings.tuning);
             }}
             segments={[
               { value: 'standard', label: copy.settings.tuningStandard },
@@ -101,11 +106,43 @@ export default function SettingsPage() {
         </div>
 
         <div className={styles.row}>
+          <div className={styles.rowLabel}>
+            <Text>{copy.settings.robotMode}</Text>
+            <Mono>{copy.settings.robotModeHint}</Mono>
+          </div>
+          <Toggle
+            label={copy.settings.robotMode}
+            checked={settings.robotMode}
+            onChange={settings.setRobotMode}
+          />
+        </div>
+
+        <div className={styles.row}>
+          <Text>{copy.settings.downloadSounds}</Text>
+          <Button
+            variant="quiet"
+            disabled={downloadState === 'downloading'}
+            onClick={() => {
+              setDownloadState('downloading');
+              void downloadSoundsForOffline().then(() => {
+                setDownloadState('done');
+              });
+            }}
+          >
+            {downloadState === 'downloading'
+              ? copy.settings.downloadingSounds
+              : downloadState === 'done'
+                ? copy.settings.soundsDownloaded
+                : copy.settings.downloadSounds}
+          </Button>
+        </div>
+
+        <div className={styles.row}>
           <Text>{copy.onboarding.restart}</Text>
           <Button
             variant="quiet"
             onClick={() => {
-              void navigate('/onboarding')
+              void navigate('/onboarding');
             }}
           >
             {copy.onboarding.restart}
@@ -113,5 +150,5 @@ export default function SettingsPage() {
         </div>
       </Panel>
     </PageHeader>
-  )
+  );
 }

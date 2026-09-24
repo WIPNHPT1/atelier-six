@@ -116,6 +116,11 @@ export const copy = {
     tuningHalfDown: 'Half-step down',
     tuningDropD: 'Drop D',
     capo: 'Capo',
+    robotMode: 'Robot mode',
+    robotModeHint: 'Perfectly on the grid — useful for timing practice.',
+    downloadSounds: 'Download sounds for offline',
+    downloadingSounds: 'Downloading…',
+    soundsDownloaded: 'Sounds are ready offline',
   },
   design: {
     title: 'Design',
@@ -146,6 +151,10 @@ export const copy = {
     fretboard: 'Fretboard',
     transitionCard: 'Transition card',
     tabLane: 'Tab lane',
+    audio: 'Audio',
+    strummedChord: 'Strummed chord',
+    palmMutedRiff: 'Palm-muted riff',
+    drumGroove: 'Drum groove',
   },
   transition: {
     keepOne: 'Keep finger {finger} where it is.',
