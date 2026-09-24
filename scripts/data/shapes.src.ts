@@ -138,7 +138,7 @@ function generatePowerShapes(): RawShape[] {
       chord: name,
       frets: fretsString([rE, null, rE + 2, null, null, null]),
       fingers: '1-4---',
-      tags: ['power'],
+      tags: ['power', 'octave'],
     });
     shapes.push({
       id: `${name}.power.2.a`,
@@ -159,7 +159,7 @@ function generatePowerShapes(): RawShape[] {
       chord: name,
       frets: fretsString([null, rA, null, rA + 2, null, null]),
       fingers: '-1-4--',
-      tags: ['power'],
+      tags: ['power', 'octave'],
     });
   }
 

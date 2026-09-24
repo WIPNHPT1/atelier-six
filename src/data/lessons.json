@@ -1,0 +1,1667 @@
+[
+  {
+    "id": "power-stamina",
+    "module": "power",
+    "title": "Downpicking stamina",
+    "goal": "Hold even downstroked eighths on one chord as the tempo climbs.",
+    "progression": {
+      "chords": ["E5"]
+    },
+    "candidates": {
+      "tags": ["power"]
+    },
+    "arrangement": {
+      "sections": [
+        {
+          "name": "intro",
+          "register": "low",
+          "rhythm": "eighths-open",
+          "layers": [
+            {
+              "id": "rhythm",
+              "role": "rhythm",
+              "pan": 0,
+              "voicing": "low",
+              "muted": false
+            }
+          ],
+          "dynamics": 0.8,
+          "bars": 4,
+          "marks": ["octave"]
+        },
+        {
+          "name": "verse",
+          "register": "low",
+          "rhythm": "eighths-muted",
+          "layers": [
+            {
+              "id": "rhythm",
+              "role": "rhythm",
+              "pan": 0,
+              "voicing": "low",
+              "muted": false
+            }
+          ],
+          "dynamics": 0.7,
+          "bars": 4
+        },
+        {
+          "name": "chorus",
+          "register": "low",
+          "rhythm": "eighths-open",
+          "layers": [
+            {
+              "id": "rhythm",
+              "role": "rhythm",
+              "pan": 0,
+              "voicing": "low",
+              "muted": false
+            }
+          ],
+          "dynamics": 1,
+          "bars": 4
+        },
+        {
+          "name": "breakdown",
+          "register": "low",
+          "rhythm": "stop-push",
+          "layers": [
+            {
+              "id": "rhythm",
+              "role": "rhythm",
+              "pan": 0,
+              "voicing": "low",
+              "muted": false
+            }
+          ],
+          "dynamics": 0.9,
+          "bars": 2,
+          "chords": ["E5", "A5"]
+        }
+      ]
+    },
+    "startBpm": 110,
+    "targetBpm": 180,
+    "tuning": "standard",
+    "capo": 0,
+    "tips": [
+      "Small, relaxed strokes; tension is what tires the arm.",
+      "Rest the palm lightly by the bridge for the muted verse."
+    ],
+    "listen": [
+      {
+        "artist": "Blink-182",
+        "song": "What's My Age Again?",
+        "note": "Tight palm-muted verses against an open, driving chorus."
+      }
+    ],
+    "chords": ["E5"],
+    "shapes": {
+      "E5": "E5.open",
+      "A5": "A5.open"
+    },
+    "difficulty": 0
+  },
+  {
+    "id": "power-g5-a5",
+    "module": "power",
+    "title": "G5 to A5, locked shape",
+    "goal": "Slide one locked power-chord shape up two frets and land in time.",
+    "progression": {
+      "chords": ["G5", "A5"]
+    },
+    "candidates": {
+      "tags": ["power"]
+    },
+    "arrangement": {
+      "sections": [
+        {
+          "name": "intro",
+          "register": "low",
+          "rhythm": "eighths-open",
+          "layers": [
+            {
+              "id": "rhythm",
+              "role": "rhythm",
+              "pan": 0,
+              "voicing": "low",
+              "muted": false
+            }
+          ],
+          "dynamics": 0.8,
+          "bars": 4,
+          "marks": ["octave"]
+        },
+        {
+          "name": "verse",
+          "register": "low",
+          "rhythm": "eighths-muted",
+          "layers": [
+            {
+              "id": "rhythm",
+              "role": "rhythm",
+              "pan": 0,
+              "voicing": "low",
+              "muted": false
+            }
+          ],
+          "dynamics": 0.7,
+          "bars": 4
+        },
+        {
+          "name": "chorus",
+          "register": "low",
+          "rhythm": "eighths-open",
+          "layers": [
+            {
+              "id": "rhythm",
+              "role": "rhythm",
+              "pan": 0,
+              "voicing": "low",
+              "muted": false
+            }
+          ],
+          "dynamics": 1,
+          "bars": 4
+        },
+        {
+          "name": "breakdown",
+          "register": "low",
+          "rhythm": "stop-push",
+          "layers": [
+            {
+              "id": "rhythm",
+              "role": "rhythm",
+              "pan": 0,
+              "voicing": "low",
+              "muted": false
+            }
+          ],
+          "dynamics": 0.9,
+          "bars": 2
+        }
+      ]
+    },
+    "startBpm": 100,
+    "targetBpm": 160,
+    "tuning": "standard",
+    "capo": 0,
+    "tips": [
+      "Slide fingers 1 and 3 together 2 frets towards the bridge.",
+      "Keep the shape locked; ease pressure as you slide, press as you land."
+    ],
+    "listen": [
+      {
+        "artist": "Machine Gun Kelly",
+        "song": "I Think I'm OKAY",
+        "note": "Modern pop punk: bright power chords pushed ahead of the beat."
+      }
+    ],
+    "chords": ["G5", "A5"],
+    "shapes": {
+      "G5": "G5.power.2.a",
+      "A5": "A5.power.2.a"
+    },
+    "difficulty": 2.8
+  },
+  {
+    "id": "power-e5-a5",
+    "module": "power",
+    "title": "E5 to A5, open strings",
+    "goal": "Move a two-finger power chord across one string without losing the beat.",
+    "progression": {
+      "chords": ["E5", "A5"]
+    },
+    "candidates": {
+      "tags": ["power"]
+    },
+    "arrangement": {
+      "sections": [
+        {
+          "name": "intro",
+          "register": "low",
+          "rhythm": "eighths-open",
+          "layers": [
+            {
+              "id": "rhythm",
+              "role": "rhythm",
+              "pan": 0,
+              "voicing": "low",
+              "muted": false
+            }
+          ],
+          "dynamics": 0.8,
+          "bars": 4,
+          "marks": ["octave"]
+        },
+        {
+          "name": "verse",
+          "register": "low",
+          "rhythm": "eighths-muted",
+          "layers": [
+            {
+              "id": "rhythm",
+              "role": "rhythm",
+              "pan": 0,
+              "voicing": "low",
+              "muted": false
+            }
+          ],
+          "dynamics": 0.7,
+          "bars": 4
+        },
+        {
+          "name": "chorus",
+          "register": "low",
+          "rhythm": "eighths-open",
+          "layers": [
+            {
+              "id": "rhythm",
+              "role": "rhythm",
+              "pan": 0,
+              "voicing": "low",
+              "muted": false
+            }
+          ],
+          "dynamics": 1,
+          "bars": 4
+        },
+        {
+          "name": "breakdown",
+          "register": "low",
+          "rhythm": "stop-push",
+          "layers": [
+            {
+              "id": "rhythm",
+              "role": "rhythm",
+              "pan": 0,
+              "voicing": "low",
+              "muted": false
+            }
+          ],
+          "dynamics": 0.9,
+          "bars": 2
+        }
+      ]
+    },
+    "startBpm": 100,
+    "targetBpm": 160,
+    "tuning": "standard",
+    "capo": 0,
+    "tips": [
+      "Move fingers 1 and 2 together across 1 string, towards the thinner strings.",
+      "Let the open string do the work; only the fretted fingers move.",
+      "Downstrokes only, from the elbow, not the wrist."
+    ],
+    "listen": [
+      {
+        "artist": "Blink-182",
+        "song": "All the Small Things",
+        "note": "Simple power chords, steady downstroked eighths and a big lift into the chorus."
+      }
+    ],
+    "chords": ["E5", "A5"],
+    "shapes": {
+      "E5": "E5.open",
+      "A5": "A5.open"
+    },
+    "difficulty": 3
+  },
+  {
+    "id": "power-g5-c5",
+    "module": "power",
+    "title": "G5 to C5, string shift",
+    "goal": "Hop the same shape from the low E string to the A string.",
+    "progression": {
+      "chords": ["G5", "C5"]
+    },
+    "candidates": {
+      "tags": ["power"]
+    },
+    "arrangement": {
+      "sections": [
+        {
+          "name": "intro",
+          "register": "low",
+          "rhythm": "eighths-open",
+          "layers": [
+            {
+              "id": "rhythm",
+              "role": "rhythm",
+              "pan": 0,
+              "voicing": "low",
+              "muted": false
+            }
+          ],
+          "dynamics": 0.8,
+          "bars": 4,
+          "marks": ["octave"]
+        },
+        {
+          "name": "verse",
+          "register": "low",
+          "rhythm": "eighths-muted",
+          "layers": [
+            {
+              "id": "rhythm",
+              "role": "rhythm",
+              "pan": 0,
+              "voicing": "low",
+              "muted": false
+            }
+          ],
+          "dynamics": 0.7,
+          "bars": 4
+        },
+        {
+          "name": "chorus",
+          "register": "low",
+          "rhythm": "eighths-open",
+          "layers": [
+            {
+              "id": "rhythm",
+              "role": "rhythm",
+              "pan": 0,
+              "voicing": "low",
+              "muted": false
+            }
+          ],
+          "dynamics": 1,
+          "bars": 4
+        },
+        {
+          "name": "breakdown",
+          "register": "low",
+          "rhythm": "stop-push",
+          "layers": [
+            {
+              "id": "rhythm",
+              "role": "rhythm",
+              "pan": 0,
+              "voicing": "low",
+              "muted": false
+            }
+          ],
+          "dynamics": 0.9,
+          "bars": 2
+        }
+      ]
+    },
+    "startBpm": 100,
+    "targetBpm": 160,
+    "tuning": "standard",
+    "capo": 0,
+    "tips": [
+      "Move fingers 1 and 3 together across 1 string, towards the thinner strings.",
+      "Release pressure between chords; a light hand moves faster."
+    ],
+    "listen": [
+      {
+        "artist": "Blink-182",
+        "song": "What's My Age Again?",
+        "note": "Tight palm-muted verses against an open, driving chorus."
+      }
+    ],
+    "chords": ["G5", "C5"],
+    "shapes": {
+      "G5": "G5.power.2.e",
+      "C5": "C5.power.2.a"
+    },
+    "difficulty": 3
+  },
+  {
+    "id": "power-verse-chorus",
+    "module": "power",
+    "title": "Verse and chorus",
+    "goal": "Switch from palm-muted verse eighths to an open chorus, then stop on the turnaround.",
+    "progression": {
+      "id": "I5-IV5-V5-IV5",
+      "key": "A"
+    },
+    "candidates": {
+      "tags": ["power"]
+    },
+    "arrangement": {
+      "sections": [
+        {
+          "name": "intro",
+          "register": "low",
+          "rhythm": "eighths-open",
+          "layers": [
+            {
+              "id": "rhythm",
+              "role": "rhythm",
+              "pan": 0,
+              "voicing": "low",
+              "muted": false
+            }
+          ],
+          "dynamics": 0.8,
+          "bars": 4,
+          "marks": ["octave"]
+        },
+        {
+          "name": "verse",
+          "register": "low",
+          "rhythm": "eighths-muted",
+          "layers": [
+            {
+              "id": "rhythm",
+              "role": "rhythm",
+              "pan": 0,
+              "voicing": "low",
+              "muted": false
+            }
+          ],
+          "dynamics": 0.7,
+          "bars": 4
+        },
+        {
+          "name": "chorus",
+          "register": "low",
+          "rhythm": "quarter-and",
+          "layers": [
+            {
+              "id": "rhythm",
+              "role": "rhythm",
+              "pan": 0,
+              "voicing": "low",
+              "muted": false
+            }
+          ],
+          "dynamics": 1,
+          "bars": 4
+        },
+        {
+          "name": "breakdown",
+          "register": "low",
+          "rhythm": "stop-push",
+          "layers": [
+            {
+              "id": "rhythm",
+              "role": "rhythm",
+              "pan": 0,
+              "voicing": "low",
+              "muted": false
+            }
+          ],
+          "dynamics": 0.9,
+          "bars": 2
+        }
+      ]
+    },
+    "startBpm": 100,
+    "targetBpm": 170,
+    "tuning": "standard",
+    "capo": 0,
+    "tips": [
+      "Move fingers 1 and 3 together across 1 string, towards the thinner strings.",
+      "Lift the palm off for the chorus and let it ring loud.",
+      "Stops are part of the groove: mute with the fretting hand."
+    ],
+    "listen": [
+      {
+        "artist": "Blink-182",
+        "song": "What's My Age Again?",
+        "note": "Tight palm-muted verses against an open, driving chorus."
+      }
+    ],
+    "chords": ["A5", "D5", "E5", "D5"],
+    "shapes": {
+      "A5": "A5.power.2.e",
+      "D5": "D5.power.2.a",
+      "E5": "E5.power.2.a"
+    },
+    "difficulty": 5.8
+  },
+  {
+    "id": "power-i-v-vi-iv-c",
+    "module": "power",
+    "title": "I–V–vi–IV in C",
+    "goal": "Play the four-chord loop as power chords with every change on time.",
+    "progression": {
+      "id": "I5-V5-vi5-IV5",
+      "key": "C"
+    },
+    "candidates": {
+      "tags": ["power"]
+    },
+    "arrangement": {
+      "sections": [
+        {
+          "name": "intro",
+          "register": "low",
+          "rhythm": "eighths-open",
+          "layers": [
+            {
+              "id": "rhythm",
+              "role": "rhythm",
+              "pan": 0,
+              "voicing": "low",
+              "muted": false
+            }
+          ],
+          "dynamics": 0.8,
+          "bars": 4,
+          "marks": ["octave"]
+        },
+        {
+          "name": "verse",
+          "register": "low",
+          "rhythm": "eighths-muted",
+          "layers": [
+            {
+              "id": "rhythm",
+              "role": "rhythm",
+              "pan": 0,
+              "voicing": "low",
+              "muted": false
+            }
+          ],
+          "dynamics": 0.7,
+          "bars": 4
+        },
+        {
+          "name": "chorus",
+          "register": "low",
+          "rhythm": "eighths-open",
+          "layers": [
+            {
+              "id": "rhythm",
+              "role": "rhythm",
+              "pan": 0,
+              "voicing": "low",
+              "muted": false
+            }
+          ],
+          "dynamics": 1,
+          "bars": 4
+        },
+        {
+          "name": "breakdown",
+          "register": "low",
+          "rhythm": "stop-push",
+          "layers": [
+            {
+              "id": "rhythm",
+              "role": "rhythm",
+              "pan": 0,
+              "voicing": "low",
+              "muted": false
+            }
+          ],
+          "dynamics": 0.9,
+          "bars": 2
+        }
+      ]
+    },
+    "startBpm": 100,
+    "targetBpm": 160,
+    "tuning": "standard",
+    "capo": 0,
+    "tips": [
+      "Move fingers 1 and 3 together across 1 string, towards the thicker strings.",
+      "Look one chord ahead; start moving on the last eighth."
+    ],
+    "listen": [
+      {
+        "artist": "Blink-182",
+        "song": "All the Small Things",
+        "note": "Simple power chords, steady downstroked eighths and a big lift into the chorus."
+      }
+    ],
+    "chords": ["C5", "G5", "A5", "F5"],
+    "shapes": {
+      "C5": "C5.power.2.a",
+      "G5": "G5.power.2.e",
+      "A5": "A5.power.2.e",
+      "F5": "F5.power.2.e"
+    },
+    "difficulty": 6.7
+  },
+  {
+    "id": "power-vi-iv-i-v-d",
+    "module": "power",
+    "title": "vi–IV–I–V in D",
+    "goal": "Start the loop on the minor chord and keep the drive going.",
+    "progression": {
+      "id": "vi5-IV5-I5-V5",
+      "key": "D"
+    },
+    "candidates": {
+      "tags": ["power"]
+    },
+    "arrangement": {
+      "sections": [
+        {
+          "name": "intro",
+          "register": "low",
+          "rhythm": "eighths-open",
+          "layers": [
+            {
+              "id": "rhythm",
+              "role": "rhythm",
+              "pan": 0,
+              "voicing": "low",
+              "muted": false
+            }
+          ],
+          "dynamics": 0.8,
+          "bars": 4,
+          "marks": ["octave"]
+        },
+        {
+          "name": "verse",
+          "register": "low",
+          "rhythm": "eighths-muted",
+          "layers": [
+            {
+              "id": "rhythm",
+              "role": "rhythm",
+              "pan": 0,
+              "voicing": "low",
+              "muted": false
+            }
+          ],
+          "dynamics": 0.7,
+          "bars": 4
+        },
+        {
+          "name": "chorus",
+          "register": "low",
+          "rhythm": "eighths-open",
+          "layers": [
+            {
+              "id": "rhythm",
+              "role": "rhythm",
+              "pan": 0,
+              "voicing": "low",
+              "muted": false
+            }
+          ],
+          "dynamics": 1,
+          "bars": 4
+        },
+        {
+          "name": "breakdown",
+          "register": "low",
+          "rhythm": "stop-push",
+          "layers": [
+            {
+              "id": "rhythm",
+              "role": "rhythm",
+              "pan": 0,
+              "voicing": "low",
+              "muted": false
+            }
+          ],
+          "dynamics": 0.9,
+          "bars": 2
+        }
+      ]
+    },
+    "startBpm": 100,
+    "targetBpm": 160,
+    "tuning": "standard",
+    "capo": 0,
+    "tips": [
+      "Slide fingers 1 and 3 together 4 frets towards the headstock.",
+      "Same four chords, new starting point: count the loop out loud once."
+    ],
+    "listen": [
+      {
+        "artist": "Machine Gun Kelly",
+        "song": "I Think I'm OKAY",
+        "note": "Modern pop punk: bright power chords pushed ahead of the beat."
+      }
+    ],
+    "chords": ["B5", "G5", "D5", "A5"],
+    "shapes": {
+      "B5": "B5.power.2.e",
+      "G5": "G5.power.2.e",
+      "D5": "D5.power.2.a",
+      "A5": "A5.power.2.e"
+    },
+    "difficulty": 6.7
+  },
+  {
+    "id": "power-octave-intro",
+    "module": "power",
+    "title": "Octave-shape intro",
+    "goal": "Play the loop as octave shapes for a riff-style intro.",
+    "progression": {
+      "id": "I5-IV5-V5-IV5",
+      "key": "A"
+    },
+    "candidates": {
+      "tags": ["octave"]
+    },
+    "arrangement": {
+      "sections": [
+        {
+          "name": "intro",
+          "register": "low",
+          "rhythm": "eighths-open",
+          "layers": [
+            {
+              "id": "rhythm",
+              "role": "rhythm",
+              "pan": 0,
+              "voicing": "low",
+              "muted": false
+            }
+          ],
+          "dynamics": 0.8,
+          "bars": 4,
+          "marks": ["octave"]
+        },
+        {
+          "name": "verse",
+          "register": "low",
+          "rhythm": "eighths-muted",
+          "layers": [
+            {
+              "id": "rhythm",
+              "role": "rhythm",
+              "pan": 0,
+              "voicing": "low",
+              "muted": false
+            }
+          ],
+          "dynamics": 0.7,
+          "bars": 4
+        },
+        {
+          "name": "chorus",
+          "register": "low",
+          "rhythm": "eighths-open",
+          "layers": [
+            {
+              "id": "rhythm",
+              "role": "rhythm",
+              "pan": 0,
+              "voicing": "low",
+              "muted": false
+            }
+          ],
+          "dynamics": 1,
+          "bars": 4
+        },
+        {
+          "name": "breakdown",
+          "register": "low",
+          "rhythm": "stop-push",
+          "layers": [
+            {
+              "id": "rhythm",
+              "role": "rhythm",
+              "pan": 0,
+              "voicing": "low",
+              "muted": false
+            }
+          ],
+          "dynamics": 0.9,
+          "bars": 2
+        }
+      ]
+    },
+    "startBpm": 100,
+    "targetBpm": 160,
+    "tuning": "standard",
+    "capo": 0,
+    "tips": [
+      "Move fingers 1 and 4 together across 1 string, towards the thinner strings.",
+      "Let the first finger touch the string between the two notes to mute it."
+    ],
+    "listen": [
+      {
+        "artist": "Blink-182",
+        "song": "All the Small Things",
+        "note": "Simple power chords, steady downstroked eighths and a big lift into the chorus."
+      }
+    ],
+    "chords": ["A5", "D5", "E5", "D5"],
+    "shapes": {
+      "A5": "A5.power.oct.e",
+      "D5": "D5.power.oct.a",
+      "E5": "E5.power.oct.a"
+    },
+    "difficulty": 9.8
+  },
+  {
+    "id": "open-em-am",
+    "module": "open",
+    "title": "Em to Am, one string over",
+    "goal": "Shift the Em shape across one string to make Am.",
+    "progression": {
+      "chords": ["Em", "Am"]
+    },
+    "candidates": {
+      "tags": ["open", "anchored"]
+    },
+    "arrangement": {
+      "sections": [
+        {
+          "name": "intro",
+          "register": "low",
+          "rhythm": "sixteenth-strum",
+          "layers": [
+            {
+              "id": "rhythm",
+              "role": "rhythm",
+              "pan": 0,
+              "voicing": "low",
+              "muted": false
+            }
+          ],
+          "dynamics": 0.7,
+          "bars": 2
+        },
+        {
+          "name": "verse",
+          "register": "low",
+          "rhythm": "sixteenth-strum",
+          "layers": [
+            {
+              "id": "rhythm",
+              "role": "rhythm",
+              "pan": 0,
+              "voicing": "low",
+              "muted": false
+            }
+          ],
+          "dynamics": 0.7,
+          "bars": 4
+        },
+        {
+          "name": "pre",
+          "register": "low",
+          "rhythm": "push-strum",
+          "layers": [
+            {
+              "id": "rhythm",
+              "role": "rhythm",
+              "pan": 0,
+              "voicing": "low",
+              "muted": false
+            }
+          ],
+          "dynamics": 0.85,
+          "bars": 2
+        },
+        {
+          "name": "chorus",
+          "register": "low",
+          "rhythm": "push-strum",
+          "layers": [
+            {
+              "id": "rhythm",
+              "role": "rhythm",
+              "pan": 0,
+              "voicing": "low",
+              "muted": false
+            }
+          ],
+          "dynamics": 1,
+          "bars": 4,
+          "marks": ["let-ring"]
+        }
+      ]
+    },
+    "startBpm": 60,
+    "targetBpm": 90,
+    "tuning": "standard",
+    "capo": 0,
+    "tips": [
+      "Move fingers 2 and 3 together across 1 string, towards the thinner strings.",
+      "Move the pair of fingers as one unit."
+    ],
+    "listen": [
+      {
+        "artist": "Oasis",
+        "song": "Live Forever",
+        "note": "A steady strumming arm under ringing open chords."
+      }
+    ],
+    "chords": ["Em", "Am"],
+    "shapes": {
+      "Em": "Em.open.a",
+      "Am": "Am.open"
+    },
+    "difficulty": 5
+  },
+  {
+    "id": "open-g-c",
+    "module": "open",
+    "title": "G (3-2-4) to C",
+    "goal": "Use the 3-2-4 G fingering so the change to C is a short hop.",
+    "progression": {
+      "chords": ["G", "C"]
+    },
+    "candidates": {
+      "tags": ["open", "anchored"]
+    },
+    "arrangement": {
+      "sections": [
+        {
+          "name": "intro",
+          "register": "low",
+          "rhythm": "sixteenth-strum",
+          "layers": [
+            {
+              "id": "rhythm",
+              "role": "rhythm",
+              "pan": 0,
+              "voicing": "low",
+              "muted": false
+            }
+          ],
+          "dynamics": 0.7,
+          "bars": 2
+        },
+        {
+          "name": "verse",
+          "register": "low",
+          "rhythm": "sixteenth-strum",
+          "layers": [
+            {
+              "id": "rhythm",
+              "role": "rhythm",
+              "pan": 0,
+              "voicing": "low",
+              "muted": false
+            }
+          ],
+          "dynamics": 0.7,
+          "bars": 4
+        },
+        {
+          "name": "pre",
+          "register": "low",
+          "rhythm": "push-strum",
+          "layers": [
+            {
+              "id": "rhythm",
+              "role": "rhythm",
+              "pan": 0,
+              "voicing": "low",
+              "muted": false
+            }
+          ],
+          "dynamics": 0.85,
+          "bars": 2
+        },
+        {
+          "name": "chorus",
+          "register": "low",
+          "rhythm": "push-strum",
+          "layers": [
+            {
+              "id": "rhythm",
+              "role": "rhythm",
+              "pan": 0,
+              "voicing": "low",
+              "muted": false
+            }
+          ],
+          "dynamics": 1,
+          "bars": 4,
+          "marks": ["let-ring"]
+        }
+      ]
+    },
+    "startBpm": 60,
+    "targetBpm": 90,
+    "tuning": "standard",
+    "capo": 0,
+    "tips": [
+      "Move fingers 2 and 3 together across 1 string, towards the thinner strings.",
+      "Fingers two and three move together as a pair."
+    ],
+    "listen": [
+      {
+        "artist": "Oasis",
+        "song": "Don't Look Back in Anger",
+        "note": "Open chords strummed wide with a chorus that keeps building."
+      }
+    ],
+    "chords": ["G", "C"],
+    "shapes": {
+      "G": "G.open.b",
+      "C": "C.open.a"
+    },
+    "difficulty": 7
+  },
+  {
+    "id": "open-c-am",
+    "module": "open",
+    "title": "C to Am, anchored",
+    "goal": "Change between C and Am while two fingers stay put.",
+    "progression": {
+      "chords": ["C", "Am"]
+    },
+    "candidates": {
+      "tags": ["open", "anchored"]
+    },
+    "arrangement": {
+      "sections": [
+        {
+          "name": "intro",
+          "register": "low",
+          "rhythm": "sixteenth-strum",
+          "layers": [
+            {
+              "id": "rhythm",
+              "role": "rhythm",
+              "pan": 0,
+              "voicing": "low",
+              "muted": false
+            }
+          ],
+          "dynamics": 0.7,
+          "bars": 2
+        },
+        {
+          "name": "verse",
+          "register": "low",
+          "rhythm": "sixteenth-strum",
+          "layers": [
+            {
+              "id": "rhythm",
+              "role": "rhythm",
+              "pan": 0,
+              "voicing": "low",
+              "muted": false
+            }
+          ],
+          "dynamics": 0.7,
+          "bars": 4
+        },
+        {
+          "name": "pre",
+          "register": "low",
+          "rhythm": "push-strum",
+          "layers": [
+            {
+              "id": "rhythm",
+              "role": "rhythm",
+              "pan": 0,
+              "voicing": "low",
+              "muted": false
+            }
+          ],
+          "dynamics": 0.85,
+          "bars": 2
+        },
+        {
+          "name": "chorus",
+          "register": "low",
+          "rhythm": "push-strum",
+          "layers": [
+            {
+              "id": "rhythm",
+              "role": "rhythm",
+              "pan": 0,
+              "voicing": "low",
+              "muted": false
+            }
+          ],
+          "dynamics": 1,
+          "bars": 4,
+          "marks": ["let-ring"]
+        }
+      ]
+    },
+    "startBpm": 60,
+    "targetBpm": 90,
+    "tuning": "standard",
+    "capo": 0,
+    "tips": [
+      "Keep fingers 1 and 2 where they are.",
+      "Only one finger moves; leave the others pressed."
+    ],
+    "listen": [
+      {
+        "artist": "Oasis",
+        "song": "Don't Look Back in Anger",
+        "note": "Open chords strummed wide with a chorus that keeps building."
+      }
+    ],
+    "chords": ["C", "Am"],
+    "shapes": {
+      "C": "C.open.a",
+      "Am": "Am.open"
+    },
+    "difficulty": 7.34
+  },
+  {
+    "id": "open-anchored-loop",
+    "module": "open",
+    "title": "Em7, G, Dsus4, A7sus4",
+    "goal": "Loop four anchored shapes with the top strings ringing throughout.",
+    "progression": {
+      "chords": ["Em7", "G", "Dsus4", "A7sus4"]
+    },
+    "candidates": {
+      "tags": ["anchored"]
+    },
+    "arrangement": {
+      "sections": [
+        {
+          "name": "intro",
+          "register": "low",
+          "rhythm": "sixteenth-strum",
+          "layers": [
+            {
+              "id": "rhythm",
+              "role": "rhythm",
+              "pan": 0,
+              "voicing": "low",
+              "muted": false
+            }
+          ],
+          "dynamics": 0.7,
+          "bars": 2
+        },
+        {
+          "name": "verse",
+          "register": "low",
+          "rhythm": "sixteenth-strum",
+          "layers": [
+            {
+              "id": "rhythm",
+              "role": "rhythm",
+              "pan": 0,
+              "voicing": "low",
+              "muted": false
+            }
+          ],
+          "dynamics": 0.7,
+          "bars": 4
+        },
+        {
+          "name": "pre",
+          "register": "low",
+          "rhythm": "push-strum",
+          "layers": [
+            {
+              "id": "rhythm",
+              "role": "rhythm",
+              "pan": 0,
+              "voicing": "low",
+              "muted": false
+            }
+          ],
+          "dynamics": 0.85,
+          "bars": 2
+        },
+        {
+          "name": "chorus",
+          "register": "low",
+          "rhythm": "push-strum",
+          "layers": [
+            {
+              "id": "rhythm",
+              "role": "rhythm",
+              "pan": 0,
+              "voicing": "low",
+              "muted": false
+            }
+          ],
+          "dynamics": 1,
+          "bars": 4,
+          "marks": ["let-ring"]
+        }
+      ]
+    },
+    "startBpm": 60,
+    "targetBpm": 90,
+    "tuning": "standard",
+    "capo": 0,
+    "tips": [
+      "Keep fingers 1, 3 and 4 where they are.",
+      "Fingers three and four never leave the top strings."
+    ],
+    "listen": [
+      {
+        "artist": "Oasis",
+        "song": "Wonderwall",
+        "note": "Capo on, anchored shapes and top strings ringing through every change."
+      }
+    ],
+    "chords": ["Em7", "G", "Dsus4", "A7sus4"],
+    "shapes": {
+      "Em7": "Em7.anchored",
+      "G": "G.anchored",
+      "Dsus4": "Dsus4.anchored",
+      "A7sus4": "A7sus4.anchored"
+    },
+    "difficulty": 15.87
+  },
+  {
+    "id": "open-cadd9",
+    "module": "open",
+    "title": "Cadd9 and friends",
+    "goal": "Play G, Cadd9, Em7 and Dsus4 around the same anchor.",
+    "progression": {
+      "chords": ["G", "Cadd9", "Em7", "Dsus4"]
+    },
+    "candidates": {
+      "tags": ["anchored"]
+    },
+    "arrangement": {
+      "sections": [
+        {
+          "name": "intro",
+          "register": "low",
+          "rhythm": "sixteenth-strum",
+          "layers": [
+            {
+              "id": "rhythm",
+              "role": "rhythm",
+              "pan": 0,
+              "voicing": "low",
+              "muted": false
+            }
+          ],
+          "dynamics": 0.7,
+          "bars": 2
+        },
+        {
+          "name": "verse",
+          "register": "low",
+          "rhythm": "sixteenth-strum",
+          "layers": [
+            {
+              "id": "rhythm",
+              "role": "rhythm",
+              "pan": 0,
+              "voicing": "low",
+              "muted": false
+            }
+          ],
+          "dynamics": 0.7,
+          "bars": 4
+        },
+        {
+          "name": "pre",
+          "register": "low",
+          "rhythm": "push-strum",
+          "layers": [
+            {
+              "id": "rhythm",
+              "role": "rhythm",
+              "pan": 0,
+              "voicing": "low",
+              "muted": false
+            }
+          ],
+          "dynamics": 0.85,
+          "bars": 2
+        },
+        {
+          "name": "chorus",
+          "register": "low",
+          "rhythm": "push-strum",
+          "layers": [
+            {
+              "id": "rhythm",
+              "role": "rhythm",
+              "pan": 0,
+              "voicing": "low",
+              "muted": false
+            }
+          ],
+          "dynamics": 1,
+          "bars": 4,
+          "marks": ["let-ring"]
+        }
+      ]
+    },
+    "startBpm": 60,
+    "targetBpm": 90,
+    "tuning": "standard",
+    "capo": 0,
+    "tips": [
+      "Keep fingers 3 and 4 where they are.",
+      "Keep the anchor fingers down; only the bass fingers travel."
+    ],
+    "listen": [
+      {
+        "artist": "Oasis",
+        "song": "Wonderwall",
+        "note": "Capo on, anchored shapes and top strings ringing through every change."
+      }
+    ],
+    "chords": ["G", "Cadd9", "Em7", "Dsus4"],
+    "shapes": {
+      "G": "G.anchored",
+      "Cadd9": "Cadd9.anchored",
+      "Em7": "Em7.anchored",
+      "Dsus4": "Dsus4.anchored"
+    },
+    "difficulty": 17.42
+  },
+  {
+    "id": "open-sixteenth-motion",
+    "module": "open",
+    "title": "Continuous sixteenth strum",
+    "goal": "Keep the strumming arm moving down and up on every sixteenth.",
+    "progression": {
+      "id": "I-IV-vi-V",
+      "key": "G"
+    },
+    "candidates": {
+      "tags": ["open", "anchored"]
+    },
+    "arrangement": {
+      "sections": [
+        {
+          "name": "intro",
+          "register": "low",
+          "rhythm": "full-motion",
+          "layers": [
+            {
+              "id": "rhythm",
+              "role": "rhythm",
+              "pan": 0,
+              "voicing": "low",
+              "muted": false
+            }
+          ],
+          "dynamics": 0.7,
+          "bars": 2
+        },
+        {
+          "name": "verse",
+          "register": "low",
+          "rhythm": "full-motion",
+          "layers": [
+            {
+              "id": "rhythm",
+              "role": "rhythm",
+              "pan": 0,
+              "voicing": "low",
+              "muted": false
+            }
+          ],
+          "dynamics": 0.7,
+          "bars": 4
+        },
+        {
+          "name": "pre",
+          "register": "low",
+          "rhythm": "push-strum",
+          "layers": [
+            {
+              "id": "rhythm",
+              "role": "rhythm",
+              "pan": 0,
+              "voicing": "low",
+              "muted": false
+            }
+          ],
+          "dynamics": 0.85,
+          "bars": 2
+        },
+        {
+          "name": "chorus",
+          "register": "low",
+          "rhythm": "full-motion",
+          "layers": [
+            {
+              "id": "rhythm",
+              "role": "rhythm",
+              "pan": 0,
+              "voicing": "low",
+              "muted": false
+            }
+          ],
+          "dynamics": 1,
+          "bars": 4,
+          "marks": ["let-ring"]
+        }
+      ]
+    },
+    "startBpm": 60,
+    "targetBpm": 95,
+    "tuning": "standard",
+    "capo": 0,
+    "tips": [
+      "Move fingers 2 and 3 together across 1 string, towards the thinner strings.",
+      "The arm never stops; you choose which strokes touch the strings."
+    ],
+    "listen": [
+      {
+        "artist": "Oasis",
+        "song": "Live Forever",
+        "note": "A steady strumming arm under ringing open chords."
+      }
+    ],
+    "chords": ["G", "C", "Em", "D"],
+    "shapes": {
+      "G": "G.open.b",
+      "C": "C.open.a",
+      "Em": "Em.open.b",
+      "D": "D.open"
+    },
+    "difficulty": 20.45
+  },
+  {
+    "id": "open-capo-2",
+    "module": "open",
+    "title": "Capo 2 arrangement",
+    "goal": "Strum the loop with a capo and add a second part on higher voicings.",
+    "progression": {
+      "id": "vi-IV-I-V",
+      "key": "G"
+    },
+    "candidates": {
+      "tags": ["open", "anchored"]
+    },
+    "arrangement": {
+      "sections": [
+        {
+          "name": "intro",
+          "register": "low",
+          "rhythm": "sixteenth-strum",
+          "layers": [
+            {
+              "id": "rhythm",
+              "role": "rhythm",
+              "pan": 0,
+              "voicing": "low",
+              "muted": false
+            }
+          ],
+          "dynamics": 0.7,
+          "bars": 2
+        },
+        {
+          "name": "verse",
+          "register": "low",
+          "rhythm": "sixteenth-strum",
+          "layers": [
+            {
+              "id": "rhythm",
+              "role": "rhythm",
+              "pan": 0,
+              "voicing": "low",
+              "muted": false
+            }
+          ],
+          "dynamics": 0.7,
+          "bars": 4
+        },
+        {
+          "name": "pre",
+          "register": "low",
+          "rhythm": "push-strum",
+          "layers": [
+            {
+              "id": "rhythm",
+              "role": "rhythm",
+              "pan": 0,
+              "voicing": "low",
+              "muted": false
+            }
+          ],
+          "dynamics": 0.85,
+          "bars": 2
+        },
+        {
+          "name": "chorus",
+          "register": "low",
+          "rhythm": "push-strum",
+          "layers": [
+            {
+              "id": "rhythm",
+              "role": "rhythm",
+              "pan": 0,
+              "voicing": "low",
+              "muted": false
+            },
+            {
+              "id": "layer",
+              "role": "double",
+              "pan": 0.3,
+              "voicing": "high",
+              "muted": false
+            }
+          ],
+          "dynamics": 1,
+          "bars": 4,
+          "marks": ["let-ring"]
+        }
+      ]
+    },
+    "startBpm": 65,
+    "targetBpm": 95,
+    "tuning": "standard",
+    "capo": 2,
+    "tips": [
+      "Keep finger 2 where it is.",
+      "Shapes stay the same with the capo; the frets are counted from it."
+    ],
+    "listen": [
+      {
+        "artist": "Oasis",
+        "song": "Wonderwall",
+        "note": "Capo on, anchored shapes and top strings ringing through every change."
+      }
+    ],
+    "chords": ["Em", "C", "G", "D"],
+    "shapes": {
+      "Em": "Em.open.b",
+      "C": "C.open.a",
+      "G": "G.open.b",
+      "D": "D.open"
+    },
+    "difficulty": 20.45
+  },
+  {
+    "id": "open-i-v-vi-iv-g",
+    "module": "open",
+    "title": "I–V–vi–IV in G",
+    "goal": "Play the four-chord loop with open shapes and a big chorus.",
+    "progression": {
+      "id": "I-V-vi-IV",
+      "key": "G"
+    },
+    "candidates": {
+      "tags": ["open", "anchored"]
+    },
+    "arrangement": {
+      "sections": [
+        {
+          "name": "intro",
+          "register": "low",
+          "rhythm": "sixteenth-strum",
+          "layers": [
+            {
+              "id": "rhythm",
+              "role": "rhythm",
+              "pan": 0,
+              "voicing": "low",
+              "muted": false
+            }
+          ],
+          "dynamics": 0.7,
+          "bars": 2
+        },
+        {
+          "name": "verse",
+          "register": "low",
+          "rhythm": "sixteenth-strum",
+          "layers": [
+            {
+              "id": "rhythm",
+              "role": "rhythm",
+              "pan": 0,
+              "voicing": "low",
+              "muted": false
+            }
+          ],
+          "dynamics": 0.7,
+          "bars": 4
+        },
+        {
+          "name": "pre",
+          "register": "low",
+          "rhythm": "push-strum",
+          "layers": [
+            {
+              "id": "rhythm",
+              "role": "rhythm",
+              "pan": 0,
+              "voicing": "low",
+              "muted": false
+            }
+          ],
+          "dynamics": 0.85,
+          "bars": 2
+        },
+        {
+          "name": "chorus",
+          "register": "low",
+          "rhythm": "push-strum",
+          "layers": [
+            {
+              "id": "rhythm",
+              "role": "rhythm",
+              "pan": 0,
+              "voicing": "low",
+              "muted": false
+            }
+          ],
+          "dynamics": 1,
+          "bars": 4,
+          "marks": ["let-ring"]
+        }
+      ]
+    },
+    "startBpm": 60,
+    "targetBpm": 95,
+    "tuning": "standard",
+    "capo": 0,
+    "tips": [
+      "Move fingers 2 and 3 together across 4 strings, towards the thinner strings.",
+      "Keep the strumming arm moving through every change."
+    ],
+    "listen": [
+      {
+        "artist": "Oasis",
+        "song": "Don't Look Back in Anger",
+        "note": "Open chords strummed wide with a chorus that keeps building."
+      }
+    ],
+    "chords": ["G", "D", "Em", "C"],
+    "shapes": {
+      "G": "G.open.b",
+      "D": "D.open",
+      "Em": "Em.open.b",
+      "C": "C.open.a"
+    },
+    "difficulty": 20.45
+  }
+]

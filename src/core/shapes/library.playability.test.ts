@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import chordsData from '../../data/chords.json';
+import chordsData from '../../data/chords.json' with { type: 'json' };
 import { PROGRESSIONS } from '../../data/progressions.ts';
 import { checkPlayable, type Fingering, type TabEvent } from '../tab/playability.ts';
 import { candidatesFor, optimise } from '../engine/optimise.ts';

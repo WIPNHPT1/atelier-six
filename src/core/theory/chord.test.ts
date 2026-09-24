@@ -55,6 +55,7 @@ describe('chordName', () => {
     expect(chordName({ root: 0, quality: 'sus2' })).toBe('Csus2');
     expect(chordName({ root: 0, quality: 'sus4' })).toBe('Csus4');
     expect(chordName({ root: 0, quality: 'm7' })).toBe('Cm7');
+    expect(chordName({ root: 9, quality: '7sus4' })).toBe('A7sus4');
   });
 
   it('round-trips every diatonic degree, in every key, through romanToChord', () => {

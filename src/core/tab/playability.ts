@@ -59,31 +59,51 @@ function handPosition(event: TabEvent, finger: Finger | null | undefined): numbe
   return event.fret - finger + 1;
 }
 
-function checkShiftSpeed(events: TabEvent[], fingering: Fingering, bpm: number): Issue[] {
-  const issues: Issue[] = [];
-  const perSixteenth = secondsPerSixteenth(bpm);
-  let last: { index: number; time: number; position: number } | null = null;
-
+// One hand position per onset: the lowest (fret - finger + 1) among its fretted notes.
+function onsetPositions(events: TabEvent[], fingering: Fingering) {
+  const byTime = new Map<number, { index: number; time: number; position: number }>();
   events.forEach((event, index) => {
     const position = handPosition(event, fingering[index]);
     if (position === null) return;
-    if (last !== null && event.time !== last.time && position !== last.position) {
-      const seconds = (event.time - last.time) * perSixteenth;
-      const fretsPerSecond = Math.abs(position - last.position) / seconds;
-      if (fretsPerSecond > MAX_SHIFT_FRETS_PER_SEC) {
-        issues.push({ type: 'shift-speed', fromIndex: last.index, toIndex: index, fretsPerSecond });
-      }
+    const current = byTime.get(event.time);
+    if (current === undefined) byTime.set(event.time, { index, time: event.time, position });
+    else current.position = Math.min(current.position, position);
+  });
+  return [...byTime.values()].sort((a, b) => a.time - b.time);
+}
+
+function checkShiftSpeed(events: TabEvent[], fingering: Fingering, bpm: number): Issue[] {
+  const perSixteenth = secondsPerSixteenth(bpm);
+  const onsets = onsetPositions(events, fingering);
+  const issues: Issue[] = [];
+  onsets.forEach((curr, i) => {
+    const prev = onsets[i - 1];
+    if (prev === undefined || curr.position === prev.position) return;
+    const fretsPerSecond =
+      Math.abs(curr.position - prev.position) / ((curr.time - prev.time) * perSixteenth);
+    if (fretsPerSecond > MAX_SHIFT_FRETS_PER_SEC) {
+      issues.push({
+        type: 'shift-speed',
+        fromIndex: prev.index,
+        toIndex: curr.index,
+        fretsPerSecond,
+      });
     }
-    last = { index, time: event.time, position };
   });
   return issues;
 }
 
+// Skips only matter in picked lines; a strummed chord crosses strings by design.
 function checkStringSkips(events: TabEvent[]): Issue[] {
+  const notesAt = new Map<number, number>();
+  for (const event of events) notesAt.set(event.time, (notesAt.get(event.time) ?? 0) + 1);
+  const single = (event: TabEvent) => notesAt.get(event.time) === 1;
+
   const issues: Issue[] = [];
   for (let i = 1; i < events.length; i++) {
     const prev = events[i - 1] as TabEvent;
     const curr = events[i] as TabEvent;
+    if (!single(prev) || !single(curr)) continue;
     const skip = Math.abs(curr.string - prev.string);
     if (skip > MAX_STRING_SKIP) issues.push({ type: 'string-skip', index: i, skip });
   }

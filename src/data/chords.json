@@ -399,7 +399,8 @@
       ],
       "register": "low",
       "tags": [
-        "power"
+        "power",
+        "octave"
       ]
     },
     {
@@ -433,7 +434,8 @@
       ],
       "register": "mid",
       "tags": [
-        "power"
+        "power",
+        "octave"
       ]
     }
   ],
@@ -721,7 +723,8 @@
       ],
       "register": "high",
       "tags": [
-        "power"
+        "power",
+        "octave"
       ]
     },
     {
@@ -755,7 +758,8 @@
       ],
       "register": "mid",
       "tags": [
-        "power"
+        "power",
+        "octave"
       ]
     }
   ],
@@ -1197,7 +1201,8 @@
       ],
       "register": "low",
       "tags": [
-        "power"
+        "power",
+        "octave"
       ]
     },
     {
@@ -1231,7 +1236,8 @@
       ],
       "register": "mid",
       "tags": [
-        "power"
+        "power",
+        "octave"
       ]
     }
   ],
@@ -1683,7 +1689,8 @@
       ],
       "register": "mid",
       "tags": [
-        "power"
+        "power",
+        "octave"
       ]
     },
     {
@@ -1717,7 +1724,8 @@
       ],
       "register": "high",
       "tags": [
-        "power"
+        "power",
+        "octave"
       ]
     }
   ],
@@ -1971,7 +1979,8 @@
       ],
       "register": "low",
       "tags": [
-        "power"
+        "power",
+        "octave"
       ]
     },
     {
@@ -2005,7 +2014,8 @@
       ],
       "register": "high",
       "tags": [
-        "power"
+        "power",
+        "octave"
       ]
     }
   ],
@@ -2493,7 +2503,8 @@
       ],
       "register": "mid",
       "tags": [
-        "power"
+        "power",
+        "octave"
       ]
     },
     {
@@ -2527,7 +2538,8 @@
       ],
       "register": "high",
       "tags": [
-        "power"
+        "power",
+        "octave"
       ]
     }
   ],
@@ -2781,7 +2793,8 @@
       ],
       "register": "mid",
       "tags": [
-        "power"
+        "power",
+        "octave"
       ]
     },
     {
@@ -2815,7 +2828,8 @@
       ],
       "register": "high",
       "tags": [
-        "power"
+        "power",
+        "octave"
       ]
     }
   ],
@@ -3325,7 +3339,8 @@
       ],
       "register": "mid",
       "tags": [
-        "power"
+        "power",
+        "octave"
       ]
     },
     {
@@ -3359,7 +3374,8 @@
       ],
       "register": "high",
       "tags": [
-        "power"
+        "power",
+        "octave"
       ]
     }
   ],
@@ -3917,7 +3933,8 @@
       ],
       "register": "high",
       "tags": [
-        "power"
+        "power",
+        "octave"
       ]
     },
     {
@@ -3951,7 +3968,8 @@
       ],
       "register": "low",
       "tags": [
-        "power"
+        "power",
+        "octave"
       ]
     }
   ],
@@ -4205,7 +4223,8 @@
       ],
       "register": "high",
       "tags": [
-        "power"
+        "power",
+        "octave"
       ]
     },
     {
@@ -4239,7 +4258,8 @@
       ],
       "register": "low",
       "tags": [
-        "power"
+        "power",
+        "octave"
       ]
     }
   ],
@@ -4759,7 +4779,8 @@
       ],
       "register": "high",
       "tags": [
-        "power"
+        "power",
+        "octave"
       ]
     },
     {
@@ -4793,7 +4814,8 @@
       ],
       "register": "mid",
       "tags": [
-        "power"
+        "power",
+        "octave"
       ]
     }
   ],
@@ -5047,7 +5069,8 @@
       ],
       "register": "high",
       "tags": [
-        "power"
+        "power",
+        "octave"
       ]
     },
     {
@@ -5081,7 +5104,8 @@
       ],
       "register": "low",
       "tags": [
-        "power"
+        "power",
+        "octave"
       ]
     }
   ],

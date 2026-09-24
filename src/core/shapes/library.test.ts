@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { getChord, getShapes, listChordNames } from './library.ts';
 import { validateShape } from './validateShape.ts';
-import chordsData from '../../data/chords.json';
+import chordsData from '../../data/chords.json' with { type: 'json' };
 import type { Shape } from './types.ts';
 
 const DATA = chordsData as unknown as Record<string, Shape[]>;

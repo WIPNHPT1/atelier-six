@@ -1,6 +1,7 @@
 import { transpose, noteName, type PitchClass } from './pitch.ts';
 
-export type ChordQuality = 'maj' | 'min' | '5' | 'dim' | '7' | 'sus2' | 'sus4' | 'add9' | 'm7';
+export type ChordQuality =
+  'maj' | 'min' | '5' | 'dim' | '7' | 'sus2' | 'sus4' | 'add9' | 'm7' | '7sus4';
 
 export type ChordSpec = {
   root: PitchClass;
@@ -54,6 +55,7 @@ const QUALITY_SUFFIX: Record<ChordQuality, string> = {
   sus4: 'sus4',
   add9: 'add9',
   m7: 'm7',
+  '7sus4': '7sus4',
 };
 
 export function chordName({ root, quality }: ChordSpec): string {
@@ -70,6 +72,7 @@ const QUALITY_INTERVALS: Record<ChordQuality, number[]> = {
   sus4: [0, 5, 7],
   add9: [0, 2, 4, 7],
   m7: [0, 3, 7, 10],
+  '7sus4': [0, 5, 7, 10],
 };
 
 export function chordTones({ root, quality }: ChordSpec): PitchClass[] {

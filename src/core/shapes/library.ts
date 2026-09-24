@@ -1,4 +1,4 @@
-import chordsData from '../../data/chords.json';
+import chordsData from '../../data/chords.json' with { type: 'json' };
 import { parseNote, type PitchClass } from '../theory/pitch.ts';
 import type { Chord, Shape } from './types.ts';
 

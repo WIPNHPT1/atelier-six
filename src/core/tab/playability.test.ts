@@ -18,6 +18,21 @@ describe('checkPlayable', () => {
     expect(slow.some((issue) => issue.type === 'shift-speed')).toBe(false);
   });
 
+  it('ignores string skips between strummed chords', () => {
+    const strum = (time: number) => [6, 5, 4, 3, 2, 1].map((string) => event({ time, string }));
+    expect(checkPlayable([...strum(0), ...strum(2)], Array(12).fill(0), 90)).toEqual([]);
+  });
+
+  it('reads one hand position per strum, so a chord is not a shift', () => {
+    const chord = [event({ time: 0, string: 5, fret: 2 }), event({ time: 0, string: 4, fret: 2 })];
+    const again = [event({ time: 1, string: 5, fret: 2 }), event({ time: 1, string: 4, fret: 2 })];
+    expect(checkPlayable([...chord, ...again], [1, 2, 1, 2], 200)).toEqual([]);
+    const moved = [event({ time: 1, string: 5, fret: 4 }), event({ time: 1, string: 4, fret: 4 })];
+    expect(checkPlayable([...chord, ...moved], [1, 2, 1, 2], 200).map((i) => i.type)).toEqual([
+      'shift-speed',
+    ]);
+  });
+
   it('rejects a 6-fret span whether or not the lesson allows a stretch', () => {
     const events = [event({ time: 0, string: 6, fret: 2 }), event({ time: 0, string: 5, fret: 8 })];
     const fingering = [1, 4] as const;
