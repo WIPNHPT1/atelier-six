@@ -6,6 +6,7 @@ import { Mono } from '../../ui/Mono';
 import { Pill } from '../../ui/Pill';
 import { Sheet } from '../../ui/Sheet';
 import { SegmentedControl } from '../../ui/SegmentedControl';
+import { Button } from '../../ui/Button';
 import { Fretboard } from '../../ui/Fretboard/Fretboard';
 import { TransitionCard } from '../../ui/TransitionCard/TransitionCard';
 import { copy, t } from '../../content/copy.en-GB';
@@ -13,6 +14,7 @@ import { getShapes, listChordNames } from '../../core/shapes/library';
 import type { Shape } from '../../core/shapes/types';
 import { shapeDifficulty } from '../../core/engine/cost';
 import { candidatesFor, optimise } from '../../core/engine/optimise';
+import { hearChord } from '../../audio/hearChord';
 import styles from './LibraryPage.module.css';
 
 type ModuleTag = 'power' | 'open';
@@ -187,6 +189,15 @@ export default function LibraryPage() {
                     {shapeDifficulty(shape)}
                   </Text>
                   <Pill>{shape.register}</Pill>
+                  <Button
+                    variant="quiet"
+                    size="small"
+                    onClick={() => {
+                      void hearChord(shape);
+                    }}
+                  >
+                    {copy.library.hearChord}
+                  </Button>
                 </div>
               ))}
             </div>

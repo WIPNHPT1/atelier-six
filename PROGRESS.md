@@ -1,6 +1,6 @@
 # Progress
 
-Current: 5.2
+Current: 5.3
 Legend: [ ] todo · [x] done · BLOCKED: reason
 Rule: update "Current" and tick the box in the same commit as the step. Unfinished work lives in `RESUME.md`.
 Milestones: v1.0 = Phases 0–10 · v1.1 = 11–15 · v1.2 = 16–17 · v2.0 = 18–22 · v2.x = 23–24 (final).
@@ -69,7 +69,7 @@ Recorded numbers (fill in as you go): LIVE_URL=https://ateliersix.netlify.app ·
 ## Phase 5 — Audio
 
 - [x] 5.1 Pure scheduler
-- [ ] 5.2 Guitar voice + strum
+- [x] 5.2 Guitar voice + strum
 - [ ] 5.3 Metronome + count-in
 - [ ] 5.4 Transport + playhead sync
 - [ ] 5.5 Real instrument sound + humanised playback

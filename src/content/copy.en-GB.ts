@@ -65,6 +65,7 @@ export const copy = {
     shapeCount: '{count} shapes',
     compareLabel: 'Compare transition',
     comparePlaceholder: 'Choose a chord…',
+    hearChord: 'Hear chord',
   },
   lesson: {
     title: 'Lesson',
