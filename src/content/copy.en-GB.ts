@@ -71,6 +71,13 @@ export const copy = {
     title: 'Lesson',
     keepFingers: 'Keep finger {fingers} where it is.',
   },
+  metronome: {
+    start: 'Start metronome',
+    stop: 'Stop metronome',
+    bpmLabel: 'Tempo (bpm)',
+    tap: 'Tap tempo',
+    countInLabel: 'Count-in bars',
+  },
   practiseScreen: {
     title: 'Practise',
   },

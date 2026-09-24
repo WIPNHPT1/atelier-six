@@ -8,6 +8,9 @@ const NORMAL_FILTER_HZ = 20000;
 const MUTED_FILTER_HZ = 900;
 const MUTE_RECOVER_SECONDS = 0.12;
 const PAN_SPREAD = 0.12;
+const CLICK_ACCENT_NOTE = 'C4';
+const CLICK_NOTE = 'C3';
+const CLICK_DURATION_SECONDS = 0.03;
 
 declare global {
   interface Window {
@@ -18,6 +21,7 @@ declare global {
 type AudioGraph = {
   voices: Tone.PluckSynth[];
   filter: Tone.Filter;
+  click: Tone.MembraneSynth;
 };
 
 let graph: AudioGraph | null = null;
@@ -42,7 +46,11 @@ function buildGraph(): AudioGraph {
     return voice;
   });
 
-  return { voices, filter };
+  const click = new Tone.MembraneSynth({
+    envelope: { attack: 0.001, decay: 0.1, sustain: 0, release: 0.05 },
+  }).toDestination();
+
+  return { voices, filter, click };
 }
 
 export async function ensureAudio(): Promise<void> {
@@ -71,4 +79,13 @@ export function playEvent(event: ScheduleEvent, time: number): void {
     voice.resonance = event.palmMute ? MUTED_RESONANCE : NORMAL_RESONANCE;
     voice.triggerAttack(Tone.Frequency(hit.midi, 'midi').toFrequency(), time + hit.offset);
   });
+}
+
+export function playClick(time: number, accent: boolean): void {
+  if (graph === null) return;
+  graph.click.triggerAttackRelease(
+    accent ? CLICK_ACCENT_NOTE : CLICK_NOTE,
+    CLICK_DURATION_SECONDS,
+    time,
+  );
 }
