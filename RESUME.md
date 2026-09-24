@@ -9,5 +9,5 @@ Last result: -
 Done so far:
 - -
 Next action:
-- new session (⌘N), then /gate
+- new session (⌘N), then /next
 Updated: 2026-09-24

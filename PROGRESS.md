@@ -1,6 +1,6 @@
 # Progress
 
-Current: Gate 5
+Current: 6.0
 Legend: [ ] todo · [x] done · BLOCKED: reason
 Rule: update "Current" and tick the box in the same commit as the step. Unfinished work lives in `RESUME.md`.
 Milestones: v1.0 = Phases 0–10 · v1.1 = 11–15 · v1.2 = 16–17 · v2.0 = 18–22 · v2.x = 23–24 (final).
@@ -15,6 +15,7 @@ Recorded numbers (fill in as you go): LIVE_URL=https://ateliersix.netlify.app ·
 | 2     | 2026-09-23    | ?             |
 | 3     | 2026-09-23    | ?             |
 | 4     | 2026-09-24    | ?             |
+| 5     | 2026-09-24    | 1             |
 
 ## Phase 0 — Repo foundation
 
@@ -73,7 +74,8 @@ Recorded numbers (fill in as you go): LIVE_URL=https://ateliersix.netlify.app ·
 - [x] 5.3 Metronome + count-in
 - [x] 5.4 Transport + playhead sync
 - [x] 5.5 Real instrument sound + humanised playback
-- [ ] Gate 5
+- [x] Gate 5
+  - Device check (2026-09-24, Mac + iPhone/iPad over local preview): audio starts after one tap ✓, plays on both devices ✓, sounds like a real guitar and band ✓ (after tuning: distorted palm-mute chug, acoustic punk drums, no bass in the groove). Silent-switch on/off not separately reported. Mic, install, offline, rotation and large-text rows belong to later gates.
 
 ## Phase 6 — Lessons and drills
 
