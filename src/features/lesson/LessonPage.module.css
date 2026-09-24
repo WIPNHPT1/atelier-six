@@ -69,7 +69,8 @@
     'tab'
     'change'
     'tips'
-    'listen';
+    'listen'
+    'fun';
   gap: var(--s-4);
 }
 
@@ -166,7 +167,8 @@
       'tab tab'
       'now change'
       'layers layers'
-      'tips listen';
+      'tips listen'
+      'fun fun';
   }
 
   .layers {
@@ -181,7 +183,8 @@
     grid-template-areas:
       'tab tab tab'
       'now change layers'
-      'tips listen layers';
+      'tips listen layers'
+      'fun fun fun';
   }
 }
 
@@ -256,4 +259,8 @@
 
 :global([data-motion='off']) .ripple {
   display: none;
+}
+
+.fun {
+  grid-area: fun;
 }

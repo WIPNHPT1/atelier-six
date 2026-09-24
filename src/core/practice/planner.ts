@@ -7,15 +7,42 @@ const DAY_MS = 86_400_000;
 
 export type PlannerLesson = { id: string; targetBpm: number; module?: string };
 
+// Play time: the ready tune, else the newest unlocked riff, else a jam over the groove.
+export type PlayItem = { kind: 'tune' | 'riff' | 'jam'; id: string | null };
+
+export type SessionMinutes = { warmup: number; lesson: number; reviews: number; play: number };
+
 export type SessionPlan = {
   warmup: Warmup;
   newLesson: string | null;
   reviews: string[];
   // A module tune, once three quarters of its module's lessons are done.
   tune: string | null;
+  play: PlayItem;
+  minutes: SessionMinutes;
 };
 
+export type PlannerRiff = { id: string; unlockedBy: string | null };
+
+export type PlannerExtras = { tunes?: PlannerLesson[]; riffs?: PlannerRiff[] };
+
 export const TUNE_READY_SHARE = 0.75;
+export const SESSION_MINUTES = 20;
+// At least this share of every session is music: a tune, a riff or a jam (PRD §20.4).
+export const PLAY_SHARE = 0.3;
+const WARMUP_MINUTES = 3;
+const REVIEW_MINUTES = 5;
+
+export function sessionMinutes(hasReviews: boolean): SessionMinutes {
+  const play = Math.ceil(SESSION_MINUTES * PLAY_SHARE);
+  const reviews = hasReviews ? REVIEW_MINUTES : 0;
+  return {
+    warmup: WARMUP_MINUTES,
+    reviews,
+    play,
+    lesson: SESSION_MINUTES - WARMUP_MINUTES - reviews - play,
+  };
+}
 
 function daysBetween(from: string, to: string): number {
   const toTime = (day: string) => {
@@ -44,7 +71,7 @@ export function planSession(
   today: string,
   progress: ProgressData,
   lessons: PlannerLesson[],
-  tunes: PlannerLesson[] = [],
+  { tunes = [], riffs = [] }: PlannerExtras = {},
 ): SessionPlan {
   const newLesson = lessons.find((lesson) => !done(progress, lesson))?.id ?? null;
   const tune =
@@ -65,5 +92,25 @@ export function planSession(
     .sort((a, b) => missRate(b) - missRate(a) || a.transitionKey.localeCompare(b.transitionKey))
     .slice(0, REVIEWS)
     .map((record) => record.transitionKey);
-  return { warmup: warmupFor(today), newLesson, reviews, tune };
+  const byId = new Map(lessons.map((lesson) => [lesson.id, lesson]));
+  const riff = riffs
+    .filter((candidate) => {
+      const gate = candidate.unlockedBy === null ? undefined : byId.get(candidate.unlockedBy);
+      return gate === undefined || done(progress, gate);
+    })
+    .at(-1);
+  const play: PlayItem =
+    tune !== null
+      ? { kind: 'tune', id: tune }
+      : riff !== undefined
+        ? { kind: 'riff', id: riff.id }
+        : { kind: 'jam', id: null };
+  return {
+    warmup: warmupFor(today),
+    newLesson,
+    reviews,
+    tune,
+    play,
+    minutes: sessionMinutes(reviews.length > 0),
+  };
 }

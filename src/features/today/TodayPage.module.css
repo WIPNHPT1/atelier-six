@@ -102,3 +102,10 @@
 .row:last-child {
   border-bottom: none;
 }
+
+.cardHead {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  gap: var(--s-2);
+}

@@ -13,6 +13,7 @@ import { useAdaptiveTempo } from '../practice/useAdaptiveTempo';
 import { recordLessonAttempt, recordTransition, transitionKey } from '../../core/progress/record';
 import { useProgress } from '../progress/store';
 import { usePracticeTimer } from '../progress/usePracticeTimer';
+import { FunVote } from '../progress/FunVote';
 import type { ArrangementSection, BuiltLesson, Layer } from '../../core/lessons/types';
 import type { Shape } from '../../core/shapes/types';
 import { TUNINGS } from '../../core/style/riffBuilder';
@@ -471,6 +472,8 @@ function LessonPlayer({ lesson }: { lesson: BuiltLesson }) {
             ))}
           </ul>
         </Panel>
+
+        <FunVote id={lesson.id} className={styles.fun} />
 
         <Panel className={styles.listen} data-focus-hide>
           <Mono className={styles.label}>{copy.lesson.listenFor}</Mono>

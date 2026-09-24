@@ -211,3 +211,23 @@
   font-family: var(--font-mono);
   font-size: var(--t-12);
 }
+
+.refRow {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--s-2);
+}
+
+.playAlong {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--s-2);
+  width: 100%;
+}
+
+.tap {
+  width: 100%;
+  min-height: 88px;
+}

@@ -11,8 +11,14 @@ import { copy, t } from '../../content/copy.en-GB';
 import { useSettingsStore, type Level, type Tuning } from '../../app/settingsStore';
 import styles from './OnboardingPage.module.css';
 import { recommendedLesson } from '../lesson/lessonData';
+import { Fretboard } from '../../ui/Fretboard/Fretboard';
+import { usePlayback } from '../../audio/usePlayback';
+import { usePlaybackStore } from '../../audio/playbackStore';
+import { grooveFor } from './groove';
 
-const TOTAL_STEPS = 4;
+const GROOVE_ID = 'onboarding-groove';
+
+const TOTAL_STEPS = 5;
 
 export default function OnboardingPage() {
   const navigate = useNavigate();
@@ -20,7 +26,15 @@ export default function OnboardingPage() {
   const [step, setStep] = useState(0);
 
   // Onboarding ends on the recommended first lesson for the chosen level.
+  const playback = usePlayback();
+  const playingId = usePlaybackStore((s) => s.lessonId);
+  const startLesson = usePlaybackStore((s) => s.startLesson);
+  const stopPlayback = usePlaybackStore((s) => s.stopPlayback);
+  const grooving = playback.isPlaying && playingId === GROOVE_ID;
+  const groove = step === TOTAL_STEPS - 1 ? grooveFor(settings.level) : null;
+
   function finish() {
+    if (grooving) stopPlayback();
     settings.setOnboardingComplete(true);
     void navigate(`/lesson/${recommendedLesson(settings.level).id}`);
   }
@@ -118,6 +132,38 @@ export default function OnboardingPage() {
                 onChange={settings.setCapo}
               />
             </div>
+          </div>
+        ) : null}
+
+        {groove ? (
+          <div className={styles.step}>
+            <Text>{copy.onboarding.grooveTitle}</Text>
+            <Text dim>
+              {t('onboarding.grooveBody', { a: groove.shapes[0].chord, b: groove.shapes[1].chord })}
+            </Text>
+            <div className={styles.boards}>
+              <Fretboard shape={groove.shapes[0]} size={140} />
+              <Fretboard shape={groove.shapes[1]} size={140} />
+            </div>
+            <Button
+              variant="quiet"
+              onClick={() => {
+                if (grooving) {
+                  stopPlayback();
+                  return;
+                }
+                void startLesson({
+                  lessonId: GROOVE_ID,
+                  title: copy.onboarding.grooveTitle,
+                  chordNames: groove.shapes.map((shape) => shape.chord),
+                  bpm: groove.bpm,
+                  loop: true,
+                  prepared: groove.prepared,
+                });
+              }}
+            >
+              {grooving ? copy.onboarding.stopGroove : copy.onboarding.playGroove}
+            </Button>
           </div>
         ) : null}
 

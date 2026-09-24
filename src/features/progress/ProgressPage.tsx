@@ -15,6 +15,7 @@ import {
   minuteSeries,
   minutesOn,
   minutesThisWeek,
+  needsRethink,
   splitKey,
 } from '../../core/progress/record';
 import { cx } from '../../ui/cx';
@@ -23,7 +24,7 @@ import { Mono } from '../../ui/Mono';
 import { Panel } from '../../ui/Panel';
 import { Text } from '../../ui/Text';
 import { ProgressRing } from '../course/ProgressRing';
-import { LESSONS, MODULES, lessonsFor } from '../lesson/lessonData';
+import { LESSONS, MODULES, getLesson, lessonsFor } from '../lesson/lessonData';
 import styles from './ProgressPage.module.css';
 import { useProgressData } from './store';
 import { bestBpm, moduleProgress } from './summary';
@@ -64,6 +65,7 @@ export default function ProgressPage() {
   const heatmap = buildHeatmap(data.transitions);
   const worst = worstFirst(data.transitions);
   const series = minuteSeries(data);
+  const rethink = needsRethink(data);
   const available = MODULES.filter((module) => module.available);
   const doneTotal = available.reduce((sum, m) => sum + moduleProgress(m.id, data).done, 0);
 
@@ -251,6 +253,27 @@ export default function ProgressPage() {
             </ul>
           )}
         </Panel>
+
+        {rethink.length > 0 ? (
+          <Panel className={styles.minutes}>
+            <Mono className={styles.label}>{copy.fun.rethink}</Mono>
+            <Text dim size="small">
+              {copy.fun.rethinkHint}
+            </Text>
+            <ul className={styles.list} data-testid="needs-rethink">
+              {rethink.map((id) => (
+                <li key={id} className={styles.row}>
+                  <Link className={styles.lessonLink} to={`/lesson/${id}`}>
+                    {getLesson(id)?.title ?? id}
+                  </Link>
+                  <Mono className={styles.label}>
+                    {t('fun.votes', { down: data.fun[id]?.down ?? 0 })}
+                  </Mono>
+                </li>
+              ))}
+            </ul>
+          </Panel>
+        ) : null}
 
         {available.map((module) => (
           <Panel key={module.id} className={styles.lessons}>

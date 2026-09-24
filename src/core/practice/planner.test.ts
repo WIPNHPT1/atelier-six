@@ -3,7 +3,7 @@ import { recordLessonAttempt, recordTransition } from '../progress/record.ts';
 import { emptyProgress, type ProgressData } from '../progress/schema.ts';
 import { checkBars, checkHarmony, checkPlayable } from '../tab/playability.ts';
 import { standard } from '../tuning.ts';
-import { isDue, planSession } from './planner.ts';
+import { PLAY_SHARE, SESSION_MINUTES, isDue, planSession, sessionMinutes } from './planner.ts';
 import { PATTERNS, WARMUP_BPM, warmupAscii, warmupFor } from './warmup.ts';
 
 const day = (d: number) => new Date(2026, 8, d, 9).getTime();
@@ -87,12 +87,63 @@ describe('tune scheduling', () => {
 
   it('offers the tune once 75 % of its module is done, until the tune itself is done', () => {
     let data = finish(finish(emptyProgress(), 'a'), 'b');
-    expect(planSession('2026-09-24', data, lessons, tunes).tune).toBeNull();
+    expect(planSession('2026-09-24', data, lessons, { tunes }).tune).toBeNull();
     data = finish(data, 'c');
-    expect(planSession('2026-09-24', data, lessons, tunes).tune).toBe('tune-power');
+    expect(planSession('2026-09-24', data, lessons, { tunes }).tune).toBe('tune-power');
     data = finish(data, 'tune-power');
-    expect(planSession('2026-09-24', data, lessons, tunes).tune).toBeNull();
+    expect(planSession('2026-09-24', data, lessons, { tunes }).tune).toBeNull();
     expect(planSession('2026-09-24', data, lessons).tune).toBeNull();
+  });
+});
+
+describe('play time', () => {
+  const lessons = [
+    { id: 'a', targetBpm: 100, module: 'power' },
+    { id: 'b', targetBpm: 100, module: 'power' },
+  ];
+  const riffs = [
+    { id: 'riff-1', unlockedBy: 'a' },
+    { id: 'riff-2', unlockedBy: 'b' },
+    { id: 'riff-free', unlockedBy: null },
+    { id: 'riff-orphan', unlockedBy: 'gone' },
+  ];
+
+  it('gives at least 30 % of every session to music', () => {
+    for (const hasReviews of [true, false]) {
+      const m = sessionMinutes(hasReviews);
+      const total = m.warmup + m.lesson + m.reviews + m.play;
+      expect(total).toBe(SESSION_MINUTES);
+      expect(m.play / total).toBeGreaterThanOrEqual(PLAY_SHARE);
+    }
+    const due = practise(emptyProgress(), 'A.x>B.x', [false], 1);
+    expect(planSession('2026-09-24', due, lessons).minutes.reviews).toBeGreaterThan(0);
+    expect(planSession('2026-09-24', emptyProgress(), lessons).minutes.reviews).toBe(0);
+  });
+
+  it('plays the tune first, then the newest unlocked riff, else a jam', () => {
+    const none = planSession('2026-09-24', emptyProgress(), lessons);
+    expect(none.play).toEqual({ kind: 'jam', id: null });
+    const locked = planSession('2026-09-24', emptyProgress(), lessons, {
+      riffs: riffs.slice(0, 2),
+    });
+    expect(locked.play.kind).toBe('jam');
+    const done = recordLessonAttempt(emptyProgress(), {
+      lessonId: 'a',
+      bpm: 100,
+      clean: true,
+      now: 1,
+    });
+    expect(planSession('2026-09-24', done, lessons, { riffs: riffs.slice(0, 2) }).play).toEqual({
+      kind: 'riff',
+      id: 'riff-1',
+    });
+    expect(planSession('2026-09-24', done, lessons, { riffs }).play.id).toBe('riff-orphan');
+    const tunes = [{ id: 'tune', targetBpm: 100, module: 'power' }];
+    const both = recordLessonAttempt(done, { lessonId: 'b', bpm: 100, clean: true, now: 1 });
+    expect(planSession('2026-09-24', both, lessons, { tunes, riffs }).play).toEqual({
+      kind: 'tune',
+      id: 'tune',
+    });
   });
 });
 

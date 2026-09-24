@@ -13,7 +13,12 @@ import { Mono } from '../../ui/Mono';
 import { Panel } from '../../ui/Panel';
 import { ScrollTab } from '../../ui/ScrollTab';
 import { Text } from '../../ui/Text';
-import { LESSONS, TUNES, getLesson } from '../lesson/lessonData';
+import { LESSONS, RIFFS, TUNES, getLesson, lessonsFor } from '../lesson/lessonData';
+
+const PLANNER_RIFFS = RIFFS.map((riff) => ({
+  id: riff.id,
+  unlockedBy: lessonsFor(riff.module)[riff.unlockAfter - 1]?.id ?? null,
+}));
 import { useProgressData } from '../progress/store';
 import styles from './TodayPage.module.css';
 
@@ -24,8 +29,9 @@ function Plan() {
   const data = useProgressData();
   const [today] = useState(() => localDay(Date.now()));
   const [clickStarted, setClickStarted] = useState(false);
-  const plan = planSession(today, data, LESSONS, TUNES);
-  const tune = getLesson(plan.tune ?? undefined);
+  const plan = planSession(today, data, LESSONS, { tunes: TUNES, riffs: PLANNER_RIFFS });
+  const tune = plan.play.kind === 'tune' ? getLesson(plan.play.id ?? undefined) : undefined;
+  const riff = RIFFS.find((candidate) => candidate.id === plan.play.id);
   const lesson = getLesson(plan.newLesson ?? undefined);
   const minutes = Math.round(minutesOn(data, today));
 
@@ -41,7 +47,12 @@ function Plan() {
       </Panel>
 
       <Panel className={styles.card}>
-        <Mono className={styles.label}>{copy.today.warmup}</Mono>
+        <div className={styles.cardHead}>
+          <Mono className={styles.label}>{copy.today.warmup}</Mono>
+          <Mono className={styles.label}>
+            {t('today.minutes', { minutes: plan.minutes.warmup })}
+          </Mono>
+        </div>
         <Text>
           {t('today.warmupDetail', {
             pattern: plan.warmup.pattern.join('-'),
@@ -70,7 +81,12 @@ function Plan() {
       </Panel>
 
       <Panel className={styles.card}>
-        <Mono className={styles.label}>{copy.today.newLesson}</Mono>
+        <div className={styles.cardHead}>
+          <Mono className={styles.label}>{copy.today.newLesson}</Mono>
+          <Mono className={styles.label}>
+            {t('today.minutes', { minutes: plan.minutes.lesson })}
+          </Mono>
+        </div>
         {lesson ? (
           <>
             <Heading level={2} className={styles.title}>
@@ -91,15 +107,26 @@ function Plan() {
         )}
       </Panel>
 
-      {tune ? (
-        <Panel className={styles.card}>
+      <Panel className={styles.card}>
+        <div className={styles.cardHead}>
           <Mono className={styles.label}>{copy.today.tune}</Mono>
+          <Mono className={styles.label}>{t('today.minutes', { minutes: plan.minutes.play })}</Mono>
+        </div>
+        {tune ? (
           <Text>{t('today.tuneReady', { title: tune.title })}</Text>
-          <Link className={styles.start} to={`/lesson/${tune.id}`}>
-            {copy.today.start}
-          </Link>
-        </Panel>
-      ) : null}
+        ) : riff ? (
+          <Text>{t('today.playRiff', { title: riff.title })}</Text>
+        ) : (
+          <Text>{copy.today.playJam}</Text>
+        )}
+        <Link
+          className={styles.start}
+          to={tune ? `/lesson/${tune.id}` : riff ? `/course/${riff.module}` : '/drills'}
+          aria-label={copy.today.startPlay}
+        >
+          {copy.today.start}
+        </Link>
+      </Panel>
 
       <Panel className={styles.card}>
         <Mono className={styles.label}>{copy.today.reviews}</Mono>

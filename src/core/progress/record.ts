@@ -106,3 +106,19 @@ export function minuteSeries(data: ProgressData): { key: string; counts: number[
   }
   return [...byKey.entries()].map(([key, counts]) => ({ key, counts }));
 }
+
+export const RETHINK_DOWNS = 2;
+
+export function recordFun(data: ProgressData, id: string, fun: boolean): ProgressData {
+  const votes = data.fun[id] ?? { up: 0, down: 0 };
+  const next = fun ? { ...votes, up: votes.up + 1 } : { ...votes, down: votes.down + 1 };
+  return { ...data, fun: { ...data.fun, [id]: next } };
+}
+
+// Lessons that keep falling flat (two or more thumbs down), most disliked first.
+export function needsRethink(data: ProgressData): string[] {
+  return Object.entries(data.fun)
+    .filter(([, votes]) => votes.down >= RETHINK_DOWNS)
+    .sort(([a, x], [b, y]) => y.down - x.down || a.localeCompare(b))
+    .map(([id]) => id);
+}

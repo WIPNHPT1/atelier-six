@@ -9,6 +9,8 @@ import {
   minuteSeries,
   minutesOn,
   minutesThisWeek,
+  needsRethink,
+  recordFun,
   recordLessonAttempt,
   recordTransition,
   splitKey,
@@ -120,6 +122,19 @@ describe('records', () => {
     expect(minutesOn(data, '1999-01-01')).toBe(0);
     expect(minutesThisWeek(data, NOON)).toBe(18);
     expect(localDay(new Date(2026, 0, 5, 9).getTime())).toBe('2026-01-05');
+  });
+});
+
+describe('fun votes', () => {
+  it('counts thumbs and lists lessons with two or more thumbs down', () => {
+    let data = recordFun(emptyProgress(), 'a', false);
+    data = recordFun(data, 'a', true);
+    expect(needsRethink(data)).toEqual([]);
+    data = recordFun(data, 'a', false);
+    data = recordFun(recordFun(recordFun(data, 'b', false), 'b', false), 'b', false);
+    data = recordFun(recordFun(data, 'c', false), 'c', false);
+    expect(data.fun.a).toEqual({ up: 1, down: 2 });
+    expect(needsRethink(data)).toEqual(['b', 'a', 'c']);
   });
 });
 

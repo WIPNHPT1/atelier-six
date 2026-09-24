@@ -15,6 +15,7 @@ import {
   tuneFor,
 } from '../lesson/lessonData';
 import { RiffCard } from './RiffCard';
+import { PlayAlong } from './PlayAlong';
 import styles from './CourseModulePage.module.css';
 import { ProgressRing } from './ProgressRing';
 import { useProgressData } from '../progress/store';
@@ -159,8 +160,9 @@ export default function CourseModulePage() {
               <Mono className={styles.label}>{copy.course.listenFor}</Mono>
               <ol className={styles.refs}>
                 {refs.map((ref) => (
-                  <li key={`${ref.artist}-${ref.song}`}>
+                  <li key={`${ref.artist}-${ref.song}`} className={styles.refRow}>
                     <Text>{t('lesson.listenRef', { artist: ref.artist, song: ref.song })}</Text>
+                    {next ? <PlayAlong song={ref} lesson={next} /> : null}
                   </li>
                 ))}
               </ol>
