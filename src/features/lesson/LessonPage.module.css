@@ -1,0 +1,186 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-6);
+  padding-top: var(--s-8);
+  background-image: var(--glow), var(--surface-texture);
+}
+
+.header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--s-4);
+}
+
+.titleBlock {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+  min-width: 0;
+}
+
+.crumb,
+.label {
+  color: var(--bone-dim);
+  font-size: var(--t-12);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.crumb {
+  color: var(--brass);
+}
+
+.title {
+  font-family: var(--font-display);
+}
+
+.headerControls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-3);
+}
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-4);
+}
+
+.tempo {
+  flex: 1 1 200px;
+  min-width: 180px;
+}
+
+.bar {
+  color: var(--bone-dim);
+  font-size: var(--t-12);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    'now'
+    'tab'
+    'change'
+    'tips'
+    'listen';
+  gap: var(--s-4);
+}
+
+.tab {
+  grid-area: tab;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+  min-width: 0;
+}
+
+.tabLane {
+  overflow-x: auto;
+}
+
+.now {
+  grid-area: now;
+}
+
+.change {
+  grid-area: change;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+}
+
+.layers {
+  grid-area: layers;
+  display: none;
+}
+
+.tips {
+  grid-area: tips;
+}
+
+.listen {
+  grid-area: listen;
+}
+
+.boards {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: center;
+  gap: var(--s-8);
+}
+
+.board {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s-2);
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+  margin: var(--s-3) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.layer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-3);
+  padding-bottom: var(--s-3);
+  border-bottom: 1px solid var(--hairline);
+}
+
+.rotateHint {
+  display: none;
+}
+
+/* Phones: the tab only in landscape, with a hint to rotate. */
+@media (max-width: 639px) and (orientation: portrait) {
+  .tabLane {
+    display: none;
+  }
+
+  .rotateHint {
+    display: block;
+  }
+}
+
+/* Tablet: tab across the top, fretboards and the change below, layers alongside. */
+@media (min-width: 640px) {
+  .grid {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      'tab tab'
+      'now change'
+      'layers layers'
+      'tips listen';
+  }
+
+  .layers {
+    display: block;
+  }
+}
+
+/* Desktop: three columns. */
+@media (min-width: 1200px) {
+  .grid {
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-areas:
+      'tab tab tab'
+      'now change layers'
+      'tips listen layers';
+  }
+}

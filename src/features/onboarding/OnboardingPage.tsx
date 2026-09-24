@@ -1,42 +1,44 @@
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { PageHeader } from '../../app/layout/PageHeader'
-import { Text } from '../../ui/Text'
-import { Mono } from '../../ui/Mono'
-import { Button } from '../../ui/Button'
-import { SegmentedControl } from '../../ui/SegmentedControl'
-import { Slider } from '../../ui/Slider'
-import { Logo } from '../../ui/Logo'
-import { copy, t } from '../../content/copy.en-GB'
-import { useSettingsStore, type Level, type Tuning } from '../../app/settingsStore'
-import styles from './OnboardingPage.module.css'
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { PageHeader } from '../../app/layout/PageHeader';
+import { Text } from '../../ui/Text';
+import { Mono } from '../../ui/Mono';
+import { Button } from '../../ui/Button';
+import { SegmentedControl } from '../../ui/SegmentedControl';
+import { Slider } from '../../ui/Slider';
+import { Logo } from '../../ui/Logo';
+import { copy, t } from '../../content/copy.en-GB';
+import { useSettingsStore, type Level, type Tuning } from '../../app/settingsStore';
+import styles from './OnboardingPage.module.css';
+import { recommendedLesson } from '../lesson/lessonData';
 
-const TOTAL_STEPS = 4
+const TOTAL_STEPS = 4;
 
 export default function OnboardingPage() {
-  const navigate = useNavigate()
-  const settings = useSettingsStore()
-  const [step, setStep] = useState(0)
+  const navigate = useNavigate();
+  const settings = useSettingsStore();
+  const [step, setStep] = useState(0);
 
+  // Onboarding ends on the recommended first lesson for the chosen level.
   function finish() {
-    settings.setOnboardingComplete(true)
-    void navigate('/')
+    settings.setOnboardingComplete(true);
+    void navigate(`/lesson/${recommendedLesson(settings.level).id}`);
   }
 
   function skip() {
-    finish()
+    finish();
   }
 
   function next() {
     if (step === TOTAL_STEPS - 1) {
-      finish()
+      finish();
     } else {
-      setStep((current) => current + 1)
+      setStep((current) => current + 1);
     }
   }
 
   function back() {
-    setStep((current) => Math.max(0, current - 1))
+    setStep((current) => Math.max(0, current - 1));
   }
 
   return (
@@ -60,7 +62,7 @@ export default function OnboardingPage() {
               label={copy.onboarding.handTitle}
               value={settings.leftHanded ? 'left' : 'right'}
               onChange={(value) => {
-                settings.setLeftHanded(value === 'left')
+                settings.setLeftHanded(value === 'left');
               }}
               segments={[
                 { value: 'right', label: copy.onboarding.handRight },
@@ -77,7 +79,7 @@ export default function OnboardingPage() {
               label={copy.onboarding.levelTitle}
               value={settings.level}
               onChange={(value) => {
-                settings.setLevel(value as Level)
+                settings.setLevel(value as Level);
               }}
               segments={[
                 { value: 'new', label: copy.onboarding.levelNew },
@@ -95,7 +97,7 @@ export default function OnboardingPage() {
               label={copy.settings.tuning}
               value={settings.tuning}
               onChange={(value) => {
-                settings.setTuning(value as Tuning)
+                settings.setTuning(value as Tuning);
               }}
               segments={[
                 { value: 'standard', label: copy.settings.tuningStandard },
@@ -136,5 +138,5 @@ export default function OnboardingPage() {
         </div>
       </div>
     </PageHeader>
-  )
+  );
 }

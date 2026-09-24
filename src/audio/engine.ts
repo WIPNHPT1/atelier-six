@@ -48,6 +48,9 @@ type GuitarPath = { sampler: Tone.Sampler; muteFilter: Tone.Filter; muteHz: numb
 
 type AudioGraph = {
   guitar: Record<GuitarTone, GuitarPath>;
+  // Extra clean guitars for arrangement layers, one per pan position.
+  panned: Map<number, GuitarPath>;
+  mix: Tone.Compressor;
   bass: Tone.Sampler;
   drums: Tone.Sampler;
   click: Tone.MembraneSynth;
@@ -112,6 +115,8 @@ function buildGraph(): AudioGraph {
       clean: { sampler: clean, muteFilter: cleanMute, muteHz: CLEAN_MUTE_HZ },
       driven: { sampler: driven, muteFilter: drivenMute, muteHz: DRIVEN_MUTE_HZ },
     },
+    panned: new Map(),
+    mix: compressor,
     bass,
     drums,
     click,
@@ -125,13 +130,38 @@ export async function ensureAudio(): Promise<void> {
   window.__a6audio = { state: Tone.getContext().state };
 }
 
+// Builds (once) a clean guitar per pan position and waits for its samples.
+export async function ensurePans(pans: number[]): Promise<void> {
+  await ensureAudio();
+  const current = graph;
+  if (current === null) return;
+  for (const pan of pans) {
+    if (pan === 0 || current.panned.has(pan)) continue;
+    const sampler = newGuitarSampler();
+    const muteFilter = new Tone.Filter(OPEN_FILTER_HZ, 'lowpass');
+    sampler.chain(
+      muteFilter,
+      new Tone.Convolver(CABINET_IR_URL),
+      new Tone.Panner(pan),
+      current.mix,
+    );
+    current.panned.set(pan, { sampler, muteFilter, muteHz: CLEAN_MUTE_HZ });
+  }
+  await Tone.loaded();
+}
+
 function clampVelocity(velocity: number): number {
   return Math.min(MAX_VELOCITY, Math.max(MIN_VELOCITY, velocity));
 }
 
-export function playEvent(event: ScheduleEvent, time: number, tone: GuitarTone = 'clean'): void {
+export function playEvent(
+  event: ScheduleEvent,
+  time: number,
+  tone: GuitarTone = 'clean',
+  pan = 0,
+): void {
   if (graph === null || event.kind === 'ghost') return;
-  const { sampler, muteFilter, muteHz } = graph.guitar[tone];
+  const { sampler, muteFilter, muteHz } = graph.panned.get(pan) ?? graph.guitar[tone];
 
   // The hand stays on the strings for a whole palm-muted run; only lift it
   // (open the filter) when an unmuted hit arrives.

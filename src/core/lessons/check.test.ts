@@ -107,14 +107,10 @@ describe('lesson building', () => {
 
 describe('renderLesson', () => {
   it('mutes the stroke before a shift that is too fast', () => {
-    const built = buildLesson(
-      lesson({
-        progression: { chords: ['A5', 'F5'] },
-      }),
-      power,
-    );
-    const shapes = { ...built.shapes, A5: 'A5.power.2.e', F5: 'F5.power.2.e' };
-    const { piece } = renderLesson({ ...built, shapes }, power);
+    const built = buildLesson(lesson({ progression: { chords: ['A5', 'F5'] } }), power);
+    const verse = built.arrangement.sections[0] as Lesson['arrangement']['sections'][number];
+    const mid = { ...built, arrangement: { sections: [{ ...verse, register: 'mid' as const }] } };
+    const { piece } = renderLesson(mid, power);
     const beforeChange = piece.sections[0]?.events.find(
       (event) => event.bar === 0 && event.t === 12,
     );
@@ -169,6 +165,24 @@ describe('renderLesson', () => {
     });
     expect(() => renderLesson(withRhythm('nope'), power)).toThrow(/nope/);
     expect(() => renderLesson({ ...built, chords: ['H5'] }, power)).toThrow(/H5/);
-    expect(() => renderLesson({ ...built, shapes: {} }, power)).toThrow(/no shape/);
+    const high = {
+      ...built,
+      candidates: { tags: ['anchored'] },
+      shapes: {},
+      arrangement: {
+        sections: [
+          {
+            name: 'verse' as const,
+            register: 'high' as const,
+            rhythm: 'eighths-muted',
+            layers: [],
+            dynamics: 1,
+            bars: 1,
+            chords: ['E5'],
+          },
+        ],
+      },
+    };
+    expect(() => renderLesson(high, power)).toThrow(/no shape/);
   });
 });

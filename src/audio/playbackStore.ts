@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { secondsToStep } from '../core/schedule/buildSchedule.ts';
-import type { ScheduleSource } from './transport.ts';
+import type { LayerSource, ScheduleSource } from './transport.ts';
 
 export type StartLessonInput = {
   lessonId: string;
@@ -9,6 +9,7 @@ export type StartLessonInput = {
   source: ScheduleSource;
   bpm: number;
   loop?: boolean;
+  layers?: LayerSource[];
 };
 
 export type PlaybackState = {
@@ -22,6 +23,7 @@ export type PlaybackState = {
   chordNames: string[];
   startLesson: (input: StartLessonInput) => Promise<void>;
   stopPlayback: () => void;
+  setTempo: (bpm: number) => void;
 };
 
 let rafId: number | null = null;
@@ -45,14 +47,15 @@ export const usePlaybackStore = create<PlaybackState>((set) => ({
   lessonId: null,
   title: '',
   chordNames: [],
-  startLesson: async ({ lessonId, title, chordNames, source, bpm, loop }) => {
-    const [{ ensureAudio }, transport, Tone] = await Promise.all([
+  startLesson: async ({ lessonId, title, chordNames, source, bpm, loop, layers = [] }) => {
+    const [{ ensureAudio, ensurePans }, transport, Tone] = await Promise.all([
       import('./engine.ts'),
       import('./transport.ts'),
       import('tone'),
     ]);
     await ensureAudio();
-    transport.play(source, bpm, { loop: loop ?? false });
+    await ensurePans(layers.map((layer) => layer.pan));
+    transport.play(source, bpm, { loop: loop ?? false, layers });
     setMediaSession(title, () => {
       usePlaybackStore.getState().stopPlayback();
     });
@@ -73,6 +76,13 @@ export const usePlaybackStore = create<PlaybackState>((set) => ({
       rafId = requestAnimationFrame(tick);
     }
     rafId ??= requestAnimationFrame(tick);
+  },
+  setTempo: (bpm) => {
+    set({ bpm });
+    if (!usePlaybackStore.getState().isPlaying) return;
+    void import('./transport.ts').then(({ setBpm }) => {
+      setBpm(bpm);
+    });
   },
   stopPlayback: () => {
     void import('./transport.ts').then(({ stop }) => {

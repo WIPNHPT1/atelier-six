@@ -20,6 +20,19 @@ export function AppShell() {
 
   useEffect(() => registerCommands(defaultCommands), []);
 
+  // Lessons and chords live in their own chunk so the entry bundle stays small.
+  useEffect(() => {
+    let unregister: (() => void) | undefined;
+    let cancelled = false;
+    void import('../../features/lesson/commands').then(({ courseCommands }) => {
+      if (!cancelled) unregister = registerCommands(courseCommands());
+    });
+    return () => {
+      cancelled = true;
+      unregister?.();
+    };
+  }, []);
+
   useEffect(() => {
     function handleKeyDown(event: KeyboardEvent) {
       if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'k') {
@@ -48,7 +61,7 @@ export function AppShell() {
       <Dock />
       {/* Wrapper owns position/visibility: a class on IconButton itself loses to
           IconButton's own `display` depending on CSS chunk order. */}
-      <div className={styles.mobileSearch} data-testid="mobile-search">
+      <div className={styles.mobileSearch} data-testid="mobile-search" data-focus-hide>
         <IconButton
           label={copy.commandPalette.search}
           onClick={() => {

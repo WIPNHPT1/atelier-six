@@ -1,0 +1,159 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-8);
+  padding-top: var(--s-8);
+  background-image: var(--glow), var(--surface-texture);
+}
+
+.hero {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--s-6);
+}
+
+.titleBlock {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+}
+
+.crumb,
+.label {
+  font-size: var(--t-12);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--bone-dim);
+}
+
+.crumb {
+  color: var(--brass);
+}
+
+.title {
+  font-family: var(--font-display);
+}
+
+.progress {
+  display: flex;
+  align-items: center;
+  gap: var(--s-4);
+}
+
+.progressText {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+}
+
+.continue,
+.start {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 var(--s-4);
+  border-radius: var(--r-pill);
+  font-family: var(--font-ui);
+  font-size: var(--t-14);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.continue {
+  background: var(--brass);
+  color: var(--ebony);
+}
+
+.start {
+  border: 1px solid var(--hairline);
+  color: var(--bone);
+}
+
+.start:hover,
+.start:focus-visible {
+  border-color: var(--brass);
+}
+
+.columns {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--s-6);
+}
+
+@media (min-width: 1200px) {
+  .columns {
+    grid-template-columns: 3fr 2fr;
+  }
+}
+
+.lessons {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+}
+
+.list,
+.refs {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.list {
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-hair);
+  background: var(--rosewood);
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: var(--s-4);
+  padding: var(--s-3) var(--s-4);
+  border-bottom: 1px solid var(--hairline);
+}
+
+.row:last-child {
+  border-bottom: none;
+}
+
+.number {
+  color: var(--bone-dim);
+  font-size: var(--t-12);
+}
+
+.rowText {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-2);
+  min-width: 0;
+}
+
+.aside {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+}
+
+.tone {
+  margin: var(--s-2) 0;
+  font-weight: 600;
+}
+
+.refs {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+  margin: var(--s-3) 0;
+}
+
+.skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+}

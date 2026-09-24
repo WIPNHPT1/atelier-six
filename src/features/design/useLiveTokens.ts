@@ -1,4 +1,4 @@
-import { useSettingsStore } from '../../app/settingsStore'
+import { useSettingsStore } from '../../app/settingsStore';
 
 export type TokenName =
   | 'ebony'
@@ -12,7 +12,7 @@ export type TokenName =
   | 'f2'
   | 'f3'
   | 'f4'
-  | 'fT'
+  | 'fT';
 
 const DARK_TOKENS: Record<TokenName, string> = {
   ebony: '#121110',
@@ -27,7 +27,7 @@ const DARK_TOKENS: Record<TokenName, string> = {
   f3: '#c07a5a',
   f4: '#9a7aa0',
   fT: '#b8925a',
-}
+};
 
 const LIGHT_TOKENS: Record<TokenName, string> = {
   ebony: '#efeae1',
@@ -42,14 +42,14 @@ const LIGHT_TOKENS: Record<TokenName, string> = {
   f3: '#ad6e51',
   f4: '#8b6e90',
   fT: '#7a5c37',
-}
+};
 
 function resolveMode(mode: 'dark' | 'light' | 'system'): 'dark' | 'light' {
-  if (mode !== 'system') return mode
-  return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'
+  if (mode !== 'system') return mode;
+  return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
 }
 
 export function useLiveTokens(): Record<TokenName, string> {
-  const mode = useSettingsStore((s) => s.mode)
-  return resolveMode(mode) === 'light' ? LIGHT_TOKENS : DARK_TOKENS
+  const mode = useSettingsStore((s) => s.mode);
+  return resolveMode(mode) === 'light' ? LIGHT_TOKENS : DARK_TOKENS;
 }

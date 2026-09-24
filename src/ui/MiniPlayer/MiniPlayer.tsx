@@ -24,6 +24,7 @@ export function MiniPlayer() {
     <button
       type="button"
       className={styles.player}
+      data-focus-hide
       data-testid="mini-player"
       onClick={() => {
         void navigate(`/lesson/${lessonId}`);

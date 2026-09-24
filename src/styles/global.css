@@ -89,3 +89,14 @@ a {
 [data-motion='off']::view-transition-new(page-title) {
   animation-duration: 0.001ms !important;
 }
+
+/* Focus mode (lesson playback): chrome fades after a quiet spell. With motion off the
+   blanket transition rule above makes it hide instantly. */
+[data-focus-hide] {
+  transition: opacity calc(var(--dur-show) * var(--motion-scale)) var(--ease);
+}
+
+[data-focus='on'] [data-focus-hide] {
+  opacity: 0;
+  pointer-events: none;
+}

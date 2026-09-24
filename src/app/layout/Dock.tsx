@@ -1,15 +1,15 @@
-import { NavLink } from 'react-router-dom'
-import styles from './Dock.module.css'
-import { navItems } from './navItems'
-import { useMotionEnabled } from '../settingsStore'
+import { NavLink } from 'react-router-dom';
+import styles from './Dock.module.css';
+import { navItems } from './navItems';
+import { useMotionEnabled } from '../settingsStore';
 
 export function Dock() {
-  const motionEnabled = useMotionEnabled()
+  const motionEnabled = useMotionEnabled();
 
   return (
-    <nav className={styles.dock} aria-label="Primary" data-testid="nav-dock">
+    <nav className={styles.dock} data-focus-hide aria-label="Primary" data-testid="nav-dock">
       {navItems.map((item) => {
-        const isPractise = item.to === '/practise'
+        const isPractise = item.to === '/practise';
         return (
           <NavLink
             key={item.to}
@@ -26,8 +26,8 @@ export function Dock() {
             <item.icon width={20} height={20} />
             {isPractise ? null : <span>{item.label}</span>}
           </NavLink>
-        )
+        );
       })}
     </nav>
-  )
+  );
 }

@@ -1,80 +1,352 @@
-import { useParams } from 'react-router-dom';
-import { PageHeader } from '../../app/layout/PageHeader';
-import { copy } from '../../content/copy.en-GB';
-import { useMetronome } from '../../audio/useMetronome';
+import { useMemo, useState } from 'react';
+import { Link, Navigate, useParams } from 'react-router-dom';
 import { usePlayback } from '../../audio/usePlayback';
 import { usePlaybackStore } from '../../audio/playbackStore';
-import { MetronomeControl } from '../../ui/MetronomeControl/MetronomeControl';
-import { TabLane } from '../../ui/TabLane/TabLane';
-import { Fretboard } from '../../ui/Fretboard/Fretboard';
-import { Button } from '../../ui/Button';
-import { getShapes } from '../../core/shapes/library';
-import { renderTab } from '../../core/tab/renderTab';
-import { standard } from '../../core/tuning';
+import type { Section } from '../../core/schedule/buildSchedule';
+import { copy, t } from '../../content/copy.en-GB';
+import { analyseTransition } from '../../core/engine/analyseTransition';
+import { planSection } from '../../core/lessons/plan';
+import type { ArrangementSection, BuiltLesson, Layer } from '../../core/lessons/types';
 import type { Shape } from '../../core/shapes/types';
-import { RHYTHMS } from '../../data/rhythms';
+import { TUNINGS } from '../../core/style/riffBuilder';
+import type { StyleSheet } from '../../core/style/types';
+import { renderTab, toAscii } from '../../core/tab/renderTab';
+import { STYLES } from '../../data/styles';
+import { PageHeader } from '../../app/layout/PageHeader';
+import { Button } from '../../ui/Button';
+import { Fretboard } from '../../ui/Fretboard/Fretboard';
+import { Heading } from '../../ui/Heading';
+import { Mono } from '../../ui/Mono';
+import { Panel } from '../../ui/Panel';
+import { Pill } from '../../ui/Pill';
+import { SegmentedControl } from '../../ui/SegmentedControl';
+import { Slider } from '../../ui/Slider';
+import { TabLane } from '../../ui/TabLane/TabLane';
+import { Text } from '../../ui/Text';
+import { Toggle } from '../../ui/Toggle';
+import { TransitionCard } from '../../ui/TransitionCard/TransitionCard';
+import { difficultyLabel, firstLesson, getLesson, getModule, lessonNumber } from './lessonData';
+import styles from './LessonPage.module.css';
+import { useFocusMode } from './useFocusMode';
 
 const DEMO_LESSON_ID = 'demo';
-const DEMO_CHORD_NAMES = ['C', 'G', 'Am', 'F'];
-const DEMO_BARS = [2, 2, 2, 2];
-const DEMO_BPM = 90;
-const DRIVING_EIGHTHS = RHYTHMS.find((rhythm) => rhythm.id === 'driving-eighths');
+const TEMPO_HEADROOM = 20;
+// Sections at or above this dynamics level play at full (chorus) strength.
+const LOUD_DYNAMICS = 0.9;
 
-function DemoLesson() {
-  const metronome = useMetronome();
-  const { isPlaying, step, chordIndex } = usePlayback();
+type Mix = {
+  sectionIndex: number;
+  bpm: number;
+  loop: boolean;
+  click: boolean;
+  countIn: boolean;
+  muted: Record<string, boolean>;
+  solo: string | null;
+};
+
+function isLayerMuted(layer: Layer, mix: Mix): boolean {
+  if (mix.solo !== null) return mix.solo !== layer.id;
+  return mix.muted[layer.id] ?? layer.muted;
+}
+
+function nextChange(shapes: Shape[], index: number): Shape | undefined {
+  const current = shapes[index];
+  for (let offset = 1; offset < shapes.length; offset++) {
+    const candidate = shapes[(index + offset) % shapes.length];
+    if (candidate !== undefined && candidate.chord !== current?.chord) return candidate;
+  }
+  return undefined;
+}
+
+function LessonPlayer({ lesson }: { lesson: BuiltLesson }) {
+  const style = STYLES[lesson.module] as StyleSheet;
+  const module = getModule(lesson.module);
+  const sections = lesson.arrangement.sections;
+  const tuning = TUNINGS[lesson.tuning];
+  const [mix, setMix] = useState<Mix>(() => ({
+    sectionIndex: Math.max(
+      0,
+      sections.findIndex((candidate) => candidate.name === 'verse'),
+    ),
+    bpm: lesson.startBpm,
+    loop: true,
+    click: false,
+    countIn: true,
+    muted: {},
+    solo: null,
+  }));
+  const [copied, setCopied] = useState(false);
+
+  const section = sections[mix.sectionIndex] as ArrangementSection;
+  const sectionName = copy.lesson.sectionNames[section.name];
+  const plan = useMemo(() => planSection(lesson, style, section), [lesson, style, section]);
+  const columns = useMemo(
+    () => renderTab(plan.shapes, plan.rhythm, plan.bars, tuning),
+    [plan, tuning],
+  );
+  const ascii = useMemo(() => toAscii(columns), [columns]);
+
+  const playback = usePlayback();
+  const playingLessonId = usePlaybackStore((s) => s.lessonId);
   const startLesson = usePlaybackStore((s) => s.startLesson);
   const stopPlayback = usePlaybackStore((s) => s.stopPlayback);
+  const setTempo = usePlaybackStore((s) => s.setTempo);
+  const playingThis = playback.isPlaying && playingLessonId === lesson.id;
+  useFocusMode(playingThis);
 
-  const shapes = DEMO_CHORD_NAMES.map((name) => getShapes(name)[0]).filter(
-    (shape): shape is Shape => shape !== undefined,
-  );
-  const rhythm = DRIVING_EIGHTHS;
-  if (!rhythm || shapes.length !== DEMO_CHORD_NAMES.length) return null;
+  const barIndex = playingThis ? Math.max(0, playback.chordIndex) % plan.shapes.length : 0;
+  const current = plan.shapes[barIndex] as Shape;
+  const upcoming = nextChange(plan.shapes, barIndex);
 
-  const columns = renderTab(shapes, rhythm, DEMO_BARS, standard);
-  const activeShape = shapes[chordIndex] ?? shapes[0];
+  function play(next: Mix) {
+    const target = sections[next.sectionIndex] as ArrangementSection;
+    const level: Section = target.dynamics >= LOUD_DYNAMICS ? 'chorus' : 'verse';
+    const sourceFor = (register: Shape['register']) => {
+      const layerPlan = planSection(lesson, style, target, register);
+      return {
+        shapes: layerPlan.shapes,
+        rhythm: layerPlan.rhythm,
+        bars: layerPlan.bars,
+        tuning,
+        capo: lesson.capo,
+        section: level,
+      };
+    };
+    const active = target.layers.filter((layer) => !isLayerMuted(layer, next));
+    const [primary, ...rest] = active;
+    const main = sourceFor(primary?.voicing ?? target.register);
+    void startLesson({
+      lessonId: lesson.id,
+      title: lesson.title,
+      chordNames: main.shapes.map((shape) => shape.chord),
+      source: { ...main, countIn: next.countIn, click: next.click },
+      bpm: next.bpm,
+      loop: next.loop,
+      layers: rest.map((layer) => ({ source: sourceFor(layer.voicing), pan: layer.pan })),
+    });
+  }
+
+  function update(changes: Partial<Mix>) {
+    const next = { ...mix, ...changes };
+    setMix(next);
+    if (playingThis) play(next);
+  }
 
   return (
-    <PageHeader title={copy.lesson.demoTitle}>
-      <Button
-        variant="primary"
-        onClick={() => {
-          if (isPlaying) {
-            stopPlayback();
-            return;
-          }
-          void startLesson({
-            lessonId: DEMO_LESSON_ID,
-            title: copy.lesson.demoTitle,
-            chordNames: DEMO_CHORD_NAMES,
-            source: { shapes, rhythm, bars: DEMO_BARS, tuning: standard },
-            bpm: DEMO_BPM,
-            loop: true,
-          });
-        }}
-      >
-        {isPlaying ? copy.lesson.stop : copy.lesson.play}
-      </Button>
+    <div className={styles.page} data-finish={module?.finish}>
+      <header className={styles.header}>
+        <div className={styles.titleBlock}>
+          <Mono className={styles.crumb}>
+            {t('lesson.crumb', {
+              module: copy.course.modules[lesson.module].title,
+              number: lessonNumber(lesson),
+            })}
+          </Mono>
+          <Heading level={1} className={styles.title}>
+            {lesson.title}
+          </Heading>
+          <Text dim>{lesson.goal}</Text>
+        </div>
+        <div className={styles.headerControls}>
+          <Pill>
+            {t('lesson.difficulty', {
+              label: copy.lesson.difficultyLabels[difficultyLabel(lesson)],
+              score: lesson.difficulty.toFixed(2),
+            })}
+          </Pill>
+          <SegmentedControl
+            label={copy.lesson.section}
+            segments={sections.map((candidate, index) => ({
+              value: String(index),
+              label: copy.lesson.sectionNames[candidate.name],
+            }))}
+            value={String(mix.sectionIndex)}
+            onChange={(value) => {
+              update({ sectionIndex: Number(value) });
+            }}
+          />
+        </div>
+      </header>
 
-      {activeShape ? <Fretboard shape={activeShape} orientation="box" /> : null}
+      <Panel className={styles.toolbar}>
+        <Button
+          variant="primary"
+          onClick={() => {
+            if (playingThis) stopPlayback();
+            else play(mix);
+          }}
+        >
+          {playingThis ? copy.lesson.stop : copy.lesson.play}
+        </Button>
+        <Mono className={styles.bar}>
+          {t('lesson.barOf', { bar: barIndex + 1, total: plan.shapes.length })}
+        </Mono>
+        <div className={styles.tempo}>
+          <Slider
+            label={copy.lesson.tempo}
+            value={mix.bpm}
+            min={lesson.startBpm}
+            max={lesson.targetBpm + TEMPO_HEADROOM}
+            onChange={(bpm) => {
+              setMix({ ...mix, bpm });
+              if (playingThis) setTempo(bpm);
+            }}
+          />
+        </div>
+        <Toggle
+          label={copy.lesson.loop}
+          checked={mix.loop}
+          onChange={(loop) => {
+            update({ loop });
+          }}
+        />
+        <Toggle
+          label={copy.lesson.metronome}
+          checked={mix.click}
+          onChange={(click) => {
+            update({ click });
+          }}
+        />
+        <Toggle
+          label={copy.lesson.countIn}
+          checked={mix.countIn}
+          onChange={(countIn) => {
+            update({ countIn });
+          }}
+        />
+        <Button
+          variant="quiet"
+          onClick={() => {
+            void navigator.clipboard.writeText(ascii).then(() => {
+              setCopied(true);
+            });
+          }}
+        >
+          {copied ? copy.lesson.copied : copy.lesson.copyTab}
+        </Button>
+      </Panel>
 
-      <TabLane columns={columns} shapes={shapes} tuning={standard} playhead={step} />
+      <div className={styles.grid}>
+        <Panel className={styles.tab} data-tab-ascii={ascii}>
+          <Mono className={styles.label}>{t('lesson.tabHeading', { section: sectionName })}</Mono>
+          <Text dim size="small" className={styles.rotateHint}>
+            {copy.lesson.rotateHint}
+          </Text>
+          <div className={styles.tabLane}>
+            <TabLane
+              columns={columns}
+              shapes={plan.shapes}
+              tuning={tuning}
+              playhead={playingLessonId === lesson.id ? playback.step : 0}
+              header={{
+                tempo: mix.bpm,
+                tuning: copy.lesson.tuningNames[lesson.tuning],
+                capo: lesson.capo,
+                key:
+                  'key' in lesson.progression ? lesson.progression.key : (lesson.chords[0] ?? ''),
+              }}
+              sectionLabels={{ 0: sectionName }}
+            />
+          </div>
+        </Panel>
 
-      <MetronomeControl {...metronome} />
-    </PageHeader>
+        <Panel className={styles.now}>
+          <div className={styles.boards}>
+            <div className={styles.board}>
+              <Mono className={styles.label}>{copy.lesson.now}</Mono>
+              <Heading level={2}>{current.chord}</Heading>
+              <Fretboard shape={current} size={200} {...(upcoming ? { ghost: upcoming } : {})} />
+            </div>
+            {upcoming ? (
+              <div className={styles.board}>
+                <Mono className={styles.label}>{copy.lesson.next}</Mono>
+                <Heading level={3}>{upcoming.chord}</Heading>
+                <Fretboard shape={upcoming} size={140} />
+              </div>
+            ) : null}
+          </div>
+        </Panel>
+
+        <Panel className={styles.change} data-focus-hide>
+          <Mono className={styles.label}>{copy.lesson.theChange}</Mono>
+          {upcoming ? (
+            <TransitionCard
+              from={current}
+              to={upcoming}
+              transition={analyseTransition(current, upcoming)}
+            />
+          ) : (
+            <Text dim>{copy.lesson.sameChord}</Text>
+          )}
+        </Panel>
+
+        <Panel className={styles.layers} data-focus-hide>
+          <Mono className={styles.label}>{copy.lesson.layers}</Mono>
+          <ul className={styles.list}>
+            {section.layers.map((layer) => {
+              const name = copy.lesson.layerRoles[layer.role];
+              return (
+                <li key={layer.id} className={styles.layer}>
+                  <Text>{name}</Text>
+                  <Toggle
+                    label={t('lesson.mute', { layer: name })}
+                    checked={isLayerMuted(layer, { ...mix, solo: null })}
+                    onChange={(value) => {
+                      update({ muted: { ...mix.muted, [layer.id]: value } });
+                    }}
+                  />
+                  <Toggle
+                    label={t('lesson.solo', { layer: name })}
+                    checked={mix.solo === layer.id}
+                    onChange={(value) => {
+                      update({ solo: value ? layer.id : null });
+                    }}
+                  />
+                </li>
+              );
+            })}
+          </ul>
+        </Panel>
+
+        <Panel className={styles.tips} data-focus-hide>
+          <Mono className={styles.label}>{copy.lesson.tips}</Mono>
+          <ul className={styles.list}>
+            {lesson.tips.map((tip) => (
+              <li key={tip}>
+                <Text>{tip}</Text>
+              </li>
+            ))}
+          </ul>
+        </Panel>
+
+        <Panel className={styles.listen} data-focus-hide>
+          <Mono className={styles.label}>{copy.lesson.listenFor}</Mono>
+          <ul className={styles.list}>
+            {lesson.listen.map((ref) => (
+              <li key={`${ref.artist}-${ref.song}`}>
+                <Text>{t('lesson.listenRef', { artist: ref.artist, song: ref.song })}</Text>
+                <Text dim size="small">
+                  {ref.note}
+                </Text>
+              </li>
+            ))}
+          </ul>
+        </Panel>
+      </div>
+    </div>
   );
 }
 
 export default function LessonPage() {
   const { id } = useParams<{ id: string }>();
-  const metronome = useMetronome();
-
-  if (id === DEMO_LESSON_ID) return <DemoLesson />;
-
-  return (
-    <PageHeader title={id ?? copy.lesson.title}>
-      <MetronomeControl {...metronome} />
-    </PageHeader>
-  );
+  if (id === DEMO_LESSON_ID) return <Navigate to={`/lesson/${firstLesson().id}`} replace />;
+  const lesson = getLesson(id);
+  if (lesson === undefined) {
+    return (
+      <PageHeader title={copy.lesson.notFound}>
+        <Link to="/course">{copy.course.backToCourse}</Link>
+      </PageHeader>
+    );
+  }
+  return <LessonPlayer key={lesson.id} lesson={lesson} />;
 }
