@@ -1,6 +1,6 @@
 # Progress
 
-Current: Gate 6
+Current: 7.1
 Legend: [ ] todo · [x] done · BLOCKED: reason
 Rule: update "Current" and tick the box in the same commit as the step. Unfinished work lives in `RESUME.md`.
 Milestones: v1.0 = Phases 0–10 · v1.1 = 11–15 · v1.2 = 16–17 · v2.0 = 18–22 · v2.x = 23–24 (final).
@@ -89,7 +89,7 @@ Recorded numbers (fill in as you go): LIVE_URL=https://ateliersix.netlify.app ·
 - [x] 6.7 Module tunes + riffs of the week
 - [x] 6.8 Fun and feel
 - [x] 6.9 Foundations module + hand health
-- [ ] Gate 6 (includes your listening review)
+- [x] Gate 6 (includes your listening review: Power 5/5/5, Open 5/5/5)
 
 ## Phase 7 — Tuner and listening
 

@@ -12,3 +12,4 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Transition engine: move classification, slide/shift groups, cost model, Viterbi fingering optimiser.
 - Fretboard, tab lane and transition card components; chord library.
 - Audio: pure scheduler, sampled guitar, bass and drums with cabinet IR, humanised playback, metronome, synced playhead.
+- Modules 1–2 course, lesson player with arrangement sections and layers, drills, adaptive tempo, progress and daily planner.
