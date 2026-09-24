@@ -4,7 +4,7 @@ import type { Chord, Shape } from './types.ts';
 
 const DATA = chordsData as unknown as Record<string, Shape[]>;
 
-function parseChordName(name: string): { root: PitchClass; quality: string } {
+export function parseChordName(name: string): { root: PitchClass; quality: string } {
   const twoChar = name.slice(0, 2);
   const rootStr = twoChar.length === 2 && twoChar[1] === '#' ? twoChar : name.slice(0, 1);
   const root = parseNote(rootStr);

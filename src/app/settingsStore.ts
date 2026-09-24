@@ -21,6 +21,7 @@ export type Settings = {
   onboardingComplete: boolean;
   robotMode: boolean;
   voiceCommands: boolean;
+  pinnedFinish: boolean;
 };
 
 export type SettingsStore = Settings & {
@@ -36,6 +37,7 @@ export type SettingsStore = Settings & {
   setOnboardingComplete: (complete: boolean) => void;
   setRobotMode: (robotMode: boolean) => void;
   setVoiceCommands: (voiceCommands: boolean) => void;
+  setPinnedFinish: (pinnedFinish: boolean) => void;
 };
 
 const defaultSettings: Settings = {
@@ -51,6 +53,7 @@ const defaultSettings: Settings = {
   onboardingComplete: false,
   robotMode: false,
   voiceCommands: false,
+  pinnedFinish: false,
 };
 
 export const useSettingsStore = create<SettingsStore>()(
@@ -92,6 +95,9 @@ export const useSettingsStore = create<SettingsStore>()(
       },
       setVoiceCommands: (voiceCommands) => {
         set({ voiceCommands });
+      },
+      setPinnedFinish: (pinnedFinish) => {
+        set({ pinnedFinish });
       },
     }),
     { name: 'a6.settings' },

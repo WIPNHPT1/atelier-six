@@ -14,7 +14,9 @@ import { getShapes, listChordNames } from '../../core/shapes/library';
 import type { Shape } from '../../core/shapes/types';
 import { shapeDifficulty } from '../../core/engine/cost';
 import { candidatesFor, optimise } from '../../core/engine/optimise';
+import { dropDPower } from '../../core/shapes/dropDPower';
 import { hearChord } from '../../audio/hearChord';
+import { useSettingsStore, type Tuning as TuningName } from '../../app/settingsStore';
 import styles from './LibraryPage.module.css';
 
 type ModuleTag = 'power' | 'open';
@@ -26,16 +28,25 @@ const MODULE_TAGS: Record<ModuleTag, string[]> = {
   open: ['open', 'anchored'],
 };
 
+// One derived one-finger power shape per root, added to Module 1's candidates only
+// when the user's guitar is actually in drop D.
+const DROP_D_POWER_SHAPES = Array.from({ length: 12 }, (_, root) => dropDPower(root));
+
 function shapesForModule(
   name: string,
   moduleTag: ModuleTag,
   tagFilter: TagFilter,
   registerFilter: RegisterFilter,
+  tuning: TuningName,
 ): Shape[] {
   const tagSet = tagFilter === '' ? MODULE_TAGS[moduleTag] : [tagFilter];
-  return getShapes(name, {
-    ...(registerFilter === '' ? {} : { register: registerFilter }),
-  }).filter((shape) => shape.tags.some((tag) => tagSet.includes(tag)));
+  const extra =
+    tuning === 'dropD' && moduleTag === 'power'
+      ? DROP_D_POWER_SHAPES.filter((shape) => shape.chord === name)
+      : [];
+  return [...getShapes(name, {}), ...extra]
+    .filter((shape) => registerFilter === '' || shape.register === registerFilter)
+    .filter((shape) => shape.tags.some((tag) => tagSet.includes(tag)));
 }
 
 const MODULE_SEGMENTS = [
@@ -63,6 +74,7 @@ const TAG_SEGMENTS = [
 ];
 
 export default function LibraryPage() {
+  const tuning = useSettingsStore((s) => s.tuning);
   const [moduleTag, setModuleTag] = useState<ModuleTag>('power');
   const [registerFilter, setRegisterFilter] = useState<RegisterFilter>('');
   const [tagFilter, setTagFilter] = useState<TagFilter>('');
@@ -74,11 +86,13 @@ export default function LibraryPage() {
     const query = search.trim().toLowerCase();
     return listChordNames()
       .filter((name) => query === '' || name.toLowerCase().includes(query))
-      .filter((name) => shapesForModule(name, moduleTag, tagFilter, registerFilter).length > 0);
-  }, [moduleTag, registerFilter, tagFilter, search]);
+      .filter(
+        (name) => shapesForModule(name, moduleTag, tagFilter, registerFilter, tuning).length > 0,
+      );
+  }, [moduleTag, registerFilter, tagFilter, search, tuning]);
 
   const selectedShapes = selectedChord
-    ? shapesForModule(selectedChord, moduleTag, tagFilter, registerFilter)
+    ? shapesForModule(selectedChord, moduleTag, tagFilter, registerFilter, tuning)
     : [];
   const compareOptions = chordNames.filter((name) => name !== selectedChord);
 
@@ -145,7 +159,7 @@ export default function LibraryPage() {
       ) : (
         <div className={styles.grid}>
           {chordNames.map((name) => {
-            const shape = shapesForModule(name, moduleTag, tagFilter, registerFilter)[0];
+            const shape = shapesForModule(name, moduleTag, tagFilter, registerFilter, tuning)[0];
             if (!shape) return null;
             return (
               <button

@@ -60,6 +60,38 @@ export default function SettingsPage() {
         </div>
 
         <div className={styles.row}>
+          <Text>{copy.settings.finish}</Text>
+          <SegmentedControl
+            label={copy.settings.finish}
+            value={settings.finish}
+            onChange={(value) => {
+              settings.setFinish(value as typeof settings.finish);
+            }}
+            segments={[
+              { value: 'nitro', label: copy.settings.finishNitro },
+              { value: 'xerox', label: copy.settings.finishXerox },
+              { value: 'sunburst', label: copy.settings.finishSunburst },
+              { value: 'faded', label: copy.settings.finishFaded },
+              { value: 'stencil', label: copy.settings.finishStencil },
+            ]}
+          />
+        </div>
+
+        <div className={styles.row}>
+          <div className={styles.rowLabel}>
+            <Text>{copy.settings.pinnedFinish}</Text>
+            <Text dim size="small">
+              {copy.settings.pinnedFinishHint}
+            </Text>
+          </div>
+          <Toggle
+            label={copy.settings.pinnedFinish}
+            checked={settings.pinnedFinish}
+            onChange={settings.setPinnedFinish}
+          />
+        </div>
+
+        <div className={styles.row}>
           <Text>{copy.settings.sound}</Text>
           <Toggle
             label={copy.settings.sound}

@@ -21,6 +21,8 @@ import type { Shape } from '../../core/shapes/types';
 import { TUNINGS } from '../../core/style/riffBuilder';
 import type { StyleSheet } from '../../core/style/types';
 import { renderTab, toAscii } from '../../core/tab/renderTab';
+import { soundingChordName } from '../../core/theory/capo';
+import { useSettingsStore } from '../../app/settingsStore';
 import { STYLES } from '../../data/styles';
 import { PageHeader } from '../../app/layout/PageHeader';
 import { Button } from '../../ui/Button';
@@ -79,6 +81,8 @@ function nextChange(shapes: Shape[], index: number): Shape | undefined {
 function LessonPlayer({ lesson }: { lesson: BuiltLesson }) {
   const style = STYLES[lesson.module] as StyleSheet;
   const module = getModule(lesson.module);
+  const pinnedFinish = useSettingsStore((s) => s.pinnedFinish);
+  const pinnedFinishValue = useSettingsStore((s) => s.finish);
   const sections = lesson.arrangement.sections;
   const tuning = TUNINGS[lesson.tuning];
   const [mix, setMix] = useState<Mix>(() => ({
@@ -298,7 +302,7 @@ function LessonPlayer({ lesson }: { lesson: BuiltLesson }) {
   );
 
   return (
-    <div className={styles.page} data-finish={module?.finish}>
+    <div className={styles.page} data-finish={pinnedFinish ? pinnedFinishValue : module?.finish}>
       <header className={styles.header}>
         <div className={styles.titleBlock}>
           <Mono className={styles.crumb}>
@@ -500,6 +504,14 @@ function LessonPlayer({ lesson }: { lesson: BuiltLesson }) {
             <div className={styles.board}>
               <Mono className={styles.label}>{copy.lesson.now}</Mono>
               <Heading level={2}>{current.chord}</Heading>
+              {lesson.capo > 0 ? (
+                <Text dim size="small" data-testid="sounds-as">
+                  {t('lesson.soundsAs', {
+                    shape: current.chord,
+                    sounding: soundingChordName(current.chord, lesson.capo),
+                  })}
+                </Text>
+              ) : null}
               <Fretboard shape={current} size={200} {...(upcoming ? { ghost: upcoming } : {})} />
             </div>
             {upcoming ? (
