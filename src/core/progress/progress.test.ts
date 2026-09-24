@@ -49,8 +49,16 @@ describe('migrate', () => {
 
   it('upgrades v1 lesson lists and adds sessions', () => {
     const record = { lessonId: 'a', bestBpm: 100, cleanStreak: 2, lastPracticed: 5 };
-    const v2 = migrate({ version: 1, lessons: [record], transitions: {}, minutes: [] });
-    expect(v2).toEqual({ ...emptyProgress(), lessons: { a: record } });
+    const upgraded = migrate({ version: 1, lessons: [record], transitions: {}, minutes: [] });
+    expect(upgraded).toEqual({ ...emptyProgress(), lessons: { a: record } });
+  });
+
+  it('upgrades v2 transitions with a one-day review interval', () => {
+    const old = { transitionKey: 'a>b', attempts: 2, misses: 1, lastMs: 9 };
+    const upgraded = migrate({ version: 2, transitions: { 'a>b': old } });
+    expect(upgraded.transitions['a>b']).toEqual({ ...old, interval: 1, reviewedOn: '' });
+    expect(upgraded.version).toBe(VERSION);
+    expect(upgraded.sessions).toEqual([]);
   });
 });
 

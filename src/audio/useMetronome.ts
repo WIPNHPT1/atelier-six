@@ -23,9 +23,11 @@ export type UseMetronomeResult = {
   tap: () => void;
 };
 
-export function useMetronome(): UseMetronomeResult {
-  const [bpm, setBpmState] = useState(DEFAULT_BPM);
-  const [isOn, setIsOn] = useState(false);
+export type MetronomeStart = { bpm?: number; on?: boolean };
+
+export function useMetronome(start: MetronomeStart = {}): UseMetronomeResult {
+  const [bpm, setBpmState] = useState(() => clampBpm(start.bpm ?? DEFAULT_BPM));
+  const [isOn, setIsOn] = useState(start.on ?? false);
   const [countInBars, setCountInBars] = useState(DEFAULT_COUNT_IN_BARS);
   const loopRef = useRef<Tone.Loop | null>(null);
   const beatRef = useRef(0);

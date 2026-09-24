@@ -1,4 +1,4 @@
-import type { MinuteScore, ProgressData, SessionRecord } from './schema.ts';
+import type { MinuteScore, ProgressData, SessionRecord, TransitionRecord } from './schema.ts';
 
 export function transitionKey(fromShapeId: string, toShapeId: string): string {
   return `${fromShapeId}>${toShapeId}`;
@@ -37,13 +37,30 @@ export function recordLessonAttempt(data: ProgressData, attempt: LessonAttempt):
 
 export type TransitionAttempt = { key: string; clean: boolean; now: number };
 
+export const MAX_INTERVAL_DAYS = 30;
+
+// A miss resets the review interval to 1 day; a clean session doubles it (once per day, max 30).
+export function nextInterval(
+  previous: TransitionRecord | undefined,
+  clean: boolean,
+  day: string,
+): number {
+  if (!clean) return 1;
+  const interval = previous?.interval ?? 1;
+  if (previous?.reviewedOn === day) return interval;
+  return Math.min(MAX_INTERVAL_DAYS, interval * 2);
+}
+
 export function recordTransition(data: ProgressData, attempt: TransitionAttempt): ProgressData {
   const previous = data.transitions[attempt.key];
+  const day = localDay(attempt.now);
   const record = {
     transitionKey: attempt.key,
     attempts: (previous?.attempts ?? 0) + 1,
     misses: (previous?.misses ?? 0) + (attempt.clean ? 0 : 1),
     lastMs: attempt.now,
+    interval: nextInterval(previous, attempt.clean, day),
+    reviewedOn: day,
   };
   return { ...data, transitions: { ...data.transitions, [attempt.key]: record } };
 }
