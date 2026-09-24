@@ -1,0 +1,14 @@
+@keyframes flash {
+  from {
+    background: var(--brass);
+    color: var(--ebony);
+  }
+  to {
+    background: var(--rosewood-2);
+    color: var(--bone);
+  }
+}
+
+.flash {
+  animation: flash var(--dur-show) var(--ease);
+}

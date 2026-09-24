@@ -1,5 +1,5 @@
 import { Suspense, useEffect, useState } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 import styles from './AppShell.module.css';
 import { Dock } from './Dock';
 import { Rail } from './Rail';
@@ -13,10 +13,23 @@ import { CommandPalette } from '../../ui/CommandPalette/CommandPalette';
 import { registerCommands } from '../../ui/CommandPalette/registerCommands';
 import { defaultCommands } from '../../ui/CommandPalette/defaultCommands';
 import { MiniPlayer } from '../../ui/MiniPlayer/MiniPlayer';
+import { useShortcuts } from '../../ui/shortcuts/useShortcuts';
+import { ShortcutsOverlay } from '../../ui/shortcuts/ShortcutsOverlay';
 
 export function AppShell() {
   useApplySettings();
+  const navigate = useNavigate();
   const [paletteOpen, setPaletteOpen] = useState(false);
+  const [shortcutsOpen, setShortcutsOpen] = useState(false);
+
+  useShortcuts({
+    onHelp: () => {
+      setShortcutsOpen(true);
+    },
+    onTuner: () => {
+      void navigate('/tuner');
+    },
+  });
 
   useEffect(() => registerCommands(defaultCommands), []);
 
@@ -83,6 +96,12 @@ export function AppShell() {
           }}
         />
       ) : null}
+      <ShortcutsOverlay
+        open={shortcutsOpen}
+        onClose={() => {
+          setShortcutsOpen(false);
+        }}
+      />
     </>
   );
 }

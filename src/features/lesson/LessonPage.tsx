@@ -46,6 +46,7 @@ import {
 import { planPerformance, preparePerformance } from './performance';
 import styles from './LessonPage.module.css';
 import { useFocusMode } from './useFocusMode';
+import { usePageShortcuts } from '../../ui/shortcuts/usePageShortcuts';
 
 const DEMO_LESSON_ID = 'demo';
 // Sections at or above this dynamics level play at full (chorus) strength.
@@ -164,9 +165,7 @@ function LessonPlayer({ lesson }: { lesson: BuiltLesson }) {
 
   const barIndex = playingThis
     ? Math.max(0, playback.chordIndex) % view.shapes.length
-    : listening
-      ? selfPacedIndex % view.shapes.length
-      : 0;
+    : selfPacedIndex % view.shapes.length;
   const current = view.shapes[barIndex] as Shape;
   const upcoming = nextChange(view.shapes, barIndex);
   const hardest = hardestTransition(plan.shapes);
@@ -250,6 +249,44 @@ function LessonPlayer({ lesson }: { lesson: BuiltLesson }) {
     setMix(next);
     if (playingThis) play(next);
   }
+
+  function nudgeTempo(bpm: number) {
+    setMix((current) => ({ ...current, bpm }));
+    if (!playingThis) return;
+    if (performing) perform({ ...mix, bpm });
+    else setTempo(bpm);
+  }
+
+  usePageShortcuts(
+    {
+      togglePlay: () => {
+        if (playingThis) stopPlayback();
+        else play(mix);
+      },
+      next: () => {
+        if (!playingThis) setSelfPacedIndex((index) => (index + 1) % view.shapes.length);
+      },
+      prev: () => {
+        if (!playingThis) {
+          setSelfPacedIndex((index) => (index - 1 + view.shapes.length) % view.shapes.length);
+        }
+      },
+      ...(performing
+        ? {}
+        : {
+            toggleLoop: () => {
+              update({ loop: !mix.loop });
+            },
+          }),
+      slower: () => {
+        nudgeTempo(Math.max(range.min, mix.bpm - 1));
+      },
+      faster: () => {
+        nudgeTempo(Math.min(range.max, mix.bpm + 1));
+      },
+    },
+    [playingThis, mix, performing, view.shapes.length, range.min, range.max],
+  );
 
   return (
     <div className={styles.page} data-finish={module?.finish}>

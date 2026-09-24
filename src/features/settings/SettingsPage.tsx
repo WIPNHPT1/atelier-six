@@ -11,6 +11,7 @@ import { Button } from '../../ui/Button';
 import { copy } from '../../content/copy.en-GB';
 import { useSettingsStore } from '../../app/settingsStore';
 import { downloadSoundsForOffline } from '../../audio/sampleCache';
+import { FootPedalTest } from '../../ui/shortcuts/FootPedalTest';
 import styles from './SettingsPage.module.css';
 import { ProgressTransfer } from './ProgressTransfer';
 
@@ -118,6 +119,16 @@ export default function SettingsPage() {
             checked={settings.robotMode}
             onChange={settings.setRobotMode}
           />
+        </div>
+
+        <div className={styles.row}>
+          <div className={styles.rowLabel}>
+            <Text>{copy.settings.footPedalTest}</Text>
+            <Text dim size="small">
+              {copy.settings.footPedalTestHint}
+            </Text>
+          </div>
+          <FootPedalTest />
         </div>
 
         <div className={styles.row}>
