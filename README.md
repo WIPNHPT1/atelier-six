@@ -12,8 +12,6 @@ Status: in development
 
 Live: [ateliersix.netlify.app](https://ateliersix.netlify.app)
 
-Not affiliated with or endorsed by any artist referenced for listening or style purposes.
-
 ## Docs
 
 - [The transition engine](docs/engine.md) — how the app picks fingerings and scores difficulty.

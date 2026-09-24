@@ -6,16 +6,8 @@ import { Mono } from '../../ui/Mono';
 import { Panel } from '../../ui/Panel';
 import { Pill } from '../../ui/Pill';
 import { Text } from '../../ui/Text';
-import {
-  difficultyLabel,
-  getModule,
-  lessonsFor,
-  listenRefs,
-  riffsFor,
-  tuneFor,
-} from '../lesson/lessonData';
+import { difficultyLabel, getModule, lessonsFor, riffsFor, tuneFor } from '../lesson/lessonData';
 import { RiffCard } from './RiffCard';
-import { PlayAlong } from './PlayAlong';
 import styles from './CourseModulePage.module.css';
 import { ProgressRing } from './ProgressRing';
 import { useProgressData } from '../progress/store';
@@ -37,10 +29,8 @@ export default function CourseModulePage() {
 
   const meta = copy.course.modules[module.id];
   const lessons = lessonsFor(module.id);
-  const refs = listenRefs(module.id);
   const tune = tuneFor(module.id);
   const riffs = riffsFor(module.id);
-  const artists = [...new Set(refs.map((ref) => ref.artist))].join(' · ');
   const { done } = moduleProgress(module.id, data);
   const next = lessons.find((lesson) => !lessonDone(lesson, data)) ?? lessons[0];
   const finish = copy.course.finishes[module.finish];
@@ -55,11 +45,7 @@ export default function CourseModulePage() {
           <Heading level={1} className={styles.title}>
             {meta.title}
           </Heading>
-          <Text dim>
-            {artists === ''
-              ? meta.style
-              : t('course.moduleSubtitle', { style: meta.style, artists })}
-          </Text>
+          <Text dim>{meta.style}</Text>
         </div>
         {module.available ? (
           <div className={styles.progress}>
@@ -154,20 +140,6 @@ export default function CourseModulePage() {
               <Text className={styles.tone}>{meta.tone}</Text>
               <Text dim size="small">
                 {meta.toneNote}
-              </Text>
-            </Panel>
-            <Panel>
-              <Mono className={styles.label}>{copy.course.listenFor}</Mono>
-              <ol className={styles.refs}>
-                {refs.map((ref) => (
-                  <li key={`${ref.artist}-${ref.song}`} className={styles.refRow}>
-                    <Text>{t('lesson.listenRef', { artist: ref.artist, song: ref.song })}</Text>
-                    {next ? <PlayAlong song={ref} lesson={next} /> : null}
-                  </li>
-                ))}
-              </ol>
-              <Text dim size="small">
-                {copy.course.listenNote}
               </Text>
             </Panel>
             <div className={styles.skills} aria-label={copy.course.skills}>

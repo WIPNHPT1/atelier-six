@@ -56,6 +56,13 @@
   min-width: 180px;
 }
 
+.toggleGroup {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  cursor: pointer;
+}
+
 .bar {
   color: var(--bone-dim);
   font-size: var(--t-12);
@@ -69,7 +76,6 @@
     'tab'
     'change'
     'tips'
-    'listen'
     'fun';
   gap: var(--s-4);
 }
@@ -104,10 +110,6 @@
 
 .tips {
   grid-area: tips;
-}
-
-.listen {
-  grid-area: listen;
 }
 
 .boards {
@@ -167,7 +169,7 @@
       'tab tab'
       'now change'
       'layers layers'
-      'tips listen'
+      'tips tips'
       'fun fun';
   }
 
@@ -183,7 +185,7 @@
     grid-template-areas:
       'tab tab tab'
       'now change layers'
-      'tips listen layers'
+      'tips tips layers'
       'fun fun fun';
   }
 }

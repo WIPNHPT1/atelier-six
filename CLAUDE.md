@@ -54,7 +54,7 @@ The user is not technical, works on a Mac, and uses Claude Code in the **Claude 
 - Design tokens only from `src/styles/tokens.css`; no raw hex in components.
 - Every animation respects `prefers-reduced-motion` and the in-app motion toggle.
 - No song tabs or lyrics in the repo. Techniques, shapes and generic progressions only.
-- Artists and songs appear only as listening references and "in the style of" labels: never in the app name, icon, store title or keywords. Keep the "not affiliated or endorsed" line on About, README and store listings.
+- No artist or song names anywhere in the app, its name, icon, store title/keywords, README or store listings — decided in Gate 7 (reversing an earlier "listening references" allowance). Modules are described by genre only (e.g. "Britpop", "Grunge-melodic lead"), never by artist.
 - All user-facing wording lives in `src/content/copy.en-GB.ts`; no raw text in components.
 - All musical content follows PRD §20: built from the module's style sheet, humanised on playback, and passing `checkPlayable`, `checkHarmony`, `checkBars` and `lintAgainstStyle` (`npm run lint:style`). Never hand-write music that skips these.
 - Accessibility: all controls keyboard-reachable, labelled, 4.5:1 contrast.

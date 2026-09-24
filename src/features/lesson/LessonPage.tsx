@@ -343,38 +343,50 @@ function LessonPlayer({ lesson }: { lesson: BuiltLesson }) {
           easier={easier}
         />
         {performing ? null : (
-          <Toggle
-            label={copy.lesson.loop}
-            checked={mix.loop}
-            onChange={(loop) => {
-              update({ loop });
-            }}
-          />
+          <label className={styles.toggleGroup}>
+            <Text size="small">{copy.lesson.loop}</Text>
+            <Toggle
+              label={copy.lesson.loop}
+              checked={mix.loop}
+              onChange={(loop) => {
+                update({ loop });
+              }}
+            />
+          </label>
         )}
-        <Toggle
-          label={copy.lesson.metronome}
-          checked={mix.click}
-          onChange={(click) => {
-            update({ click });
-          }}
-        />
-        <Toggle
-          label={copy.lesson.countIn}
-          checked={mix.countIn}
-          onChange={(countIn) => {
-            update({ countIn });
-          }}
-        />
-        {micSupported ? (
+        <label className={styles.toggleGroup}>
+          <Text size="small">{copy.lesson.metronome}</Text>
           <Toggle
-            label={copy.lesson.listen}
-            checked={listening}
-            onChange={(next) => {
-              setListening(next);
-              if (next) setSelfPacedIndex(0);
+            label={copy.lesson.metronome}
+            checked={mix.click}
+            onChange={(click) => {
+              update({ click });
             }}
-            disabled={playingThis}
           />
+        </label>
+        <label className={styles.toggleGroup}>
+          <Text size="small">{copy.lesson.countIn}</Text>
+          <Toggle
+            label={copy.lesson.countIn}
+            checked={mix.countIn}
+            onChange={(countIn) => {
+              update({ countIn });
+            }}
+          />
+        </label>
+        {micSupported ? (
+          <label className={styles.toggleGroup}>
+            <Text size="small">{copy.lesson.listen}</Text>
+            <Toggle
+              label={copy.lesson.listen}
+              checked={listening}
+              onChange={(next) => {
+                setListening(next);
+                if (next) setSelfPacedIndex(0);
+              }}
+              disabled={playingThis}
+            />
+          </label>
         ) : null}
         <Button
           variant="quiet"
@@ -515,20 +527,6 @@ function LessonPlayer({ lesson }: { lesson: BuiltLesson }) {
         </Panel>
 
         <FunVote id={lesson.id} className={styles.fun} />
-
-        <Panel className={styles.listen} data-focus-hide>
-          <Mono className={styles.label}>{copy.lesson.listenFor}</Mono>
-          <ul className={styles.list}>
-            {lesson.listen.map((ref) => (
-              <li key={`${ref.artist}-${ref.song}`}>
-                <Text>{t('lesson.listenRef', { artist: ref.artist, song: ref.song })}</Text>
-                <Text dim size="small">
-                  {ref.note}
-                </Text>
-              </li>
-            ))}
-          </ul>
-        </Panel>
       </div>
     </div>
   );

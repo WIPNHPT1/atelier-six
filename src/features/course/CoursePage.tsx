@@ -6,7 +6,7 @@ import { Heading } from '../../ui/Heading';
 import { Mono } from '../../ui/Mono';
 import { Pill } from '../../ui/Pill';
 import { Text } from '../../ui/Text';
-import { MODULES, lessonsFor, listenRefs } from '../lesson/lessonData';
+import { MODULES, lessonsFor } from '../lesson/lessonData';
 import styles from './CoursePage.module.css';
 import { ProgressRing } from './ProgressRing';
 import { FOUNDATIONS } from '../foundations/data';
@@ -48,7 +48,6 @@ export default function CoursePage() {
         {MODULES.map((module) => {
           const meta = copy.course.modules[module.id];
           const lessons = lessonsFor(module.id);
-          const artists = [...new Set(listenRefs(module.id).map((ref) => ref.artist))];
           const { done, started } = moduleProgress(module.id, data);
           return (
             <li key={module.id}>
@@ -67,7 +66,7 @@ export default function CoursePage() {
                   {meta.title}
                 </Heading>
                 <Text dim size="small">
-                  {[meta.style, ...artists].join(' · ')}
+                  {meta.style}
                 </Text>
                 <div className={styles.pills}>
                   {module.available ? (

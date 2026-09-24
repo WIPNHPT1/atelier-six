@@ -66,11 +66,3 @@ export function recommendedLesson(level: Level): BuiltLesson {
   if (level === 'confident') return power[Math.floor(power.length / 2)] ?? firstLesson();
   return power[0] ?? firstLesson();
 }
-
-export function listenRefs(module: string) {
-  const seen = new Map<string, BuiltLesson['listen'][number]>();
-  for (const lesson of lessonsFor(module)) {
-    for (const ref of lesson.listen) seen.set(`${ref.artist}|${ref.song}`, ref);
-  }
-  return [...seen.values()];
-}
