@@ -7,7 +7,12 @@
 }
 
 .disabledModule {
-  opacity: 0.5;
+  /* Full-opacity, vetted colour pair (see DesignPage contrast checks) instead of
+     opacity, which blended the pill's own background into the page behind it and
+     dropped its text below 4.5:1 (axe flagged this in the Gate 5 e2e run). */
+  background: transparent;
+  border: 1px solid var(--rosewood-2);
+  color: var(--bone-dim);
 }
 
 .filters {
