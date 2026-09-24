@@ -24,10 +24,14 @@ import { TunerDial } from './TunerDial';
 import styles from './TunerPage.module.css';
 
 const TUNINGS: Record<TuningName, Tuning> = { standard, halfDown, dropD };
-const SMOOTH_ALPHA = 0.3;
+// Lower = calmer needle motion, at the cost of a little lag following a real pitch change.
+const SMOOTH_ALPHA = 0.15;
 const IN_TUNE_CENTS = 5;
 const IN_TUNE_MS = 500;
-const NEEDLE_TRANSITION_MS = 120;
+const NEEDLE_TRANSITION_MS = 160;
+// A single frame missing a clean reading is normal mid-note (breath noise, a slight dip in
+// clarity); keep showing the last good reading instead of flickering the display blank.
+const HOLD_LAST_READING_MS = 400;
 
 type MicStatus = 'idle' | 'starting' | 'listening' | 'stopped' | 'denied' | 'unsupported';
 
@@ -52,6 +56,7 @@ export default function TunerPage() {
   const tuningRef = useRef(tuningArray);
   const motionRef = useRef(motionEnabled);
   const inTuneSinceRef = useRef<number | null>(null);
+  const lastGoodAtRef = useRef<number | null>(null);
 
   useEffect(() => {
     settingsRef.current = settings;
@@ -71,12 +76,17 @@ export default function TunerPage() {
     setDebug({ rms: raw.rms, freq: raw.freq, clarity: raw.clarity });
 
     const result = detectPitch(buffer, sampleRate);
+    const now = performance.now();
     if (!result) {
+      const heldRecently =
+        lastGoodAtRef.current !== null && now - lastGoodAtRef.current < HOLD_LAST_READING_MS;
+      if (heldRecently) return;
       setPitchInfo(null);
       inTuneSinceRef.current = null;
       setInTune(false);
       return;
     }
+    lastGoodAtRef.current = now;
 
     const note = freqToNote(result.freq, settingsRef.current.a4);
     const nearest = nearestString(result.freq, tuningRef.current, settingsRef.current.capo);
@@ -90,7 +100,6 @@ export default function TunerPage() {
       motionRef.current ? smooth(prev, nearest.cents, SMOOTH_ALPHA) : nearest.cents,
     );
 
-    const now = performance.now();
     const within = Math.abs(nearest.cents) <= IN_TUNE_CENTS;
     if (within) {
       inTuneSinceRef.current ??= now;
@@ -109,6 +118,7 @@ export default function TunerPage() {
       setInTune(false);
       setDebug({ rms: 0, freq: 0, clarity: 0 });
       inTuneSinceRef.current = null;
+      lastGoodAtRef.current = null;
       return;
     }
 

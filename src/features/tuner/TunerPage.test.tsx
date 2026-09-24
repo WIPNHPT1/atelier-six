@@ -100,6 +100,25 @@ describe('TunerPage', () => {
     expect(screen.getByTestId('tuner-note')).toHaveTextContent('E2');
   });
 
+  it('holds the last reading through a brief gap instead of flickering blank', async () => {
+    const user = userEvent.setup();
+    detectPitch.mockReturnValue({ freq: 82.41, clarity: 0.95 });
+    render(<TunerPage />);
+
+    await user.click(screen.getByRole('button', { name: copy.tunerScreen.start }));
+    act(() => {
+      capturedFrame?.(new Float32Array(4096), 44100);
+    });
+    expect(screen.getByTestId('tuner-note')).toHaveTextContent('E2');
+
+    // A single missed frame right after a good one is normal mid-note; the display should hold.
+    detectPitch.mockReturnValue(null);
+    act(() => {
+      capturedFrame?.(new Float32Array(4096), 44100);
+    });
+    expect(screen.getByTestId('tuner-note')).toHaveTextContent('E2');
+  });
+
   it('shows the mic input level while listening', async () => {
     const user = userEvent.setup();
     detectPitch.mockReturnValue(null);
