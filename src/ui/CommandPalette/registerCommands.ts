@@ -1,36 +1,36 @@
-import type { NavigateFunction } from 'react-router-dom'
+import type { NavigateFunction } from 'react-router-dom';
 
-export type CommandGroup = 'Lessons' | 'Chords' | 'Drills' | 'Settings' | 'Actions'
+export type CommandGroup = 'Lessons' | 'Chords' | 'Drills' | 'Settings' | 'Actions';
 
 export type CommandContext = {
-  navigate: NavigateFunction
-}
+  navigate: NavigateFunction;
+};
 
 export type Command = {
-  id: string
-  group: CommandGroup
-  label: string
-  keywords?: string[]
-  run: (ctx: CommandContext) => void
-}
+  id: string;
+  group: CommandGroup;
+  label: string;
+  keywords?: string[];
+  run: (ctx: CommandContext) => void;
+};
 
-const registry = new Map<string, Command>()
+const registry = new Map<string, Command>();
 
 export function registerCommands(commands: Command[]): () => void {
   for (const command of commands) {
-    registry.set(command.id, command)
+    registry.set(command.id, command);
   }
   return () => {
     for (const command of commands) {
-      registry.delete(command.id)
+      registry.delete(command.id);
     }
-  }
+  };
 }
 
 export function getCommands(): Command[] {
-  return Array.from(registry.values())
+  return Array.from(registry.values());
 }
 
 export function clearCommands(): void {
-  registry.clear()
+  registry.clear();
 }

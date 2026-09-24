@@ -40,6 +40,7 @@ export function chainTab(parts: TabPart[]): {
 } {
   let barOffset = 0;
   let shapeOffset = 0;
+  let columnOffset = 0;
   const columns: TabColumn[] = [];
   const shapes: Shape[] = [];
   const sectionLabels: Record<number, string> = {};
@@ -48,12 +49,14 @@ export function chainTab(parts: TabPart[]): {
     for (const column of part.columns) {
       columns.push({
         ...column,
-        step: column.step + barOffset * STEPS_PER_BAR,
+        step: column.step + columnOffset,
+        time: column.time + barOffset * STEPS_PER_BAR,
         bar: column.bar + barOffset,
         chordIndex: column.chordIndex + shapeOffset,
       });
     }
     shapes.push(...part.shapes);
+    columnOffset += part.columns.length;
     barOffset += part.bars;
     shapeOffset += part.shapes.length;
   }

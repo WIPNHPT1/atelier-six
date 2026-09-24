@@ -1,13 +1,13 @@
-import styles from './Logo.module.css'
-import { copy } from '../content/copy.en-GB'
+import styles from './Logo.module.css';
+import { copy } from '../content/copy.en-GB';
 
-export type LogoVariant = 'mark' | 'lockup' | 'small'
+export type LogoVariant = 'mark' | 'lockup' | 'small';
 
 export type LogoProps = {
-  variant?: LogoVariant
-  size?: number
-  title?: string
-}
+  variant?: LogoVariant;
+  size?: number;
+  title?: string;
+};
 
 function MarkGlyph({ title }: { title: string }) {
   return (
@@ -44,7 +44,7 @@ function MarkGlyph({ title }: { title: string }) {
       />
       <circle data-testid="logo-dot" cx="60" cy="97" r="4.2" fill="var(--brass)" />
     </>
-  )
+  );
 }
 
 function SmallGlyph({ title }: { title: string }) {
@@ -74,11 +74,11 @@ function SmallGlyph({ title }: { title: string }) {
         />
       </g>
     </>
-  )
+  );
 }
 
 export function Logo({ variant = 'mark', size = 32, title = copy.brand.name }: LogoProps) {
-  const useSmall = variant === 'small' || size < 32
+  const useSmall = variant === 'small' || size < 32;
 
   const svg = (
     <svg
@@ -91,7 +91,7 @@ export function Logo({ variant = 'mark', size = 32, title = copy.brand.name }: L
     >
       {useSmall ? <SmallGlyph title={title} /> : <MarkGlyph title={title} />}
     </svg>
-  )
+  );
 
   if (variant === 'lockup' && !useSmall) {
     return (
@@ -101,8 +101,8 @@ export function Logo({ variant = 'mark', size = 32, title = copy.brand.name }: L
           {copy.brand.name}
         </span>
       </span>
-    )
+    );
   }
 
-  return svg
+  return svg;
 }

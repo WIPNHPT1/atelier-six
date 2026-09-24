@@ -1,7 +1,7 @@
 import { Fragment, useEffect, useRef } from 'react';
 import { copy, t } from '../../content/copy.en-GB';
 import { noteName } from '../../core/theory/pitch';
-import type { TabColumn } from '../../core/tab/renderTab';
+import { activeColumn, type TabColumn } from '../../core/tab/renderTab';
 import type { TimeSignature } from '../../core/tab/playability';
 import type { Shape } from '../../core/shapes/types';
 import type { Tuning } from '../../core/tuning';
@@ -211,6 +211,7 @@ export function TabLane({
   }, [playhead, motionEnabled]);
 
   const groups = beamGroups(columns);
+  const active = activeColumn(columns, playhead);
 
   return (
     <div className={styles.wrapper}>
@@ -279,7 +280,7 @@ export function TabLane({
             <Fragment key={`row-${String(row)}`}>
               <div className={styles.stringLabel}>{stringLabel(tuning, stringIndex)}</div>
               {columns.map((column, index) => {
-                const isActive = column.step === playhead;
+                const isActive = index === active;
                 const cell = column.cells[stringIndex] ?? '';
                 const text = column.ghost && cell ? t('tabLane.ghostWrap', { value: cell }) : cell;
                 return (
@@ -293,6 +294,8 @@ export function TabLane({
                     )}
                     data-testid="tab-column"
                     data-step={column.step}
+                    data-active={isActive && row === 0 ? 'true' : undefined}
+                    data-chord-index={isActive && row === 0 ? column.chordIndex : undefined}
                   >
                     {text}
                   </div>

@@ -1,18 +1,18 @@
-import styles from './Dial.module.css'
+import styles from './Dial.module.css';
 
 export type DialProps = {
-  label: string
-  value: number
-  displayValue?: string
-  size?: number
-}
+  label: string;
+  value: number;
+  displayValue?: string;
+  size?: number;
+};
 
 export function Dial({ label, value, displayValue, size = 96 }: DialProps) {
-  const clamped = Math.min(1, Math.max(0, value))
-  const strokeWidth = size * 0.08
-  const radius = size / 2 - strokeWidth
-  const circumference = 2 * Math.PI * radius
-  const offset = circumference * (1 - clamped)
+  const clamped = Math.min(1, Math.max(0, value));
+  const strokeWidth = size * 0.08;
+  const radius = size / 2 - strokeWidth;
+  const circumference = 2 * Math.PI * radius;
+  const offset = circumference * (1 - clamped);
 
   return (
     <div className={styles.wrapper}>
@@ -46,5 +46,5 @@ export function Dial({ label, value, displayValue, size = 96 }: DialProps) {
       </svg>
       {displayValue ? <span className={styles.label}>{displayValue}</span> : null}
     </div>
-  )
+  );
 }

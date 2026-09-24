@@ -1,5 +1,5 @@
-import type { Command } from './registerCommands'
-import { copy } from '../../content/copy.en-GB'
+import type { Command } from './registerCommands';
+import { copy } from '../../content/copy.en-GB';
 
 export const defaultCommands: Command[] = [
   {
@@ -7,7 +7,7 @@ export const defaultCommands: Command[] = [
     group: 'Actions',
     label: copy.nav.today,
     run: ({ navigate }) => {
-      void navigate('/')
+      void navigate('/');
     },
   },
   {
@@ -15,7 +15,7 @@ export const defaultCommands: Command[] = [
     group: 'Actions',
     label: copy.nav.learn,
     run: ({ navigate }) => {
-      void navigate('/course')
+      void navigate('/course');
     },
   },
   {
@@ -23,7 +23,7 @@ export const defaultCommands: Command[] = [
     group: 'Actions',
     label: copy.nav.practise,
     run: ({ navigate }) => {
-      void navigate('/practise')
+      void navigate('/practise');
     },
   },
   {
@@ -32,7 +32,7 @@ export const defaultCommands: Command[] = [
     label: copy.commandPalette.startTuner,
     keywords: ['tuner'],
     run: ({ navigate }) => {
-      void navigate('/tuner')
+      void navigate('/tuner');
     },
   },
   {
@@ -40,7 +40,7 @@ export const defaultCommands: Command[] = [
     group: 'Actions',
     label: copy.nav.you,
     run: ({ navigate }) => {
-      void navigate('/progress')
+      void navigate('/progress');
     },
   },
   {
@@ -48,7 +48,7 @@ export const defaultCommands: Command[] = [
     group: 'Settings',
     label: copy.settings.title,
     run: ({ navigate }) => {
-      void navigate('/settings')
+      void navigate('/settings');
     },
   },
   {
@@ -56,7 +56,7 @@ export const defaultCommands: Command[] = [
     group: 'Chords',
     label: copy.library.title,
     run: ({ navigate }) => {
-      void navigate('/library')
+      void navigate('/library');
     },
   },
   {
@@ -64,7 +64,7 @@ export const defaultCommands: Command[] = [
     group: 'Drills',
     label: copy.drills.title,
     run: ({ navigate }) => {
-      void navigate('/drills')
+      void navigate('/drills');
     },
   },
-]
+];

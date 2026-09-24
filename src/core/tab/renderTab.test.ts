@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { durationSymbol, renderTab, toAscii } from './renderTab.ts';
+import { activeColumn, durationSymbol, renderTab, toAscii } from './renderTab.ts';
+import type { RhythmPreset } from '../../data/rhythms.ts';
 import { parseShape } from '../shapes/parseShape.ts';
 import { RHYTHMS } from '../../data/rhythms.ts';
 import { standard } from '../tuning.ts';
@@ -107,5 +108,24 @@ describe('toAscii', () => {
         `  |-${rhythmBar}-${rhythmBar}-${rhythmBar}-${rhythmBar}-|`,
       ].join('\n'),
     );
+  });
+});
+
+describe('activeColumn', () => {
+  it('lights the column that is sounding, on the same sixteenth clock as playback', () => {
+    const rhythm: RhythmPreset = {
+      id: 'eighths',
+      subdivision: 8,
+      steps: Array.from({ length: 8 }, (_, t) => ({ t, dir: 'D' as const })),
+    };
+    const columns = renderTab([C, C], rhythm, [1, 1], standard);
+    expect(columns.map((c) => c.time).slice(0, 3)).toEqual([0, 2, 4]);
+    expect(columns[8]?.time).toBe(16);
+    // Sixteenth 17 is in bar 2's first eighth: column 8, not column 17.
+    expect(activeColumn(columns, 17)).toBe(8);
+    expect(activeColumn(columns, 0)).toBe(0);
+    expect(activeColumn(columns, 3)).toBe(1);
+    expect(activeColumn(columns, undefined)).toBe(-1);
+    expect(activeColumn(columns, 99)).toBe(-1);
   });
 });

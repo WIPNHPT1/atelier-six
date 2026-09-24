@@ -43,10 +43,17 @@ describe('TabLane', () => {
     expect(container.querySelectorAll(`[data-step="0"].${isActiveClass}`)).toHaveLength(6);
     expect(container.querySelectorAll(`[data-step="1"].${isActiveClass}`)).toHaveLength(0);
 
+    // The playhead counts sixteenths; an eighth-note column lasts two of them.
     rerender(<TabLane columns={columns} shapes={[C]} tuning={standard} playhead={1} />);
+    expect(container.querySelectorAll(`[data-step="0"].${isActiveClass}`)).toHaveLength(6);
+    expect(container.querySelector('[data-playhead-step="1"]')).toBeInTheDocument();
+
+    rerender(<TabLane columns={columns} shapes={[C]} tuning={standard} playhead={2} />);
     expect(container.querySelectorAll(`[data-step="0"].${isActiveClass}`)).toHaveLength(0);
     expect(container.querySelectorAll(`[data-step="1"].${isActiveClass}`)).toHaveLength(6);
-    expect(container.querySelector('[data-playhead-step="1"]')).toBeInTheDocument();
+
+    rerender(<TabLane columns={columns} shapes={[C]} tuning={standard} playhead={14} />);
+    expect(container.querySelectorAll(`[data-step="7"].${isActiveClass}`)).toHaveLength(6);
   });
 
   it('renders 24 stems, 4 beams and 0 rests for C-G-Am-F in pop-strum', () => {

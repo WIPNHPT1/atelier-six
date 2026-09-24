@@ -12,6 +12,41 @@ async function openFirstOpenLesson(page: import('@playwright/test').Page) {
   await expect.poll(() => new URL(page.url()).pathname).toMatch(/^\/lesson\/open-/);
 }
 
+// The highlighted tab column is always on the chord being played (read together, in one frame).
+async function expectTabFollowsChord(
+  page: import('@playwright/test').Page,
+  now: import('@playwright/test').Locator,
+) {
+  await expect(now).toBeVisible();
+  let compared = 0;
+  for (let check = 0; check < 12; check++) {
+    const pair = await page.evaluate(() => {
+      const active = document.querySelector('[data-active="true"]');
+      const shown = document.querySelector('[data-now-bar]');
+      return {
+        tab: active?.getAttribute('data-chord-index') ?? null,
+        now: shown?.getAttribute('data-now-bar') ?? null,
+      };
+    });
+    if (pair.tab !== null) {
+      expect(pair.tab).toBe(pair.now);
+      compared++;
+    }
+    await page.waitForTimeout(250);
+  }
+  expect(compared).toBeGreaterThan(6);
+}
+
+test('while playing, the tab highlight stays on the chord being played', async ({
+  page,
+  browserName,
+}) => {
+  test.skip(browserName !== 'chromium', 'audio gesture policy is Chromium-only in CI');
+  await page.goto('/lesson/power-vi-iv-i-v-d');
+  await page.locator('#main').getByRole('button', { name: 'Play', exact: true }).click();
+  await expectTabFollowsChord(page, page.locator('[data-now-bar]'));
+});
+
 test('switching to Chorus changes the tab', async ({ page }) => {
   await openFirstOpenLesson(page);
   const tab = page.locator('[data-tab-ascii]');
@@ -104,11 +139,5 @@ test('after a tempo change the chord shown stays with the bar being played', asy
   // Carries on from the same place (it used to jump back to the start).
   expect(after).toBeGreaterThanOrEqual(before - 1);
 
-  for (let check = 0; check < 5; check++) {
-    const step = Number(await lane.getAttribute('data-playhead-step'));
-    const bar = Number(await now.getAttribute('data-now-bar'));
-    const bars = 4;
-    expect(Math.abs(bar - (Math.floor(step / 16) % bars))).toBeLessThanOrEqual(1);
-    await page.waitForTimeout(400);
-  }
+  await expectTabFollowsChord(page, now);
 });

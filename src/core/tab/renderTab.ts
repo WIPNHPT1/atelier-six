@@ -5,8 +5,11 @@ import type { Tuning } from '../tuning.ts';
 const STRING_COUNT = 6;
 const SIXTEENTHS_PER_BAR_UNIT = 16;
 
+// step: the column's index. time: where it sounds, in sixteenths from the start (the same
+// clock as playback), so the playhead can light the column that is actually playing.
 export type TabColumn = {
   step: number;
+  time: number;
   bar: number;
   offset: number;
   duration: number;
@@ -60,6 +63,7 @@ export function renderTab(
         const timing = timings[index] as { offset: number; duration: number };
         columns.push({
           step,
+          time: bar * SIXTEENTHS_PER_BAR_UNIT + timing.offset,
           bar,
           offset: timing.offset,
           duration: timing.duration,
@@ -110,4 +114,16 @@ export function durationSymbol(duration: number): string {
   const base = dotted ?? duration;
   const letter = base >= 16 ? 'w' : base >= 8 ? 'h' : base >= 4 ? 'q' : base >= 2 ? 'e' : 's';
   return dotted !== undefined ? `${letter}.` : letter;
+}
+
+// The column sounding at `playhead` (in sixteenths): the last one that has started, if the
+// playhead is still inside it. -1 when nothing is sounding there.
+export function activeColumn(columns: TabColumn[], playhead: number | undefined): number {
+  if (playhead === undefined) return -1;
+  let active = -1;
+  for (const [index, column] of columns.entries()) {
+    if (column.time > playhead) break;
+    if (playhead < column.time + column.duration) active = index;
+  }
+  return active;
 }

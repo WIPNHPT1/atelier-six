@@ -33,6 +33,17 @@ export type PlaybackState = {
 
 let rafId: number | null = null;
 
+// Where the music is in what you actually hear. Transport.seconds runs ahead: Tone schedules
+// ~0.1 s early, and speakers (Bluetooth most of all) add their own delay, which would show the
+// next chord while the previous one is still sounding.
+function audibleSeconds(Tone: typeof import('tone')): number {
+  const context = Tone.getContext();
+  const raw = context.rawContext as Partial<AudioContext>;
+  const latency = (raw.outputLatency ?? 0) + (raw.baseLatency ?? 0);
+  const heardAt = Math.max(0, context.currentTime - latency);
+  return Math.max(0, Tone.getTransport().getSecondsAtTime(heardAt));
+}
+
 function setMediaSession(title: string, onStop: () => void): void {
   if (typeof navigator === 'undefined' || !('mediaSession' in navigator)) return;
   navigator.mediaSession.metadata = new MediaMetadata({ title, artist: 'Atelier Six' });
@@ -96,7 +107,7 @@ export const usePlaybackStore = create<PlaybackState>((set) => ({
         rafId = null;
         return;
       }
-      const elapsed = Tone.getTransport().seconds;
+      const elapsed = audibleSeconds(Tone);
       const end = transport.getEndSeconds();
       if (end !== null && elapsed >= end) {
         rafId = null;

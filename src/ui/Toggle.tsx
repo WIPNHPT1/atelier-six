@@ -1,14 +1,14 @@
-import styles from './Toggle.module.css'
+import styles from './Toggle.module.css';
 
 export type ToggleProps = {
-  label: string
-  checked: boolean
-  onChange: (checked: boolean) => void
-  disabled?: boolean
-}
+  label: string;
+  checked: boolean;
+  onChange: (checked: boolean) => void;
+  disabled?: boolean;
+};
 
 export function Toggle({ label, checked, onChange, disabled = false }: ToggleProps) {
-  const classes = [styles.toggle, checked ? styles.on : ''].filter(Boolean).join(' ')
+  const classes = [styles.toggle, checked ? styles.on : ''].filter(Boolean).join(' ');
 
   return (
     <button
@@ -19,10 +19,10 @@ export function Toggle({ label, checked, onChange, disabled = false }: TogglePro
       disabled={disabled}
       className={classes}
       onClick={() => {
-        onChange(!checked)
+        onChange(!checked);
       }}
     >
       <span className={styles.knob} />
     </button>
-  )
+  );
 }
