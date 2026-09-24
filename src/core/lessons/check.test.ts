@@ -117,6 +117,43 @@ describe('renderLesson', () => {
     expect(beforeChange?.dir).toBe('mute');
   });
 
+  it('mutes back only as far as the previous chord, even when that is not enough', () => {
+    const style: StyleSheet = {
+      ...power,
+      mustInclude: [],
+      rhythmCells: [
+        {
+          id: 'wide',
+          level: 1,
+          steps: [
+            { t: 0, dir: 'D' },
+            { t: 15, dir: 'D' },
+          ],
+        },
+      ],
+    };
+    const section = {
+      name: 'verse' as const,
+      register: 'mid' as const,
+      rhythm: 'wide',
+      layers: [],
+      dynamics: 1,
+      bars: 2,
+    };
+    const built = buildLesson(
+      lesson({
+        progression: { chords: ['A5', 'F5'] },
+        targetBpm: 1000,
+        arrangement: { sections: [section] },
+      }),
+      style,
+    );
+    const events = renderLesson(built, style).piece.sections[0]?.events ?? [];
+    const firstBar = events.filter((event) => event.bar === 0);
+    expect(firstBar.filter((event) => event.t === 15).every((e) => e.dir === 'mute')).toBe(true);
+    expect(firstBar.filter((event) => event.t === 0).every((e) => e.dir === 'D')).toBe(true);
+  });
+
   it('plays only the strings a step names and marks muted steps', () => {
     const style: StyleSheet = {
       ...power,

@@ -1,5 +1,5 @@
 import type { Shape } from '../shapes/types.ts';
-import type { Articulation, TuningId } from '../style/types.ts';
+import type { Articulation, Piece, TuningId } from '../style/types.ts';
 
 export type LessonModule = 'power' | 'open';
 
@@ -57,3 +57,19 @@ export type BuiltLesson = Lesson & {
   shapes: Record<string, string>;
   difficulty: number;
 };
+
+// A short original riff for a module, unlocked once the given lesson number is done.
+export type RiffSource = {
+  id: string;
+  module: LessonModule;
+  title: string;
+  unlockAfter: number;
+  key: string;
+  bars: number;
+  seed: number;
+  difficulty: 1 | 2 | 3;
+};
+
+export type BuiltRiff = Omit<RiffSource, 'key' | 'seed' | 'difficulty'> & { piece: Piece };
+
+export type TunesData = { tunes: BuiltLesson[]; riffs: BuiltRiff[] };

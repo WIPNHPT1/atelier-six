@@ -5,13 +5,17 @@ import { warmupFor, type Warmup } from './warmup.ts';
 export const REVIEWS = 3;
 const DAY_MS = 86_400_000;
 
-export type PlannerLesson = { id: string; targetBpm: number };
+export type PlannerLesson = { id: string; targetBpm: number; module?: string };
 
 export type SessionPlan = {
   warmup: Warmup;
   newLesson: string | null;
   reviews: string[];
+  // A module tune, once three quarters of its module's lessons are done.
+  tune: string | null;
 };
+
+export const TUNE_READY_SHARE = 0.75;
 
 function daysBetween(from: string, to: string): number {
   const toTime = (day: string) => {
@@ -30,16 +34,29 @@ function missRate(record: TransitionRecord): number {
   return record.misses / record.attempts;
 }
 
-// Warm-up, the first unfinished lesson in course order, and up to three due changes
-// (highest miss rate first; ties by key so the plan is the same all day).
+function done(progress: ProgressData, lesson: PlannerLesson): boolean {
+  return (progress.lessons[lesson.id]?.bestBpm ?? 0) >= lesson.targetBpm;
+}
+
+// Warm-up, the first unfinished lesson in course order, up to three due changes (highest
+// miss rate first; ties by key so the plan is the same all day) and, when ready, a tune.
 export function planSession(
   today: string,
   progress: ProgressData,
   lessons: PlannerLesson[],
+  tunes: PlannerLesson[] = [],
 ): SessionPlan {
-  const newLesson =
-    lessons.find((lesson) => (progress.lessons[lesson.id]?.bestBpm ?? 0) < lesson.targetBpm)?.id ??
-    null;
+  const newLesson = lessons.find((lesson) => !done(progress, lesson))?.id ?? null;
+  const tune =
+    tunes.find((candidate) => {
+      const inModule = lessons.filter((lesson) => lesson.module === candidate.module);
+      const finished = inModule.filter((lesson) => done(progress, lesson)).length;
+      return (
+        inModule.length > 0 &&
+        finished / inModule.length >= TUNE_READY_SHARE &&
+        !done(progress, candidate)
+      );
+    })?.id ?? null;
   const reviews = Object.values(progress.transitions)
     .filter((record) => {
       const { from, to } = splitKey(record.transitionKey);
@@ -48,5 +65,5 @@ export function planSession(
     .sort((a, b) => missRate(b) - missRate(a) || a.transitionKey.localeCompare(b.transitionKey))
     .slice(0, REVIEWS)
     .map((record) => record.transitionKey);
-  return { warmup: warmupFor(today), newLesson, reviews };
+  return { warmup: warmupFor(today), newLesson, reviews, tune };
 }

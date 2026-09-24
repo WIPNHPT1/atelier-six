@@ -1,0 +1,3273 @@
+{
+  "tunes": [
+    {
+      "id": "tune-power",
+      "module": "power",
+      "title": "Sodium Streetlights",
+      "goal": "Play the whole tune with the band, from the octave intro to the last double chorus.",
+      "progression": {
+        "id": "I5-V5-vi5-IV5",
+        "key": "E"
+      },
+      "candidates": {
+        "tags": ["power"]
+      },
+      "arrangement": {
+        "sections": [
+          {
+            "name": "intro",
+            "register": "low",
+            "rhythm": "eighths-open",
+            "layers": [
+              {
+                "id": "rhythm",
+                "role": "rhythm",
+                "pan": 0,
+                "voicing": "low",
+                "muted": false
+              }
+            ],
+            "dynamics": 0.8,
+            "bars": 8,
+            "chords": ["E5", "B5", "C#5", "A5"],
+            "marks": ["octave"]
+          },
+          {
+            "name": "verse",
+            "register": "low",
+            "rhythm": "eighths-muted",
+            "layers": [
+              {
+                "id": "rhythm",
+                "role": "rhythm",
+                "pan": 0,
+                "voicing": "low",
+                "muted": false
+              }
+            ],
+            "dynamics": 0.7,
+            "bars": 16,
+            "chords": ["C#5", "A5", "E5", "B5"]
+          },
+          {
+            "name": "pre",
+            "register": "low",
+            "rhythm": "quarter-and",
+            "layers": [
+              {
+                "id": "rhythm",
+                "role": "rhythm",
+                "pan": 0,
+                "voicing": "low",
+                "muted": false
+              }
+            ],
+            "dynamics": 0.85,
+            "bars": 8,
+            "chords": ["A5", "B5"]
+          },
+          {
+            "name": "chorus",
+            "register": "low",
+            "rhythm": "eighths-open",
+            "layers": [
+              {
+                "id": "rhythm",
+                "role": "rhythm",
+                "pan": 0,
+                "voicing": "low",
+                "muted": false
+              }
+            ],
+            "dynamics": 1,
+            "bars": 16,
+            "chords": ["E5", "B5", "C#5", "A5"]
+          },
+          {
+            "name": "breakdown",
+            "register": "low",
+            "rhythm": "stop-push",
+            "layers": [
+              {
+                "id": "rhythm",
+                "role": "rhythm",
+                "pan": 0,
+                "voicing": "low",
+                "muted": false
+              }
+            ],
+            "dynamics": 0.9,
+            "bars": 8,
+            "chords": ["E5", "B5"]
+          },
+          {
+            "name": "chorus",
+            "register": "low",
+            "rhythm": "eighths-open",
+            "layers": [
+              {
+                "id": "rhythm",
+                "role": "rhythm",
+                "pan": 0,
+                "voicing": "low",
+                "muted": false
+              }
+            ],
+            "dynamics": 1,
+            "bars": 16,
+            "chords": ["E5", "B5", "C#5", "A5"]
+          },
+          {
+            "name": "chorus",
+            "register": "low",
+            "rhythm": "eighths-open",
+            "layers": [
+              {
+                "id": "rhythm",
+                "role": "rhythm",
+                "pan": 0,
+                "voicing": "low",
+                "muted": false
+              }
+            ],
+            "dynamics": 1,
+            "bars": 16,
+            "chords": ["E5", "B5", "C#5", "A5"]
+          }
+        ]
+      },
+      "startBpm": 130,
+      "targetBpm": 170,
+      "tuning": "standard",
+      "capo": 0,
+      "tips": [
+        "Palm down for the verse, palm off for the chorus: that contrast is the song.",
+        "In the breakdown, let the silences ring as loud as the hits."
+      ],
+      "listen": [],
+      "chords": ["E5", "B5", "C#5", "A5"],
+      "shapes": {
+        "E5": "E5.power.2.a",
+        "B5": "B5.power.2.e",
+        "C#5": "C#5.power.2.e",
+        "A5": "A5.power.2.e"
+      },
+      "difficulty": 6.7
+    },
+    {
+      "id": "tune-open",
+      "module": "open",
+      "title": "Terrace Weather",
+      "goal": "Keep the strumming arm moving through the whole tune while the band builds.",
+      "progression": {
+        "id": "I-V-vi-IV",
+        "key": "G"
+      },
+      "candidates": {
+        "tags": ["open", "anchored"]
+      },
+      "arrangement": {
+        "sections": [
+          {
+            "name": "intro",
+            "register": "low",
+            "rhythm": "sixteenth-strum",
+            "layers": [
+              {
+                "id": "rhythm",
+                "role": "rhythm",
+                "pan": 0,
+                "voicing": "low",
+                "muted": false
+              }
+            ],
+            "dynamics": 0.7,
+            "bars": 4,
+            "chords": ["G", "Cadd9", "Em7", "Dsus4"]
+          },
+          {
+            "name": "verse",
+            "register": "low",
+            "rhythm": "sixteenth-strum",
+            "layers": [
+              {
+                "id": "rhythm",
+                "role": "rhythm",
+                "pan": 0,
+                "voicing": "low",
+                "muted": false
+              }
+            ],
+            "dynamics": 0.7,
+            "bars": 8,
+            "chords": ["Em", "C", "G", "D"]
+          },
+          {
+            "name": "pre",
+            "register": "low",
+            "rhythm": "push-strum",
+            "layers": [
+              {
+                "id": "rhythm",
+                "role": "rhythm",
+                "pan": 0,
+                "voicing": "low",
+                "muted": false
+              }
+            ],
+            "dynamics": 0.85,
+            "bars": 4,
+            "chords": ["C", "D"]
+          },
+          {
+            "name": "chorus",
+            "register": "low",
+            "rhythm": "push-strum",
+            "layers": [
+              {
+                "id": "rhythm",
+                "role": "rhythm",
+                "pan": 0,
+                "voicing": "low",
+                "muted": false
+              },
+              {
+                "id": "layer",
+                "role": "double",
+                "pan": 0.3,
+                "voicing": "high",
+                "muted": false
+              }
+            ],
+            "dynamics": 1,
+            "bars": 8,
+            "chords": ["G", "D", "Em", "C"],
+            "marks": ["let-ring"]
+          },
+          {
+            "name": "verse",
+            "register": "low",
+            "rhythm": "sixteenth-strum",
+            "layers": [
+              {
+                "id": "rhythm",
+                "role": "rhythm",
+                "pan": 0,
+                "voicing": "low",
+                "muted": false
+              }
+            ],
+            "dynamics": 0.75,
+            "bars": 8,
+            "chords": ["Em", "C", "G", "D"]
+          },
+          {
+            "name": "pre",
+            "register": "low",
+            "rhythm": "push-strum",
+            "layers": [
+              {
+                "id": "rhythm",
+                "role": "rhythm",
+                "pan": 0,
+                "voicing": "low",
+                "muted": false
+              }
+            ],
+            "dynamics": 0.85,
+            "bars": 4,
+            "chords": ["C", "D"]
+          },
+          {
+            "name": "chorus",
+            "register": "low",
+            "rhythm": "push-strum",
+            "layers": [
+              {
+                "id": "rhythm",
+                "role": "rhythm",
+                "pan": 0,
+                "voicing": "low",
+                "muted": false
+              },
+              {
+                "id": "layer",
+                "role": "double",
+                "pan": 0.3,
+                "voicing": "high",
+                "muted": false
+              }
+            ],
+            "dynamics": 1,
+            "bars": 8,
+            "chords": ["G", "D", "Em", "C"],
+            "marks": ["let-ring"]
+          },
+          {
+            "name": "chorus",
+            "register": "low",
+            "rhythm": "full-motion",
+            "layers": [
+              {
+                "id": "rhythm",
+                "role": "rhythm",
+                "pan": 0,
+                "voicing": "low",
+                "muted": false
+              },
+              {
+                "id": "layer",
+                "role": "double",
+                "pan": 0.3,
+                "voicing": "high",
+                "muted": false
+              }
+            ],
+            "dynamics": 1,
+            "bars": 8,
+            "chords": ["G", "D", "Em", "C"],
+            "marks": ["let-ring"]
+          }
+        ]
+      },
+      "startBpm": 70,
+      "targetBpm": 86,
+      "tuning": "standard",
+      "capo": 0,
+      "tips": [
+        "Let the top strings ring through every change.",
+        "The last chorus goes to full sixteenths: lighter hand, same arm."
+      ],
+      "listen": [],
+      "chords": ["G", "D", "Em", "C"],
+      "shapes": {
+        "G": "G.open.b",
+        "D": "D.open",
+        "Em": "Em.open.b",
+        "C": "C.open.a",
+        "Cadd9": "Cadd9.anchored",
+        "Em7": "Em7.anchored",
+        "Dsus4": "Dsus4.anchored"
+      },
+      "difficulty": 20.45
+    }
+  ],
+  "riffs": [
+    {
+      "id": "riff-power-1",
+      "module": "power",
+      "title": "Night Bus Home",
+      "unlockAfter": 3,
+      "bars": 4,
+      "piece": {
+        "id": "riff-power-1",
+        "kind": "riff",
+        "bpm": 150,
+        "subdivision": 8,
+        "swing": 50,
+        "tuning": "halfDown",
+        "capo": 0,
+        "phraseShape": "octave-leap",
+        "sections": [
+          {
+            "name": "riff",
+            "events": [
+              {
+                "bar": 0,
+                "t": 0,
+                "duration": 4,
+                "string": 5,
+                "fret": 3,
+                "dir": "D",
+                "finger": 3,
+                "chord": {
+                  "root": 4,
+                  "quality": "5"
+                },
+                "articulations": ["accent"],
+                "passing": false
+              },
+              {
+                "bar": 0,
+                "t": 4,
+                "duration": 4,
+                "string": 4,
+                "fret": 3,
+                "dir": "D",
+                "finger": 3,
+                "chord": {
+                  "root": 4,
+                  "quality": "5"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 0,
+                "t": 8,
+                "duration": 4,
+                "string": 5,
+                "fret": 3,
+                "dir": "D",
+                "finger": 3,
+                "chord": {
+                  "root": 4,
+                  "quality": "5"
+                },
+                "articulations": ["accent"],
+                "passing": false
+              },
+              {
+                "bar": 0,
+                "t": 12,
+                "duration": 2,
+                "string": 4,
+                "fret": 3,
+                "dir": "D",
+                "finger": 3,
+                "chord": {
+                  "root": 4,
+                  "quality": "5"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 0,
+                "t": 14,
+                "duration": 2,
+                "string": 4,
+                "fret": 3,
+                "dir": "D",
+                "finger": 3,
+                "chord": {
+                  "root": 9,
+                  "quality": "5"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 1,
+                "t": 0,
+                "duration": 4,
+                "string": 4,
+                "fret": 3,
+                "dir": "D",
+                "finger": 3,
+                "chord": {
+                  "root": 9,
+                  "quality": "5"
+                },
+                "articulations": ["accent", "palm-mute"],
+                "passing": false
+              },
+              {
+                "bar": 1,
+                "t": 4,
+                "duration": 4,
+                "string": 5,
+                "fret": 1,
+                "dir": "D",
+                "finger": 1,
+                "chord": {
+                  "root": 9,
+                  "quality": "5"
+                },
+                "articulations": ["palm-mute"],
+                "passing": false
+              },
+              {
+                "bar": 1,
+                "t": 8,
+                "duration": 4,
+                "string": 5,
+                "fret": 1,
+                "dir": "D",
+                "finger": 1,
+                "chord": {
+                  "root": 9,
+                  "quality": "5"
+                },
+                "articulations": ["palm-mute"],
+                "passing": false
+              },
+              {
+                "bar": 1,
+                "t": 12,
+                "duration": 2,
+                "string": 5,
+                "fret": 1,
+                "dir": "D",
+                "finger": 1,
+                "chord": {
+                  "root": 9,
+                  "quality": "5"
+                },
+                "articulations": ["palm-mute"],
+                "passing": false
+              },
+              {
+                "bar": 1,
+                "t": 14,
+                "duration": 2,
+                "string": 5,
+                "fret": 3,
+                "dir": "D",
+                "finger": 3,
+                "chord": {
+                  "root": 11,
+                  "quality": "5"
+                },
+                "articulations": ["palm-mute"],
+                "passing": false
+              },
+              {
+                "bar": 2,
+                "t": 0,
+                "duration": 4,
+                "string": 5,
+                "fret": 3,
+                "dir": "D",
+                "finger": 3,
+                "chord": {
+                  "root": 11,
+                  "quality": "5"
+                },
+                "articulations": ["accent", "palm-mute"],
+                "passing": false
+              },
+              {
+                "bar": 2,
+                "t": 4,
+                "duration": 4,
+                "string": 5,
+                "fret": 3,
+                "dir": "D",
+                "finger": 3,
+                "chord": {
+                  "root": 11,
+                  "quality": "5"
+                },
+                "articulations": ["palm-mute"],
+                "passing": false
+              },
+              {
+                "bar": 2,
+                "t": 8,
+                "duration": 4,
+                "string": 5,
+                "fret": 3,
+                "dir": "D",
+                "finger": 3,
+                "chord": {
+                  "root": 11,
+                  "quality": "5"
+                },
+                "articulations": ["palm-mute"],
+                "passing": false
+              },
+              {
+                "bar": 2,
+                "t": 12,
+                "duration": 2,
+                "string": 5,
+                "fret": 3,
+                "dir": "D",
+                "finger": 3,
+                "chord": {
+                  "root": 11,
+                  "quality": "5"
+                },
+                "articulations": ["palm-mute"],
+                "passing": false
+              },
+              {
+                "bar": 2,
+                "t": 14,
+                "duration": 2,
+                "string": 5,
+                "fret": 1,
+                "dir": "D",
+                "finger": 1,
+                "chord": {
+                  "root": 9,
+                  "quality": "5"
+                },
+                "articulations": ["palm-mute"],
+                "passing": false
+              },
+              {
+                "bar": 3,
+                "t": 0,
+                "duration": 2,
+                "string": 5,
+                "fret": 1,
+                "dir": "D",
+                "finger": 1,
+                "chord": {
+                  "root": 9,
+                  "quality": "5"
+                },
+                "articulations": ["accent"],
+                "passing": false
+              },
+              {
+                "bar": 3,
+                "t": 2,
+                "duration": 2,
+                "string": 5,
+                "fret": 1,
+                "dir": "D",
+                "finger": 1,
+                "chord": {
+                  "root": 9,
+                  "quality": "5"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 3,
+                "t": 4,
+                "duration": 2,
+                "string": 4,
+                "fret": 3,
+                "dir": "D",
+                "finger": 3,
+                "chord": {
+                  "root": 9,
+                  "quality": "5"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 3,
+                "t": 6,
+                "duration": 2,
+                "string": 5,
+                "fret": 1,
+                "dir": "D",
+                "finger": 1,
+                "chord": {
+                  "root": 9,
+                  "quality": "5"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 3,
+                "t": 8,
+                "duration": 2,
+                "string": 4,
+                "fret": 3,
+                "dir": "D",
+                "finger": 3,
+                "chord": {
+                  "root": 9,
+                  "quality": "5"
+                },
+                "articulations": ["accent"],
+                "passing": false
+              },
+              {
+                "bar": 3,
+                "t": 10,
+                "duration": 2,
+                "string": 4,
+                "fret": 3,
+                "dir": "D",
+                "finger": 3,
+                "chord": {
+                  "root": 9,
+                  "quality": "5"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 3,
+                "t": 12,
+                "duration": 2,
+                "string": 4,
+                "fret": 3,
+                "dir": "D",
+                "finger": 3,
+                "chord": {
+                  "root": 9,
+                  "quality": "5"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 3,
+                "t": 14,
+                "duration": 2,
+                "string": 5,
+                "fret": 1,
+                "dir": "D",
+                "finger": 1,
+                "chord": {
+                  "root": 9,
+                  "quality": "5"
+                },
+                "articulations": [],
+                "passing": false
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "riff-power-2",
+      "module": "power",
+      "title": "Carpark Anthem",
+      "unlockAfter": 6,
+      "bars": 8,
+      "piece": {
+        "id": "riff-power-2",
+        "kind": "riff",
+        "bpm": 175,
+        "subdivision": 8,
+        "swing": 50,
+        "tuning": "halfDown",
+        "capo": 0,
+        "phraseShape": "octave-leap",
+        "sections": [
+          {
+            "name": "riff",
+            "events": [
+              {
+                "bar": 0,
+                "t": 0,
+                "duration": 4,
+                "string": 5,
+                "fret": 8,
+                "dir": "D",
+                "finger": 3,
+                "chord": {
+                  "root": 9,
+                  "quality": "5"
+                },
+                "articulations": ["accent"],
+                "passing": false
+              },
+              {
+                "bar": 0,
+                "t": 4,
+                "duration": 4,
+                "string": 4,
+                "fret": 8,
+                "dir": "D",
+                "finger": 3,
+                "chord": {
+                  "root": 9,
+                  "quality": "5"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 0,
+                "t": 8,
+                "duration": 4,
+                "string": 5,
+                "fret": 8,
+                "dir": "D",
+                "finger": 3,
+                "chord": {
+                  "root": 9,
+                  "quality": "5"
+                },
+                "articulations": ["accent"],
+                "passing": false
+              },
+              {
+                "bar": 0,
+                "t": 12,
+                "duration": 2,
+                "string": 4,
+                "fret": 8,
+                "dir": "D",
+                "finger": 3,
+                "chord": {
+                  "root": 9,
+                  "quality": "5"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 0,
+                "t": 14,
+                "duration": 2,
+                "string": 4,
+                "fret": 8,
+                "dir": "D",
+                "finger": 3,
+                "chord": {
+                  "root": 2,
+                  "quality": "5"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 1,
+                "t": 0,
+                "duration": 4,
+                "string": 4,
+                "fret": 8,
+                "dir": "D",
+                "finger": 3,
+                "chord": {
+                  "root": 2,
+                  "quality": "5"
+                },
+                "articulations": ["accent", "palm-mute"],
+                "passing": false
+              },
+              {
+                "bar": 1,
+                "t": 4,
+                "duration": 2,
+                "string": 5,
+                "fret": 6,
+                "dir": "D",
+                "finger": 1,
+                "chord": {
+                  "root": 2,
+                  "quality": "5"
+                },
+                "articulations": ["palm-mute"],
+                "passing": false
+              },
+              {
+                "bar": 1,
+                "t": 6,
+                "duration": 2,
+                "string": 5,
+                "fret": 6,
+                "dir": "D",
+                "finger": 1,
+                "chord": {
+                  "root": 2,
+                  "quality": "5"
+                },
+                "articulations": ["palm-mute"],
+                "passing": false
+              },
+              {
+                "bar": 1,
+                "t": 8,
+                "duration": 4,
+                "string": 5,
+                "fret": 6,
+                "dir": "D",
+                "finger": 1,
+                "chord": {
+                  "root": 2,
+                  "quality": "5"
+                },
+                "articulations": ["accent"],
+                "passing": false
+              },
+              {
+                "bar": 1,
+                "t": 12,
+                "duration": 2,
+                "string": 4,
+                "fret": 8,
+                "dir": "D",
+                "finger": 3,
+                "chord": {
+                  "root": 2,
+                  "quality": "5"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 1,
+                "t": 14,
+                "duration": 2,
+                "string": 5,
+                "fret": 8,
+                "dir": "D",
+                "finger": 3,
+                "chord": {
+                  "root": 4,
+                  "quality": "5"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 2,
+                "t": 0,
+                "duration": 2,
+                "string": 5,
+                "fret": 8,
+                "dir": "D",
+                "finger": 3,
+                "chord": {
+                  "root": 4,
+                  "quality": "5"
+                },
+                "articulations": ["accent"],
+                "passing": false
+              },
+              {
+                "bar": 2,
+                "t": 2,
+                "duration": 2,
+                "string": 5,
+                "fret": 8,
+                "dir": "D",
+                "finger": 3,
+                "chord": {
+                  "root": 4,
+                  "quality": "5"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 2,
+                "t": 4,
+                "duration": 2,
+                "string": 5,
+                "fret": 8,
+                "dir": "D",
+                "finger": 3,
+                "chord": {
+                  "root": 4,
+                  "quality": "5"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 2,
+                "t": 6,
+                "duration": 2,
+                "string": 5,
+                "fret": 8,
+                "dir": "D",
+                "finger": 3,
+                "chord": {
+                  "root": 4,
+                  "quality": "5"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 2,
+                "t": 8,
+                "duration": 2,
+                "string": 5,
+                "fret": 8,
+                "dir": "D",
+                "finger": 3,
+                "chord": {
+                  "root": 4,
+                  "quality": "5"
+                },
+                "articulations": ["accent"],
+                "passing": false
+              },
+              {
+                "bar": 2,
+                "t": 10,
+                "duration": 2,
+                "string": 5,
+                "fret": 8,
+                "dir": "D",
+                "finger": 3,
+                "chord": {
+                  "root": 4,
+                  "quality": "5"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 2,
+                "t": 12,
+                "duration": 2,
+                "string": 5,
+                "fret": 8,
+                "dir": "D",
+                "finger": 3,
+                "chord": {
+                  "root": 4,
+                  "quality": "5"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 2,
+                "t": 14,
+                "duration": 2,
+                "string": 5,
+                "fret": 6,
+                "dir": "D",
+                "finger": 1,
+                "chord": {
+                  "root": 2,
+                  "quality": "5"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 3,
+                "t": 0,
+                "duration": 4,
+                "string": 4,
+                "fret": 8,
+                "dir": "D",
+                "finger": 3,
+                "chord": {
+                  "root": 2,
+                  "quality": "5"
+                },
+                "articulations": ["accent", "palm-mute"],
+                "passing": false
+              },
+              {
+                "bar": 3,
+                "t": 4,
+                "duration": 2,
+                "string": 4,
+                "fret": 8,
+                "dir": "D",
+                "finger": 3,
+                "chord": {
+                  "root": 2,
+                  "quality": "5"
+                },
+                "articulations": ["palm-mute"],
+                "passing": false
+              },
+              {
+                "bar": 3,
+                "t": 6,
+                "duration": 2,
+                "string": 4,
+                "fret": 8,
+                "dir": "D",
+                "finger": 3,
+                "chord": {
+                  "root": 2,
+                  "quality": "5"
+                },
+                "articulations": ["palm-mute"],
+                "passing": false
+              },
+              {
+                "bar": 3,
+                "t": 8,
+                "duration": 4,
+                "string": 5,
+                "fret": 6,
+                "dir": "D",
+                "finger": 1,
+                "chord": {
+                  "root": 2,
+                  "quality": "5"
+                },
+                "articulations": ["accent"],
+                "passing": false
+              },
+              {
+                "bar": 3,
+                "t": 12,
+                "duration": 2,
+                "string": 5,
+                "fret": 6,
+                "dir": "D",
+                "finger": 1,
+                "chord": {
+                  "root": 2,
+                  "quality": "5"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 3,
+                "t": 14,
+                "duration": 2,
+                "string": 5,
+                "fret": 8,
+                "dir": "D",
+                "finger": 3,
+                "chord": {
+                  "root": 9,
+                  "quality": "5"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 4,
+                "t": 0,
+                "duration": 4,
+                "string": 4,
+                "fret": 8,
+                "dir": "D",
+                "finger": 3,
+                "chord": {
+                  "root": 9,
+                  "quality": "5"
+                },
+                "articulations": ["accent", "palm-mute"],
+                "passing": false
+              },
+              {
+                "bar": 4,
+                "t": 4,
+                "duration": 4,
+                "string": 5,
+                "fret": 8,
+                "dir": "D",
+                "finger": 3,
+                "chord": {
+                  "root": 9,
+                  "quality": "5"
+                },
+                "articulations": ["palm-mute"],
+                "passing": false
+              },
+              {
+                "bar": 4,
+                "t": 8,
+                "duration": 4,
+                "string": 4,
+                "fret": 8,
+                "dir": "D",
+                "finger": 3,
+                "chord": {
+                  "root": 9,
+                  "quality": "5"
+                },
+                "articulations": ["palm-mute"],
+                "passing": false
+              },
+              {
+                "bar": 4,
+                "t": 12,
+                "duration": 2,
+                "string": 4,
+                "fret": 8,
+                "dir": "D",
+                "finger": 3,
+                "chord": {
+                  "root": 9,
+                  "quality": "5"
+                },
+                "articulations": ["palm-mute"],
+                "passing": false
+              },
+              {
+                "bar": 4,
+                "t": 14,
+                "duration": 2,
+                "string": 4,
+                "fret": 8,
+                "dir": "D",
+                "finger": 3,
+                "chord": {
+                  "root": 2,
+                  "quality": "5"
+                },
+                "articulations": ["palm-mute"],
+                "passing": false
+              },
+              {
+                "bar": 5,
+                "t": 0,
+                "duration": 4,
+                "string": 5,
+                "fret": 6,
+                "dir": "D",
+                "finger": 1,
+                "chord": {
+                  "root": 2,
+                  "quality": "5"
+                },
+                "articulations": ["accent", "palm-mute"],
+                "passing": false
+              },
+              {
+                "bar": 5,
+                "t": 4,
+                "duration": 4,
+                "string": 5,
+                "fret": 6,
+                "dir": "D",
+                "finger": 1,
+                "chord": {
+                  "root": 2,
+                  "quality": "5"
+                },
+                "articulations": ["palm-mute"],
+                "passing": false
+              },
+              {
+                "bar": 5,
+                "t": 8,
+                "duration": 4,
+                "string": 5,
+                "fret": 6,
+                "dir": "D",
+                "finger": 1,
+                "chord": {
+                  "root": 2,
+                  "quality": "5"
+                },
+                "articulations": ["palm-mute"],
+                "passing": false
+              },
+              {
+                "bar": 5,
+                "t": 12,
+                "duration": 2,
+                "string": 4,
+                "fret": 8,
+                "dir": "D",
+                "finger": 3,
+                "chord": {
+                  "root": 2,
+                  "quality": "5"
+                },
+                "articulations": ["palm-mute"],
+                "passing": false
+              },
+              {
+                "bar": 5,
+                "t": 14,
+                "duration": 2,
+                "string": 5,
+                "fret": 8,
+                "dir": "D",
+                "finger": 3,
+                "chord": {
+                  "root": 4,
+                  "quality": "5"
+                },
+                "articulations": ["palm-mute"],
+                "passing": false
+              },
+              {
+                "bar": 6,
+                "t": 0,
+                "duration": 2,
+                "string": 5,
+                "fret": 8,
+                "dir": "D",
+                "finger": 3,
+                "chord": {
+                  "root": 4,
+                  "quality": "5"
+                },
+                "articulations": ["accent"],
+                "passing": false
+              },
+              {
+                "bar": 6,
+                "t": 2,
+                "duration": 2,
+                "string": 5,
+                "fret": 8,
+                "dir": "D",
+                "finger": 3,
+                "chord": {
+                  "root": 4,
+                  "quality": "5"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 6,
+                "t": 4,
+                "duration": 2,
+                "string": 5,
+                "fret": 8,
+                "dir": "D",
+                "finger": 3,
+                "chord": {
+                  "root": 4,
+                  "quality": "5"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 6,
+                "t": 6,
+                "duration": 2,
+                "string": 5,
+                "fret": 8,
+                "dir": "D",
+                "finger": 3,
+                "chord": {
+                  "root": 4,
+                  "quality": "5"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 6,
+                "t": 8,
+                "duration": 2,
+                "string": 5,
+                "fret": 8,
+                "dir": "D",
+                "finger": 3,
+                "chord": {
+                  "root": 4,
+                  "quality": "5"
+                },
+                "articulations": ["accent"],
+                "passing": false
+              },
+              {
+                "bar": 6,
+                "t": 10,
+                "duration": 2,
+                "string": 5,
+                "fret": 8,
+                "dir": "D",
+                "finger": 3,
+                "chord": {
+                  "root": 4,
+                  "quality": "5"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 6,
+                "t": 12,
+                "duration": 2,
+                "string": 5,
+                "fret": 8,
+                "dir": "D",
+                "finger": 3,
+                "chord": {
+                  "root": 4,
+                  "quality": "5"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 6,
+                "t": 14,
+                "duration": 2,
+                "string": 5,
+                "fret": 6,
+                "dir": "D",
+                "finger": 1,
+                "chord": {
+                  "root": 2,
+                  "quality": "5"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 7,
+                "t": 0,
+                "duration": 2,
+                "string": 4,
+                "fret": 8,
+                "dir": "D",
+                "finger": 3,
+                "chord": {
+                  "root": 2,
+                  "quality": "5"
+                },
+                "articulations": ["accent"],
+                "passing": false
+              },
+              {
+                "bar": 7,
+                "t": 2,
+                "duration": 2,
+                "string": 4,
+                "fret": 8,
+                "dir": "D",
+                "finger": 3,
+                "chord": {
+                  "root": 2,
+                  "quality": "5"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 7,
+                "t": 4,
+                "duration": 2,
+                "string": 4,
+                "fret": 8,
+                "dir": "D",
+                "finger": 3,
+                "chord": {
+                  "root": 2,
+                  "quality": "5"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 7,
+                "t": 6,
+                "duration": 2,
+                "string": 5,
+                "fret": 6,
+                "dir": "D",
+                "finger": 1,
+                "chord": {
+                  "root": 2,
+                  "quality": "5"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 7,
+                "t": 8,
+                "duration": 2,
+                "string": 5,
+                "fret": 6,
+                "dir": "D",
+                "finger": 1,
+                "chord": {
+                  "root": 2,
+                  "quality": "5"
+                },
+                "articulations": ["accent"],
+                "passing": false
+              },
+              {
+                "bar": 7,
+                "t": 10,
+                "duration": 2,
+                "string": 5,
+                "fret": 6,
+                "dir": "D",
+                "finger": 1,
+                "chord": {
+                  "root": 2,
+                  "quality": "5"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 7,
+                "t": 12,
+                "duration": 2,
+                "string": 4,
+                "fret": 8,
+                "dir": "D",
+                "finger": 3,
+                "chord": {
+                  "root": 2,
+                  "quality": "5"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 7,
+                "t": 14,
+                "duration": 2,
+                "string": 5,
+                "fret": 6,
+                "dir": "D",
+                "finger": 1,
+                "chord": {
+                  "root": 2,
+                  "quality": "5"
+                },
+                "articulations": [],
+                "passing": false
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "riff-open-1",
+      "module": "open",
+      "title": "Pier in November",
+      "unlockAfter": 3,
+      "bars": 4,
+      "piece": {
+        "id": "riff-open-1",
+        "kind": "riff",
+        "bpm": 70,
+        "subdivision": 16,
+        "swing": 50,
+        "tuning": "standard",
+        "capo": 0,
+        "phraseShape": "drone-top",
+        "sections": [
+          {
+            "name": "riff",
+            "events": [
+              {
+                "bar": 0,
+                "t": 0,
+                "duration": 4,
+                "string": 1,
+                "fret": 3,
+                "dir": "D",
+                "finger": 3,
+                "chord": {
+                  "root": 7,
+                  "quality": "maj"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 0,
+                "t": 4,
+                "duration": 2,
+                "string": 1,
+                "fret": 3,
+                "dir": "D",
+                "finger": 3,
+                "chord": {
+                  "root": 7,
+                  "quality": "maj"
+                },
+                "articulations": ["accent"],
+                "passing": false
+              },
+              {
+                "bar": 0,
+                "t": 6,
+                "duration": 1,
+                "string": 2,
+                "fret": 3,
+                "dir": "D",
+                "finger": 3,
+                "chord": {
+                  "root": 7,
+                  "quality": "maj"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 0,
+                "t": 7,
+                "duration": 1,
+                "string": 1,
+                "fret": 3,
+                "dir": "U",
+                "finger": 3,
+                "chord": {
+                  "root": 7,
+                  "quality": "maj"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 0,
+                "t": 8,
+                "duration": 4,
+                "string": 1,
+                "fret": 3,
+                "dir": "D",
+                "finger": 3,
+                "chord": {
+                  "root": 7,
+                  "quality": "maj"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 0,
+                "t": 12,
+                "duration": 2,
+                "string": 2,
+                "fret": 0,
+                "dir": "D",
+                "finger": 0,
+                "chord": {
+                  "root": 7,
+                  "quality": "maj"
+                },
+                "articulations": ["accent"],
+                "passing": false
+              },
+              {
+                "bar": 0,
+                "t": 14,
+                "duration": 1,
+                "string": 1,
+                "fret": 3,
+                "dir": "D",
+                "finger": 3,
+                "chord": {
+                  "root": 7,
+                  "quality": "maj"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 0,
+                "t": 15,
+                "duration": 1,
+                "string": 2,
+                "fret": 3,
+                "dir": "U",
+                "finger": 3,
+                "chord": {
+                  "root": 7,
+                  "quality": "maj"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 1,
+                "t": 0,
+                "duration": 3,
+                "string": 1,
+                "fret": 3,
+                "dir": "D",
+                "finger": 3,
+                "chord": {
+                  "root": 0,
+                  "quality": "maj"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 1,
+                "t": 3,
+                "duration": 1,
+                "string": 1,
+                "fret": 3,
+                "dir": "U",
+                "finger": 3,
+                "chord": {
+                  "root": 0,
+                  "quality": "maj"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 1,
+                "t": 4,
+                "duration": 2,
+                "string": 1,
+                "fret": 0,
+                "dir": "D",
+                "finger": 0,
+                "chord": {
+                  "root": 0,
+                  "quality": "maj"
+                },
+                "articulations": ["accent"],
+                "passing": false
+              },
+              {
+                "bar": 1,
+                "t": 6,
+                "duration": 1,
+                "string": 1,
+                "fret": 3,
+                "dir": "D",
+                "finger": 3,
+                "chord": {
+                  "root": 0,
+                  "quality": "maj"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 1,
+                "t": 7,
+                "duration": 3,
+                "string": 1,
+                "fret": 3,
+                "dir": "U",
+                "finger": 3,
+                "chord": {
+                  "root": 0,
+                  "quality": "maj"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 1,
+                "t": 10,
+                "duration": 1,
+                "string": 2,
+                "fret": 1,
+                "dir": "D",
+                "finger": 1,
+                "chord": {
+                  "root": 0,
+                  "quality": "maj"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 1,
+                "t": 11,
+                "duration": 1,
+                "string": 1,
+                "fret": 3,
+                "dir": "U",
+                "finger": 3,
+                "chord": {
+                  "root": 0,
+                  "quality": "maj"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 1,
+                "t": 12,
+                "duration": 2,
+                "string": 1,
+                "fret": 0,
+                "dir": "D",
+                "finger": 0,
+                "chord": {
+                  "root": 0,
+                  "quality": "maj"
+                },
+                "articulations": ["accent"],
+                "passing": false
+              },
+              {
+                "bar": 1,
+                "t": 14,
+                "duration": 1,
+                "string": 1,
+                "fret": 3,
+                "dir": "D",
+                "finger": 3,
+                "chord": {
+                  "root": 0,
+                  "quality": "maj"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 1,
+                "t": 15,
+                "duration": 1,
+                "string": 1,
+                "fret": 3,
+                "dir": "U",
+                "finger": 3,
+                "chord": {
+                  "root": 0,
+                  "quality": "maj"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 2,
+                "t": 0,
+                "duration": 4,
+                "string": 1,
+                "fret": 0,
+                "dir": "D",
+                "finger": 0,
+                "chord": {
+                  "root": 4,
+                  "quality": "min"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 2,
+                "t": 4,
+                "duration": 2,
+                "string": 1,
+                "fret": 3,
+                "dir": "D",
+                "finger": 3,
+                "chord": {
+                  "root": 4,
+                  "quality": "min"
+                },
+                "articulations": ["accent"],
+                "passing": false
+              },
+              {
+                "bar": 2,
+                "t": 6,
+                "duration": 1,
+                "string": 1,
+                "fret": 3,
+                "dir": "D",
+                "finger": 3,
+                "chord": {
+                  "root": 4,
+                  "quality": "min"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 2,
+                "t": 7,
+                "duration": 1,
+                "string": 2,
+                "fret": 0,
+                "dir": "U",
+                "finger": 0,
+                "chord": {
+                  "root": 4,
+                  "quality": "min"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 2,
+                "t": 8,
+                "duration": 4,
+                "string": 1,
+                "fret": 3,
+                "dir": "D",
+                "finger": 3,
+                "chord": {
+                  "root": 4,
+                  "quality": "min"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 2,
+                "t": 12,
+                "duration": 2,
+                "string": 1,
+                "fret": 0,
+                "dir": "D",
+                "finger": 0,
+                "chord": {
+                  "root": 4,
+                  "quality": "min"
+                },
+                "articulations": ["accent"],
+                "passing": false
+              },
+              {
+                "bar": 2,
+                "t": 14,
+                "duration": 1,
+                "string": 1,
+                "fret": 3,
+                "dir": "D",
+                "finger": 3,
+                "chord": {
+                  "root": 4,
+                  "quality": "min"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 2,
+                "t": 15,
+                "duration": 1,
+                "string": 1,
+                "fret": 3,
+                "dir": "U",
+                "finger": 3,
+                "chord": {
+                  "root": 4,
+                  "quality": "min"
+                },
+                "articulations": ["let-ring"],
+                "passing": false
+              },
+              {
+                "bar": 3,
+                "t": 0,
+                "duration": 3,
+                "string": 2,
+                "fret": 3,
+                "dir": "D",
+                "finger": 3,
+                "chord": {
+                  "root": 2,
+                  "quality": "maj"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 3,
+                "t": 3,
+                "duration": 1,
+                "string": 1,
+                "fret": 2,
+                "dir": "U",
+                "finger": 2,
+                "chord": {
+                  "root": 2,
+                  "quality": "maj"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 3,
+                "t": 4,
+                "duration": 2,
+                "string": 1,
+                "fret": 2,
+                "dir": "D",
+                "finger": 2,
+                "chord": {
+                  "root": 2,
+                  "quality": "maj"
+                },
+                "articulations": ["accent"],
+                "passing": false
+              },
+              {
+                "bar": 3,
+                "t": 6,
+                "duration": 1,
+                "string": 3,
+                "fret": 2,
+                "dir": "D",
+                "finger": 2,
+                "chord": {
+                  "root": 2,
+                  "quality": "maj"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 3,
+                "t": 7,
+                "duration": 3,
+                "string": 1,
+                "fret": 2,
+                "dir": "U",
+                "finger": 2,
+                "chord": {
+                  "root": 2,
+                  "quality": "maj"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 3,
+                "t": 10,
+                "duration": 1,
+                "string": 2,
+                "fret": 3,
+                "dir": "D",
+                "finger": 3,
+                "chord": {
+                  "root": 2,
+                  "quality": "maj"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 3,
+                "t": 11,
+                "duration": 1,
+                "string": 1,
+                "fret": 2,
+                "dir": "U",
+                "finger": 2,
+                "chord": {
+                  "root": 2,
+                  "quality": "maj"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 3,
+                "t": 12,
+                "duration": 2,
+                "string": 1,
+                "fret": 2,
+                "dir": "D",
+                "finger": 2,
+                "chord": {
+                  "root": 2,
+                  "quality": "maj"
+                },
+                "articulations": ["accent"],
+                "passing": false
+              },
+              {
+                "bar": 3,
+                "t": 14,
+                "duration": 1,
+                "string": 2,
+                "fret": 3,
+                "dir": "D",
+                "finger": 3,
+                "chord": {
+                  "root": 2,
+                  "quality": "maj"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 3,
+                "t": 15,
+                "duration": 1,
+                "string": 1,
+                "fret": 2,
+                "dir": "U",
+                "finger": 2,
+                "chord": {
+                  "root": 2,
+                  "quality": "maj"
+                },
+                "articulations": [],
+                "passing": false
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "riff-open-2",
+      "module": "open",
+      "title": "Borrowed Umbrella",
+      "unlockAfter": 6,
+      "bars": 8,
+      "piece": {
+        "id": "riff-open-2",
+        "kind": "riff",
+        "bpm": 90,
+        "subdivision": 16,
+        "swing": 50,
+        "tuning": "standard",
+        "capo": 0,
+        "phraseShape": "drone-top",
+        "sections": [
+          {
+            "name": "riff",
+            "events": [
+              {
+                "bar": 0,
+                "t": 0,
+                "duration": 2,
+                "string": 2,
+                "fret": 10,
+                "dir": "D",
+                "finger": 4,
+                "chord": {
+                  "root": 2,
+                  "quality": "maj"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 0,
+                "t": 2,
+                "duration": 1,
+                "string": 2,
+                "fret": 10,
+                "dir": "D",
+                "finger": 4,
+                "chord": {
+                  "root": 2,
+                  "quality": "maj"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 0,
+                "t": 3,
+                "duration": 1,
+                "string": 2,
+                "fret": 7,
+                "dir": "U",
+                "finger": 1,
+                "chord": {
+                  "root": 2,
+                  "quality": "maj"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 0,
+                "t": 4,
+                "duration": 3,
+                "string": 2,
+                "fret": 10,
+                "dir": "D",
+                "finger": 4,
+                "chord": {
+                  "root": 2,
+                  "quality": "maj"
+                },
+                "articulations": ["accent"],
+                "passing": false
+              },
+              {
+                "bar": 0,
+                "t": 7,
+                "duration": 1,
+                "string": 2,
+                "fret": 10,
+                "dir": "U",
+                "finger": 4,
+                "chord": {
+                  "root": 2,
+                  "quality": "maj"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 0,
+                "t": 8,
+                "duration": 3,
+                "string": 3,
+                "fret": 7,
+                "dir": "D",
+                "finger": 1,
+                "chord": {
+                  "root": 2,
+                  "quality": "maj"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 0,
+                "t": 11,
+                "duration": 1,
+                "string": 2,
+                "fret": 10,
+                "dir": "U",
+                "finger": 4,
+                "chord": {
+                  "root": 2,
+                  "quality": "maj"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 0,
+                "t": 12,
+                "duration": 1,
+                "string": 2,
+                "fret": 7,
+                "dir": "D",
+                "finger": 1,
+                "chord": {
+                  "root": 2,
+                  "quality": "maj"
+                },
+                "articulations": ["accent"],
+                "passing": false
+              },
+              {
+                "bar": 0,
+                "t": 13,
+                "duration": 1,
+                "string": 2,
+                "fret": 10,
+                "dir": "U",
+                "finger": 4,
+                "chord": {
+                  "root": 2,
+                  "quality": "maj"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 0,
+                "t": 14,
+                "duration": 1,
+                "string": 2,
+                "fret": 10,
+                "dir": "D",
+                "finger": 4,
+                "chord": {
+                  "root": 2,
+                  "quality": "maj"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 0,
+                "t": 15,
+                "duration": 1,
+                "string": 2,
+                "fret": 7,
+                "dir": "U",
+                "finger": 1,
+                "chord": {
+                  "root": 2,
+                  "quality": "maj"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 1,
+                "t": 0,
+                "duration": 3,
+                "string": 2,
+                "fret": 10,
+                "dir": "D",
+                "finger": 4,
+                "chord": {
+                  "root": 9,
+                  "quality": "maj"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 1,
+                "t": 3,
+                "duration": 1,
+                "string": 2,
+                "fret": 10,
+                "dir": "U",
+                "finger": 4,
+                "chord": {
+                  "root": 9,
+                  "quality": "maj"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 1,
+                "t": 4,
+                "duration": 2,
+                "string": 3,
+                "fret": 9,
+                "dir": "D",
+                "finger": 3,
+                "chord": {
+                  "root": 9,
+                  "quality": "maj"
+                },
+                "articulations": ["accent"],
+                "passing": false
+              },
+              {
+                "bar": 1,
+                "t": 6,
+                "duration": 1,
+                "string": 2,
+                "fret": 10,
+                "dir": "D",
+                "finger": 4,
+                "chord": {
+                  "root": 9,
+                  "quality": "maj"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 1,
+                "t": 7,
+                "duration": 3,
+                "string": 1,
+                "fret": 0,
+                "dir": "U",
+                "finger": 0,
+                "chord": {
+                  "root": 9,
+                  "quality": "maj"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 1,
+                "t": 10,
+                "duration": 1,
+                "string": 2,
+                "fret": 10,
+                "dir": "D",
+                "finger": 4,
+                "chord": {
+                  "root": 9,
+                  "quality": "maj"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 1,
+                "t": 11,
+                "duration": 1,
+                "string": 2,
+                "fret": 10,
+                "dir": "U",
+                "finger": 4,
+                "chord": {
+                  "root": 9,
+                  "quality": "maj"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 1,
+                "t": 12,
+                "duration": 2,
+                "string": 1,
+                "fret": 0,
+                "dir": "D",
+                "finger": 0,
+                "chord": {
+                  "root": 9,
+                  "quality": "maj"
+                },
+                "articulations": ["accent"],
+                "passing": false
+              },
+              {
+                "bar": 1,
+                "t": 14,
+                "duration": 1,
+                "string": 2,
+                "fret": 10,
+                "dir": "D",
+                "finger": 4,
+                "chord": {
+                  "root": 9,
+                  "quality": "maj"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 1,
+                "t": 15,
+                "duration": 1,
+                "string": 2,
+                "fret": 10,
+                "dir": "U",
+                "finger": 4,
+                "chord": {
+                  "root": 9,
+                  "quality": "maj"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 2,
+                "t": 0,
+                "duration": 4,
+                "string": 3,
+                "fret": 7,
+                "dir": "D",
+                "finger": 1,
+                "chord": {
+                  "root": 11,
+                  "quality": "min"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 2,
+                "t": 4,
+                "duration": 2,
+                "string": 1,
+                "fret": 7,
+                "dir": "D",
+                "finger": 1,
+                "chord": {
+                  "root": 11,
+                  "quality": "min"
+                },
+                "articulations": ["accent"],
+                "passing": false
+              },
+              {
+                "bar": 2,
+                "t": 6,
+                "duration": 1,
+                "string": 2,
+                "fret": 7,
+                "dir": "D",
+                "finger": 1,
+                "chord": {
+                  "root": 11,
+                  "quality": "min"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 2,
+                "t": 7,
+                "duration": 1,
+                "string": 1,
+                "fret": 7,
+                "dir": "U",
+                "finger": 1,
+                "chord": {
+                  "root": 11,
+                  "quality": "min"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 2,
+                "t": 8,
+                "duration": 4,
+                "string": 1,
+                "fret": 7,
+                "dir": "D",
+                "finger": 1,
+                "chord": {
+                  "root": 11,
+                  "quality": "min"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 2,
+                "t": 12,
+                "duration": 2,
+                "string": 2,
+                "fret": 7,
+                "dir": "D",
+                "finger": 1,
+                "chord": {
+                  "root": 11,
+                  "quality": "min"
+                },
+                "articulations": ["accent"],
+                "passing": false
+              },
+              {
+                "bar": 2,
+                "t": 14,
+                "duration": 1,
+                "string": 1,
+                "fret": 7,
+                "dir": "D",
+                "finger": 1,
+                "chord": {
+                  "root": 11,
+                  "quality": "min"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 2,
+                "t": 15,
+                "duration": 1,
+                "string": 1,
+                "fret": 7,
+                "dir": "U",
+                "finger": 1,
+                "chord": {
+                  "root": 11,
+                  "quality": "min"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 3,
+                "t": 0,
+                "duration": 2,
+                "string": 3,
+                "fret": 7,
+                "dir": "D",
+                "finger": 1,
+                "chord": {
+                  "root": 7,
+                  "quality": "maj"
+                },
+                "articulations": ["let-ring"],
+                "passing": false
+              },
+              {
+                "bar": 3,
+                "t": 2,
+                "duration": 1,
+                "string": 1,
+                "fret": 7,
+                "dir": "D",
+                "finger": 1,
+                "chord": {
+                  "root": 7,
+                  "quality": "maj"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 3,
+                "t": 3,
+                "duration": 1,
+                "string": 2,
+                "fret": 8,
+                "dir": "U",
+                "finger": 2,
+                "chord": {
+                  "root": 7,
+                  "quality": "maj"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 3,
+                "t": 4,
+                "duration": 3,
+                "string": 1,
+                "fret": 7,
+                "dir": "D",
+                "finger": 1,
+                "chord": {
+                  "root": 7,
+                  "quality": "maj"
+                },
+                "articulations": ["accent"],
+                "passing": false
+              },
+              {
+                "bar": 3,
+                "t": 7,
+                "duration": 1,
+                "string": 1,
+                "fret": 7,
+                "dir": "U",
+                "finger": 1,
+                "chord": {
+                  "root": 7,
+                  "quality": "maj"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 3,
+                "t": 8,
+                "duration": 3,
+                "string": 2,
+                "fret": 8,
+                "dir": "D",
+                "finger": 2,
+                "chord": {
+                  "root": 7,
+                  "quality": "maj"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 3,
+                "t": 11,
+                "duration": 1,
+                "string": 1,
+                "fret": 7,
+                "dir": "U",
+                "finger": 1,
+                "chord": {
+                  "root": 7,
+                  "quality": "maj"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 3,
+                "t": 12,
+                "duration": 1,
+                "string": 1,
+                "fret": 7,
+                "dir": "D",
+                "finger": 1,
+                "chord": {
+                  "root": 7,
+                  "quality": "maj"
+                },
+                "articulations": ["accent"],
+                "passing": false
+              },
+              {
+                "bar": 3,
+                "t": 13,
+                "duration": 1,
+                "string": 3,
+                "fret": 7,
+                "dir": "U",
+                "finger": 1,
+                "chord": {
+                  "root": 7,
+                  "quality": "maj"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 3,
+                "t": 14,
+                "duration": 1,
+                "string": 1,
+                "fret": 7,
+                "dir": "D",
+                "finger": 1,
+                "chord": {
+                  "root": 7,
+                  "quality": "maj"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 3,
+                "t": 15,
+                "duration": 1,
+                "string": 2,
+                "fret": 8,
+                "dir": "U",
+                "finger": 2,
+                "chord": {
+                  "root": 7,
+                  "quality": "maj"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 4,
+                "t": 0,
+                "duration": 2,
+                "string": 2,
+                "fret": 10,
+                "dir": "D",
+                "finger": 4,
+                "chord": {
+                  "root": 2,
+                  "quality": "maj"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 4,
+                "t": 2,
+                "duration": 1,
+                "string": 2,
+                "fret": 10,
+                "dir": "D",
+                "finger": 4,
+                "chord": {
+                  "root": 2,
+                  "quality": "maj"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 4,
+                "t": 3,
+                "duration": 1,
+                "string": 2,
+                "fret": 7,
+                "dir": "U",
+                "finger": 1,
+                "chord": {
+                  "root": 2,
+                  "quality": "maj"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 4,
+                "t": 4,
+                "duration": 3,
+                "string": 2,
+                "fret": 10,
+                "dir": "D",
+                "finger": 4,
+                "chord": {
+                  "root": 2,
+                  "quality": "maj"
+                },
+                "articulations": ["accent"],
+                "passing": false
+              },
+              {
+                "bar": 4,
+                "t": 7,
+                "duration": 1,
+                "string": 2,
+                "fret": 10,
+                "dir": "U",
+                "finger": 4,
+                "chord": {
+                  "root": 2,
+                  "quality": "maj"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 4,
+                "t": 8,
+                "duration": 3,
+                "string": 3,
+                "fret": 7,
+                "dir": "D",
+                "finger": 1,
+                "chord": {
+                  "root": 2,
+                  "quality": "maj"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 4,
+                "t": 11,
+                "duration": 1,
+                "string": 2,
+                "fret": 10,
+                "dir": "U",
+                "finger": 4,
+                "chord": {
+                  "root": 2,
+                  "quality": "maj"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 4,
+                "t": 12,
+                "duration": 1,
+                "string": 2,
+                "fret": 7,
+                "dir": "D",
+                "finger": 1,
+                "chord": {
+                  "root": 2,
+                  "quality": "maj"
+                },
+                "articulations": ["accent"],
+                "passing": false
+              },
+              {
+                "bar": 4,
+                "t": 13,
+                "duration": 1,
+                "string": 2,
+                "fret": 10,
+                "dir": "U",
+                "finger": 4,
+                "chord": {
+                  "root": 2,
+                  "quality": "maj"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 4,
+                "t": 14,
+                "duration": 1,
+                "string": 2,
+                "fret": 10,
+                "dir": "D",
+                "finger": 4,
+                "chord": {
+                  "root": 2,
+                  "quality": "maj"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 4,
+                "t": 15,
+                "duration": 1,
+                "string": 2,
+                "fret": 7,
+                "dir": "U",
+                "finger": 1,
+                "chord": {
+                  "root": 2,
+                  "quality": "maj"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 5,
+                "t": 0,
+                "duration": 2,
+                "string": 2,
+                "fret": 10,
+                "dir": "D",
+                "finger": 4,
+                "chord": {
+                  "root": 9,
+                  "quality": "maj"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 5,
+                "t": 2,
+                "duration": 1,
+                "string": 2,
+                "fret": 10,
+                "dir": "D",
+                "finger": 4,
+                "chord": {
+                  "root": 9,
+                  "quality": "maj"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 5,
+                "t": 3,
+                "duration": 1,
+                "string": 3,
+                "fret": 9,
+                "dir": "U",
+                "finger": 3,
+                "chord": {
+                  "root": 9,
+                  "quality": "maj"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 5,
+                "t": 4,
+                "duration": 3,
+                "string": 2,
+                "fret": 10,
+                "dir": "D",
+                "finger": 4,
+                "chord": {
+                  "root": 9,
+                  "quality": "maj"
+                },
+                "articulations": ["accent"],
+                "passing": false
+              },
+              {
+                "bar": 5,
+                "t": 7,
+                "duration": 1,
+                "string": 1,
+                "fret": 0,
+                "dir": "U",
+                "finger": 0,
+                "chord": {
+                  "root": 9,
+                  "quality": "maj"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 5,
+                "t": 8,
+                "duration": 3,
+                "string": 2,
+                "fret": 10,
+                "dir": "D",
+                "finger": 4,
+                "chord": {
+                  "root": 9,
+                  "quality": "maj"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 5,
+                "t": 11,
+                "duration": 1,
+                "string": 2,
+                "fret": 10,
+                "dir": "U",
+                "finger": 4,
+                "chord": {
+                  "root": 9,
+                  "quality": "maj"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 5,
+                "t": 12,
+                "duration": 1,
+                "string": 1,
+                "fret": 0,
+                "dir": "D",
+                "finger": 0,
+                "chord": {
+                  "root": 9,
+                  "quality": "maj"
+                },
+                "articulations": ["accent"],
+                "passing": false
+              },
+              {
+                "bar": 5,
+                "t": 13,
+                "duration": 1,
+                "string": 2,
+                "fret": 10,
+                "dir": "U",
+                "finger": 4,
+                "chord": {
+                  "root": 9,
+                  "quality": "maj"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 5,
+                "t": 14,
+                "duration": 1,
+                "string": 2,
+                "fret": 10,
+                "dir": "D",
+                "finger": 4,
+                "chord": {
+                  "root": 9,
+                  "quality": "maj"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 5,
+                "t": 15,
+                "duration": 1,
+                "string": 3,
+                "fret": 9,
+                "dir": "U",
+                "finger": 3,
+                "chord": {
+                  "root": 9,
+                  "quality": "maj"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 6,
+                "t": 0,
+                "duration": 4,
+                "string": 1,
+                "fret": 7,
+                "dir": "D",
+                "finger": 1,
+                "chord": {
+                  "root": 11,
+                  "quality": "min"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 6,
+                "t": 4,
+                "duration": 2,
+                "string": 2,
+                "fret": 7,
+                "dir": "D",
+                "finger": 1,
+                "chord": {
+                  "root": 11,
+                  "quality": "min"
+                },
+                "articulations": ["accent"],
+                "passing": false
+              },
+              {
+                "bar": 6,
+                "t": 6,
+                "duration": 1,
+                "string": 1,
+                "fret": 7,
+                "dir": "D",
+                "finger": 1,
+                "chord": {
+                  "root": 11,
+                  "quality": "min"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 6,
+                "t": 7,
+                "duration": 1,
+                "string": 1,
+                "fret": 7,
+                "dir": "U",
+                "finger": 1,
+                "chord": {
+                  "root": 11,
+                  "quality": "min"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 6,
+                "t": 8,
+                "duration": 4,
+                "string": 2,
+                "fret": 7,
+                "dir": "D",
+                "finger": 1,
+                "chord": {
+                  "root": 11,
+                  "quality": "min"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 6,
+                "t": 12,
+                "duration": 2,
+                "string": 1,
+                "fret": 7,
+                "dir": "D",
+                "finger": 1,
+                "chord": {
+                  "root": 11,
+                  "quality": "min"
+                },
+                "articulations": ["accent"],
+                "passing": false
+              },
+              {
+                "bar": 6,
+                "t": 14,
+                "duration": 1,
+                "string": 1,
+                "fret": 7,
+                "dir": "D",
+                "finger": 1,
+                "chord": {
+                  "root": 11,
+                  "quality": "min"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 6,
+                "t": 15,
+                "duration": 1,
+                "string": 3,
+                "fret": 7,
+                "dir": "U",
+                "finger": 1,
+                "chord": {
+                  "root": 11,
+                  "quality": "min"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 7,
+                "t": 0,
+                "duration": 4,
+                "string": 1,
+                "fret": 7,
+                "dir": "D",
+                "finger": 1,
+                "chord": {
+                  "root": 7,
+                  "quality": "maj"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 7,
+                "t": 4,
+                "duration": 2,
+                "string": 2,
+                "fret": 8,
+                "dir": "D",
+                "finger": 2,
+                "chord": {
+                  "root": 7,
+                  "quality": "maj"
+                },
+                "articulations": ["accent"],
+                "passing": false
+              },
+              {
+                "bar": 7,
+                "t": 6,
+                "duration": 1,
+                "string": 1,
+                "fret": 7,
+                "dir": "D",
+                "finger": 1,
+                "chord": {
+                  "root": 7,
+                  "quality": "maj"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 7,
+                "t": 7,
+                "duration": 1,
+                "string": 1,
+                "fret": 7,
+                "dir": "U",
+                "finger": 1,
+                "chord": {
+                  "root": 7,
+                  "quality": "maj"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 7,
+                "t": 8,
+                "duration": 4,
+                "string": 2,
+                "fret": 8,
+                "dir": "D",
+                "finger": 2,
+                "chord": {
+                  "root": 7,
+                  "quality": "maj"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 7,
+                "t": 12,
+                "duration": 2,
+                "string": 1,
+                "fret": 7,
+                "dir": "D",
+                "finger": 1,
+                "chord": {
+                  "root": 7,
+                  "quality": "maj"
+                },
+                "articulations": ["accent"],
+                "passing": false
+              },
+              {
+                "bar": 7,
+                "t": 14,
+                "duration": 1,
+                "string": 1,
+                "fret": 7,
+                "dir": "D",
+                "finger": 1,
+                "chord": {
+                  "root": 7,
+                  "quality": "maj"
+                },
+                "articulations": [],
+                "passing": false
+              },
+              {
+                "bar": 7,
+                "t": 15,
+                "duration": 1,
+                "string": 3,
+                "fret": 7,
+                "dir": "U",
+                "finger": 1,
+                "chord": {
+                  "root": 7,
+                  "quality": "maj"
+                },
+                "articulations": [],
+                "passing": false
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

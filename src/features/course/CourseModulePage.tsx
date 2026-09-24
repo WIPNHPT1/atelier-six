@@ -6,7 +6,15 @@ import { Mono } from '../../ui/Mono';
 import { Panel } from '../../ui/Panel';
 import { Pill } from '../../ui/Pill';
 import { Text } from '../../ui/Text';
-import { difficultyLabel, getModule, lessonsFor, listenRefs } from '../lesson/lessonData';
+import {
+  difficultyLabel,
+  getModule,
+  lessonsFor,
+  listenRefs,
+  riffsFor,
+  tuneFor,
+} from '../lesson/lessonData';
+import { RiffCard } from './RiffCard';
 import styles from './CourseModulePage.module.css';
 import { ProgressRing } from './ProgressRing';
 import { useProgressData } from '../progress/store';
@@ -29,6 +37,8 @@ export default function CourseModulePage() {
   const meta = copy.course.modules[module.id];
   const lessons = lessonsFor(module.id);
   const refs = listenRefs(module.id);
+  const tune = tuneFor(module.id);
+  const riffs = riffsFor(module.id);
   const artists = [...new Set(refs.map((ref) => ref.artist))].join(' · ');
   const { done } = moduleProgress(module.id, data);
   const next = lessons.find((lesson) => !lessonDone(lesson, data)) ?? lessons[0];
@@ -104,6 +114,37 @@ export default function CourseModulePage() {
                 </li>
               ))}
             </ol>
+
+            {tune ? (
+              <Panel className={styles.tuneCard}>
+                <Mono className={styles.label}>{copy.course.theTune}</Mono>
+                <Heading level={2} className={styles.title}>
+                  {tune.title}
+                </Heading>
+                <Text dim>{copy.course.tuneHint}</Text>
+                <Link className={styles.continue} to={`/lesson/${tune.id}`}>
+                  {copy.course.playTune}
+                </Link>
+              </Panel>
+            ) : null}
+
+            {riffs.length > 0 ? (
+              <>
+                <Mono className={styles.label}>{copy.course.riffs}</Mono>
+                <div className={styles.riffs}>
+                  {riffs.map((riff) => {
+                    const gate = lessons[riff.unlockAfter - 1];
+                    return (
+                      <RiffCard
+                        key={riff.id}
+                        riff={riff}
+                        unlocked={gate === undefined || lessonDone(gate, data)}
+                      />
+                    );
+                  })}
+                </div>
+              </>
+            ) : null}
           </section>
 
           <aside className={styles.aside}>

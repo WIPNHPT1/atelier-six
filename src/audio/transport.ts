@@ -9,7 +9,8 @@ import { humanise } from '../core/schedule/humanise.ts';
 import { applyFreezes } from '../core/drills/drills.ts';
 import { remainingFromBar } from '../core/schedule/remainingFromBar.ts';
 import { useSettingsStore } from '../app/settingsStore.ts';
-import { playEvent } from './engine.ts';
+import type { BandEvent } from '../core/band/band.ts';
+import { playBand, playEvent } from './engine.ts';
 
 const HUMANISE_SEED = 6;
 const SIXTEENTHS_PER_BAR = 16;
@@ -51,6 +52,21 @@ let currentSchedule: ScheduleEvent[] | null = null;
 let currentBpm = 120;
 let currentLoop = false;
 let currentLoopSeconds = 0;
+let currentEndSeconds: number | null = null;
+let bandPart: Tone.Part<[number, BandEvent]> | null = null;
+
+// When a one-shot (non-looping) performance ends, in transport seconds.
+export function getEndSeconds(): number | null {
+  return currentLoop ? null : currentEndSeconds;
+}
+
+// A whole arrangement built up front (all sections, optional band).
+export type PreparedPlay = { events: ScheduleEvent[]; band?: BandEvent[]; totalSeconds: number };
+
+function disposeBand(): void {
+  bandPart?.dispose();
+  bandPart = null;
+}
 
 // Length of one pass when looping, so the playhead can wrap with the audio.
 export function getLoopSeconds(): number | null {
@@ -109,9 +125,42 @@ export function play(source: ScheduleSource, bpm: number, opts: PlayOptions = {}
   currentLayers = opts.layers ?? [];
 
   currentLoopSeconds = loopSecondsFor(source, bpm);
+  currentEndSeconds = currentLoopSeconds;
+  disposeBand();
   const schedule = scheduleFor(source, bpm);
   schedulePart(schedule, currentLoop);
   scheduleLayers(bpm, currentLoop);
+  transport.start();
+}
+
+export function playPrepared(prepared: PreparedPlay, bpm: number, opts: PlayOptions = {}): void {
+  const transport = Tone.getTransport();
+  transport.stop();
+  transport.cancel();
+  transport.seconds = 0;
+  transport.bpm.value = bpm;
+
+  currentSource = null;
+  currentBpm = bpm;
+  currentLoop = opts.loop ?? false;
+  currentLoopSeconds = prepared.totalSeconds;
+  currentEndSeconds = prepared.totalSeconds;
+  currentLayers = [];
+  disposeLayers();
+
+  schedulePart(withHumanise(prepared.events), currentLoop);
+  disposeBand();
+  if (prepared.band !== undefined && prepared.band.length > 0) {
+    bandPart = new Tone.Part<[number, BandEvent]>(
+      (time, event) => {
+        playBand(event, time);
+      },
+      prepared.band.map((event) => [event.t, event] as [number, BandEvent]),
+    );
+    bandPart.loop = currentLoop;
+    if (currentLoop) bandPart.loopEnd = currentLoopSeconds;
+    bandPart.start(0);
+  }
   transport.start();
 }
 
@@ -122,6 +171,8 @@ export function stop(): void {
   part?.dispose();
   part = null;
   disposeLayers();
+  disposeBand();
+  currentEndSeconds = null;
   currentLayers = [];
   currentSource = null;
   currentSchedule = null;

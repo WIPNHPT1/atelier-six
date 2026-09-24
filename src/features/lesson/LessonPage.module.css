@@ -202,3 +202,58 @@
 .drillLink:focus-visible {
   border-color: var(--brass);
 }
+
+/* Finish screen: a single resonance ripple, then stillness. */
+.finish {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s-3);
+  overflow: hidden;
+  padding: var(--s-8) var(--s-4);
+  text-align: center;
+}
+
+.finishActions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--s-3);
+}
+
+.ripple {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 40px;
+  height: 40px;
+  border: 2px solid var(--brass);
+  border-radius: 50%;
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, -50%) scale(1);
+  animation: ripple calc(1600ms * var(--motion-scale)) var(--ease) 1;
+}
+
+@keyframes ripple {
+  from {
+    opacity: 0.6;
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  to {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(14);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ripple {
+    display: none;
+  }
+}
+
+:global([data-motion='off']) .ripple {
+  display: none;
+}

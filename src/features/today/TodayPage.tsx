@@ -11,8 +11,9 @@ import { Dial } from '../../ui/Dial';
 import { Heading } from '../../ui/Heading';
 import { Mono } from '../../ui/Mono';
 import { Panel } from '../../ui/Panel';
+import { ScrollTab } from '../../ui/ScrollTab';
 import { Text } from '../../ui/Text';
-import { LESSONS, getLesson } from '../lesson/lessonData';
+import { LESSONS, TUNES, getLesson } from '../lesson/lessonData';
 import { useProgressData } from '../progress/store';
 import styles from './TodayPage.module.css';
 
@@ -23,7 +24,8 @@ function Plan() {
   const data = useProgressData();
   const [today] = useState(() => localDay(Date.now()));
   const [clickStarted, setClickStarted] = useState(false);
-  const plan = planSession(today, data, LESSONS);
+  const plan = planSession(today, data, LESSONS, TUNES);
+  const tune = getLesson(plan.tune ?? undefined);
   const lesson = getLesson(plan.newLesson ?? undefined);
   const minutes = Math.round(minutesOn(data, today));
 
@@ -47,11 +49,9 @@ function Plan() {
             bpm: plan.warmup.bpm,
           })}
         </Text>
-        {/* The tab scrolls sideways on phones, so it must be reachable by keyboard. */}
-        {/* eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex */}
-        <pre className={styles.tab} aria-label={copy.today.warmupTab} tabIndex={0}>
+        <ScrollTab className={styles.tab} label={copy.today.warmupTab}>
           {warmupAscii(plan.warmup)}
-        </pre>
+        </ScrollTab>
         {clickStarted ? (
           <Suspense fallback={null}>
             <WarmupClick />
@@ -90,6 +90,16 @@ function Plan() {
           </>
         )}
       </Panel>
+
+      {tune ? (
+        <Panel className={styles.card}>
+          <Mono className={styles.label}>{copy.today.tune}</Mono>
+          <Text>{t('today.tuneReady', { title: tune.title })}</Text>
+          <Link className={styles.start} to={`/lesson/${tune.id}`}>
+            {copy.today.start}
+          </Link>
+        </Panel>
+      ) : null}
 
       <Panel className={styles.card}>
         <Mono className={styles.label}>{copy.today.reviews}</Mono>

@@ -78,9 +78,9 @@ export function buildLesson(lesson: Lesson, style: StyleSheet): BuiltLesson {
   return { ...lesson, chords, shapes, difficulty: round2(main.total + ownCost) };
 }
 
+// Only called for chords that already have a chosen shape, so the chord is always known.
 function chordSpec(name: string): ChordSpec {
-  const chord = getChord(name);
-  if (chord === undefined) throw new Error(`Unknown chord ${name}`);
+  const chord = getChord(name) as NonNullable<ReturnType<typeof getChord>>;
   return { root: chord.root, quality: chord.quality as ChordSpec['quality'] };
 }
 
@@ -105,13 +105,13 @@ type Onset = {
   step: RhythmStep;
   duration: number;
   chord: string;
+  // The section's shape choice for each chord, so a shift can be measured across sections.
+  ids: Record<string, string>;
   mutedForShift: boolean;
 };
 
-// Lays out every onset of a section, then turns the stroke before a shift that is too fast
-// for the target tempo into a muted "throwaway" strum so the hand can leave early.
+// Every onset of a section, bar by bar (a pushed step already plays the next bar's chord).
 function sectionOnsets(
-  lesson: BuiltLesson,
   ids: Record<string, string>,
   steps: RhythmStep[],
   bars: number,
@@ -124,22 +124,36 @@ function sectionOnsets(
       const pushed = push && step.t === PUSH_STEP && bar + 1 < bars;
       const chord = chords[(bar + (pushed ? 1 : 0)) % chords.length] as string;
       const duration = (steps[i + 1]?.t ?? STEPS_PER_BAR) - step.t;
-      onsets.push({ bar, step, duration, chord, mutedForShift: false });
+      onsets.push({ bar, step, duration, chord, ids, mutedForShift: false });
     }
   }
+  return onsets;
+}
+
+// Turns the strokes before a shift that is too fast for the target tempo into muted
+// "throwaway" strums, as many as the hand needs to leave early (never reaching back past the
+// previous chord); runs across section boundaries too.
+function markFastShifts(lesson: BuiltLesson, onsets: Onset[]): void {
   const secondsPerStep = SECONDS_PER_MINUTE / lesson.targetBpm / STEPS_PER_BEAT;
   onsets.forEach((onset, i) => {
     const next = onsets[i + 1];
-    if (next === undefined || next.chord === onset.chord) return;
-    const shift = Math.abs(
-      shapePosition(shapeFor(lesson, ids, next.chord)) -
-        shapePosition(shapeFor(lesson, ids, onset.chord)),
-    );
-    if (shift / (onset.duration * secondsPerStep) > MAX_SHIFT_FRETS_PER_SEC) {
-      onset.mutedForShift = true;
+    if (next === undefined) return;
+    const from = shapeFor(lesson, onset.ids, onset.chord);
+    const to = shapeFor(lesson, next.ids, next.chord);
+    if (from.id === to.id) return;
+    const needed = Math.abs(shapePosition(to) - shapePosition(from)) / MAX_SHIFT_FRETS_PER_SEC;
+    // `last` is the final fretted stroke of the old chord; everything after it is muted.
+    let last = i;
+    let available = onset.duration * secondsPerStep;
+    while (available < needed) {
+      const earlier = onsets[last - 1];
+      if (earlier === undefined || shapeFor(lesson, earlier.ids, earlier.chord).id !== from.id)
+        break;
+      (onsets[last] as Onset).mutedForShift = true;
+      last -= 1;
+      available += earlier.duration * secondsPerStep;
     }
   });
-  return onsets;
 }
 
 export type LessonRender = {
@@ -160,14 +174,22 @@ export function renderLesson(lesson: BuiltLesson, style: StyleSheet): LessonRend
   const sections: PieceSection[] = [];
   let barOffset = 0;
 
-  for (const section of lesson.arrangement.sections) {
+  const laidOut = lesson.arrangement.sections.map((section) => {
     const cell = style.rhythmCells.find((candidate) => candidate.id === section.rhythm);
     if (cell === undefined) throw new Error(`${lesson.id}: unknown rhythm ${section.rhythm}`);
     const chords = section.chords ?? lesson.chords;
     const ids = shapeIdsFor(lesson, chords, section.register);
+    return { section, onsets: sectionOnsets(ids, cell.steps, section.bars, chords, push) };
+  });
+  markFastShifts(
+    lesson,
+    laidOut.flatMap((part) => part.onsets),
+  );
+
+  for (const { section, onsets: sectionParts } of laidOut) {
     const events: PieceEvent[] = [];
 
-    for (const onset of sectionOnsets(lesson, ids, cell.steps, section.bars, chords, push)) {
+    for (const onset of sectionParts) {
       const { bar, step, duration } = onset;
       const chord = chordSpec(onset.chord);
       const muted = step.dir === 'mute' || onset.mutedForShift;
@@ -177,7 +199,7 @@ export function renderLesson(lesson: BuiltLesson, style: StyleSheet): LessonRend
         ...(step.palmMute === true ? (['palm-mute'] as const) : []),
         ...(muted ? (['mute'] as const) : []),
       ];
-      const notes = shapeFor(lesson, ids, onset.chord).notes.flatMap((note, index) =>
+      const notes = shapeFor(lesson, onset.ids, onset.chord).notes.flatMap((note, index) =>
         note.fret === null || !(step.strings?.includes(STRING_COUNT - index) ?? true)
           ? []
           : [

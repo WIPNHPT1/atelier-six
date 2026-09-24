@@ -32,7 +32,15 @@ import { TabLane } from '../../ui/TabLane/TabLane';
 import { Text } from '../../ui/Text';
 import { Toggle } from '../../ui/Toggle';
 import { TransitionCard } from '../../ui/TransitionCard/TransitionCard';
-import { difficultyLabel, firstLesson, getLesson, getModule, lessonNumber } from './lessonData';
+import {
+  difficultyLabel,
+  firstLesson,
+  getLesson,
+  getModule,
+  isTune,
+  lessonNumber,
+} from './lessonData';
+import { planPerformance, preparePerformance } from './performance';
 import styles from './LessonPage.module.css';
 import { useFocusMode } from './useFocusMode';
 
@@ -83,17 +91,39 @@ function LessonPlayer({ lesson }: { lesson: BuiltLesson }) {
   }));
   const [copied, setCopied] = useState(false);
   const [easier, setEasier] = useState(false);
+  const tune = isTune(lesson);
+  const [mode, setMode] = useState<'perform' | 'practise'>(tune ? 'perform' : 'practise');
+  const performing = tune && mode === 'perform';
   const active = useMemo(() => (easier ? simplifyLesson(lesson) : lesson), [easier, lesson]);
   const range = tempoRange(lesson.startBpm, lesson.targetBpm);
 
   const section = active.arrangement.sections[mix.sectionIndex] as ArrangementSection;
   const sectionName = copy.lesson.sectionNames[section.name];
   const plan = useMemo(() => planSection(active, style, section), [active, style, section]);
-  const columns = useMemo(
+  const performance = useMemo(
+    () =>
+      tune
+        ? planPerformance(lesson, style, tuning, (name) => copy.lesson.sectionNames[name])
+        : null,
+    [tune, lesson, style, tuning],
+  );
+  const sectionColumns = useMemo(
     () => renderTab(plan.shapes, plan.rhythm, plan.bars, tuning),
     [plan, tuning],
   );
-  const ascii = useMemo(() => toAscii(columns), [columns]);
+  const view = useMemo(
+    () =>
+      performing && performance !== null
+        ? {
+            shapes: performance.shapes,
+            columns: performance.columns,
+            labels: performance.sectionLabels,
+          }
+        : { shapes: plan.shapes, columns: sectionColumns, labels: { 0: sectionName } },
+    [performing, performance, plan.shapes, sectionColumns, sectionName],
+  );
+  const ascii = useMemo(() => toAscii(view.columns), [view]);
+  const columns = view.columns;
 
   const playback = usePlayback();
   const playingLessonId = usePlaybackStore((s) => s.lessonId);
@@ -101,16 +131,40 @@ function LessonPlayer({ lesson }: { lesson: BuiltLesson }) {
   const stopPlayback = usePlaybackStore((s) => s.stopPlayback);
   const setTempo = usePlaybackStore((s) => s.setTempo);
   const playingThis = playback.isPlaying && playingLessonId === lesson.id;
+  const finishedId = usePlaybackStore((s) => s.finishedId);
+  const finished = performing && !playingThis && finishedId === lesson.id;
   useFocusMode(playingThis);
   usePracticeTimer(playingThis);
   const updateProgress = useProgress((s) => s.update);
 
-  const barIndex = playingThis ? Math.max(0, playback.chordIndex) % plan.shapes.length : 0;
-  const current = plan.shapes[barIndex] as Shape;
-  const upcoming = nextChange(plan.shapes, barIndex);
+  const barIndex = playingThis ? Math.max(0, playback.chordIndex) % view.shapes.length : 0;
+  const current = view.shapes[barIndex] as Shape;
+  const upcoming = nextChange(view.shapes, barIndex);
   const hardest = hardestTransition(plan.shapes);
 
+  function perform(next: Mix) {
+    if (performance === null) return;
+    void startLesson({
+      lessonId: lesson.id,
+      title: lesson.title,
+      chordNames: performance.shapes.map((shape) => shape.chord),
+      bpm: next.bpm,
+      loop: false,
+      prepared: preparePerformance(performance, lesson.module, {
+        bpm: next.bpm,
+        tuning,
+        capo: lesson.capo,
+        countIn: next.countIn,
+        click: next.click,
+      }),
+    });
+  }
+
   function play(next: Mix, playing: BuiltLesson = active) {
+    if (performing) {
+      perform(next);
+      return;
+    }
     const target = playing.arrangement.sections[next.sectionIndex] as ArrangementSection;
     const level: Section = target.dynamics >= LOUD_DYNAMICS ? 'chorus' : 'verse';
     const sourceFor = (register: Shape['register']) => {
@@ -143,7 +197,9 @@ function LessonPlayer({ lesson }: { lesson: BuiltLesson }) {
     range,
     onTempo: (bpm) => {
       setMix((current) => ({ ...current, bpm }));
-      if (playingThis) setTempo(bpm);
+      if (!playingThis) return;
+      if (performing) perform({ ...mix, bpm });
+      else setTempo(bpm);
     },
     onSimplify: () => {
       setEasier(true);
@@ -171,10 +227,12 @@ function LessonPlayer({ lesson }: { lesson: BuiltLesson }) {
       <header className={styles.header}>
         <div className={styles.titleBlock}>
           <Mono className={styles.crumb}>
-            {t('lesson.crumb', {
-              module: copy.course.modules[lesson.module].title,
-              number: lessonNumber(lesson),
-            })}
+            {tune
+              ? t('lesson.tuneCrumb', { module: copy.course.modules[lesson.module].title })
+              : t('lesson.crumb', {
+                  module: copy.course.modules[lesson.module].title,
+                  number: lessonNumber(lesson),
+                })}
           </Mono>
           <Heading level={1} className={styles.title}>
             {lesson.title}
@@ -182,6 +240,20 @@ function LessonPlayer({ lesson }: { lesson: BuiltLesson }) {
           <Text dim>{lesson.goal}</Text>
         </div>
         <div className={styles.headerControls}>
+          {tune ? (
+            <SegmentedControl
+              label={copy.lesson.mode}
+              segments={[
+                { value: 'perform', label: copy.lesson.modes.perform },
+                { value: 'practise', label: copy.lesson.modes.practise },
+              ]}
+              value={mode}
+              onChange={(value) => {
+                if (playingThis) stopPlayback();
+                setMode(value === 'perform' ? 'perform' : 'practise');
+              }}
+            />
+          ) : null}
           <Pill>
             {t('lesson.difficulty', {
               label: copy.lesson.difficultyLabels[difficultyLabel(lesson)],
@@ -196,6 +268,13 @@ function LessonPlayer({ lesson }: { lesson: BuiltLesson }) {
             }))}
             value={String(mix.sectionIndex)}
             onChange={(value) => {
+              // Picking a section in a tune practises that section on a loop.
+              if (performing) {
+                setMode('practise');
+                setMix({ ...mix, sectionIndex: Number(value), loop: true });
+                if (playingThis) stopPlayback();
+                return;
+              }
               update({ sectionIndex: Number(value) });
             }}
           />
@@ -223,7 +302,9 @@ function LessonPlayer({ lesson }: { lesson: BuiltLesson }) {
             max={range.max}
             onChange={(bpm) => {
               setMix({ ...mix, bpm });
-              if (playingThis) setTempo(bpm);
+              if (!playingThis) return;
+              if (performing) perform({ ...mix, bpm });
+              else setTempo(bpm);
             }}
           />
         </div>
@@ -232,13 +313,15 @@ function LessonPlayer({ lesson }: { lesson: BuiltLesson }) {
           targetReached={targetReached(mix.bpm, lesson.targetBpm)}
           easier={easier}
         />
-        <Toggle
-          label={copy.lesson.loop}
-          checked={mix.loop}
-          onChange={(loop) => {
-            update({ loop });
-          }}
-        />
+        {performing ? null : (
+          <Toggle
+            label={copy.lesson.loop}
+            checked={mix.loop}
+            onChange={(loop) => {
+              update({ loop });
+            }}
+          />
+        )}
         <Toggle
           label={copy.lesson.metronome}
           checked={mix.click}
@@ -265,6 +348,29 @@ function LessonPlayer({ lesson }: { lesson: BuiltLesson }) {
         </Button>
       </Panel>
 
+      {finished ? (
+        <Panel className={styles.finish} role="status">
+          <span className={styles.ripple} aria-hidden="true" />
+          <Heading level={2} className={styles.title}>
+            {copy.lesson.finishTitle}
+          </Heading>
+          <Text dim>{copy.lesson.finishBody}</Text>
+          <div className={styles.finishActions}>
+            <Button
+              variant="primary"
+              onClick={() => {
+                perform(mix);
+              }}
+            >
+              {copy.lesson.playAgain}
+            </Button>
+            <Link className={styles.drillLink} to={`/course/${lesson.module}`}>
+              {copy.lesson.backToModule}
+            </Link>
+          </div>
+        </Panel>
+      ) : null}
+
       <div className={styles.grid}>
         <Panel className={styles.tab} data-tab-ascii={ascii}>
           <Mono className={styles.label}>{t('lesson.tabHeading', { section: sectionName })}</Mono>
@@ -284,7 +390,7 @@ function LessonPlayer({ lesson }: { lesson: BuiltLesson }) {
                 key:
                   'key' in lesson.progression ? lesson.progression.key : (lesson.chords[0] ?? ''),
               }}
-              sectionLabels={{ 0: sectionName }}
+              sectionLabels={view.labels}
             />
           </div>
         </Panel>

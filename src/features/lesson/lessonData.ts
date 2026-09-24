@@ -1,9 +1,25 @@
 import lessonsData from '../../data/lessons.json' with { type: 'json' };
+import tunesData from '../../data/tunes.json' with { type: 'json' };
 import type { Finish, Level } from '../../app/settingsStore';
 import { labelForAverageCost, type ProgressionScore } from '../../core/engine/score';
-import type { BuiltLesson, LessonModule } from '../../core/lessons/types';
+import type { BuiltLesson, BuiltRiff, LessonModule, TunesData } from '../../core/lessons/types';
 
 export const LESSONS = lessonsData as BuiltLesson[];
+const TUNES_DATA = tunesData as TunesData;
+export const TUNES: BuiltLesson[] = TUNES_DATA.tunes;
+export const RIFFS: BuiltRiff[] = TUNES_DATA.riffs;
+
+export function isTune(lesson: BuiltLesson): boolean {
+  return TUNES.includes(lesson);
+}
+
+export function tuneFor(module: string): BuiltLesson | undefined {
+  return TUNES.find((tune) => tune.module === module);
+}
+
+export function riffsFor(module: string): BuiltRiff[] {
+  return RIFFS.filter((riff) => riff.module === module);
+}
 
 export type ModuleId = LessonModule | 'lead' | 'thumb' | 'whammy';
 
@@ -22,7 +38,7 @@ export function getModule(id: string | undefined): ModuleMeta | undefined {
 }
 
 export function getLesson(id: string | undefined): BuiltLesson | undefined {
-  return LESSONS.find((lesson) => lesson.id === id);
+  return LESSONS.find((lesson) => lesson.id === id) ?? TUNES.find((tune) => tune.id === id);
 }
 
 // lessons.json is already sorted gentlest first within each module.

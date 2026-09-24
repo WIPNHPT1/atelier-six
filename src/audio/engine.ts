@@ -1,4 +1,5 @@
 import * as Tone from 'tone';
+import type { BandEvent } from '../core/band/band.ts';
 import type { ScheduleEvent } from '../core/schedule/buildSchedule.ts';
 import {
   BASS_BASE_URL,
@@ -37,6 +38,10 @@ const CLICK_DURATION_SECONDS = 0.03;
 const MIN_VELOCITY = 0.05;
 const MAX_VELOCITY = 1;
 const DRUM_VOLUME_DB = -4;
+const PAD_VOLUME_DB = -16;
+const CHIME_VOLUME_DB = -12;
+const CHIME_NOTES = ['E5', 'B5'];
+const CHIME_SPACING_SECONDS = 0.12;
 
 declare global {
   interface Window {
@@ -54,6 +59,8 @@ type AudioGraph = {
   bass: Tone.Sampler;
   drums: Tone.Sampler;
   click: Tone.MembraneSynth;
+  pad: Tone.PolySynth;
+  chime: Tone.PolySynth;
 };
 
 let graph: AudioGraph | null = null;
@@ -110,7 +117,21 @@ function buildGraph(): AudioGraph {
     envelope: { attack: 0.001, decay: 0.1, sustain: 0, release: 0.05 },
   }).toDestination();
 
+  // A soft, slow pad under Britpop choruses, and a quiet bell for finishing a tune.
+  const pad = new Tone.PolySynth(Tone.Synth, {
+    oscillator: { type: 'triangle' },
+    envelope: { attack: 0.4, decay: 0.3, sustain: 0.6, release: 1.2 },
+  });
+  pad.chain(new Tone.Volume(PAD_VOLUME_DB), reverb);
+  const chime = new Tone.PolySynth(Tone.Synth, {
+    oscillator: { type: 'sine' },
+    envelope: { attack: 0.005, decay: 1.2, sustain: 0, release: 1.2 },
+  });
+  chime.chain(new Tone.Volume(CHIME_VOLUME_DB), reverb);
+
   return {
+    pad,
+    chime,
     guitar: {
       clean: { sampler: clean, muteFilter: cleanMute, muteHz: CLEAN_MUTE_HZ },
       driven: { sampler: driven, muteFilter: drivenMute, muteHz: DRIVEN_MUTE_HZ },
@@ -206,4 +227,25 @@ export function playBassNote(midi: number, time: number, duration: number, veloc
 export function playDrum(name: DrumName, time: number, velocity = 0.9): void {
   if (graph === null) return;
   graph.drums.triggerAttack(DRUM_NOTES[name], time, clampVelocity(velocity));
+}
+
+export function playBand(event: BandEvent, time: number): void {
+  if (graph === null) return;
+  if (event.part === 'drums') {
+    playDrum(event.drum, time, event.velocity);
+  } else if (event.part === 'bass') {
+    playBassNote(event.midi, time, event.duration, event.velocity);
+  } else {
+    const notes = event.midis.map((midi) => Tone.Frequency(midi, 'midi').toFrequency());
+    graph.pad.triggerAttackRelease(notes, event.duration, time, clampVelocity(event.velocity));
+  }
+}
+
+// A quiet two-note bell for a finished tune (no points, no fanfare).
+export function playChime(): void {
+  if (graph === null) return;
+  const now = Tone.now();
+  CHIME_NOTES.forEach((note, i) => {
+    graph?.chime.triggerAttackRelease(note, 1, now + i * CHIME_SPACING_SECONDS, 0.6);
+  });
 }

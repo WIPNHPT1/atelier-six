@@ -1,15 +1,18 @@
 import { create } from 'zustand';
 import { secondsToStep } from '../core/schedule/buildSchedule.ts';
-import type { LayerSource, ScheduleSource } from './transport.ts';
+import type { LayerSource, PreparedPlay, ScheduleSource } from './transport.ts';
 
 export type StartLessonInput = {
   lessonId: string;
   title: string;
   chordNames: string[];
-  source: ScheduleSource;
+  // Built from shapes and a rhythm at play time; not needed when `prepared` is given.
+  source?: ScheduleSource;
   bpm: number;
   loop?: boolean;
   layers?: LayerSource[];
+  // A whole arrangement built up front; `source` is then only used for chord names.
+  prepared?: PreparedPlay;
 };
 
 export type PlaybackState = {
@@ -19,6 +22,8 @@ export type PlaybackState = {
   chordIndex: number;
   bpm: number;
   lessonId: string | null;
+  // The lesson or tune that just played through to its end (for the finish screen).
+  finishedId: string | null;
   title: string;
   chordNames: string[];
   startLesson: (input: StartLessonInput) => Promise<void>;
@@ -45,9 +50,19 @@ export const usePlaybackStore = create<PlaybackState>((set) => ({
   chordIndex: 0,
   bpm: 120,
   lessonId: null,
+  finishedId: null,
   title: '',
   chordNames: [],
-  startLesson: async ({ lessonId, title, chordNames, source, bpm, loop, layers = [] }) => {
+  startLesson: async ({
+    lessonId,
+    title,
+    chordNames,
+    source,
+    bpm,
+    loop,
+    layers = [],
+    prepared,
+  }) => {
     const [{ ensureAudio, ensurePans }, transport, Tone] = await Promise.all([
       import('./engine.ts'),
       import('./transport.ts'),
@@ -55,11 +70,23 @@ export const usePlaybackStore = create<PlaybackState>((set) => ({
     ]);
     await ensureAudio();
     await ensurePans(layers.map((layer) => layer.pan));
-    transport.play(source, bpm, { loop: loop ?? false, layers });
+    if (prepared !== undefined) transport.playPrepared(prepared, bpm, { loop: loop ?? false });
+    else if (source !== undefined) transport.play(source, bpm, { loop: loop ?? false, layers });
+    else return;
     setMediaSession(title, () => {
       usePlaybackStore.getState().stopPlayback();
     });
-    set({ isPlaying: true, lessonId, title, chordNames, bpm, step: 0, bar: 0, chordIndex: 0 });
+    set({
+      isPlaying: true,
+      lessonId,
+      finishedId: null,
+      title,
+      chordNames,
+      bpm,
+      step: 0,
+      bar: 0,
+      chordIndex: 0,
+    });
 
     function tick(): void {
       const schedule = transport.getSchedule();
@@ -69,6 +96,17 @@ export const usePlaybackStore = create<PlaybackState>((set) => ({
         return;
       }
       const elapsed = Tone.getTransport().seconds;
+      const end = transport.getEndSeconds();
+      if (end !== null && elapsed >= end) {
+        rafId = null;
+        const finished = state.lessonId;
+        usePlaybackStore.getState().stopPlayback();
+        usePlaybackStore.setState({ finishedId: finished });
+        void import('./engine.ts').then(({ playChime }) => {
+          playChime();
+        });
+        return;
+      }
       const loopSeconds = transport.getLoopSeconds();
       const seconds = loopSeconds === null ? elapsed : elapsed % loopSeconds;
       const step = secondsToStep(seconds, transport.getBpm());

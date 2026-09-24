@@ -75,6 +75,23 @@ describe('TodayPage', () => {
     );
   });
 
+  it('offers the module tune once most of the module is done', () => {
+    const power = LESSONS.filter((lesson) => lesson.module === 'power');
+    const done = power.reduce(
+      (data, lesson) =>
+        recordLessonAttempt(data, {
+          lessonId: lesson.id,
+          bpm: lesson.targetBpm,
+          clean: true,
+          now: 1,
+        }),
+      emptyProgress(),
+    );
+    resetProgressForTests(done);
+    renderPage();
+    expect(screen.getByText('Your module tune is ready: Sodium Streetlights.')).toBeInTheDocument();
+  });
+
   it('starts the warm-up click on demand', async () => {
     const user = userEvent.setup();
     renderPage();

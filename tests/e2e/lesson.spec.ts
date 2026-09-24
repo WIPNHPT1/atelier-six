@@ -37,3 +37,24 @@ test('Play moves the playhead', async ({ page, browserName }) => {
     .poll(async () => Number(await lane.getAttribute('data-playhead-step')))
     .toBeGreaterThan(first);
 });
+
+test('the module tune plays in performance mode with the band', async ({ page, browserName }) => {
+  test.skip(browserName !== 'chromium', 'audio gesture policy is Chromium-only in CI');
+  await page.goto('/course/power');
+  await page.locator('#main').getByRole('link', { name: 'Play the tune' }).click();
+  await expect.poll(() => new URL(page.url()).pathname).toBe('/lesson/tune-power');
+  await expect(page.getByRole('radio', { name: 'Performance' })).toHaveAttribute(
+    'aria-checked',
+    'true',
+  );
+
+  const lane = page.locator('[data-playhead-step]');
+  await page.locator('#main').getByRole('button', { name: 'Play', exact: true }).click();
+  await expect(
+    page.locator('#main').getByRole('button', { name: 'Stop', exact: true }),
+  ).toBeVisible();
+  const first = Number(await lane.getAttribute('data-playhead-step'));
+  await expect
+    .poll(async () => Number(await lane.getAttribute('data-playhead-step')))
+    .toBeGreaterThan(first);
+});

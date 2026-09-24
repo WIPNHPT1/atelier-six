@@ -71,6 +71,31 @@ describe('planSession', () => {
   });
 });
 
+describe('tune scheduling', () => {
+  const lessons = [
+    { id: 'a', targetBpm: 100, module: 'power' },
+    { id: 'b', targetBpm: 100, module: 'power' },
+    { id: 'c', targetBpm: 100, module: 'power' },
+    { id: 'd', targetBpm: 100, module: 'power' },
+  ];
+  const tunes = [
+    { id: 'tune-lead', targetBpm: 100, module: 'lead' },
+    { id: 'tune-power', targetBpm: 100, module: 'power' },
+  ];
+  const finish = (data: ProgressData, id: string) =>
+    recordLessonAttempt(data, { lessonId: id, bpm: 100, clean: true, now: 1 });
+
+  it('offers the tune once 75 % of its module is done, until the tune itself is done', () => {
+    let data = finish(finish(emptyProgress(), 'a'), 'b');
+    expect(planSession('2026-09-24', data, lessons, tunes).tune).toBeNull();
+    data = finish(data, 'c');
+    expect(planSession('2026-09-24', data, lessons, tunes).tune).toBe('tune-power');
+    data = finish(data, 'tune-power');
+    expect(planSession('2026-09-24', data, lessons, tunes).tune).toBeNull();
+    expect(planSession('2026-09-24', data, lessons).tune).toBeNull();
+  });
+});
+
 describe('warm-up', () => {
   it('walks the strings in one position and passes the tab checks', () => {
     const warmup = warmupFor('2026-09-24');
