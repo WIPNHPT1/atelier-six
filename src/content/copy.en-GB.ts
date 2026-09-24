@@ -108,6 +108,11 @@ export const copy = {
     typeSample: 'Aa',
     fretboard: 'Fretboard',
   },
+  tabLane: {
+    palmMute: 'P.M.',
+    down: '↓',
+    up: '↑',
+  },
   fretboard: {
     barre: '{finger} finger barre {fromString} to {toString} string fret {fret}',
     fingerFret: '{finger} finger {string} string fret {fret}',
