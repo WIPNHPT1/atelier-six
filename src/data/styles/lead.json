@@ -1,0 +1,227 @@
+{
+  "id": "lead",
+  "name": "Grunge-melodic lead",
+  "tempo": {
+    "min": 90,
+    "max": 130
+  },
+  "feel": {
+    "subdivision": 16,
+    "maxSwing": 50,
+    "downstrokesOnly": false
+  },
+  "tunings": ["standard", "halfDown"],
+  "capo": {
+    "min": 0,
+    "max": 0
+  },
+  "harmony": {
+    "line": "scale",
+    "scale": [0, 3, 5, 7, 10],
+    "colours": []
+  },
+  "strings": [1, 2, 3, 4],
+  "structure": ["clean-verse", "fuzz-chorus", "solo"],
+  "mustInclude": [
+    {
+      "kind": "articulation",
+      "value": "bend-half",
+      "scope": "riff"
+    },
+    {
+      "kind": "articulation",
+      "value": "bend-full",
+      "scope": "riff"
+    },
+    {
+      "kind": "articulation",
+      "value": "slide",
+      "scope": "riff"
+    },
+    {
+      "kind": "articulation",
+      "value": "noise",
+      "scope": "piece"
+    },
+    {
+      "kind": "section",
+      "value": "solo",
+      "scope": "piece"
+    }
+  ],
+  "avoid": [
+    {
+      "kind": "fastRun",
+      "max": 6
+    },
+    {
+      "kind": "articulation",
+      "value": "sweep"
+    }
+  ],
+  "rhythmCells": [
+    {
+      "id": "quarters",
+      "level": 1,
+      "steps": [
+        {
+          "t": 0,
+          "dir": "pick",
+          "accent": true
+        },
+        {
+          "t": 4,
+          "dir": "pick"
+        },
+        {
+          "t": 8,
+          "dir": "pick"
+        },
+        {
+          "t": 12,
+          "dir": "pick"
+        }
+      ]
+    },
+    {
+      "id": "eighths",
+      "level": 1,
+      "steps": [
+        {
+          "t": 0,
+          "dir": "pick",
+          "accent": true
+        },
+        {
+          "t": 2,
+          "dir": "pick"
+        },
+        {
+          "t": 4,
+          "dir": "pick"
+        },
+        {
+          "t": 6,
+          "dir": "pick"
+        },
+        {
+          "t": 8,
+          "dir": "pick"
+        },
+        {
+          "t": 12,
+          "dir": "pick"
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "level": 2,
+      "steps": [
+        {
+          "t": 0,
+          "dir": "pick",
+          "accent": true
+        },
+        {
+          "t": 3,
+          "dir": "pick"
+        },
+        {
+          "t": 6,
+          "dir": "pick"
+        },
+        {
+          "t": 8,
+          "dir": "pick"
+        },
+        {
+          "t": 10,
+          "dir": "pick"
+        },
+        {
+          "t": 12,
+          "dir": "pick"
+        }
+      ]
+    },
+    {
+      "id": "short-run",
+      "level": 3,
+      "steps": [
+        {
+          "t": 0,
+          "dir": "pick",
+          "accent": true
+        },
+        {
+          "t": 2,
+          "dir": "pick"
+        },
+        {
+          "t": 3,
+          "dir": "pick"
+        },
+        {
+          "t": 4,
+          "dir": "pick"
+        },
+        {
+          "t": 5,
+          "dir": "pick"
+        },
+        {
+          "t": 6,
+          "dir": "pick"
+        },
+        {
+          "t": 8,
+          "dir": "pick"
+        },
+        {
+          "t": 12,
+          "dir": "pick"
+        }
+      ]
+    }
+  ],
+  "progressions": [
+    {
+      "id": "i5-bVII5-bVI5-bVII5",
+      "roman": ["i5", "bVII5", "bVI5", "bVII5"]
+    },
+    {
+      "id": "i5-bIII5-bVII5-IV5",
+      "roman": ["i5", "bIII5", "bVII5", "IV5"]
+    },
+    {
+      "id": "i5-iv5-bVI5-V5",
+      "roman": ["i5", "iv5", "bVI5", "V5"]
+    }
+  ],
+  "phraseShapes": [
+    {
+      "id": "rise-hold-fall",
+      "contour": [0, 1, 2, 3, 3, 2, 1, 0]
+    },
+    {
+      "id": "call-answer",
+      "contour": [0, 1, 2, 1, 0, -1, -2, -1]
+    },
+    {
+      "id": "sigh",
+      "contour": [3, 2, 2, 1, 1, 0, 0, 0]
+    }
+  ],
+  "articulations": [
+    "accent",
+    "bend-half",
+    "bend-full",
+    "release",
+    "vibrato",
+    "slide",
+    "hammer",
+    "pull",
+    "noise"
+  ]
+}

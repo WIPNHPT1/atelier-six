@@ -1,0 +1,263 @@
+{
+  "id": "open",
+  "name": "Britpop",
+  "tempo": {
+    "min": 70,
+    "max": 110
+  },
+  "feel": {
+    "subdivision": 16,
+    "maxSwing": 50,
+    "downstrokesOnly": false
+  },
+  "tunings": ["standard"],
+  "capo": {
+    "min": 0,
+    "max": 2
+  },
+  "harmony": {
+    "line": "chord",
+    "scale": [],
+    "colours": ["sus4", "add9", "7sus4", "m7"]
+  },
+  "strings": [1, 2, 3],
+  "structure": ["strummed-intro", "verse", "pre-chorus", "chorus"],
+  "mustInclude": [
+    {
+      "kind": "articulation",
+      "value": "let-ring",
+      "scope": "riff"
+    },
+    {
+      "kind": "bothDirections",
+      "scope": "riff"
+    },
+    {
+      "kind": "accentOn",
+      "steps": [4, 12],
+      "scope": "riff"
+    },
+    {
+      "kind": "section",
+      "value": "pre-chorus",
+      "scope": "piece"
+    }
+  ],
+  "avoid": [
+    {
+      "kind": "articulation",
+      "value": "palm-mute"
+    },
+    {
+      "kind": "downpickRun",
+      "max": 4
+    }
+  ],
+  "rhythmCells": [
+    {
+      "id": "sixteenth-strum",
+      "level": 1,
+      "steps": [
+        {
+          "t": 0,
+          "dir": "D"
+        },
+        {
+          "t": 3,
+          "dir": "U"
+        },
+        {
+          "t": 4,
+          "dir": "D",
+          "accent": true
+        },
+        {
+          "t": 6,
+          "dir": "D"
+        },
+        {
+          "t": 7,
+          "dir": "U"
+        },
+        {
+          "t": 10,
+          "dir": "D"
+        },
+        {
+          "t": 11,
+          "dir": "U"
+        },
+        {
+          "t": 12,
+          "dir": "D",
+          "accent": true
+        },
+        {
+          "t": 14,
+          "dir": "D"
+        },
+        {
+          "t": 15,
+          "dir": "U"
+        }
+      ]
+    },
+    {
+      "id": "push-strum",
+      "level": 2,
+      "steps": [
+        {
+          "t": 0,
+          "dir": "D"
+        },
+        {
+          "t": 2,
+          "dir": "D"
+        },
+        {
+          "t": 3,
+          "dir": "U"
+        },
+        {
+          "t": 4,
+          "dir": "D",
+          "accent": true
+        },
+        {
+          "t": 7,
+          "dir": "U"
+        },
+        {
+          "t": 8,
+          "dir": "D"
+        },
+        {
+          "t": 11,
+          "dir": "U"
+        },
+        {
+          "t": 12,
+          "dir": "D",
+          "accent": true
+        },
+        {
+          "t": 13,
+          "dir": "U"
+        },
+        {
+          "t": 14,
+          "dir": "D"
+        },
+        {
+          "t": 15,
+          "dir": "U"
+        }
+      ]
+    },
+    {
+      "id": "full-motion",
+      "level": 3,
+      "steps": [
+        {
+          "t": 0,
+          "dir": "D"
+        },
+        {
+          "t": 1,
+          "dir": "U"
+        },
+        {
+          "t": 2,
+          "dir": "D"
+        },
+        {
+          "t": 3,
+          "dir": "U"
+        },
+        {
+          "t": 4,
+          "dir": "D",
+          "accent": true
+        },
+        {
+          "t": 5,
+          "dir": "U"
+        },
+        {
+          "t": 6,
+          "dir": "D"
+        },
+        {
+          "t": 7,
+          "dir": "U"
+        },
+        {
+          "t": 8,
+          "dir": "D"
+        },
+        {
+          "t": 9,
+          "dir": "U"
+        },
+        {
+          "t": 10,
+          "dir": "D"
+        },
+        {
+          "t": 11,
+          "dir": "U"
+        },
+        {
+          "t": 12,
+          "dir": "D",
+          "accent": true
+        },
+        {
+          "t": 13,
+          "dir": "U"
+        },
+        {
+          "t": 14,
+          "dir": "D"
+        },
+        {
+          "t": 15,
+          "dir": "U"
+        }
+      ]
+    }
+  ],
+  "progressions": [
+    {
+      "id": "I-V-vi-IV",
+      "roman": ["I", "V", "vi", "IV"]
+    },
+    {
+      "id": "vi-IV-I-V",
+      "roman": ["vi", "IV", "I", "V"]
+    },
+    {
+      "id": "I-IV-vi-V",
+      "roman": ["I", "IV", "vi", "V"]
+    },
+    {
+      "id": "I-bVII-IV-I",
+      "roman": ["I", "bVII", "IV", "I"]
+    }
+  ],
+  "phraseShapes": [
+    {
+      "id": "ring-down",
+      "contour": [2, 1, 0, 1, 2, 1, 0, 0]
+    },
+    {
+      "id": "rise-hold-fall",
+      "contour": [0, 1, 2, 2, 2, 1, 0, 0]
+    },
+    {
+      "id": "drone-top",
+      "contour": [2, 2, 1, 2, 2, 0, 2, 1]
+    }
+  ],
+  "articulations": ["accent", "let-ring", "mute", "hammer"]
+}

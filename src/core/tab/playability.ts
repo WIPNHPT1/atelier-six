@@ -53,22 +53,29 @@ function checkSpans(events: TabEvent[], opts: PlayabilityOptions): Issue[] {
   return issues;
 }
 
-function checkShiftSpeed(events: TabEvent[], bpm: number): Issue[] {
+// A shift is a change of hand position (fret minus finger), not a finger moving within a position.
+function handPosition(event: TabEvent, finger: Finger | null | undefined): number | null {
+  if (event.fret <= 0 || typeof finger !== 'number' || finger === 0) return null;
+  return event.fret - finger + 1;
+}
+
+function checkShiftSpeed(events: TabEvent[], fingering: Fingering, bpm: number): Issue[] {
   const issues: Issue[] = [];
   const perSixteenth = secondsPerSixteenth(bpm);
+  let last: { index: number; time: number; position: number } | null = null;
 
-  for (let i = 1; i < events.length; i++) {
-    const prev = events[i - 1] as TabEvent;
-    const curr = events[i] as TabEvent;
-    if (curr.time === prev.time) continue;
-    const deltaFret = Math.abs(curr.fret - prev.fret);
-    if (deltaFret === 0) continue;
-    const seconds = (curr.time - prev.time) * perSixteenth;
-    const fretsPerSecond = deltaFret / seconds;
-    if (fretsPerSecond > MAX_SHIFT_FRETS_PER_SEC) {
-      issues.push({ type: 'shift-speed', fromIndex: i - 1, toIndex: i, fretsPerSecond });
+  events.forEach((event, index) => {
+    const position = handPosition(event, fingering[index]);
+    if (position === null) return;
+    if (last !== null && event.time !== last.time && position !== last.position) {
+      const seconds = (event.time - last.time) * perSixteenth;
+      const fretsPerSecond = Math.abs(position - last.position) / seconds;
+      if (fretsPerSecond > MAX_SHIFT_FRETS_PER_SEC) {
+        issues.push({ type: 'shift-speed', fromIndex: last.index, toIndex: index, fretsPerSecond });
+      }
     }
-  }
+    last = { index, time: event.time, position };
+  });
   return issues;
 }
 
@@ -102,7 +109,7 @@ export function checkPlayable(
   });
 
   issues.push(...checkSpans(events, opts));
-  issues.push(...checkShiftSpeed(events, bpm));
+  issues.push(...checkShiftSpeed(events, fingering, bpm));
   issues.push(...checkStringSkips(events));
 
   return issues;

@@ -1,0 +1,228 @@
+{
+  "id": "thumb",
+  "name": "Thumb-over funk",
+  "tempo": {
+    "min": 75,
+    "max": 105
+  },
+  "feel": {
+    "subdivision": 16,
+    "maxSwing": 55,
+    "downstrokesOnly": false
+  },
+  "tunings": ["standard"],
+  "capo": {
+    "min": 0,
+    "max": 0
+  },
+  "harmony": {
+    "line": "chord",
+    "scale": [],
+    "colours": ["sus4", "add9", "6"]
+  },
+  "strings": [1, 2, 3, 4],
+  "structure": ["sparse-verse", "funk-chorus", "bridge"],
+  "mustInclude": [
+    {
+      "kind": "articulation",
+      "value": "ghost",
+      "scope": "riff"
+    },
+    {
+      "kind": "articulation",
+      "value": "mute",
+      "scope": "riff"
+    },
+    {
+      "kind": "articulation",
+      "value": "hammer",
+      "scope": "riff"
+    },
+    {
+      "kind": "articulation",
+      "value": "double-stop",
+      "scope": "piece"
+    },
+    {
+      "kind": "section",
+      "value": "bridge",
+      "scope": "piece"
+    }
+  ],
+  "avoid": [
+    {
+      "kind": "drive"
+    },
+    {
+      "kind": "maxSimultaneous",
+      "max": 3
+    }
+  ],
+  "rhythmCells": [
+    {
+      "id": "sparse",
+      "level": 1,
+      "steps": [
+        {
+          "t": 0,
+          "dir": "pick"
+        },
+        {
+          "t": 4,
+          "dir": "mute"
+        },
+        {
+          "t": 6,
+          "dir": "pick"
+        },
+        {
+          "t": 8,
+          "dir": "pick",
+          "ghost": true
+        },
+        {
+          "t": 12,
+          "dir": "mute"
+        },
+        {
+          "t": 14,
+          "dir": "pick"
+        }
+      ]
+    },
+    {
+      "id": "funk",
+      "level": 2,
+      "steps": [
+        {
+          "t": 0,
+          "dir": "pick"
+        },
+        {
+          "t": 2,
+          "dir": "pick",
+          "ghost": true
+        },
+        {
+          "t": 3,
+          "dir": "pick"
+        },
+        {
+          "t": 4,
+          "dir": "mute"
+        },
+        {
+          "t": 6,
+          "dir": "pick"
+        },
+        {
+          "t": 7,
+          "dir": "pick",
+          "ghost": true
+        },
+        {
+          "t": 10,
+          "dir": "pick"
+        },
+        {
+          "t": 12,
+          "dir": "mute"
+        },
+        {
+          "t": 14,
+          "dir": "pick"
+        }
+      ]
+    },
+    {
+      "id": "scratch",
+      "level": 3,
+      "steps": [
+        {
+          "t": 0,
+          "dir": "pick"
+        },
+        {
+          "t": 1,
+          "dir": "pick",
+          "ghost": true
+        },
+        {
+          "t": 2,
+          "dir": "pick"
+        },
+        {
+          "t": 4,
+          "dir": "mute"
+        },
+        {
+          "t": 5,
+          "dir": "pick"
+        },
+        {
+          "t": 6,
+          "dir": "pick"
+        },
+        {
+          "t": 8,
+          "dir": "pick"
+        },
+        {
+          "t": 9,
+          "dir": "pick",
+          "ghost": true
+        },
+        {
+          "t": 10,
+          "dir": "pick"
+        },
+        {
+          "t": 12,
+          "dir": "mute"
+        },
+        {
+          "t": 13,
+          "dir": "pick"
+        },
+        {
+          "t": 14,
+          "dir": "pick"
+        },
+        {
+          "t": 15,
+          "dir": "pick",
+          "ghost": true
+        }
+      ]
+    }
+  ],
+  "progressions": [
+    {
+      "id": "I-IV-I-V",
+      "roman": ["I", "IV", "I", "V"]
+    },
+    {
+      "id": "vi-IV-I-V",
+      "roman": ["vi", "IV", "I", "V"]
+    },
+    {
+      "id": "I-bVII-IV-I",
+      "roman": ["I", "bVII", "IV", "I"]
+    }
+  ],
+  "phraseShapes": [
+    {
+      "id": "inside-shape",
+      "contour": [0, 1, 0, 2, 1, 0, 1, 2]
+    },
+    {
+      "id": "rise-hold-fall",
+      "contour": [0, 1, 2, 2, 1, 0, 0, 1]
+    },
+    {
+      "id": "call-answer",
+      "contour": [0, 2, 1, 2, 0, -1, 0, -1]
+    }
+  ],
+  "articulations": ["accent", "ghost", "mute", "hammer", "pull", "slide", "double-stop"]
+}

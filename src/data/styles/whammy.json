@@ -1,0 +1,201 @@
+{
+  "id": "whammy",
+  "name": "Rap-rock Whammy",
+  "tempo": {
+    "min": 85,
+    "max": 110
+  },
+  "feel": {
+    "subdivision": 16,
+    "maxSwing": 50,
+    "downstrokesOnly": false
+  },
+  "tunings": ["dropD"],
+  "capo": {
+    "min": 0,
+    "max": 0
+  },
+  "harmony": {
+    "line": "scale",
+    "scale": [0, 3, 5, 6, 7, 10],
+    "colours": []
+  },
+  "strings": [4, 5, 6],
+  "structure": ["riff", "verse", "whammy-break", "stutter-outro"],
+  "mustInclude": [
+    {
+      "kind": "articulation",
+      "value": "pedal",
+      "scope": "riff"
+    },
+    {
+      "kind": "articulation",
+      "value": "killswitch",
+      "scope": "riff"
+    },
+    {
+      "kind": "phraseShape",
+      "value": "call-answer",
+      "scope": "riff"
+    },
+    {
+      "kind": "accentOn",
+      "steps": [0],
+      "scope": "riff"
+    },
+    {
+      "kind": "section",
+      "value": "whammy-break",
+      "scope": "piece"
+    }
+  ],
+  "avoid": [
+    {
+      "kind": "openChord"
+    },
+    {
+      "kind": "legatoRun",
+      "max": 2
+    }
+  ],
+  "rhythmCells": [
+    {
+      "id": "hits",
+      "level": 1,
+      "steps": [
+        {
+          "t": 0,
+          "dir": "pick",
+          "accent": true
+        },
+        {
+          "t": 3,
+          "dir": "pick"
+        },
+        {
+          "t": 6,
+          "dir": "pick"
+        },
+        {
+          "t": 8,
+          "dir": "pick"
+        },
+        {
+          "t": 12,
+          "dir": "pick"
+        }
+      ]
+    },
+    {
+      "id": "chug",
+      "level": 2,
+      "steps": [
+        {
+          "t": 0,
+          "dir": "pick",
+          "accent": true,
+          "palmMute": true
+        },
+        {
+          "t": 2,
+          "dir": "pick",
+          "palmMute": true
+        },
+        {
+          "t": 3,
+          "dir": "pick"
+        },
+        {
+          "t": 6,
+          "dir": "pick"
+        },
+        {
+          "t": 8,
+          "dir": "pick",
+          "palmMute": true
+        },
+        {
+          "t": 10,
+          "dir": "pick",
+          "palmMute": true
+        },
+        {
+          "t": 11,
+          "dir": "pick"
+        },
+        {
+          "t": 14,
+          "dir": "pick"
+        }
+      ]
+    },
+    {
+      "id": "stutter",
+      "level": 3,
+      "steps": [
+        {
+          "t": 0,
+          "dir": "pick",
+          "accent": true
+        },
+        {
+          "t": 1,
+          "dir": "pick"
+        },
+        {
+          "t": 2,
+          "dir": "pick"
+        },
+        {
+          "t": 4,
+          "dir": "pick"
+        },
+        {
+          "t": 6,
+          "dir": "pick"
+        },
+        {
+          "t": 7,
+          "dir": "pick"
+        },
+        {
+          "t": 8,
+          "dir": "pick"
+        },
+        {
+          "t": 11,
+          "dir": "pick"
+        },
+        {
+          "t": 12,
+          "dir": "pick"
+        },
+        {
+          "t": 14,
+          "dir": "pick"
+        }
+      ]
+    }
+  ],
+  "progressions": [
+    {
+      "id": "i5-bIII5-iv5-i5",
+      "roman": ["i5", "bIII5", "iv5", "i5"]
+    },
+    {
+      "id": "i5-bVII5-bVI5-V5",
+      "roman": ["i5", "bVII5", "bVI5", "V5"]
+    },
+    {
+      "id": "i5-i5-bIII5-iv5",
+      "roman": ["i5", "i5", "bIII5", "iv5"]
+    }
+  ],
+  "phraseShapes": [
+    {
+      "id": "call-answer",
+      "contour": [0, 0, 1, 2, 1, 0, -1, 0]
+    }
+  ],
+  "articulations": ["accent", "palm-mute", "mute", "pedal", "killswitch"]
+}

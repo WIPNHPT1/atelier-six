@@ -1,0 +1,234 @@
+{
+  "id": "power",
+  "name": "Pop punk",
+  "tempo": {
+    "min": 150,
+    "max": 200
+  },
+  "feel": {
+    "subdivision": 8,
+    "maxSwing": 50,
+    "downstrokesOnly": true
+  },
+  "tunings": ["standard", "halfDown"],
+  "capo": {
+    "min": 0,
+    "max": 0
+  },
+  "harmony": {
+    "line": "chord",
+    "scale": [],
+    "colours": []
+  },
+  "strings": [4, 5, 6],
+  "structure": ["riff-intro", "verse", "build", "chorus", "breakdown", "chorus", "chorus"],
+  "mustInclude": [
+    {
+      "kind": "push",
+      "scope": "riff"
+    },
+    {
+      "kind": "palmMuteContrast",
+      "scope": "piece"
+    },
+    {
+      "kind": "articulation",
+      "value": "octave",
+      "scope": "piece"
+    },
+    {
+      "kind": "section",
+      "value": "breakdown",
+      "scope": "piece"
+    }
+  ],
+  "avoid": [
+    {
+      "kind": "quality",
+      "values": ["7", "m7", "add9", "sus2", "sus4"]
+    },
+    {
+      "kind": "longSection",
+      "section": "solo",
+      "maxBars": 8
+    }
+  ],
+  "rhythmCells": [
+    {
+      "id": "eighths-muted",
+      "level": 1,
+      "steps": [
+        {
+          "t": 0,
+          "dir": "D",
+          "accent": true,
+          "palmMute": true
+        },
+        {
+          "t": 2,
+          "dir": "D",
+          "palmMute": true
+        },
+        {
+          "t": 4,
+          "dir": "D",
+          "palmMute": true
+        },
+        {
+          "t": 6,
+          "dir": "D",
+          "palmMute": true
+        },
+        {
+          "t": 8,
+          "dir": "D",
+          "palmMute": true
+        },
+        {
+          "t": 10,
+          "dir": "D",
+          "palmMute": true
+        },
+        {
+          "t": 12,
+          "dir": "D",
+          "palmMute": true
+        },
+        {
+          "t": 14,
+          "dir": "D",
+          "palmMute": true
+        }
+      ]
+    },
+    {
+      "id": "eighths-open",
+      "level": 1,
+      "steps": [
+        {
+          "t": 0,
+          "dir": "D",
+          "accent": true
+        },
+        {
+          "t": 2,
+          "dir": "D"
+        },
+        {
+          "t": 4,
+          "dir": "D"
+        },
+        {
+          "t": 6,
+          "dir": "D"
+        },
+        {
+          "t": 8,
+          "dir": "D",
+          "accent": true
+        },
+        {
+          "t": 10,
+          "dir": "D"
+        },
+        {
+          "t": 12,
+          "dir": "D"
+        },
+        {
+          "t": 14,
+          "dir": "D"
+        }
+      ]
+    },
+    {
+      "id": "quarter-and",
+      "level": 2,
+      "steps": [
+        {
+          "t": 0,
+          "dir": "D",
+          "accent": true,
+          "palmMute": true
+        },
+        {
+          "t": 4,
+          "dir": "D",
+          "palmMute": true
+        },
+        {
+          "t": 6,
+          "dir": "D",
+          "palmMute": true
+        },
+        {
+          "t": 8,
+          "dir": "D",
+          "accent": true
+        },
+        {
+          "t": 12,
+          "dir": "D"
+        },
+        {
+          "t": 14,
+          "dir": "D"
+        }
+      ]
+    },
+    {
+      "id": "stop-push",
+      "level": 3,
+      "steps": [
+        {
+          "t": 0,
+          "dir": "D",
+          "accent": true
+        },
+        {
+          "t": 6,
+          "dir": "D"
+        },
+        {
+          "t": 8,
+          "dir": "D",
+          "accent": true
+        },
+        {
+          "t": 14,
+          "dir": "D",
+          "accent": true
+        }
+      ]
+    }
+  ],
+  "progressions": [
+    {
+      "id": "I5-V5-vi5-IV5",
+      "roman": ["I5", "V5", "vi5", "IV5"]
+    },
+    {
+      "id": "vi5-IV5-I5-V5",
+      "roman": ["vi5", "IV5", "I5", "V5"]
+    },
+    {
+      "id": "I5-IV5-V5-IV5",
+      "roman": ["I5", "IV5", "V5", "IV5"]
+    }
+  ],
+  "phraseShapes": [
+    {
+      "id": "rise-hold-fall",
+      "contour": [0, 1, 1, 2, 2, 1, 1, 0]
+    },
+    {
+      "id": "pedal-tone",
+      "contour": [0, 0, 1, 0, 0, 2, 0, 1]
+    },
+    {
+      "id": "octave-leap",
+      "contour": [0, 2, 0, 2, 1, 1, 0, 0]
+    }
+  ],
+  "articulations": ["accent", "palm-mute", "octave", "mute"]
+}

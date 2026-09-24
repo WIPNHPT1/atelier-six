@@ -1,6 +1,6 @@
 # Progress
 
-Current: 6.0
+Current: 6.1
 Legend: [ ] todo · [x] done · BLOCKED: reason
 Rule: update "Current" and tick the box in the same commit as the step. Unfinished work lives in `RESUME.md`.
 Milestones: v1.0 = Phases 0–10 · v1.1 = 11–15 · v1.2 = 16–17 · v2.0 = 18–22 · v2.x = 23–24 (final).
@@ -79,7 +79,7 @@ Recorded numbers (fill in as you go): LIVE_URL=https://ateliersix.netlify.app ·
 
 ## Phase 6 — Lessons and drills
 
-- [ ] 6.0 Style sheets, riff builder, style lint
+- [x] 6.0 Style sheets, riff builder, style lint
 - [ ] 6.1 Lesson data
 - [ ] 6.2 Lesson player + arrangement
 - [ ] 6.3 Drills
