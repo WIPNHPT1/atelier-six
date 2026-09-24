@@ -263,6 +263,12 @@ function LessonPlayer({ lesson }: { lesson: BuiltLesson }) {
         if (playingThis) stopPlayback();
         else play(mix);
       },
+      play: () => {
+        if (!playingThis) play(mix);
+      },
+      stop: () => {
+        if (playingThis) stopPlayback();
+      },
       next: () => {
         if (!playingThis) setSelfPacedIndex((index) => (index + 1) % view.shapes.length);
       },
@@ -283,6 +289,9 @@ function LessonPlayer({ lesson }: { lesson: BuiltLesson }) {
       },
       faster: () => {
         nudgeTempo(Math.min(range.max, mix.bpm + 1));
+      },
+      setTempo: (bpm) => {
+        nudgeTempo(Math.min(range.max, Math.max(range.min, bpm)));
       },
     },
     [playingThis, mix, performing, view.shapes.length, range.min, range.max],

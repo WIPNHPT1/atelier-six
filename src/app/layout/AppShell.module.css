@@ -50,3 +50,11 @@
     margin-left: 248px;
   }
 }
+
+.voiceIndicator {
+  position: fixed;
+  bottom: calc(var(--s-6) + env(safe-area-inset-bottom));
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+}

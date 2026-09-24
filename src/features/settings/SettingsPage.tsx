@@ -11,6 +11,7 @@ import { Button } from '../../ui/Button';
 import { copy } from '../../content/copy.en-GB';
 import { useSettingsStore } from '../../app/settingsStore';
 import { downloadSoundsForOffline } from '../../audio/sampleCache';
+import { isVoiceCommandsSupported } from '../voice/useVoiceCommands';
 import { FootPedalTest } from '../../ui/shortcuts/FootPedalTest';
 import styles from './SettingsPage.module.css';
 import { ProgressTransfer } from './ProgressTransfer';
@@ -21,6 +22,7 @@ export default function SettingsPage() {
   const settings = useSettingsStore();
   const navigate = useNavigate();
   const [downloadState, setDownloadState] = useState<DownloadState>('idle');
+  const [voiceSupported] = useState(isVoiceCommandsSupported);
 
   return (
     <PageHeader title={copy.settings.title}>
@@ -120,6 +122,22 @@ export default function SettingsPage() {
             onChange={settings.setRobotMode}
           />
         </div>
+
+        {voiceSupported ? (
+          <div className={styles.row}>
+            <div className={styles.rowLabel}>
+              <Text>{copy.settings.voiceCommands}</Text>
+              <Text dim size="small">
+                {copy.settings.voiceCommandsHint}
+              </Text>
+            </div>
+            <Toggle
+              label={copy.settings.voiceCommands}
+              checked={settings.voiceCommands}
+              onChange={settings.setVoiceCommands}
+            />
+          </div>
+        ) : null}
 
         <div className={styles.row}>
           <div className={styles.rowLabel}>

@@ -20,6 +20,7 @@ export type Settings = {
   level: Level;
   onboardingComplete: boolean;
   robotMode: boolean;
+  voiceCommands: boolean;
 };
 
 export type SettingsStore = Settings & {
@@ -34,6 +35,7 @@ export type SettingsStore = Settings & {
   setLevel: (level: Level) => void;
   setOnboardingComplete: (complete: boolean) => void;
   setRobotMode: (robotMode: boolean) => void;
+  setVoiceCommands: (voiceCommands: boolean) => void;
 };
 
 const defaultSettings: Settings = {
@@ -48,6 +50,7 @@ const defaultSettings: Settings = {
   level: 'new',
   onboardingComplete: false,
   robotMode: false,
+  voiceCommands: false,
 };
 
 export const useSettingsStore = create<SettingsStore>()(
@@ -86,6 +89,9 @@ export const useSettingsStore = create<SettingsStore>()(
       },
       setRobotMode: (robotMode) => {
         set({ robotMode });
+      },
+      setVoiceCommands: (voiceCommands) => {
+        set({ voiceCommands });
       },
     }),
     { name: 'a6.settings' },

@@ -1,7 +1,13 @@
 import { create } from 'zustand';
 import type { ShortcutAction } from '../../core/input/keymap';
 
-export type ShortcutHandlers = Partial<Record<ShortcutAction, () => void>>;
+// Voice commands need distinct play/stop and a numeric tempo target, on top of the
+// keyboard's own toggle-shaped actions, so a page's registered handlers cover both.
+export type PageAction = ShortcutAction | 'play' | 'stop';
+
+export type ShortcutHandlers = Partial<Record<PageAction, () => void>> & {
+  setTempo?: (bpm: number) => void;
+};
 
 let activeHandlers: ShortcutHandlers = {};
 
@@ -14,10 +20,17 @@ export function setActiveShortcuts(handlers: ShortcutHandlers): () => void {
   };
 }
 
-export function dispatchToActivePage(action: ShortcutAction): boolean {
+export function dispatchToActivePage(action: PageAction): boolean {
   const handler = activeHandlers[action];
   if (!handler) return false;
   handler();
+  return true;
+}
+
+export function dispatchSetTempo(bpm: number): boolean {
+  const handler = activeHandlers.setTempo;
+  if (!handler) return false;
+  handler(bpm);
   return true;
 }
 

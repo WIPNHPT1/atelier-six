@@ -5,7 +5,7 @@ import { Dock } from './Dock';
 import { Rail } from './Rail';
 import { Sidebar } from './Sidebar';
 import { copy } from '../../content/copy.en-GB';
-import { useApplySettings } from '../settingsStore';
+import { useApplySettings, useSettingsStore } from '../settingsStore';
 import { Skeleton } from '../../ui/Skeleton';
 import { IconButton } from '../../ui/IconButton';
 import { SearchIcon } from '../../ui/icons';
@@ -15,12 +15,16 @@ import { defaultCommands } from '../../ui/CommandPalette/defaultCommands';
 import { MiniPlayer } from '../../ui/MiniPlayer/MiniPlayer';
 import { useShortcuts } from '../../ui/shortcuts/useShortcuts';
 import { ShortcutsOverlay } from '../../ui/shortcuts/ShortcutsOverlay';
+import { useVoiceCommands } from '../../features/voice/useVoiceCommands';
+import { Pill } from '../../ui/Pill';
 
 export function AppShell() {
   useApplySettings();
   const navigate = useNavigate();
   const [paletteOpen, setPaletteOpen] = useState(false);
   const [shortcutsOpen, setShortcutsOpen] = useState(false);
+  const voiceEnabled = useSettingsStore((s) => s.voiceCommands);
+  const { listening } = useVoiceCommands(voiceEnabled);
 
   useShortcuts({
     onHelp: () => {
@@ -102,6 +106,11 @@ export function AppShell() {
           setShortcutsOpen(false);
         }}
       />
+      {listening ? (
+        <div className={styles.voiceIndicator} role="status">
+          <Pill accent>{copy.shortcuts.listeningForCommands}</Pill>
+        </div>
+      ) : null}
     </>
   );
 }

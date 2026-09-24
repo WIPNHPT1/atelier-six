@@ -12,6 +12,7 @@ import { freqToNote, midiToNote } from '../../core/pitch/freqToNote';
 import { nearestString } from '../../core/pitch/nearestString';
 import { smooth } from '../../core/pitch/smooth';
 import { MicPermissionDeniedError, MicUnsupportedError, startMic, stopMic } from '../../audio/mic';
+import { claimMic, registerMicStopper, releaseMic } from '../../audio/micArbiter';
 import { ensureAudio, playReferenceTone } from '../../audio/engine';
 import { Panel } from '../../ui/Panel';
 import { Button } from '../../ui/Button';
@@ -67,7 +68,18 @@ export default function TunerPage() {
   useEffect(
     () => () => {
       stopMic();
+      releaseMic('tuner');
     },
+    [],
+  );
+
+  // Voice commands claim the mic exclusively; if it does, stop listening here too.
+  useEffect(
+    () =>
+      registerMicStopper('tuner', () => {
+        stopMic();
+        setStatus('stopped');
+      }),
     [],
   );
 
@@ -112,6 +124,7 @@ export default function TunerPage() {
   async function handleToggle() {
     if (status === 'listening' || status === 'starting') {
       stopMic();
+      releaseMic('tuner');
       setStatus('stopped');
       setPitchInfo(null);
       setDisplayedCents(0);
@@ -124,6 +137,7 @@ export default function TunerPage() {
 
     setStatus('starting');
     try {
+      claimMic('tuner');
       await startMic(handleFrame);
       setStatus('listening');
     } catch (error) {

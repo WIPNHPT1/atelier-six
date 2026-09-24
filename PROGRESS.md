@@ -1,6 +1,6 @@
 # Progress
 
-Current: 8.2
+Current: 8.3
 Legend: [ ] todo · [x] done · BLOCKED: reason
 Rule: update "Current" and tick the box in the same commit as the step. Unfinished work lives in `RESUME.md`.
 Milestones: v1.0 = Phases 0–10 · v1.1 = 11–15 · v1.2 = 16–17 · v2.0 = 18–22 · v2.x = 23–24 (final).
@@ -103,7 +103,7 @@ Recorded numbers (fill in as you go): LIVE_URL=https://ateliersix.netlify.app ·
 ## Phase 8 — Hands-free and settings
 
 - [x] 8.1 Keyboard/pedal shortcuts
-- [ ] 8.2 Voice commands
+- [x] 8.2 Voice commands
 - [ ] 8.3 Left-handed, tunings, finishes everywhere
 - [ ] Gate 8
 

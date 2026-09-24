@@ -386,6 +386,7 @@ export const copy = {
   shortcuts: {
     title: 'Keyboard shortcuts',
     open: 'Shortcuts',
+    listeningForCommands: 'Listening for commands',
     togglePlay: 'Play / stop',
     next: 'Next',
     prev: 'Previous',
@@ -544,6 +545,9 @@ export const copy = {
     footPedalTest: 'Foot pedal test',
     footPedalTestHint: 'Press a pedal button or key to see which action it sends.',
     footPedalTestWaiting: 'Waiting for a key…',
+    voiceCommands: 'Voice commands',
+    voiceCommandsHint:
+      'Say "play", "stop", "slower", "faster", "loop", "next", "back" or "tempo 90". Some browsers send what you say to a cloud speech service to understand it.',
   },
   design: {
     title: 'Design',
