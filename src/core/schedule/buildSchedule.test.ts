@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import type { RhythmPreset } from '../../data/rhythms.ts';
 import type { Shape } from '../shapes/types.ts';
 import { standard } from '../tuning.ts';
-import { buildSchedule } from './buildSchedule.ts';
+import { buildSchedule, secondsToStep } from './buildSchedule.ts';
 
 // Open-ish shape: low E muted, A=3, D=2, G=0, B=1, high e=0.
 const shape: Shape = {
@@ -290,5 +290,33 @@ describe('buildSchedule', () => {
     const target = events.find((e) => e.step === 10000);
     expect(target).toBeDefined();
     expect(target?.t).toBeCloseTo(10000 * stepDur, 9);
+  });
+
+  it('secondsToStep round-trips every event.t back to its own step', () => {
+    const rhythm: RhythmPreset = {
+      id: 'popish',
+      subdivision: 8,
+      steps: [
+        { t: 0, dir: 'D' },
+        { t: 2, dir: 'D' },
+        { t: 3, dir: 'U' },
+        { t: 5, dir: 'U' },
+        { t: 6, dir: 'D' },
+        { t: 7, dir: 'U' },
+      ],
+    };
+    for (const bpm of [60, 97, 140, 200]) {
+      const events = buildSchedule({
+        shapes: [shape, otherShape],
+        rhythm,
+        bpm,
+        bars: [2, 3],
+        tuning: standard,
+        countIn: true,
+      });
+      for (const event of events) {
+        expect(secondsToStep(event.t, bpm)).toBe(event.step);
+      }
+    }
   });
 });

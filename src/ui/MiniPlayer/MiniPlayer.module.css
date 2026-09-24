@@ -1,0 +1,55 @@
+.player {
+  position: fixed;
+  left: 16px;
+  right: 16px;
+  bottom: calc(100px + env(safe-area-inset-bottom));
+  z-index: 29;
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  padding: var(--s-2) var(--s-3);
+  border-radius: var(--r-pill);
+  border: 1px solid var(--hairline);
+  background: var(--rosewood);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+}
+
+@media (min-width: 640px) {
+  .player {
+    left: 88px;
+    bottom: var(--s-4);
+    max-width: 360px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .player {
+    left: 264px;
+  }
+}
+
+.chords {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+  min-width: 0;
+}
+
+.current {
+  font-family: var(--font-ui);
+  font-size: var(--t-14);
+  font-weight: 600;
+  color: var(--bone);
+}
+
+.next {
+  font-family: var(--font-ui);
+  font-size: var(--t-12);
+  color: var(--bone-dim);
+}

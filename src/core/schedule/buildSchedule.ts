@@ -50,9 +50,13 @@ export type ScheduleInput = {
   spreadMs?: number;
 };
 
-function stepDurSeconds(bpm: number): number {
+export function stepDurSeconds(bpm: number): number {
   // one sixteenth note: a quarter note is 60/bpm seconds, a sixteenth is a quarter of that.
   return 15 / bpm;
+}
+
+export function secondsToStep(seconds: number, bpm: number): number {
+  return Math.round(seconds / stepDurSeconds(bpm));
 }
 
 function clampSpread(spreadMs: number): number {

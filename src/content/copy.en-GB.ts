@@ -70,6 +70,9 @@ export const copy = {
   lesson: {
     title: 'Lesson',
     keepFingers: 'Keep finger {fingers} where it is.',
+    demoTitle: 'C–G–Am–F practice loop',
+    play: 'Play',
+    stop: 'Stop',
   },
   metronome: {
     start: 'Start metronome',
@@ -77,6 +80,11 @@ export const copy = {
     bpmLabel: 'Tempo (bpm)',
     tap: 'Tap tempo',
     countInLabel: 'Count-in bars',
+  },
+  miniPlayer: {
+    stop: 'Stop',
+    next: 'Next: {chord}',
+    bpm: '{bpm} bpm',
   },
   practiseScreen: {
     title: 'Practise',
