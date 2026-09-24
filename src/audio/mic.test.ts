@@ -11,11 +11,16 @@ class FakeAnalyser {
 class FakeAudioContext {
   sampleRate = 44100;
   closed = false;
+  resumed = false;
   createMediaStreamSource() {
     return { connect: vi.fn(), disconnect: vi.fn() };
   }
   createAnalyser() {
     return new FakeAnalyser();
+  }
+  resume() {
+    this.resumed = true;
+    return Promise.resolve();
   }
   close() {
     this.closed = true;
@@ -71,6 +76,15 @@ describe('mic', () => {
     const onFrame = vi.fn();
     await startMic(onFrame);
     expect(onFrame).toHaveBeenCalledWith(expect.any(Float32Array), 44100);
+  });
+
+  it('resumes the AudioContext so Safari does not leave it suspended', async () => {
+    vi.stubGlobal('navigator', {
+      mediaDevices: { getUserMedia: vi.fn().mockResolvedValue(fakeStream().stream) },
+    });
+    const resume = vi.spyOn(FakeAudioContext.prototype, 'resume');
+    await startMic(() => undefined);
+    expect(resume).toHaveBeenCalled();
   });
 
   it('stopMic releases the stream tracks', async () => {

@@ -41,6 +41,10 @@ export async function startMic(onFrame: MicFrameListener): Promise<void> {
   }
 
   const audioContext = new AudioContext();
+  // Safari (iOS and macOS) leaves a freshly created AudioContext suspended once the
+  // getUserMedia await breaks the user-gesture chain, so frames come back silent forever
+  // unless it's explicitly resumed here.
+  await audioContext.resume();
   const source = audioContext.createMediaStreamSource(stream);
   const analyser = audioContext.createAnalyser();
   analyser.fftSize = FFT_SIZE;
