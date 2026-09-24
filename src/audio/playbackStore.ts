@@ -63,13 +63,14 @@ export const usePlaybackStore = create<PlaybackState>((set) => ({
     layers = [],
     prepared,
   }) => {
-    const [{ ensureAudio, ensurePans }, transport, Tone] = await Promise.all([
+    const [{ ensureAudio, ensurePans, LAYER_PAN }, transport, Tone] = await Promise.all([
       import('./engine.ts'),
       import('./transport.ts'),
       import('tone'),
     ]);
     await ensureAudio();
-    await ensurePans(layers.map((layer) => layer.pan));
+    const bandLayer = prepared?.band?.some((event) => event.part === 'pad') === true;
+    await ensurePans([...layers.map((layer) => layer.pan), ...(bandLayer ? [LAYER_PAN] : [])]);
     if (prepared !== undefined) transport.playPrepared(prepared, bpm, { loop: loop ?? false });
     else if (source !== undefined) transport.play(source, bpm, { loop: loop ?? false, layers });
     else return;

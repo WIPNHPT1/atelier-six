@@ -63,6 +63,11 @@ describe('module tunes end to end', () => {
       expect(prepared.band?.some((event) => event.part === 'bass')).toBe(true);
       expect(prepared.band?.some((event) => event.part === 'pad')).toBe(tune.module === 'open');
       expect(Object.keys(performance.sectionLabels)).toHaveLength(tune.arrangement.sections.length);
+      // The throwaway strums that make time for big shifts are played muted.
+      const mutedStrums = prepared.events.filter((event) => event.dir === 'mute');
+      expect(mutedStrums.length).toBe(
+        tune.module === 'power' ? performance.muted.size : mutedStrums.length,
+      );
     });
   }
 });

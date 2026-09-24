@@ -113,7 +113,27 @@ describe('buildSchedule', () => {
       tuning: standard,
     });
     const strings = events[0]?.strings ?? [];
-    expect(strings.map((s) => s.string)).toEqual([1, 2, 3, 4, 5]);
+    // An upstroke mostly catches the thinner strings: the top four, high to low.
+    expect(strings.map((s) => s.string)).toEqual([1, 2, 3, 4]);
+    [1, 0.94, 0.88, 0.82].forEach((gain, i) => {
+      expect(strings[i]?.gain).toBeCloseTo(gain);
+    });
+  });
+
+  it('plays every named string on an upstroke that picks its strings', () => {
+    const rhythm: RhythmPreset = {
+      id: 'u',
+      subdivision: 8,
+      steps: [{ t: 0, dir: 'U', strings: [1, 2, 3, 4, 5] }],
+    };
+    const events = buildSchedule({
+      shapes: [shape],
+      rhythm,
+      bpm: 120,
+      bars: [1],
+      tuning: standard,
+    });
+    expect(events[0]?.strings.map((s) => s.string)).toEqual([1, 2, 3, 4, 5]);
   });
 
   it('excludes a muted (fret null) string even when it is sounded by others', () => {

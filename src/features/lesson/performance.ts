@@ -1,5 +1,6 @@
 import type { PreparedPlay } from '../../audio/transport';
 import { buildBand, type BandBar, type BandStyle } from '../../core/band/band';
+import { renderLesson } from '../../core/lessons/check';
 import { planSection, type SectionPlan } from '../../core/lessons/plan';
 import type { BuiltLesson } from '../../core/lessons/types';
 import { chainSchedules, chainTab, totalSeconds } from '../../core/schedule/arrangement';
@@ -29,7 +30,11 @@ export type Performance = {
   columns: ReturnType<typeof chainTab>['columns'];
   sectionLabels: Record<number, string>;
   bars: number;
+  // "bar:step" of strokes played as muted throwaway strums to make time for a shift.
+  muted: Set<string>;
 };
+
+const STEPS_PER_BAR = 16;
 
 // Every section in order as one tab, for the tune's performance mode.
 export function planPerformance(
@@ -47,7 +52,13 @@ export function planPerformance(
       label: label(plan.section.name),
     })),
   );
-  return { plans, ...tab, bars: tab.shapes.length };
+  const muted = new Set(
+    renderLesson(lesson, style)
+      .piece.sections.flatMap((section) => section.events)
+      .filter((event) => event.dir === 'mute')
+      .map((event) => `${String(event.bar)}:${String(event.t)}`),
+  );
+  return { plans, ...tab, bars: tab.shapes.length, muted };
 }
 
 export type PerformanceOptions = {
@@ -65,7 +76,7 @@ export function preparePerformance(
   options: PerformanceOptions,
 ): PreparedPlay {
   const { bpm, tuning, capo, countIn, click } = options;
-  const events = chainSchedules(
+  const chained = chainSchedules(
     performance.plans.map((plan, index) => ({
       events: buildSchedule({
         shapes: plan.shapes,
@@ -81,6 +92,12 @@ export function preparePerformance(
       bars: plan.shapes.length,
     })),
     bpm,
+  );
+  const events = chained.map((event) =>
+    event.kind !== 'click' &&
+    performance.muted.has(`${String(event.bar)}:${String(event.step % STEPS_PER_BAR)}`)
+      ? { ...event, dir: 'mute' as const }
+      : event,
   );
   const bandBars: BandBar[] = performance.plans.flatMap((plan) =>
     plan.shapes.map((shape, bar) => ({

@@ -10,7 +10,7 @@ import { applyFreezes } from '../core/drills/drills.ts';
 import { remainingFromBar } from '../core/schedule/remainingFromBar.ts';
 import { useSettingsStore } from '../app/settingsStore.ts';
 import type { BandEvent } from '../core/band/band.ts';
-import { playBand, playEvent } from './engine.ts';
+import { forgetRinging, playBand, playEvent } from './engine.ts';
 
 const HUMANISE_SEED = 6;
 const SIXTEENTHS_PER_BAR = 16;
@@ -173,6 +173,7 @@ export function stop(): void {
   disposeLayers();
   disposeBand();
   currentEndSeconds = null;
+  forgetRinging();
   currentLayers = [];
   currentSource = null;
   currentSchedule = null;

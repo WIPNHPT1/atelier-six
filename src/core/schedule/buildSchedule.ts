@@ -12,6 +12,10 @@ const DEFAULT_SPREAD_MS = 12;
 const BASE_VELOCITY = 0.7;
 const ACCENT_GAIN_DB = 4;
 const ACCENT_GAIN = 10 ** (ACCENT_GAIN_DB / 20);
+// A pick loses a little energy on each string it crosses.
+const STRUM_TAPER = 0.06;
+// Upstrokes mostly catch the thinner strings.
+const UPSTROKE_STRINGS = 4;
 
 export type Section = 'verse' | 'chorus';
 
@@ -22,7 +26,8 @@ const SECTION_GAIN: Record<Section, number> = {
 
 export type ScheduleEventKind = 'strum' | 'pick' | 'click' | 'ghost';
 
-export type StringHit = { string: number; midi: number; offset: number };
+// gain: how hard this string is hit within the strum (1 = full), so strums aren't uniform.
+export type StringHit = { string: number; midi: number; offset: number; gain?: number };
 
 export type ScheduleEvent = {
   t: number;
@@ -107,11 +112,15 @@ function soundingStrings(
       return targets === undefined || targets.has(stringNumber);
     })
     .filter(hasFret);
-  const ordered = step.dir === 'U' ? [...slots].reverse() : slots;
+  const upstroke = step.dir === 'U';
+  const reversed = upstroke ? [...slots].reverse() : slots;
+  const ordered =
+    upstroke && targets === undefined ? reversed.slice(0, UPSTROKE_STRINGS) : reversed;
   return ordered.map((slot, position) => ({
     string: stringCount - slot.index,
     midi: slot.midi + slot.fret,
     offset: (position * spreadMs) / 1000,
+    gain: 1 - position * STRUM_TAPER,
   }));
 }
 

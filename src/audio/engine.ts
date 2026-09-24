@@ -38,7 +38,12 @@ const CLICK_DURATION_SECONDS = 0.03;
 const MIN_VELOCITY = 0.05;
 const MAX_VELOCITY = 1;
 const DRUM_VOLUME_DB = -4;
-const PAD_VOLUME_DB = -16;
+// The Britpop layer: a second clean guitar, panned, letting each chord ring quietly.
+export const LAYER_PAN = 0.35;
+const LAYER_STRUM_SECONDS = 0.025;
+// A muted strum: fretting hand resting on the strings, a short percussive "chk".
+const MUTED_STRUM_SECONDS = 0.02;
+const MUTED_STRUM_GAIN = 0.55;
 const CHIME_VOLUME_DB = -12;
 const CHIME_NOTES = ['E5', 'B5'];
 const CHIME_SPACING_SECONDS = 0.12;
@@ -49,7 +54,14 @@ declare global {
   }
 }
 
-type GuitarPath = { sampler: Tone.Sampler; muteFilter: Tone.Filter; muteHz: number };
+// ringing: the note each string is sounding right now. A string can only sound one note, so a
+// new hit on a string cuts the old one off (a chord change damps the previous chord).
+type GuitarPath = {
+  sampler: Tone.Sampler;
+  muteFilter: Tone.Filter;
+  muteHz: number;
+  ringing: Map<number, number>;
+};
 
 type AudioGraph = {
   guitar: Record<GuitarTone, GuitarPath>;
@@ -59,7 +71,6 @@ type AudioGraph = {
   bass: Tone.Sampler;
   drums: Tone.Sampler;
   click: Tone.MembraneSynth;
-  pad: Tone.PolySynth;
   chime: Tone.PolySynth;
 };
 
@@ -117,12 +128,7 @@ function buildGraph(): AudioGraph {
     envelope: { attack: 0.001, decay: 0.1, sustain: 0, release: 0.05 },
   }).toDestination();
 
-  // A soft, slow pad under Britpop choruses, and a quiet bell for finishing a tune.
-  const pad = new Tone.PolySynth(Tone.Synth, {
-    oscillator: { type: 'triangle' },
-    envelope: { attack: 0.4, decay: 0.3, sustain: 0.6, release: 1.2 },
-  });
-  pad.chain(new Tone.Volume(PAD_VOLUME_DB), reverb);
+  // A quiet bell for finishing a tune.
   const chime = new Tone.PolySynth(Tone.Synth, {
     oscillator: { type: 'sine' },
     envelope: { attack: 0.005, decay: 1.2, sustain: 0, release: 1.2 },
@@ -130,11 +136,15 @@ function buildGraph(): AudioGraph {
   chime.chain(new Tone.Volume(CHIME_VOLUME_DB), reverb);
 
   return {
-    pad,
     chime,
     guitar: {
-      clean: { sampler: clean, muteFilter: cleanMute, muteHz: CLEAN_MUTE_HZ },
-      driven: { sampler: driven, muteFilter: drivenMute, muteHz: DRIVEN_MUTE_HZ },
+      clean: { sampler: clean, muteFilter: cleanMute, muteHz: CLEAN_MUTE_HZ, ringing: new Map() },
+      driven: {
+        sampler: driven,
+        muteFilter: drivenMute,
+        muteHz: DRIVEN_MUTE_HZ,
+        ringing: new Map(),
+      },
     },
     panned: new Map(),
     mix: compressor,
@@ -166,7 +176,7 @@ export async function ensurePans(pans: number[]): Promise<void> {
       new Tone.Panner(pan),
       current.mix,
     );
-    current.panned.set(pan, { sampler, muteFilter, muteHz: CLEAN_MUTE_HZ });
+    current.panned.set(pan, { sampler, muteFilter, muteHz: CLEAN_MUTE_HZ, ringing: new Map() });
   }
   await Tone.loaded();
 }
@@ -182,27 +192,45 @@ export function playEvent(
   pan = 0,
 ): void {
   if (graph === null || event.kind === 'ghost') return;
-  const { sampler, muteFilter, muteHz } = graph.panned.get(pan) ?? graph.guitar[tone];
+  const path = graph.panned.get(pan) ?? graph.guitar[tone];
+  const { sampler, muteFilter, muteHz, ringing } = path;
+  const muted = event.dir === 'mute';
 
   // The hand stays on the strings for a whole palm-muted run; only lift it
   // (open the filter) when an unmuted hit arrives.
   muteFilter.frequency.cancelScheduledValues(time);
-  if (event.palmMute) {
+  if (event.palmMute || muted) {
     muteFilter.frequency.setValueAtTime(muteHz, time);
   } else {
     muteFilter.frequency.linearRampTo(OPEN_FILTER_HZ, MUTE_RECOVER_SECONDS, time);
   }
 
-  const velocity = clampVelocity(event.velocity);
   event.strings.forEach((hit) => {
     const frequency = Tone.Frequency(hit.midi, 'midi').toFrequency();
     const at = time + hit.offset;
-    if (event.palmMute) {
+    const velocity = clampVelocity(event.velocity * (hit.gain ?? 1));
+    // One note per string: whatever this string was ringing stops as it is struck again.
+    const previous = ringing.get(hit.string);
+    if (previous !== undefined) sampler.triggerRelease(previous, at);
+    if (muted) {
+      sampler.triggerAttackRelease(frequency, MUTED_STRUM_SECONDS, at, velocity * MUTED_STRUM_GAIN);
+      ringing.delete(hit.string);
+    } else if (event.palmMute) {
       sampler.triggerAttackRelease(frequency, PALM_MUTE_NOTE_SECONDS, at, velocity);
+      ringing.delete(hit.string);
     } else {
       sampler.triggerAttack(frequency, at, velocity);
+      ringing.set(hit.string, frequency);
     }
   });
+}
+
+// After playback stops nothing is ringing any more as far as the next strum is concerned.
+export function forgetRinging(): void {
+  if (graph === null) return;
+  for (const path of [graph.guitar.clean, graph.guitar.driven, ...graph.panned.values()]) {
+    path.ringing.clear();
+  }
 }
 
 export function playClick(time: number, accent: boolean): void {
@@ -224,20 +252,33 @@ export function playBassNote(midi: number, time: number, duration: number, veloc
   );
 }
 
-export function playDrum(name: DrumName, time: number, velocity = 0.9): void {
+// detune (cents) nudges each hit's pitch so repeated hits don't sound like identical copies.
+export function playDrum(name: DrumName, time: number, velocity = 0.9, detune = 0): void {
   if (graph === null) return;
-  graph.drums.triggerAttack(DRUM_NOTES[name], time, clampVelocity(velocity));
+  const note = Tone.Frequency(DRUM_NOTES[name])
+    .transpose(detune / 100)
+    .toFrequency();
+  graph.drums.triggerAttack(note, time, clampVelocity(velocity));
 }
 
 export function playBand(event: BandEvent, time: number): void {
   if (graph === null) return;
   if (event.part === 'drums') {
-    playDrum(event.drum, time, event.velocity);
+    playDrum(event.drum, time, event.velocity, event.detune);
   } else if (event.part === 'bass') {
     playBassNote(event.midi, time, event.duration, event.velocity);
   } else {
-    const notes = event.midis.map((midi) => Tone.Frequency(midi, 'midi').toFrequency());
-    graph.pad.triggerAttackRelease(notes, event.duration, time, clampVelocity(event.velocity));
+    // The Britpop layer: a quiet second guitar, strummed gently and left to ring.
+    const { sampler } = graph.panned.get(LAYER_PAN) ?? graph.guitar.clean;
+    event.midis.forEach((midi, i) => {
+      const frequency = Tone.Frequency(midi, 'midi').toFrequency();
+      sampler.triggerAttackRelease(
+        frequency,
+        event.duration,
+        time + i * LAYER_STRUM_SECONDS,
+        clampVelocity(event.velocity),
+      );
+    });
   }
 }
 
