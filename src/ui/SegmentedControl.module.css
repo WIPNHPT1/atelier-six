@@ -7,6 +7,7 @@
 }
 
 .segment {
+  flex: 1 1 auto;
   border: none;
   border-radius: var(--r-hair);
   background: transparent;
@@ -14,8 +15,13 @@
   font-family: var(--font-ui);
   font-size: var(--t-14);
   font-weight: 500;
+  line-height: 1.25;
+  text-align: center;
+  text-wrap: balance;
   padding: var(--s-2) var(--s-4);
-  height: 36px;
+  /* min-height, not height: a label that wraps to two lines must grow the
+     segment instead of spilling out of it. */
+  min-height: 36px;
   cursor: pointer;
   transition: background calc(var(--dur-ui) * var(--motion-scale)) var(--ease);
 }

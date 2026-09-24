@@ -108,7 +108,9 @@ export default function SettingsPage() {
         <div className={styles.row}>
           <div className={styles.rowLabel}>
             <Text>{copy.settings.robotMode}</Text>
-            <Mono>{copy.settings.robotModeHint}</Mono>
+            <Text dim size="small">
+              {copy.settings.robotModeHint}
+            </Text>
           </div>
           <Toggle
             label={copy.settings.robotMode}
