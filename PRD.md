@@ -465,8 +465,7 @@ Every lesson, riff and tune is built from each style's **rhythm cells, progressi
 
 ### 20.5 Keeping it fun
 - **Adaptive difficulty** aims for about 80–85 % clean attempts (a rolling window of the last 8). It adjusts tempo first, then simplifies the part (fewer notes, easier voicing) if tempo alone can't get there.
-- **"Was that fun?"** A tap after each lesson (stored only on the device) shows which lessons fall flat. Consistently low-rated lessons are listed in Progress for review.
-- **Play along with the record:** pick one of the module's listening references and the app sets the matching tuning and capo. You tap along with your own copy of the song to set the metronome to its tempo, and it loops the technique you're practising over it. No song content is stored or shown.
+- **Mark complete:** a lesson can be marked done directly from its page (in addition to being marked done automatically once you hit its target tempo cleanly); either way shows up as done across the course list and Progress.
 - **Quiet celebration:** resonance ripple and chime on clean runs and tune completions. No points or badges.
 
 ### 20.7 Also in scope

@@ -31,8 +31,28 @@ export function recordLessonAttempt(data: ProgressData, attempt: LessonAttempt):
       : (previous?.bestBpm ?? 0),
     cleanStreak: attempt.clean ? (previous?.cleanStreak ?? 0) + 1 : 0,
     lastPracticed: attempt.now,
+    completed: previous?.completed ?? false,
   };
   return { ...data, lessons: { ...data.lessons, [attempt.lessonId]: record } };
+}
+
+// Marking complete is independent of hitting the target tempo, and reversible (in case of a
+// mis-tap); lessonDone() in features/progress/summary.ts treats either path as done.
+export function setLessonCompleted(
+  data: ProgressData,
+  lessonId: string,
+  completed: boolean,
+  now: number,
+): ProgressData {
+  const previous = data.lessons[lessonId];
+  const record = {
+    lessonId,
+    bestBpm: previous?.bestBpm ?? 0,
+    cleanStreak: previous?.cleanStreak ?? 0,
+    lastPracticed: now,
+    completed,
+  };
+  return { ...data, lessons: { ...data.lessons, [lessonId]: record } };
 }
 
 export type TransitionAttempt = { key: string; clean: boolean; now: number };
@@ -105,22 +125,6 @@ export function minuteSeries(data: ProgressData): { key: string; counts: number[
     byKey.set(score.key, [...(byKey.get(score.key) ?? []), score.count]);
   }
   return [...byKey.entries()].map(([key, counts]) => ({ key, counts }));
-}
-
-export const RETHINK_DOWNS = 2;
-
-export function recordFun(data: ProgressData, id: string, fun: boolean): ProgressData {
-  const votes = data.fun[id] ?? { up: 0, down: 0 };
-  const next = fun ? { ...votes, up: votes.up + 1 } : { ...votes, down: votes.down + 1 };
-  return { ...data, fun: { ...data.fun, [id]: next } };
-}
-
-// Lessons that keep falling flat (two or more thumbs down), most disliked first.
-export function needsRethink(data: ProgressData): string[] {
-  return Object.entries(data.fun)
-    .filter(([, votes]) => votes.down >= RETHINK_DOWNS)
-    .sort(([a, x], [b, y]) => y.down - x.down || a.localeCompare(b))
-    .map(([id]) => id);
 }
 
 export function recordHandWarmup(data: ProgressData, day: string): ProgressData {

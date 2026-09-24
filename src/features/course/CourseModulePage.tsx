@@ -75,31 +75,37 @@ export default function CourseModulePage() {
           <section className={styles.lessons}>
             <Mono className={styles.label}>{copy.course.lessonsHeading}</Mono>
             <ol className={styles.list}>
-              {lessons.map((lesson, index) => (
-                <li key={lesson.id} className={styles.row}>
-                  <Mono className={styles.number}>
-                    {String(index + 1).padStart(NUMBER_WIDTH, '0')}
-                  </Mono>
-                  <div className={styles.rowText}>
-                    <Text>{lesson.title}</Text>
-                    <Pill>{copy.lesson.difficultyLabels[difficultyLabel(lesson)]}</Pill>
-                    {bestBpm(lesson, data) === null ? null : (
-                      <Mono className={styles.best}>
-                        {t(lessonDone(lesson, data) ? 'course.doneBest' : 'course.bestTempo', {
-                          bpm: bestBpm(lesson, data) ?? 0,
-                        })}
-                      </Mono>
-                    )}
-                  </div>
-                  <Link
-                    className={styles.start}
-                    to={`/lesson/${lesson.id}`}
-                    aria-label={t('course.startLesson', { title: lesson.title })}
-                  >
-                    {copy.course.start}
-                  </Link>
-                </li>
-              ))}
+              {lessons.map((lesson, index) => {
+                const best = bestBpm(lesson, data);
+                const done = lessonDone(lesson, data);
+                return (
+                  <li key={lesson.id} className={styles.row}>
+                    <Mono className={styles.number}>
+                      {String(index + 1).padStart(NUMBER_WIDTH, '0')}
+                    </Mono>
+                    <div className={styles.rowText}>
+                      <Text>{lesson.title}</Text>
+                      <Pill>{copy.lesson.difficultyLabels[difficultyLabel(lesson)]}</Pill>
+                      {!done && best === null ? null : (
+                        <Mono className={styles.best}>
+                          {done
+                            ? best === null
+                              ? copy.course.doneLabel
+                              : t('course.doneBest', { bpm: best })
+                            : t('course.bestTempo', { bpm: best ?? 0 })}
+                        </Mono>
+                      )}
+                    </div>
+                    <Link
+                      className={styles.start}
+                      to={`/lesson/${lesson.id}`}
+                      aria-label={t('course.startLesson', { title: lesson.title })}
+                    >
+                      {copy.course.start}
+                    </Link>
+                  </li>
+                );
+              })}
             </ol>
 
             {tune ? (

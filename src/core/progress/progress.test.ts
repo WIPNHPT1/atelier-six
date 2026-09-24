@@ -9,11 +9,10 @@ import {
   minuteSeries,
   minutesOn,
   minutesThisWeek,
-  needsRethink,
-  recordFun,
   recordHandWarmup,
   recordLessonAttempt,
   recordTransition,
+  setLessonCompleted,
   splitKey,
   transitionKey,
 } from './record.ts';
@@ -53,7 +52,28 @@ describe('migrate', () => {
   it('upgrades v1 lesson lists and adds sessions', () => {
     const record = { lessonId: 'a', bestBpm: 100, cleanStreak: 2, lastPracticed: 5 };
     const upgraded = migrate({ version: 1, lessons: [record], transitions: {}, minutes: [] });
-    expect(upgraded).toEqual({ ...emptyProgress(), lessons: { a: record } });
+    expect(upgraded).toEqual({
+      ...emptyProgress(),
+      lessons: { a: { ...record, completed: false } },
+    });
+  });
+
+  it('upgrades v3 lesson records with a default completed flag', () => {
+    const record = { lessonId: 'a', bestBpm: 90, cleanStreak: 1, lastPracticed: 3 };
+    const upgraded = migrate({
+      version: 3,
+      lessons: { a: record },
+      transitions: {},
+      minutes: [],
+      sessions: [],
+      fun: { a: { up: 1, down: 0 } },
+      handWarmup: '2026-09-01',
+    });
+    expect(upgraded).toEqual({
+      ...emptyProgress(),
+      lessons: { a: { ...record, completed: false } },
+      handWarmup: '2026-09-01',
+    });
   });
 
   it('upgrades v2 transitions with a one-day review interval', () => {
@@ -75,6 +95,7 @@ describe('records', () => {
       bestBpm: 90,
       cleanStreak: 0,
       lastPracticed: 2,
+      completed: false,
     });
     data = recordLessonAttempt(data, { lessonId: 'a', bpm: 94, clean: true, now: 3 });
     expect(data.lessons.a?.bestBpm).toBe(94);
@@ -126,16 +147,37 @@ describe('records', () => {
   });
 });
 
-describe('fun votes', () => {
-  it('counts thumbs and lists lessons with two or more thumbs down', () => {
-    let data = recordFun(emptyProgress(), 'a', false);
-    data = recordFun(data, 'a', true);
-    expect(needsRethink(data)).toEqual([]);
-    data = recordFun(data, 'a', false);
-    data = recordFun(recordFun(recordFun(data, 'b', false), 'b', false), 'b', false);
-    data = recordFun(recordFun(data, 'c', false), 'c', false);
-    expect(data.fun.a).toEqual({ up: 1, down: 2 });
-    expect(needsRethink(data)).toEqual(['b', 'a', 'c']);
+describe('lesson completion', () => {
+  it('marks and unmarks a lesson complete, keeping any existing practice stats', () => {
+    let data = recordLessonAttempt(emptyProgress(), {
+      lessonId: 'a',
+      bpm: 90,
+      clean: true,
+      now: 1,
+    });
+    data = setLessonCompleted(data, 'a', true, 2);
+    expect(data.lessons.a).toEqual({
+      lessonId: 'a',
+      bestBpm: 90,
+      cleanStreak: 1,
+      lastPracticed: 2,
+      completed: true,
+    });
+
+    data = setLessonCompleted(data, 'a', false, 3);
+    expect(data.lessons.a?.completed).toBe(false);
+    expect(data.lessons.a?.bestBpm).toBe(90);
+  });
+
+  it('starts a new lesson record as completed when there was no prior attempt', () => {
+    const data = setLessonCompleted(emptyProgress(), 'b', true, 5);
+    expect(data.lessons.b).toEqual({
+      lessonId: 'b',
+      bestBpm: 0,
+      cleanStreak: 0,
+      lastPracticed: 5,
+      completed: true,
+    });
   });
 });
 

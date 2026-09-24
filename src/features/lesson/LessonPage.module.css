@@ -76,7 +76,7 @@
     'tab'
     'change'
     'tips'
-    'fun';
+    'complete';
   gap: var(--s-4);
 }
 
@@ -170,7 +170,7 @@
       'now change'
       'layers layers'
       'tips tips'
-      'fun fun';
+      'complete complete';
   }
 
   .layers {
@@ -186,7 +186,7 @@
       'tab tab tab'
       'now change layers'
       'tips tips layers'
-      'fun fun fun';
+      'complete complete complete';
   }
 }
 
@@ -263,6 +263,6 @@
   display: none;
 }
 
-.fun {
-  grid-area: fun;
+.complete {
+  grid-area: complete;
 }

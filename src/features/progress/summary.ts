@@ -2,9 +2,11 @@ import type { BuiltLesson } from '../../core/lessons/types';
 import type { ProgressData } from '../../core/progress/schema';
 import { lessonsFor } from '../lesson/lessonData';
 
-// A lesson is done once it has been played cleanly at its target tempo.
+// A lesson is done once it's been marked complete directly, or played cleanly at its target
+// tempo (whichever comes first).
 export function lessonDone(lesson: BuiltLesson, data: ProgressData): boolean {
-  return (data.lessons[lesson.id]?.bestBpm ?? 0) >= lesson.targetBpm;
+  const record = data.lessons[lesson.id];
+  return record?.completed === true || (record?.bestBpm ?? 0) >= lesson.targetBpm;
 }
 
 export function bestBpm(lesson: BuiltLesson, data: ProgressData): number | null {

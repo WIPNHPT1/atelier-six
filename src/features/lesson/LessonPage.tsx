@@ -14,7 +14,7 @@ import { isMicSupported, useAutoAdvance } from '../practice/useAutoAdvance';
 import { recordLessonAttempt, recordTransition, transitionKey } from '../../core/progress/record';
 import { useProgress } from '../progress/store';
 import { usePracticeTimer } from '../progress/usePracticeTimer';
-import { FunVote } from '../progress/FunVote';
+import { LessonComplete } from '../progress/LessonComplete';
 import { HandWarmupOffer } from '../foundations/HandWarmupOffer';
 import type { ArrangementSection, BuiltLesson, Layer } from '../../core/lessons/types';
 import type { Shape } from '../../core/shapes/types';
@@ -526,7 +526,7 @@ function LessonPlayer({ lesson }: { lesson: BuiltLesson }) {
           </ul>
         </Panel>
 
-        <FunVote id={lesson.id} className={styles.fun} />
+        <LessonComplete id={lesson.id} className={styles.complete} />
       </div>
     </div>
   );

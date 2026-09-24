@@ -167,3 +167,24 @@ test('after a tempo change the chord shown stays with the bar being played', asy
 
   await expectTabFollowsChord(page, now);
 });
+
+test('marking a lesson complete shows up on its course module page', async ({ page }) => {
+  await page.goto('/lesson/power-vi-iv-i-v-d');
+  const main = page.locator('#main');
+  const title = await main.getByRole('heading', { level: 1 }).textContent();
+
+  await main.getByRole('switch', { name: 'Mark complete' }).click();
+  await expect(main.getByRole('switch', { name: 'Completed' })).toHaveAttribute(
+    'aria-checked',
+    'true',
+  );
+
+  await page.evaluate(() => {
+    history.pushState({}, '', '/course/power');
+    dispatchEvent(new PopStateEvent('popstate'));
+  });
+  await expect.poll(() => new URL(page.url()).pathname).toBe('/course/power');
+
+  const row = page.locator('li', { hasText: title ?? '' });
+  await expect(row.getByText('Done', { exact: true })).toBeVisible();
+});
