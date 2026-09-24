@@ -46,4 +46,21 @@ describe('detectPitch', () => {
     const buffer = new Float32Array(BUFFER_SIZE);
     expect(detectPitch(buffer, SAMPLE_RATE)).toBeNull();
   });
+
+  it('returns null for loud noise with no clear pitch', () => {
+    const buffer = new Float32Array(BUFFER_SIZE);
+    for (let i = 0; i < buffer.length; i++) buffer[i] = Math.random() * 2 - 1;
+    expect(detectPitch(buffer, SAMPLE_RATE)).toBeNull();
+  });
+
+  it('rejects a clean tone above the plausible instrument range', () => {
+    const result = detectPitch(sineBuffer(2000), SAMPLE_RATE);
+    expect(result).toBeNull();
+  });
+
+  it('rejects a clean tone below the plausible instrument range', () => {
+    // A long buffer so a 30 Hz tone still has enough periods for a confident autocorrelation.
+    const result = detectPitch(sineBuffer(30, SAMPLE_RATE, BUFFER_SIZE * 8), SAMPLE_RATE);
+    expect(result).toBeNull();
+  });
 });

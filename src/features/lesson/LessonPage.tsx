@@ -10,6 +10,7 @@ import { planSection, simplifyLesson } from '../../core/lessons/plan';
 import { targetReached, tempoRange } from '../../core/practice/tempo';
 import { CleanMissed } from '../practice/CleanMissed';
 import { useAdaptiveTempo } from '../practice/useAdaptiveTempo';
+import { isMicSupported, useAutoAdvance } from '../practice/useAutoAdvance';
 import { recordLessonAttempt, recordTransition, transitionKey } from '../../core/progress/record';
 import { useProgress } from '../progress/store';
 import { usePracticeTimer } from '../progress/usePracticeTimer';
@@ -139,7 +140,33 @@ function LessonPlayer({ lesson }: { lesson: BuiltLesson }) {
   usePracticeTimer(playingThis);
   const updateProgress = useProgress((s) => s.update);
 
-  const barIndex = playingThis ? Math.max(0, playback.chordIndex) % view.shapes.length : 0;
+  const [micSupported] = useState(isMicSupported);
+  const [listening, setListening] = useState(false);
+  const [selfPacedIndex, setSelfPacedIndex] = useState(0);
+
+  useAutoAdvance({
+    enabled: listening && !playingThis,
+    shapes: view.shapes,
+    index: selfPacedIndex,
+    tuning,
+    capo: lesson.capo,
+    onAdvance: (from, to) => {
+      const fromShape = view.shapes[from];
+      const toShape = view.shapes[to];
+      if (fromShape && toShape) {
+        const now = Date.now();
+        const key = transitionKey(fromShape.id, toShape.id);
+        void updateProgress((data) => recordTransition(data, { key, clean: true, now }));
+      }
+      setSelfPacedIndex(to);
+    },
+  });
+
+  const barIndex = playingThis
+    ? Math.max(0, playback.chordIndex) % view.shapes.length
+    : listening
+      ? selfPacedIndex % view.shapes.length
+      : 0;
   const current = view.shapes[barIndex] as Shape;
   const upcoming = nextChange(view.shapes, barIndex);
   const hardest = hardestTransition(plan.shapes);
@@ -338,6 +365,17 @@ function LessonPlayer({ lesson }: { lesson: BuiltLesson }) {
             update({ countIn });
           }}
         />
+        {micSupported ? (
+          <Toggle
+            label={copy.lesson.listen}
+            checked={listening}
+            onChange={(next) => {
+              setListening(next);
+              if (next) setSelfPacedIndex(0);
+            }}
+            disabled={playingThis}
+          />
+        ) : null}
         <Button
           variant="quiet"
           onClick={() => {

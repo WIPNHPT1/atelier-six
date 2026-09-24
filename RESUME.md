@@ -9,5 +9,5 @@ Last result: -
 Done so far:
 - -
 Next action:
-- Run /next
+- Run /gate
 Updated: 2026-09-24

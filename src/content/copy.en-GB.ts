@@ -241,6 +241,7 @@ export const copy = {
     tempo: 'Tempo (bpm)',
     metronome: 'Metronome',
     countIn: 'Count-in',
+    listen: 'Listen',
     copyTab: 'Copy tab',
     copied: 'Tab copied',
     tips: 'Tips',

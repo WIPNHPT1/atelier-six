@@ -1,10 +1,8 @@
 import type { Tuning } from '../tuning';
 import { openStringMidi } from '../tuning';
+import { exactMidi } from './exactMidi';
 
-const SEMITONES_PER_OCTAVE = 12;
 const CENTS_PER_SEMITONE = 100;
-const MIDI_A4 = 69;
-const A4_HZ = 440;
 
 export interface NearestString {
   string: number;
@@ -12,21 +10,25 @@ export interface NearestString {
   cents: number;
 }
 
+type StringIndex = 0 | 1 | 2 | 3 | 4 | 5;
+
 export function nearestString(freq: number, tuning: Tuning, capo = 0): NearestString {
-  const exactMidi = MIDI_A4 + SEMITONES_PER_OCTAVE * Math.log2(freq / A4_HZ);
+  const exact = exactMidi(freq);
   const openMidis = openStringMidi(tuning, capo);
 
-  let closestIndex = 0;
+  // Six strings, so the running index is narrowed to StringIndex: the tuple lookup below
+  // never needs an unreachable `?? fallback` branch.
+  let closestIndex: StringIndex = 0;
   let closestDiff = Infinity;
   openMidis.forEach((targetMidi, index) => {
-    const diff = Math.abs(exactMidi - targetMidi);
+    const diff = Math.abs(exact - targetMidi);
     if (diff < closestDiff) {
       closestDiff = diff;
-      closestIndex = index;
+      closestIndex = index as StringIndex;
     }
   });
 
-  const targetMidi = openMidis[closestIndex] ?? 0;
-  const cents = (exactMidi - targetMidi) * CENTS_PER_SEMITONE;
+  const targetMidi = openMidis[closestIndex];
+  const cents = (exact - targetMidi) * CENTS_PER_SEMITONE;
   return { string: closestIndex, targetMidi, cents };
 }

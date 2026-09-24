@@ -4,10 +4,20 @@ import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { usePlaybackStore } from '../../audio/playbackStore';
 import { copy } from '../../content/copy.en-GB';
+import { useProgress } from '../progress/store';
 import { courseCommands } from './commands';
 import LessonPage from './LessonPage';
 import { LESSONS, firstLesson, lessonsFor, recommendedLesson } from './lessonData';
 import { FOCUS_DELAY_MS, useFocusMode } from './useFocusMode';
+
+let capturedAdvance: ((from: number, to: number) => void) | null = null;
+
+vi.mock('../practice/useAutoAdvance', () => ({
+  isMicSupported: () => true,
+  useAutoAdvance: (opts: { onAdvance: (from: number, to: number) => void }) => {
+    capturedAdvance = opts.onAdvance;
+  },
+}));
 
 const openLesson = lessonsFor('open')[0];
 
@@ -132,6 +142,30 @@ describe('lesson data', () => {
     expect(recommendedLesson('new').module).toBe('power');
     expect(recommendedLesson('someChords').module).toBe('open');
     expect(LESSONS).toContain(recommendedLesson('confident'));
+  });
+
+  it('the Listen toggle advances the self-paced bar and records the transition', async () => {
+    if (openLesson === undefined) throw new Error('no open lesson');
+    const user = userEvent.setup();
+    const update = vi.fn().mockResolvedValue(undefined);
+    useProgress.setState({ update });
+    capturedAdvance = null;
+
+    renderAt(`/lesson/${openLesson.id}`);
+    const barText = () => screen.getByText(/^Bar \d+ of \d+$/).textContent;
+    expect(barText().startsWith('Bar 1 of')).toBe(true);
+
+    const listenToggle = screen.getByRole('switch', { name: copy.lesson.listen });
+    await user.click(listenToggle);
+    expect(listenToggle).toHaveAttribute('aria-checked', 'true');
+    expect(capturedAdvance).not.toBeNull();
+
+    act(() => {
+      capturedAdvance?.(0, 1);
+    });
+
+    expect(update).toHaveBeenCalled();
+    expect(barText().startsWith('Bar 2 of')).toBe(true);
   });
 
   it('registers every lesson and chord with the command palette', () => {
