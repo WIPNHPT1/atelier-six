@@ -33,7 +33,19 @@ export const DRUM_URLS = {
   snare: '/audio/drums/snare.wav',
   hihatClosed: '/audio/drums/hihat-closed.wav',
   hihatOpen: '/audio/drums/hihat-open.wav',
+  crash: '/audio/drums/crash.wav',
 } as const;
+
+export type DrumName = keyof typeof DRUM_URLS;
+
+// General MIDI drum notes, so the kit can be a velocity-sensitive Tone.Sampler.
+export const DRUM_NOTES: Record<DrumName, string> = {
+  kick: 'C1',
+  snare: 'D1',
+  hihatClosed: 'F#1',
+  hihatOpen: 'A#1',
+  crash: 'C#2',
+};
 
 export function allSampleUrls(): string[] {
   const guitar = Object.values(GUITAR_SAMPLE_FILES).map((f) => GUITAR_BASE_URL + f);

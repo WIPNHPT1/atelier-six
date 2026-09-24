@@ -4,21 +4,39 @@ import {
   BASS_BASE_URL,
   BASS_SAMPLE_FILES,
   CABINET_IR_URL,
+  DRUM_NOTES,
   DRUM_URLS,
   GUITAR_BASE_URL,
   GUITAR_SAMPLE_FILES,
+  type DrumName,
 } from './samples.ts';
 import { cacheSample } from './sampleCache.ts';
 
-const NORMAL_FILTER_HZ = 20000;
-const MUTED_FILTER_HZ = 900;
-const MUTE_RECOVER_SECONDS = 0.12;
+export type GuitarTone = 'clean' | 'driven';
+
+const OPEN_FILTER_HZ = 20000;
+const CLEAN_MUTE_HZ = 900;
+// Palm muting damps the string before it reaches the amp, so the driven path
+// filters *before* the distortion: dull input, crunchy "chug" output.
+const DRIVEN_MUTE_HZ = 320;
+const MUTE_RECOVER_SECONDS = 0.05;
+// Distortion lifts decaying tails, so muted notes must stop hard or they ring
+// into each other and sound open rather than chuggy.
+const PALM_MUTE_NOTE_SECONDS = 0.075;
+const SAMPLER_RELEASE_SECONDS = 0.03;
+const DRIVE_HIGHPASS_HZ = 90;
+const DRIVE_THUMP_HZ = 160;
+const DRIVE_THUMP_DB = 6;
+const DRIVE_PRE_GAIN_DB = 22;
+const DRIVE_AMOUNT = 1;
+const DRIVE_TONE_HZ = 2000;
+const DRIVE_LEVEL_DB = 0;
 const CLICK_ACCENT_NOTE = 'C4';
 const CLICK_NOTE = 'C3';
 const CLICK_DURATION_SECONDS = 0.03;
 const MIN_VELOCITY = 0.05;
 const MAX_VELOCITY = 1;
-const DRUM_VOLUME_DB = -6;
+const DRUM_VOLUME_DB = -4;
 
 declare global {
   interface Window {
@@ -26,58 +44,62 @@ declare global {
   }
 }
 
+type GuitarPath = { sampler: Tone.Sampler; muteFilter: Tone.Filter; muteHz: number };
+
 type AudioGraph = {
-  guitar: Tone.Sampler;
+  guitar: Record<GuitarTone, GuitarPath>;
   bass: Tone.Sampler;
-  drums: Record<keyof typeof DRUM_URLS, Tone.Player>;
-  filter: Tone.Filter;
+  drums: Tone.Sampler;
   click: Tone.MembraneSynth;
 };
 
 let graph: AudioGraph | null = null;
 
-function warmSampleCache(baseUrl: string, files: Record<string, string>): void {
-  Object.values(files).forEach((file) => {
-    void cacheSample(baseUrl + file);
+function newGuitarSampler(): Tone.Sampler {
+  return new Tone.Sampler({
+    urls: GUITAR_SAMPLE_FILES,
+    baseUrl: GUITAR_BASE_URL,
+    release: SAMPLER_RELEASE_SECONDS,
   });
-  void cacheSample(CABINET_IR_URL);
 }
 
 function buildGraph(): AudioGraph {
-  const filter = new Tone.Filter(NORMAL_FILTER_HZ, 'lowpass');
   const cabinet = new Tone.Convolver(CABINET_IR_URL);
   const compressor = new Tone.Compressor();
   const reverb = new Tone.Reverb({ decay: 1.5, wet: 0.12 });
-  filter.connect(cabinet);
   cabinet.connect(compressor);
   compressor.connect(reverb);
   reverb.toDestination();
 
-  const guitar = new Tone.Sampler({
-    urls: GUITAR_SAMPLE_FILES,
-    baseUrl: GUITAR_BASE_URL,
-  });
-  guitar.connect(filter);
+  const clean = newGuitarSampler();
+  const cleanMute = new Tone.Filter(OPEN_FILTER_HZ, 'lowpass');
+  clean.chain(cleanMute, cabinet);
 
-  const bassChannel = new Tone.Volume(0).connect(compressor);
-  const bass = new Tone.Sampler({
-    urls: BASS_SAMPLE_FILES,
-    baseUrl: BASS_BASE_URL,
-  });
-  bass.connect(bassChannel);
+  const driven = newGuitarSampler();
+  const drivenMute = new Tone.Filter({ frequency: OPEN_FILTER_HZ, type: 'lowpass', rolloff: -24 });
+  driven.chain(
+    new Tone.Filter(DRIVE_HIGHPASS_HZ, 'highpass'),
+    drivenMute,
+    new Tone.Filter({ frequency: DRIVE_THUMP_HZ, type: 'lowshelf', gain: DRIVE_THUMP_DB }),
+    new Tone.Gain(Tone.dbToGain(DRIVE_PRE_GAIN_DB)),
+    new Tone.Distortion({ distortion: DRIVE_AMOUNT, oversample: '4x' }),
+    new Tone.Filter({ frequency: DRIVE_TONE_HZ, type: 'lowpass', rolloff: -24 }),
+    new Tone.Volume(DRIVE_LEVEL_DB),
+    cabinet,
+  );
 
-  const drumBus = new Tone.Volume(DRUM_VOLUME_DB).connect(compressor);
-  const drums = Object.fromEntries(
-    Object.entries(DRUM_URLS).map(([name, url]) => {
-      const player = new Tone.Player(url);
-      player.connect(drumBus);
-      return [name, player];
-    }),
-  ) as AudioGraph['drums'];
+  const bass = new Tone.Sampler({ urls: BASS_SAMPLE_FILES, baseUrl: BASS_BASE_URL });
+  bass.connect(compressor);
 
-  warmSampleCache(GUITAR_BASE_URL, GUITAR_SAMPLE_FILES);
-  warmSampleCache(BASS_BASE_URL, BASS_SAMPLE_FILES);
-  Object.values(DRUM_URLS).forEach((url) => {
+  const drumUrls = Object.fromEntries(
+    (Object.keys(DRUM_NOTES) as DrumName[]).map((name) => [DRUM_NOTES[name], DRUM_URLS[name]]),
+  );
+  const drums = new Tone.Sampler({ urls: drumUrls });
+  drums.chain(new Tone.Volume(DRUM_VOLUME_DB), compressor);
+
+  const guitarUrls = Object.values(GUITAR_SAMPLE_FILES).map((f) => GUITAR_BASE_URL + f);
+  const bassUrls = Object.values(BASS_SAMPLE_FILES).map((f) => BASS_BASE_URL + f);
+  [...guitarUrls, ...bassUrls, ...Object.values(DRUM_URLS), CABINET_IR_URL].forEach((url) => {
     void cacheSample(url);
   });
 
@@ -85,7 +107,15 @@ function buildGraph(): AudioGraph {
     envelope: { attack: 0.001, decay: 0.1, sustain: 0, release: 0.05 },
   }).toDestination();
 
-  return { guitar, bass, drums, filter, click };
+  return {
+    guitar: {
+      clean: { sampler: clean, muteFilter: cleanMute, muteHz: CLEAN_MUTE_HZ },
+      driven: { sampler: driven, muteFilter: drivenMute, muteHz: DRIVEN_MUTE_HZ },
+    },
+    bass,
+    drums,
+    click,
+  };
 }
 
 export async function ensureAudio(): Promise<void> {
@@ -99,27 +129,28 @@ function clampVelocity(velocity: number): number {
   return Math.min(MAX_VELOCITY, Math.max(MIN_VELOCITY, velocity));
 }
 
-export function playEvent(event: ScheduleEvent, time: number): void {
+export function playEvent(event: ScheduleEvent, time: number, tone: GuitarTone = 'clean'): void {
   if (graph === null || event.kind === 'ghost') return;
-  const { guitar, filter } = graph;
+  const { sampler, muteFilter, muteHz } = graph.guitar[tone];
 
+  // The hand stays on the strings for a whole palm-muted run; only lift it
+  // (open the filter) when an unmuted hit arrives.
+  muteFilter.frequency.cancelScheduledValues(time);
   if (event.palmMute) {
-    filter.frequency.cancelScheduledValues(time);
-    filter.frequency.setValueAtTime(MUTED_FILTER_HZ, time);
-    filter.frequency.linearRampTo(
-      NORMAL_FILTER_HZ,
-      MUTE_RECOVER_SECONDS,
-      time + MUTE_RECOVER_SECONDS,
-    );
+    muteFilter.frequency.setValueAtTime(muteHz, time);
+  } else {
+    muteFilter.frequency.linearRampTo(OPEN_FILTER_HZ, MUTE_RECOVER_SECONDS, time);
   }
 
   const velocity = clampVelocity(event.velocity);
   event.strings.forEach((hit) => {
-    guitar.triggerAttack(
-      Tone.Frequency(hit.midi, 'midi').toFrequency(),
-      time + hit.offset,
-      velocity,
-    );
+    const frequency = Tone.Frequency(hit.midi, 'midi').toFrequency();
+    const at = time + hit.offset;
+    if (event.palmMute) {
+      sampler.triggerAttackRelease(frequency, PALM_MUTE_NOTE_SECONDS, at, velocity);
+    } else {
+      sampler.triggerAttack(frequency, at, velocity);
+    }
   });
 }
 
@@ -142,8 +173,7 @@ export function playBassNote(midi: number, time: number, duration: number, veloc
   );
 }
 
-export function playDrum(name: keyof typeof DRUM_URLS, time: number): void {
+export function playDrum(name: DrumName, time: number, velocity = 0.9): void {
   if (graph === null) return;
-  const player = graph.drums[name];
-  if (player.loaded) player.start(time);
+  graph.drums.triggerAttack(DRUM_NOTES[name], time, clampVelocity(velocity));
 }
