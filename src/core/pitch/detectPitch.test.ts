@@ -42,6 +42,14 @@ describe('detectPitch', () => {
     expect(result?.freq).toBeCloseTo(freq, 0);
   });
 
+  it('detects a quiet, real-world-level tone (a phone mic without autoGainControl)', () => {
+    // Measured on real hardware: an acoustic low E through a phone mic reads ~0.002 rms.
+    const buffer = sineBuffer(82.41).map((sample) => sample * 0.003);
+    const result = detectPitch(buffer, SAMPLE_RATE);
+    expect(result).not.toBeNull();
+    expect(result?.freq).toBeCloseTo(82.41, 0);
+  });
+
   it('returns null for silence', () => {
     const buffer = new Float32Array(BUFFER_SIZE);
     expect(detectPitch(buffer, SAMPLE_RATE)).toBeNull();

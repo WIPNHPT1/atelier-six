@@ -1,7 +1,10 @@
 import { PitchDetector } from 'pitchy';
 
 const CLARITY_THRESHOLD = 0.9;
-const RMS_NOISE_GATE = 0.01;
+// A real acoustic guitar through a phone/laptop mic with autoGainControl off (required for
+// accurate pitch reading) is much quieter than a synthesized test tone — real playing measured
+// as low as 0.002 rms with clarity 0.99, so the gate only needs to catch near-total silence.
+const RMS_NOISE_GATE = 0.0008;
 // Guides the autocorrelation away from spurious near-DC "pitches" it can lock onto on
 // decaying/non-periodic noise; comfortably covers a guitar from low D to a capo'd high e.
 const MIN_FREQ_HZ = 55;
