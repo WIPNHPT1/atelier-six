@@ -1,0 +1,93 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-6);
+  padding-top: var(--s-4);
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: var(--s-4);
+}
+
+.picker {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-1);
+}
+
+.picker select {
+  min-height: 44px;
+  min-width: 120px;
+  padding: 0 var(--s-3);
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-hair);
+  background: var(--rosewood);
+  color: var(--bone);
+  font-family: var(--font-ui);
+  font-size: var(--t-16);
+}
+
+.label,
+.cue {
+  color: var(--bone-dim);
+  font-size: var(--t-12);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.cue {
+  color: var(--brass);
+}
+
+.boards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--s-4);
+}
+
+.board {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s-2);
+  transition:
+    border-color calc(var(--dur-ui) * var(--motion-scale)) var(--ease),
+    box-shadow calc(var(--dur-ui) * var(--motion-scale)) var(--ease);
+}
+
+.current {
+  border-color: var(--bone-dim);
+}
+
+.flash,
+.frozen {
+  border-color: var(--brass);
+  box-shadow: 0 0 0 2px var(--brass);
+}
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-4);
+}
+
+.slider {
+  flex: 1 1 200px;
+}
+
+.minute {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s-4);
+}
+
+.changeButton {
+  min-width: 240px;
+  min-height: 96px;
+  font-size: var(--t-28);
+}

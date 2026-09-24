@@ -29,6 +29,27 @@ const oneStepPerBar: RhythmPreset = {
 };
 
 describe('buildSchedule', () => {
+  it('plays the next chord from the "and" of beat 4 when anticipating', () => {
+    const eighths: RhythmPreset = {
+      id: 'eighths',
+      subdivision: 8,
+      steps: Array.from({ length: 8 }, (_, t) => ({ t, dir: 'D' as const })),
+    };
+    const events = buildSchedule({
+      shapes: [shape, otherShape],
+      rhythm: eighths,
+      bpm: 120,
+      bars: [2, 2],
+      tuning: standard,
+      anticipate: 2,
+    });
+    const chordAt = (step: number) => events.find((event) => event.step === step)?.chordIndex;
+    expect(chordAt(12)).toBe(0);
+    expect(chordAt(28)).toBe(0);
+    expect(chordAt(30)).toBe(1);
+    expect(chordAt(62)).toBe(0);
+  });
+
   it('produces one content event per rhythm step per bar', () => {
     const events = buildSchedule({
       shapes: [shape, otherShape],

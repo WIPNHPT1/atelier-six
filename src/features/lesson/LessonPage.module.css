@@ -184,3 +184,21 @@
       'tips listen layers';
   }
 }
+
+.drillLink {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 var(--s-4);
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-pill);
+  color: var(--bone);
+  font-size: var(--t-14);
+  text-decoration: none;
+}
+
+.drillLink:hover,
+.drillLink:focus-visible {
+  border-color: var(--brass);
+}

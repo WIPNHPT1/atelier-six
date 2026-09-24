@@ -48,6 +48,9 @@ export type ScheduleInput = {
   section?: Section;
   click?: boolean;
   spreadMs?: number;
+  // Sixteenths before each chord's barline where the next chord already sounds
+  // (2 = from the "and" of beat 4). Used by the early-change drill.
+  anticipate?: number;
 };
 
 export function stepDurSeconds(bpm: number): number {
@@ -185,6 +188,7 @@ export function buildSchedule(input: ScheduleInput): ScheduleEvent[] {
     section,
     click = false,
     spreadMs = DEFAULT_SPREAD_MS,
+    anticipate = 0,
   } = input;
   const stepDur = stepDurSeconds(bpm);
   const spread = clampSpread(spreadMs);
@@ -193,18 +197,21 @@ export function buildSchedule(input: ScheduleInput): ScheduleEvent[] {
   const events: ScheduleEvent[] = countIn ? countInEvents(stepDur, section) : [];
 
   let globalBar = 0;
-  shapes.forEach((shape, chordIndex) => {
+  shapes.forEach((_shape, chordIndex) => {
     const barCount = bars[chordIndex] ?? 0;
     for (let b = 0; b < barCount; b++) {
       const barBase = globalBar * SIXTEENTHS_PER_BAR;
+      const lastBar = b === barCount - 1;
       rhythm.steps.forEach((step) => {
         const n = barBase + step.t * multiplier;
+        const early = lastBar && step.t * multiplier >= SIXTEENTHS_PER_BAR - anticipate;
+        const playedIndex = early ? (chordIndex + 1) % shapes.length : chordIndex;
         events.push(
           buildContentEvent(
             n,
             globalBar,
-            chordIndex,
-            shape,
+            playedIndex,
+            shapes[playedIndex] as Shape,
             step,
             tuning,
             capo,

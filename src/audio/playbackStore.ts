@@ -68,7 +68,10 @@ export const usePlaybackStore = create<PlaybackState>((set) => ({
         rafId = null;
         return;
       }
-      const step = secondsToStep(Tone.getTransport().seconds, transport.getBpm());
+      const elapsed = Tone.getTransport().seconds;
+      const loopSeconds = transport.getLoopSeconds();
+      const seconds = loopSeconds === null ? elapsed : elapsed % loopSeconds;
+      const step = secondsToStep(seconds, transport.getBpm());
       const current = schedule.filter((event) => event.step <= step).at(-1) ?? schedule[0];
       if (current) {
         usePlaybackStore.setState({ step, bar: current.bar, chordIndex: current.chordIndex });

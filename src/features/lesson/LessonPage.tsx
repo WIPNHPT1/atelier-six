@@ -5,6 +5,7 @@ import { usePlaybackStore } from '../../audio/playbackStore';
 import type { Section } from '../../core/schedule/buildSchedule';
 import { copy, t } from '../../content/copy.en-GB';
 import { analyseTransition } from '../../core/engine/analyseTransition';
+import { hardestTransition } from '../../core/drills/drills';
 import { planSection } from '../../core/lessons/plan';
 import type { ArrangementSection, BuiltLesson, Layer } from '../../core/lessons/types';
 import type { Shape } from '../../core/shapes/types';
@@ -97,6 +98,7 @@ function LessonPlayer({ lesson }: { lesson: BuiltLesson }) {
   const barIndex = playingThis ? Math.max(0, playback.chordIndex) % plan.shapes.length : 0;
   const current = plan.shapes[barIndex] as Shape;
   const upcoming = nextChange(plan.shapes, barIndex);
+  const hardest = hardestTransition(plan.shapes);
 
   function play(next: Mix) {
     const target = sections[next.sectionIndex] as ArrangementSection;
@@ -278,6 +280,14 @@ function LessonPlayer({ lesson }: { lesson: BuiltLesson }) {
           ) : (
             <Text dim>{copy.lesson.sameChord}</Text>
           )}
+          {hardest ? (
+            <Link
+              className={styles.drillLink}
+              to={`/drills?kind=loop&from=${encodeURIComponent(hardest.from.id)}&to=${encodeURIComponent(hardest.to.id)}`}
+            >
+              {copy.drills.drillThis}
+            </Link>
+          ) : null}
         </Panel>
 
         <Panel className={styles.layers} data-focus-hide>
