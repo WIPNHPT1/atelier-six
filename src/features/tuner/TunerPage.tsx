@@ -31,7 +31,7 @@ const IN_TUNE_MS = 500;
 const NEEDLE_TRANSITION_MS = 160;
 // A single frame missing a clean reading is normal mid-note (breath noise, a slight dip in
 // clarity); keep showing the last good reading instead of flickering the display blank.
-const HOLD_LAST_READING_MS = 400;
+const HOLD_LAST_READING_MS = 800;
 
 type MicStatus = 'idle' | 'starting' | 'listening' | 'stopped' | 'denied' | 'unsupported';
 

@@ -1,6 +1,9 @@
 import { PitchDetector } from 'pitchy';
 
-const CLARITY_THRESHOLD = 0.9;
+// A real sustained note isn't perfectly periodic frame to frame (string vibrato, harmonic
+// beating, room noise), so 0.9 dropped too many otherwise-good frames mid-note; 0.85 still
+// rejects real noise while riding through that natural wobble.
+const CLARITY_THRESHOLD = 0.85;
 // A real acoustic guitar through a phone/laptop mic with autoGainControl off (required for
 // accurate pitch reading) is much quieter than a synthesized test tone — real playing measured
 // as low as 0.002 rms with clarity 0.99, so the gate only needs to catch near-total silence.
