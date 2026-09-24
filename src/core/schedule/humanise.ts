@@ -52,13 +52,14 @@ function isOffbeatEighth(event: ScheduleEvent): boolean {
 }
 
 function stepDurSecondsFromEvents(events: ScheduleEvent[]): number {
-  for (let i = 1; i < events.length; i++) {
-    const prev = events[i - 1];
-    const curr = events[i];
-    if (prev === undefined || curr === undefined) continue;
-    const stepDelta = curr.step - prev.step;
-    const timeDelta = curr.t - prev.t;
-    if (stepDelta > 0 && timeDelta > 0) return timeDelta / stepDelta;
+  let prev: ScheduleEvent | undefined;
+  for (const curr of events) {
+    if (prev !== undefined) {
+      const stepDelta = curr.step - prev.step;
+      const timeDelta = curr.t - prev.t;
+      if (stepDelta > 0 && timeDelta > 0) return timeDelta / stepDelta;
+    }
+    prev = curr;
   }
   return 0;
 }
@@ -90,8 +91,9 @@ export function humanise(events: ScheduleEvent[], options: HumaniseOptions): Sch
   const maxJitterSeconds = timingMs / 1000;
 
   const timeOrder = events
-    .map((_, index) => index)
-    .sort((a, b) => (events[a]?.t ?? 0) - (events[b]?.t ?? 0));
+    .map((event, index) => ({ t: event.t, index }))
+    .sort((a, b) => a.t - b.t)
+    .map((entry) => entry.index);
   const rankOf = new Map<number, number>(timeOrder.map((origIndex, rank) => [origIndex, rank]));
 
   return events.map((event, index) => {
@@ -101,7 +103,7 @@ export function humanise(events: ScheduleEvent[], options: HumaniseOptions): Sch
 
     if (event.kind === 'click') return event;
 
-    const rank = rankOf.get(index) ?? index;
+    const rank = rankOf.get(index) as number;
     const prevIndex = timeOrder[rank - 1];
     const nextIndex = timeOrder[rank + 1];
     const prev = prevIndex === undefined ? undefined : events[prevIndex];
