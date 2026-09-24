@@ -40,6 +40,11 @@ test('Play moves the playhead', async ({ page, browserName }) => {
 
 test('the module tune plays in performance mode with the band', async ({ page, browserName }) => {
   test.skip(browserName !== 'chromium', 'audio gesture policy is Chromium-only in CI');
+  const errors: string[] = [];
+  page.on('pageerror', (error) => errors.push(error.message));
+  page.on('console', (message) => {
+    if (message.type() === 'error') errors.push(message.text());
+  });
   await page.goto('/course/power');
   await page.locator('#main').getByRole('link', { name: 'Play the tune' }).click();
   await expect.poll(() => new URL(page.url()).pathname).toBe('/lesson/tune-power');
@@ -57,4 +62,23 @@ test('the module tune plays in performance mode with the band', async ({ page, b
   await expect
     .poll(async () => Number(await lane.getAttribute('data-playhead-step')))
     .toBeGreaterThan(first);
+  // Let the band, fills and muted strums play for a few seconds without any audio errors.
+  await page.waitForTimeout(4000);
+  expect(errors).toEqual([]);
+});
+
+test('the Britpop tune plays its layered band without errors', async ({ page, browserName }) => {
+  test.skip(browserName !== 'chromium', 'audio gesture policy is Chromium-only in CI');
+  const errors: string[] = [];
+  page.on('pageerror', (error) => errors.push(error.message));
+  page.on('console', (message) => {
+    if (message.type() === 'error') errors.push(message.text());
+  });
+  await page.goto('/lesson/tune-open');
+  await page.locator('#main').getByRole('button', { name: 'Play', exact: true }).click();
+  await expect(
+    page.locator('#main').getByRole('button', { name: 'Stop', exact: true }),
+  ).toBeVisible();
+  await page.waitForTimeout(4000);
+  expect(errors).toEqual([]);
 });
