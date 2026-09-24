@@ -202,6 +202,16 @@ export const copy = {
       dropD: 'Drop D',
     },
   },
+  practice: {
+    feedback: 'How was that loop?',
+    clean: 'Clean',
+    missed: 'Missed',
+    cleanKey: 'C',
+    missedKey: 'M',
+    rate: '{percent} % clean',
+    targetReached: 'Target reached',
+    easier: 'Easier part on',
+  },
   metronome: {
     start: 'Start metronome',
     stop: 'Stop metronome',

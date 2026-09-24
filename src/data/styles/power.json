@@ -200,6 +200,66 @@
           "accent": true
         }
       ]
+    },
+    {
+      "id": "quarter-push-muted",
+      "level": 1,
+      "steps": [
+        {
+          "t": 0,
+          "dir": "D",
+          "accent": true,
+          "palmMute": true
+        },
+        {
+          "t": 4,
+          "dir": "D",
+          "palmMute": true
+        },
+        {
+          "t": 8,
+          "dir": "D",
+          "palmMute": true
+        },
+        {
+          "t": 12,
+          "dir": "D",
+          "palmMute": true
+        },
+        {
+          "t": 14,
+          "dir": "D",
+          "palmMute": true
+        }
+      ]
+    },
+    {
+      "id": "quarter-push-open",
+      "level": 1,
+      "steps": [
+        {
+          "t": 0,
+          "dir": "D",
+          "accent": true
+        },
+        {
+          "t": 4,
+          "dir": "D"
+        },
+        {
+          "t": 8,
+          "dir": "D",
+          "accent": true
+        },
+        {
+          "t": 12,
+          "dir": "D"
+        },
+        {
+          "t": 14,
+          "dir": "D"
+        }
+      ]
     }
   ],
   "progressions": [

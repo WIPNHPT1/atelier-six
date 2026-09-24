@@ -5,6 +5,7 @@ import { fileURLToPath } from 'node:url';
 import { analyseTransition } from '../../src/core/engine/analyseTransition.ts';
 import { explainTransition } from '../../src/core/engine/explain.ts';
 import { buildLesson, checkLesson } from '../../src/core/lessons/check.ts';
+import { simplifyLesson } from '../../src/core/lessons/plan.ts';
 import type { BuiltLesson } from '../../src/core/lessons/types.ts';
 import { getShapes } from '../../src/core/shapes/library.ts';
 import type { StyleSheet } from '../../src/core/style/types.ts';
@@ -38,7 +39,7 @@ for (const source of LESSONS) {
     const lesson = buildLesson(source, style);
     const tip = engineTip(lesson);
     lesson.tips = [...(tip === undefined ? [] : [tip]), ...lesson.tips].slice(0, MAX_TIPS);
-    const issues = checkLesson(lesson, style);
+    const issues = [...checkLesson(lesson, style), ...checkLesson(simplifyLesson(lesson), style)];
     if (issues.length > 0) {
       console.error(`${lesson.id}: ${JSON.stringify(issues.slice(0, 5))}`);
       failed = true;

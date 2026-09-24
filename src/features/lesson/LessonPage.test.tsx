@@ -90,6 +90,43 @@ describe('LessonPage', () => {
   });
 });
 
+describe('adaptive tempo in a lesson', () => {
+  beforeEach(() => {
+    usePlaybackStore.setState({ isPlaying: false, lessonId: null, step: 0, chordIndex: 0 });
+  });
+
+  function tempoValue(): number {
+    return Number(screen.getByRole<HTMLInputElement>('slider', { name: copy.lesson.tempo }).value);
+  }
+
+  it('Clean raises the tempo until the target is reached', async () => {
+    if (openLesson === undefined) throw new Error('no open lesson');
+    const user = userEvent.setup();
+    renderAt(`/lesson/${openLesson.id}`);
+    await user.click(screen.getByRole('button', { name: /^Clean/ }));
+    expect(tempoValue()).toBe(openLesson.startBpm + 4);
+    expect(screen.queryByTestId('target-reached')).toBeNull();
+    for (let i = 0; i < 10; i++) await user.keyboard('c');
+    expect(tempoValue()).toBeGreaterThanOrEqual(openLesson.targetBpm);
+    expect(screen.getByTestId('target-reached')).toHaveTextContent(copy.practice.targetReached);
+  });
+
+  it('Missed at the slowest tempo switches to the easier part', async () => {
+    if (openLesson === undefined) throw new Error('no open lesson');
+    const user = userEvent.setup();
+    renderAt(`/lesson/${openLesson.id}`);
+    const before = document.querySelector('[data-tab-ascii]')?.getAttribute('data-tab-ascii');
+    for (let i = 0; i < 4; i++) await user.keyboard('m');
+    expect(tempoValue()).toBe(openLesson.startBpm - 10);
+    expect(screen.getByText(copy.practice.easier)).toBeInTheDocument();
+    expect(document.querySelector('[data-tab-ascii]')?.getAttribute('data-tab-ascii')).not.toBe(
+      before,
+    );
+    await user.click(screen.getByRole('button', { name: /^Missed/ }));
+    expect(screen.getByText('0 % clean')).toBeInTheDocument();
+  });
+});
+
 describe('lesson data', () => {
   it('recommends a first lesson for each level', () => {
     expect(recommendedLesson('new').module).toBe('power');

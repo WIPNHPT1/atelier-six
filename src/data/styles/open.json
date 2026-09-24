@@ -225,6 +225,46 @@
           "dir": "U"
         }
       ]
+    },
+    {
+      "id": "eighth-strum",
+      "level": 1,
+      "steps": [
+        {
+          "t": 0,
+          "dir": "D"
+        },
+        {
+          "t": 4,
+          "dir": "D",
+          "accent": true
+        },
+        {
+          "t": 6,
+          "dir": "D"
+        },
+        {
+          "t": 7,
+          "dir": "U"
+        },
+        {
+          "t": 8,
+          "dir": "D"
+        },
+        {
+          "t": 12,
+          "dir": "D",
+          "accent": true
+        },
+        {
+          "t": 14,
+          "dir": "D"
+        },
+        {
+          "t": 15,
+          "dir": "U"
+        }
+      ]
     }
   ],
   "progressions": [

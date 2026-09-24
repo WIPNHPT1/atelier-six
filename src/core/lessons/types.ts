@@ -47,6 +47,8 @@ export type Lesson = {
   capo: number;
   tips: string[];
   listen: ListenRef[];
+  // The easier part adaptive tempo switches to: each section rhythm → a sparser one.
+  easier?: { rhythms: Record<string, string> };
 };
 
 // What `npm run data:lessons` writes: the source lesson plus the optimiser's choices.

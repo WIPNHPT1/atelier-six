@@ -78,6 +78,22 @@ const LIVE_FOREVER: ListenRef = {
   note: 'A steady strumming arm under ringing open chords.',
 };
 
+// Adaptive tempo's easier part: the same sections with fewer strokes.
+const POWER_EASIER = {
+  rhythms: {
+    'eighths-muted': 'quarter-push-muted',
+    'eighths-open': 'quarter-push-open',
+    'quarter-and': 'quarter-push-open',
+  },
+};
+const OPEN_EASIER = {
+  rhythms: {
+    'sixteenth-strum': 'eighth-strum',
+    'push-strum': 'eighth-strum',
+    'full-motion': 'sixteenth-strum',
+  },
+};
+
 const POWER = { tags: ['power'] };
 const OPEN = { tags: ['open', 'anchored'] };
 
@@ -85,6 +101,7 @@ export const LESSONS: Lesson[] = [
   {
     id: 'power-e5-a5',
     module: 'power',
+    easier: POWER_EASIER,
     title: 'E5 to A5, open strings',
     goal: 'Move a two-finger power chord across one string without losing the beat.',
     progression: { chords: ['E5', 'A5'] },
@@ -103,6 +120,7 @@ export const LESSONS: Lesson[] = [
   {
     id: 'power-g5-a5',
     module: 'power',
+    easier: POWER_EASIER,
     title: 'G5 to A5, locked shape',
     goal: 'Slide one locked power-chord shape up two frets and land in time.',
     progression: { chords: ['G5', 'A5'] },
@@ -118,6 +136,7 @@ export const LESSONS: Lesson[] = [
   {
     id: 'power-g5-c5',
     module: 'power',
+    easier: POWER_EASIER,
     title: 'G5 to C5, string shift',
     goal: 'Hop the same shape from the low E string to the A string.',
     progression: { chords: ['G5', 'C5'] },
@@ -133,6 +152,7 @@ export const LESSONS: Lesson[] = [
   {
     id: 'power-i-v-vi-iv-c',
     module: 'power',
+    easier: POWER_EASIER,
     title: 'I–V–vi–IV in C',
     goal: 'Play the four-chord loop as power chords with every change on time.',
     progression: { id: 'I5-V5-vi5-IV5', key: 'C' },
@@ -148,6 +168,7 @@ export const LESSONS: Lesson[] = [
   {
     id: 'power-vi-iv-i-v-d',
     module: 'power',
+    easier: POWER_EASIER,
     title: 'vi–IV–I–V in D',
     goal: 'Start the loop on the minor chord and keep the drive going.',
     progression: { id: 'vi5-IV5-I5-V5', key: 'D' },
@@ -163,6 +184,7 @@ export const LESSONS: Lesson[] = [
   {
     id: 'power-stamina',
     module: 'power',
+    easier: POWER_EASIER,
     title: 'Downpicking stamina',
     goal: 'Hold even downstroked eighths on one chord as the tempo climbs.',
     progression: { chords: ['E5'] },
@@ -181,6 +203,7 @@ export const LESSONS: Lesson[] = [
   {
     id: 'power-verse-chorus',
     module: 'power',
+    easier: POWER_EASIER,
     title: 'Verse and chorus',
     goal: 'Switch from palm-muted verse eighths to an open chorus, then stop on the turnaround.',
     progression: { id: 'I5-IV5-V5-IV5', key: 'A' },
@@ -199,6 +222,7 @@ export const LESSONS: Lesson[] = [
   {
     id: 'power-octave-intro',
     module: 'power',
+    easier: POWER_EASIER,
     title: 'Octave-shape intro',
     goal: 'Play the loop as octave shapes for a riff-style intro.',
     progression: { id: 'I5-IV5-V5-IV5', key: 'A' },
@@ -214,6 +238,7 @@ export const LESSONS: Lesson[] = [
   {
     id: 'open-c-am',
     module: 'open',
+    easier: OPEN_EASIER,
     title: 'C to Am, anchored',
     goal: 'Change between C and Am while two fingers stay put.',
     progression: { chords: ['C', 'Am'] },
@@ -229,6 +254,7 @@ export const LESSONS: Lesson[] = [
   {
     id: 'open-em-am',
     module: 'open',
+    easier: OPEN_EASIER,
     title: 'Em to Am, one string over',
     goal: 'Shift the Em shape across one string to make Am.',
     progression: { chords: ['Em', 'Am'] },
@@ -244,6 +270,7 @@ export const LESSONS: Lesson[] = [
   {
     id: 'open-g-c',
     module: 'open',
+    easier: OPEN_EASIER,
     title: 'G (3-2-4) to C',
     goal: 'Use the 3-2-4 G fingering so the change to C is a short hop.',
     progression: { chords: ['G', 'C'] },
@@ -259,6 +286,7 @@ export const LESSONS: Lesson[] = [
   {
     id: 'open-anchored-loop',
     module: 'open',
+    easier: OPEN_EASIER,
     title: 'Em7, G, Dsus4, A7sus4',
     goal: 'Loop four anchored shapes with the top strings ringing throughout.',
     progression: { chords: ['Em7', 'G', 'Dsus4', 'A7sus4'] },
@@ -274,6 +302,7 @@ export const LESSONS: Lesson[] = [
   {
     id: 'open-cadd9',
     module: 'open',
+    easier: OPEN_EASIER,
     title: 'Cadd9 and friends',
     goal: 'Play G, Cadd9, Em7 and Dsus4 around the same anchor.',
     progression: { chords: ['G', 'Cadd9', 'Em7', 'Dsus4'] },
@@ -289,6 +318,7 @@ export const LESSONS: Lesson[] = [
   {
     id: 'open-sixteenth-motion',
     module: 'open',
+    easier: OPEN_EASIER,
     title: 'Continuous sixteenth strum',
     goal: 'Keep the strumming arm moving down and up on every sixteenth.',
     progression: { id: 'I-IV-vi-V', key: 'G' },
@@ -304,6 +334,7 @@ export const LESSONS: Lesson[] = [
   {
     id: 'open-capo-2',
     module: 'open',
+    easier: OPEN_EASIER,
     title: 'Capo 2 arrangement',
     goal: 'Strum the loop with a capo and add a second part on higher voicings.',
     progression: { id: 'vi-IV-I-V', key: 'G' },
@@ -319,6 +350,7 @@ export const LESSONS: Lesson[] = [
   {
     id: 'open-i-v-vi-iv-g',
     module: 'open',
+    easier: OPEN_EASIER,
     title: 'I–V–vi–IV in G',
     goal: 'Play the four-chord loop with open shapes and a big chorus.',
     progression: { id: 'I-V-vi-IV', key: 'G' },

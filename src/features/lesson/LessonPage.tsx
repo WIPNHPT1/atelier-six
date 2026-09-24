@@ -6,7 +6,10 @@ import type { Section } from '../../core/schedule/buildSchedule';
 import { copy, t } from '../../content/copy.en-GB';
 import { analyseTransition } from '../../core/engine/analyseTransition';
 import { hardestTransition } from '../../core/drills/drills';
-import { planSection } from '../../core/lessons/plan';
+import { planSection, simplifyLesson } from '../../core/lessons/plan';
+import { targetReached, tempoRange } from '../../core/practice/tempo';
+import { CleanMissed } from '../practice/CleanMissed';
+import { useAdaptiveTempo } from '../practice/useAdaptiveTempo';
 import type { ArrangementSection, BuiltLesson, Layer } from '../../core/lessons/types';
 import type { Shape } from '../../core/shapes/types';
 import { TUNINGS } from '../../core/style/riffBuilder';
@@ -31,7 +34,6 @@ import styles from './LessonPage.module.css';
 import { useFocusMode } from './useFocusMode';
 
 const DEMO_LESSON_ID = 'demo';
-const TEMPO_HEADROOM = 20;
 // Sections at or above this dynamics level play at full (chorus) strength.
 const LOUD_DYNAMICS = 0.9;
 
@@ -77,10 +79,13 @@ function LessonPlayer({ lesson }: { lesson: BuiltLesson }) {
     solo: null,
   }));
   const [copied, setCopied] = useState(false);
+  const [easier, setEasier] = useState(false);
+  const active = useMemo(() => (easier ? simplifyLesson(lesson) : lesson), [easier, lesson]);
+  const range = tempoRange(lesson.startBpm, lesson.targetBpm);
 
-  const section = sections[mix.sectionIndex] as ArrangementSection;
+  const section = active.arrangement.sections[mix.sectionIndex] as ArrangementSection;
   const sectionName = copy.lesson.sectionNames[section.name];
-  const plan = useMemo(() => planSection(lesson, style, section), [lesson, style, section]);
+  const plan = useMemo(() => planSection(active, style, section), [active, style, section]);
   const columns = useMemo(
     () => renderTab(plan.shapes, plan.rhythm, plan.bars, tuning),
     [plan, tuning],
@@ -100,11 +105,11 @@ function LessonPlayer({ lesson }: { lesson: BuiltLesson }) {
   const upcoming = nextChange(plan.shapes, barIndex);
   const hardest = hardestTransition(plan.shapes);
 
-  function play(next: Mix) {
-    const target = sections[next.sectionIndex] as ArrangementSection;
+  function play(next: Mix, playing: BuiltLesson = active) {
+    const target = playing.arrangement.sections[next.sectionIndex] as ArrangementSection;
     const level: Section = target.dynamics >= LOUD_DYNAMICS ? 'chorus' : 'verse';
     const sourceFor = (register: Shape['register']) => {
-      const layerPlan = planSection(lesson, style, target, register);
+      const layerPlan = planSection(playing, style, target, register);
       return {
         shapes: layerPlan.shapes,
         rhythm: layerPlan.rhythm,
@@ -127,6 +132,19 @@ function LessonPlayer({ lesson }: { lesson: BuiltLesson }) {
       layers: rest.map((layer) => ({ source: sourceFor(layer.voicing), pan: layer.pan })),
     });
   }
+
+  const tempo = useAdaptiveTempo({
+    bpm: mix.bpm,
+    range,
+    onTempo: (bpm) => {
+      setMix((current) => ({ ...current, bpm }));
+      if (playingThis) setTempo(bpm);
+    },
+    onSimplify: () => {
+      setEasier(true);
+      if (playingThis) play(mix, simplifyLesson(lesson));
+    },
+  });
 
   function update(changes: Partial<Mix>) {
     const next = { ...mix, ...changes };
@@ -187,14 +205,19 @@ function LessonPlayer({ lesson }: { lesson: BuiltLesson }) {
           <Slider
             label={copy.lesson.tempo}
             value={mix.bpm}
-            min={lesson.startBpm}
-            max={lesson.targetBpm + TEMPO_HEADROOM}
+            min={range.min}
+            max={range.max}
             onChange={(bpm) => {
               setMix({ ...mix, bpm });
               if (playingThis) setTempo(bpm);
             }}
           />
         </div>
+        <CleanMissed
+          tempo={tempo}
+          targetReached={targetReached(mix.bpm, lesson.targetBpm)}
+          easier={easier}
+        />
         <Toggle
           label={copy.lesson.loop}
           checked={mix.loop}

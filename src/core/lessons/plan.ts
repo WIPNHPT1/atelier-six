@@ -65,3 +65,14 @@ export function planSection(
     rhythm: rhythmFor(style, section.rhythm),
   };
 }
+
+// The lesson with every section on its easier rhythm (fewer notes); unchanged if none is set.
+export function simplifyLesson(lesson: BuiltLesson): BuiltLesson {
+  const easier = lesson.easier;
+  if (easier === undefined) return lesson;
+  const sections = lesson.arrangement.sections.map((section) => ({
+    ...section,
+    rhythm: easier.rhythms[section.rhythm] ?? section.rhythm,
+  }));
+  return { ...lesson, arrangement: { sections } };
+}

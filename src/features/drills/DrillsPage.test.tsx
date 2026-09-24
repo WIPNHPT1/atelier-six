@@ -111,6 +111,20 @@ describe('DrillsPage', () => {
   });
 });
 
+describe('adaptive tempo in drills', () => {
+  it('Clean and Missed move the drill tempo', async () => {
+    const user = userEvent.setup();
+    renderAt('/drills?from=C.open.a&to=Am.open');
+    const tempo = () =>
+      screen.getByRole<HTMLInputElement>('slider', { name: copy.drills.tempo }).value;
+    await user.keyboard('c');
+    expect(tempo()).toBe('84');
+    await user.click(screen.getByRole('button', { name: /^Missed/ }));
+    await user.keyboard('{Control>}m{/Control}');
+    expect(tempo()).toBe('80');
+  });
+});
+
 describe('bestMinute', () => {
   it('is null until a pair has a result', () => {
     expect(bestMinute([], 'C', 'G')).toBeNull();

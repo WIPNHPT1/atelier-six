@@ -39,6 +39,8 @@ import { SegmentedControl } from '../../ui/SegmentedControl';
 import { Slider } from '../../ui/Slider';
 import { Text } from '../../ui/Text';
 import { bestMinute, useDrillResults } from './drillResults';
+import { CleanMissed } from '../practice/CleanMissed';
+import { useAdaptiveTempo } from '../practice/useAdaptiveTempo';
 import styles from './DrillsPage.module.css';
 
 const DRILL_ID = 'drill';
@@ -187,6 +189,15 @@ export default function DrillsPage() {
   const freeze = kind === 'freeze' ? activeFreeze(windows, step) : undefined;
   const currentIndex = playing ? Math.max(0, playback.chordIndex) : 0;
 
+  const tempo = useAdaptiveTempo({
+    bpm,
+    range: { min: MIN_BPM, max: MAX_BPM, start: DEFAULT_BPM },
+    onTempo: (value) => {
+      setBpm(value);
+      if (playing) play(value);
+    },
+  });
+
   function setParam(changes: Record<string, string>) {
     if (playing) stopPlayback();
     setParams({ kind, from: from.id, to: to.id, ...changes }, { replace: true });
@@ -310,6 +321,7 @@ export default function DrillsPage() {
                 }}
               />
             </div>
+            <CleanMissed tempo={tempo} />
             {kind === 'freeze' ? (
               <div className={styles.slider}>
                 <Slider
