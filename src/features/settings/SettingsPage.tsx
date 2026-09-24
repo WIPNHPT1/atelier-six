@@ -12,6 +12,7 @@ import { copy } from '../../content/copy.en-GB';
 import { useSettingsStore } from '../../app/settingsStore';
 import { downloadSoundsForOffline } from '../../audio/sampleCache';
 import styles from './SettingsPage.module.css';
+import { ProgressTransfer } from './ProgressTransfer';
 
 type DownloadState = 'idle' | 'downloading' | 'done';
 
@@ -151,6 +152,7 @@ export default function SettingsPage() {
           </Button>
         </div>
       </Panel>
+      <ProgressTransfer />
     </PageHeader>
   );
 }

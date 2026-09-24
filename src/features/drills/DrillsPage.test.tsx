@@ -5,7 +5,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { usePlaybackStore } from '../../audio/playbackStore';
 import { copy } from '../../content/copy.en-GB';
 import { MINUTE_MS } from '../../core/drills/minute';
-import { bestMinute, useDrillResults } from './drillResults';
+import { resetProgressForTests, useProgress } from '../progress/store';
 import DrillsPage from './DrillsPage';
 
 function Where() {
@@ -33,7 +33,7 @@ function renderAt(path = '/drills') {
 
 beforeEach(() => {
   usePlaybackStore.setState({ isPlaying: false, lessonId: null, step: 0, chordIndex: 0 });
-  useDrillResults.setState({ minutes: [] });
+  resetProgressForTests();
 });
 
 afterEach(() => {
@@ -90,7 +90,7 @@ describe('DrillsPage', () => {
     expect(screen.getByTestId('where').textContent).toContain('to=Am');
   });
 
-  it('one minute counts Change taps and Space, then saves the result', () => {
+  it('one minute counts Change taps and Space, then saves the result', async () => {
     vi.useFakeTimers();
     renderAt('/drills?kind=minute&from=C.open.a&to=Am.open');
     fireEvent.click(screen.getByRole('button', { name: copy.drills.start }));
@@ -98,14 +98,16 @@ describe('DrillsPage', () => {
     fireEvent.keyDown(window, { code: 'Space' });
     fireEvent.keyDown(window, { code: 'KeyA' });
     expect(screen.getByText('2 changes')).toBeInTheDocument();
-    act(() => {
-      vi.advanceTimersByTime(MINUTE_MS + 500);
+    await act(async () => {
+      await vi.advanceTimersByTimeAsync(MINUTE_MS + 500);
+    });
+    await act(async () => {
+      await vi.advanceTimersByTimeAsync(1);
     });
     expect(screen.getByRole('button', { name: copy.drills.again })).toBeInTheDocument();
-    expect(useDrillResults.getState().minutes[0]).toMatchObject({
-      from: 'C',
-      to: 'Am',
-      changes: 2,
+    expect(useProgress.getState().data.minutes[0]).toMatchObject({
+      key: 'C.open.a>Am.open',
+      count: 2,
     });
     expect(screen.getByText('Best: 2')).toBeInTheDocument();
   });
@@ -122,21 +124,5 @@ describe('adaptive tempo in drills', () => {
     await user.click(screen.getByRole('button', { name: /^Missed/ }));
     await user.keyboard('{Control>}m{/Control}');
     expect(tempo()).toBe('80');
-  });
-});
-
-describe('bestMinute', () => {
-  it('is null until a pair has a result', () => {
-    expect(bestMinute([], 'C', 'G')).toBeNull();
-    expect(
-      bestMinute(
-        [
-          { from: 'C', to: 'G', changes: 20, at: 1 },
-          { from: 'C', to: 'G', changes: 25, at: 2 },
-        ],
-        'C',
-        'G',
-      ),
-    ).toBe(25);
   });
 });

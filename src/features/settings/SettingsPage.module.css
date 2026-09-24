@@ -19,3 +19,13 @@
   gap: var(--s-2);
   width: 220px;
 }
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+}
+
+.file {
+  display: none;
+}

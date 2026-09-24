@@ -157,3 +157,8 @@
   flex-wrap: wrap;
   gap: var(--s-2);
 }
+
+.best {
+  color: var(--bone-dim);
+  font-size: var(--t-12);
+}

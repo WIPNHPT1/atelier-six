@@ -9,6 +9,10 @@ export async function completeOnboarding(page: Page) {
   await page.getByRole('button', { name: 'Start' }).click();
   // Onboarding ends on the recommended first lesson; tests carry on from Today.
   await expect.poll(() => new URL(page.url()).pathname).toMatch(/^\/lesson\//);
-  await page.goto('/');
+  // In-app navigation (no reload) so the shell's listeners are already attached.
+  await page.evaluate(() => {
+    history.pushState({}, '', '/');
+    dispatchEvent(new PopStateEvent('popstate'));
+  });
   await expect.poll(() => new URL(page.url()).pathname).toBe('/');
 }

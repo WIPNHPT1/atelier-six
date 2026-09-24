@@ -9,11 +9,14 @@ import { Text } from '../../ui/Text';
 import { difficultyLabel, getModule, lessonsFor, listenRefs } from '../lesson/lessonData';
 import styles from './CourseModulePage.module.css';
 import { ProgressRing } from './ProgressRing';
+import { useProgressData } from '../progress/store';
+import { bestBpm, lessonDone, moduleProgress } from '../progress/summary';
 
 const NUMBER_WIDTH = 2;
 
 export default function CourseModulePage() {
   const { module: moduleId } = useParams<{ module: string }>();
+  const data = useProgressData();
   const module = getModule(moduleId);
   if (module === undefined) {
     return (
@@ -27,8 +30,8 @@ export default function CourseModulePage() {
   const lessons = lessonsFor(module.id);
   const refs = listenRefs(module.id);
   const artists = [...new Set(refs.map((ref) => ref.artist))].join(' · ');
-  const done = 0;
-  const next = lessons[done];
+  const { done } = moduleProgress(module.id, data);
+  const next = lessons.find((lesson) => !lessonDone(lesson, data)) ?? lessons[0];
   const finish = copy.course.finishes[module.finish];
 
   return (
@@ -83,6 +86,13 @@ export default function CourseModulePage() {
                   <div className={styles.rowText}>
                     <Text>{lesson.title}</Text>
                     <Pill>{copy.lesson.difficultyLabels[difficultyLabel(lesson)]}</Pill>
+                    {bestBpm(lesson, data) === null ? null : (
+                      <Mono className={styles.best}>
+                        {t(lessonDone(lesson, data) ? 'course.doneBest' : 'course.bestTempo', {
+                          bpm: bestBpm(lesson, data) ?? 0,
+                        })}
+                      </Mono>
+                    )}
                   </div>
                   <Link
                     className={styles.start}

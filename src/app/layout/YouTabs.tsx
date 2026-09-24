@@ -1,20 +1,19 @@
 import { useLocation, useNavigate } from 'react-router-dom';
-import { SegmentedControl } from '../../ui/SegmentedControl';
 import { copy } from '../../content/copy.en-GB';
+import { SegmentedControl } from '../../ui/SegmentedControl';
 
 const segments = [
-  { value: '/course', label: copy.learn.course },
-  { value: '/library', label: copy.learn.chords },
+  { value: '/progress', label: copy.you.progress },
+  { value: '/settings', label: copy.you.settings },
 ];
 
-export function LearnTabs() {
+export function YouTabs() {
   const navigate = useNavigate();
   const location = useLocation();
-  const value = location.pathname.startsWith('/library') ? '/library' : '/course';
-
+  const value = location.pathname.startsWith('/settings') ? '/settings' : '/progress';
   return (
     <SegmentedControl
-      label={copy.nav.learn}
+      label={copy.you.tabs}
       segments={segments}
       value={value}
       onChange={(next) => {

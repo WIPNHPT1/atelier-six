@@ -38,7 +38,14 @@ import { Panel } from '../../ui/Panel';
 import { SegmentedControl } from '../../ui/SegmentedControl';
 import { Slider } from '../../ui/Slider';
 import { Text } from '../../ui/Text';
-import { bestMinute, useDrillResults } from './drillResults';
+import {
+  addMinuteScore,
+  bestMinute,
+  recordTransition,
+  transitionKey,
+} from '../../core/progress/record';
+import { useProgress, useProgressData } from '../progress/store';
+import { usePracticeTimer } from '../progress/usePracticeTimer';
 import { CleanMissed } from '../practice/CleanMissed';
 import { useAdaptiveTempo } from '../practice/useAdaptiveTempo';
 import styles from './DrillsPage.module.css';
@@ -80,11 +87,13 @@ function isKind(value: string | null): value is DrillKind {
 function OneMinute({ from, to }: { from: Shape; to: Shape }) {
   const [session, setSession] = useState(newMinute);
   const [now, setNow] = useState(() => Date.now());
-  const minutes = useDrillResults((s) => s.minutes);
-  const addMinute = useDrillResults((s) => s.addMinute);
+  const progress = useProgressData();
+  const updateProgress = useProgress((s) => s.update);
+  const key = transitionKey(from.id, to.id);
   const running = isRunning(session, now);
   const finished = isFinished(session, now);
-  const best = bestMinute(minutes, from.chord, to.chord);
+  const best = bestMinute(progress, key);
+  usePracticeTimer(running);
 
   useEffect(() => {
     if (session.startedAt === null) return;
@@ -100,8 +109,9 @@ function OneMinute({ from, to }: { from: Shape; to: Shape }) {
 
   useEffect(() => {
     if (!finished || session.startedAt === null) return;
-    addMinute({ from: from.chord, to: to.chord, changes: session.changes, at: session.startedAt });
-  }, [finished, session, from.chord, to.chord, addMinute]);
+    const score = { key, date: session.startedAt, count: session.changes };
+    void updateProgress((data) => addMinuteScore(data, score));
+  }, [finished, session, key, updateProgress]);
 
   function change() {
     setSession((current) => recordChange(current, Date.now()));
@@ -189,9 +199,15 @@ export default function DrillsPage() {
   const freeze = kind === 'freeze' ? activeFreeze(windows, step) : undefined;
   const currentIndex = playing ? Math.max(0, playback.chordIndex) : 0;
 
+  const updateProgress = useProgress((s) => s.update);
+  usePracticeTimer(playing);
   const tempo = useAdaptiveTempo({
     bpm,
     range: { min: MIN_BPM, max: MAX_BPM, start: DEFAULT_BPM },
+    onRecord: (clean) => {
+      const key = transitionKey(from.id, to.id);
+      void updateProgress((data) => recordTransition(data, { key, clean, now: Date.now() }));
+    },
     onTempo: (value) => {
       setBpm(value);
       if (playing) play(value);

@@ -11,6 +11,7 @@ export type AdaptiveTempoOptions = {
   range: TempoRange;
   onTempo: (bpm: number) => void;
   onSimplify?: () => void;
+  onRecord?: (clean: boolean, bpm: number) => void;
 };
 
 export type AdaptiveTempo = {
@@ -32,6 +33,7 @@ export function useAdaptiveTempo({
   range,
   onTempo,
   onSimplify,
+  onRecord,
 }: AdaptiveTempoOptions): AdaptiveTempo {
   const [history, setHistory] = useState<Attempt[]>([]);
   const [last, setLast] = useState<TempoDecision | null>(null);
@@ -41,6 +43,7 @@ export function useAdaptiveTempo({
     const decision = nextTempo(next, range);
     setHistory(next);
     setLast(decision);
+    onRecord?.(clean, bpm);
     if (decision.bpm !== bpm) onTempo(decision.bpm);
     if (decision.simplify) onSimplify?.();
   }

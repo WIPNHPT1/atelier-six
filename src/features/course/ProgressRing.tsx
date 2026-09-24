@@ -28,14 +28,16 @@ export function ProgressRing({
     >
       <svg viewBox="0 0 40 40" width={size} height={size} aria-hidden="true">
         <circle className={styles.track} cx="20" cy="20" r={RADIUS} />
-        <circle
-          className={styles.fill}
-          cx="20"
-          cy="20"
-          r={RADIUS}
-          strokeDasharray={CIRCUMFERENCE}
-          strokeDashoffset={CIRCUMFERENCE * (1 - fraction)}
-        />
+        {fraction === 0 ? null : (
+          <circle
+            className={styles.fill}
+            cx="20"
+            cy="20"
+            r={RADIUS}
+            strokeDasharray={CIRCUMFERENCE}
+            strokeDashoffset={CIRCUMFERENCE * (1 - fraction)}
+          />
+        )}
       </svg>
       {showCount ? <span className={styles.count}>{done}</span> : null}
     </span>

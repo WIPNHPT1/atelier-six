@@ -10,6 +10,9 @@ import { planSection, simplifyLesson } from '../../core/lessons/plan';
 import { targetReached, tempoRange } from '../../core/practice/tempo';
 import { CleanMissed } from '../practice/CleanMissed';
 import { useAdaptiveTempo } from '../practice/useAdaptiveTempo';
+import { recordLessonAttempt, recordTransition, transitionKey } from '../../core/progress/record';
+import { useProgress } from '../progress/store';
+import { usePracticeTimer } from '../progress/usePracticeTimer';
 import type { ArrangementSection, BuiltLesson, Layer } from '../../core/lessons/types';
 import type { Shape } from '../../core/shapes/types';
 import { TUNINGS } from '../../core/style/riffBuilder';
@@ -99,6 +102,8 @@ function LessonPlayer({ lesson }: { lesson: BuiltLesson }) {
   const setTempo = usePlaybackStore((s) => s.setTempo);
   const playingThis = playback.isPlaying && playingLessonId === lesson.id;
   useFocusMode(playingThis);
+  usePracticeTimer(playingThis);
+  const updateProgress = useProgress((s) => s.update);
 
   const barIndex = playingThis ? Math.max(0, playback.chordIndex) % plan.shapes.length : 0;
   const current = plan.shapes[barIndex] as Shape;
@@ -143,6 +148,15 @@ function LessonPlayer({ lesson }: { lesson: BuiltLesson }) {
     onSimplify: () => {
       setEasier(true);
       if (playingThis) play(mix, simplifyLesson(lesson));
+    },
+    onRecord: (clean, bpm) => {
+      const now = Date.now();
+      void updateProgress((data) => {
+        const withLesson = recordLessonAttempt(data, { lessonId: lesson.id, bpm, clean, now });
+        if (hardest === null) return withLesson;
+        const key = transitionKey(hardest.from.id, hardest.to.id);
+        return recordTransition(withLesson, { key, clean, now });
+      });
     },
   });
 

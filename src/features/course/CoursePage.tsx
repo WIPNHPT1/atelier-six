@@ -9,8 +9,11 @@ import { Text } from '../../ui/Text';
 import { MODULES, lessonsFor, listenRefs } from '../lesson/lessonData';
 import styles from './CoursePage.module.css';
 import { ProgressRing } from './ProgressRing';
+import { useProgressData } from '../progress/store';
+import { moduleProgress } from '../progress/summary';
 
 export default function CoursePage() {
+  const data = useProgressData();
   return (
     <>
       <PageHeader title={copy.course.learnTitle}>
@@ -26,7 +29,7 @@ export default function CoursePage() {
           const meta = copy.course.modules[module.id];
           const lessons = lessonsFor(module.id);
           const artists = [...new Set(listenRefs(module.id).map((ref) => ref.artist))];
-          const done = 0;
+          const { done, started } = moduleProgress(module.id, data);
           return (
             <li key={module.id}>
               <Link to={`/course/${module.id}`} className={styles.card} data-finish={module.finish}>
@@ -49,7 +52,13 @@ export default function CoursePage() {
                 <div className={styles.pills}>
                   {module.available ? (
                     <>
-                      <Pill>{copy.course.statusNew}</Pill>
+                      <Pill>
+                        {done > 0
+                          ? t('course.statusProgress', { done, total: lessons.length })
+                          : started
+                            ? copy.course.statusStarted
+                            : copy.course.statusNew}
+                      </Pill>
                       <Pill>{t('course.lessonCount', { count: lessons.length })}</Pill>
                     </>
                   ) : (
