@@ -1,10 +1,10 @@
 # Progress
 
-Current: Gate 7
+Current: 8.1
 Legend: [ ] todo · [x] done · BLOCKED: reason
 Rule: update "Current" and tick the box in the same commit as the step. Unfinished work lives in `RESUME.md`.
 Milestones: v1.0 = Phases 0–10 · v1.1 = 11–15 · v1.2 = 16–17 · v2.0 = 18–22 · v2.x = 23–24 (final).
-Recorded numbers (fill in as you go): LIVE_URL=https://ateliersix.netlify.app · JS_KB=106 · FRAME_MS= · LH= · DETECT_ACC= · CHUNKS= · REC_MB= · MORPH_FRAME_MS= · CAMERA_ACC=
+Recorded numbers (fill in as you go): LIVE_URL=https://ateliersix.netlify.app · JS_KB=113 · FRAME_MS= · LH= · DETECT_ACC= · CHUNKS= · REC_MB= · MORPH_FRAME_MS= · CAMERA_ACC=
 
 ## Pace log
 
@@ -96,7 +96,8 @@ Recorded numbers (fill in as you go): LIVE_URL=https://ateliersix.netlify.app ·
 - [x] 7.1 Pitch → note/cents
 - [x] 7.2 Tuner UI
 - [x] 7.3 Root-note auto-advance
-- [ ] Gate 7
+- [x] Gate 7
+  - Device check (2026-09-24, iPhone + Mac Safari over the live site): microphone permission prompt appears and works ✓, tuner reads a real guitar string correctly ✓ (after 3 fixes: resume the suspended AudioContext, route the analyser through a muted gain to destination, lower the RMS noise gate for real quiet mic input — all Safari-only, invisible in Chromium testing). Needle/note now hold steady on a sustained note.
 
 ## Phase 8 — Hands-free and settings
 
