@@ -1,3 +1,16 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+}
+
+.header {
+  margin: 0;
+  color: var(--bone-dim);
+  font-family: var(--font-mono);
+  font-size: var(--t-12);
+}
+
 .lane {
   display: grid;
   align-items: center;
@@ -12,6 +25,27 @@
   min-width: 1.6em;
 }
 
+.timeSig {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.barNumber {
+  color: var(--bone-dim);
+  font-size: var(--t-12);
+  white-space: nowrap;
+}
+
+.sectionLabel {
+  color: var(--brass-hi);
+  font-size: var(--t-12);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
 .stringLabel {
   color: var(--bone-dim);
   text-align: right;
@@ -21,6 +55,12 @@
 .chordName {
   font-weight: 700;
   padding-bottom: var(--s-1);
+}
+
+.count {
+  text-align: center;
+  color: var(--bone-dim);
+  font-size: var(--t-12);
 }
 
 .cell {
@@ -39,6 +79,37 @@
   transition: background calc(var(--dur-ui) * var(--motion-scale)) var(--ease);
 }
 
+.accent {
+  text-align: center;
+  color: var(--brass-hi);
+  font-weight: 700;
+}
+
+.notationCell {
+  display: flex;
+  align-items: stretch;
+}
+
+.notationSvg {
+  width: 100%;
+  height: 28px;
+  overflow: visible;
+}
+
+.notationStroke {
+  stroke: var(--bone-dim);
+  stroke-width: 1.2;
+}
+
+.notationBeam {
+  stroke: var(--bone-dim);
+  stroke-width: 2.5;
+}
+
+.notationDot {
+  fill: var(--bone-dim);
+}
+
 .strum {
   text-align: center;
   color: var(--bone-dim);
@@ -53,4 +124,10 @@
 
 .palmMuteActive {
   border-bottom-color: var(--bone-dim);
+}
+
+.dynamic {
+  text-align: center;
+  font-style: italic;
+  color: var(--bone-dim);
 }

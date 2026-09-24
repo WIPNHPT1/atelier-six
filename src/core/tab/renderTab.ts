@@ -3,14 +3,19 @@ import type { Shape } from '../shapes/types.ts';
 import type { Tuning } from '../tuning.ts';
 
 const STRING_COUNT = 6;
+const SIXTEENTHS_PER_BAR_UNIT = 16;
 
 export type TabColumn = {
   step: number;
+  bar: number;
+  offset: number;
+  duration: number;
   chordIndex: number;
   cells: (string | null)[];
   dir: RhythmStep['dir'];
   palmMute: boolean;
   accent: boolean;
+  ghost: boolean;
 };
 
 function buildCells(shape: Shape, step: RhythmStep, stringCount: number): (string | null)[] {
@@ -27,6 +32,15 @@ function buildCells(shape: Shape, step: RhythmStep, stringCount: number): (strin
   });
 }
 
+function stepTimings(rhythm: RhythmPreset): { offset: number; duration: number }[] {
+  const multiplier = SIXTEENTHS_PER_BAR_UNIT / rhythm.subdivision;
+  return rhythm.steps.map((step, index) => {
+    const next = rhythm.steps[index + 1];
+    const gap = next ? next.t - step.t : rhythm.subdivision - step.t;
+    return { offset: step.t * multiplier, duration: gap * multiplier };
+  });
+}
+
 export function renderTab(
   shapes: Shape[],
   rhythm: RhythmPreset,
@@ -34,23 +48,31 @@ export function renderTab(
   tuning: Tuning,
 ): TabColumn[] {
   const stringCount = tuning.length;
+  const timings = stepTimings(rhythm);
   const columns: TabColumn[] = [];
   let step = 0;
+  let bar = 0;
 
   shapes.forEach((shape, chordIndex) => {
     const barCount = bars[chordIndex] ?? 1;
-    for (let bar = 0; bar < barCount; bar++) {
-      for (const rhythmStep of rhythm.steps) {
+    for (let b = 0; b < barCount; b++) {
+      rhythm.steps.forEach((rhythmStep, index) => {
+        const timing = timings[index] as { offset: number; duration: number };
         columns.push({
           step,
+          bar,
+          offset: timing.offset,
+          duration: timing.duration,
           chordIndex,
           cells: buildCells(shape, rhythmStep, stringCount),
           dir: rhythmStep.dir,
           palmMute: rhythmStep.palmMute === true,
           accent: rhythmStep.accent === true,
+          ghost: rhythmStep.ghost === true,
         });
         step++;
-      }
+      });
+      bar++;
     }
   });
 
@@ -73,5 +95,19 @@ export function toAscii(columns: TabColumn[]): string {
     return `${label}|-${cells.join('-')}-|`;
   });
 
-  return rows.join('\n');
+  const rhythmWidth = Math.max(width, 2);
+  const rhythmLine = columns.map((column) =>
+    durationSymbol(column.duration).padEnd(rhythmWidth, '-'),
+  );
+
+  return [...rows, `  |-${rhythmLine.join('-')}-|`].join('\n');
+}
+
+const DOTTED_BASE: Record<number, number> = { 3: 2, 6: 4, 12: 8 };
+
+export function durationSymbol(duration: number): string {
+  const dotted = DOTTED_BASE[duration];
+  const base = dotted ?? duration;
+  const letter = base >= 16 ? 'w' : base >= 8 ? 'h' : base >= 4 ? 'q' : base >= 2 ? 'e' : 's';
+  return dotted !== undefined ? `${letter}.` : letter;
 }

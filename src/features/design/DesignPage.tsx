@@ -16,12 +16,16 @@ import { Sheet } from '../../ui/Sheet';
 import { Logo } from '../../ui/Logo';
 import { Fretboard } from '../../ui/Fretboard/Fretboard';
 import { TransitionCard } from '../../ui/TransitionCard/TransitionCard';
+import { TabLane } from '../../ui/TabLane/TabLane';
 import { PlayIcon } from '../../ui/icons';
 import { copy } from '../../content/copy.en-GB';
 import { useSettingsStore } from '../../app/settingsStore';
 import { contrastRatio } from '../../core/colorContrast';
 import { analyseTransition } from '../../core/engine/analyseTransition';
 import { getChord, getShapes } from '../../core/shapes/library';
+import { renderTab } from '../../core/tab/renderTab';
+import { RHYTHMS } from '../../data/rhythms';
+import { standard } from '../../core/tuning';
 import { useLiveTokens } from './useLiveTokens';
 import styles from './DesignPage.module.css';
 
@@ -29,6 +33,17 @@ const FRETBOARD_C = getChord('C')?.shapes[0];
 const FRETBOARD_F_BARRE = getShapes('F', { tags: ['barre'] })[0];
 const FRETBOARD_G5 = getShapes('G5', { tags: ['power'] })[0];
 const TRANSITION_AM = getChord('Am')?.shapes[0];
+
+const TAB_LANE_G = getChord('G')?.shapes[0];
+const STOPS = RHYTHMS.find((r) => r.id === 'stops');
+const TAB_LANE_COLUMNS =
+  FRETBOARD_C && TAB_LANE_G && STOPS
+    ? renderTab([FRETBOARD_C, TAB_LANE_G], STOPS, [1, 1], standard)
+    : [];
+
+const SIXTEENTH_MOTION = RHYTHMS.find((r) => r.id === 'sixteenth-motion');
+const GHOST_TAB_COLUMNS =
+  FRETBOARD_C && SIXTEENTH_MOTION ? renderTab([FRETBOARD_C], SIXTEENTH_MOTION, [1], standard) : [];
 
 const SWATCH_TOKENS = [
   'ebony',
@@ -240,6 +255,23 @@ export default function DesignPage() {
             to={TRANSITION_AM}
             transition={analyseTransition(FRETBOARD_C, TRANSITION_AM)}
           />
+        ) : null}
+
+        <Heading level={3}>{copy.design.tabLane}</Heading>
+        {FRETBOARD_C && TAB_LANE_G ? (
+          <TabLane
+            columns={TAB_LANE_COLUMNS}
+            shapes={[FRETBOARD_C, TAB_LANE_G]}
+            tuning={standard}
+            playhead={2}
+            header={{ tempo: 96, tuning: 'Standard', capo: 0, key: 'C major' }}
+            sectionLabels={{ 0: 'Verse', 1: 'Chorus' }}
+            repeatEndBars={[0]}
+            dynamics={{ 0: copy.tabLane.dynamicMezzoForte, 2: copy.tabLane.dynamicForte }}
+          />
+        ) : null}
+        {FRETBOARD_C ? (
+          <TabLane columns={GHOST_TAB_COLUMNS} shapes={[FRETBOARD_C]} tuning={standard} />
         ) : null}
       </section>
 

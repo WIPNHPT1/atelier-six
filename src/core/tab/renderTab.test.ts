@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { renderTab, toAscii } from './renderTab.ts';
+import { durationSymbol, renderTab, toAscii } from './renderTab.ts';
 import { parseShape } from '../shapes/parseShape.ts';
 import { RHYTHMS } from '../../data/rhythms.ts';
 import { standard } from '../tuning.ts';
@@ -47,6 +47,46 @@ describe('renderTab', () => {
     const columns = renderTab([C], sixteenth, [1], standard);
     const ghostColumn = columns[1];
     expect(ghostColumn?.cells.every((cell) => cell === null)).toBe(true);
+    expect(ghostColumn?.ghost).toBe(true);
+    expect(columns[0]?.ghost).toBe(false);
+  });
+
+  it('gives every driving-eighths column an equal 2-sixteenth duration, and counts bars globally', () => {
+    const columns = renderTab([C, G], drivingEighths, [1, 2], standard);
+    expect(columns.every((c) => c.duration === 2)).toBe(true);
+    expect(columns.map((c) => c.offset)).toEqual([
+      ...[0, 2, 4, 6, 8, 10, 12, 14],
+      ...[0, 2, 4, 6, 8, 10, 12, 14],
+      ...[0, 2, 4, 6, 8, 10, 12, 14],
+    ]);
+    expect(columns.map((c) => c.bar)).toEqual([
+      ...Array<number>(8).fill(0),
+      ...Array<number>(8).fill(1),
+      ...Array<number>(8).fill(2),
+    ]);
+  });
+
+  it('derives each pop-strum note duration from the gap to the next struck step', () => {
+    const popStrum = RHYTHMS.find((r) => r.id === 'pop-strum');
+    if (!popStrum) throw new Error('missing pop-strum fixture');
+    const columns = renderTab([C], popStrum, [1], standard);
+    // steps at t = 0, 2, 3, 5, 6, 7 (eighths) -> gaps 2,1,2,1,1,1 -> *2 sixteenths
+    expect(columns.map((c) => c.duration)).toEqual([4, 2, 4, 2, 2, 2]);
+  });
+});
+
+describe('durationSymbol', () => {
+  it('names plain note values', () => {
+    expect(durationSymbol(1)).toBe('s');
+    expect(durationSymbol(2)).toBe('e');
+    expect(durationSymbol(4)).toBe('q');
+    expect(durationSymbol(8)).toBe('h');
+    expect(durationSymbol(16)).toBe('w');
+  });
+
+  it('marks dotted values', () => {
+    expect(durationSymbol(3)).toBe('e.');
+    expect(durationSymbol(6)).toBe('q.');
   });
 });
 
@@ -54,6 +94,7 @@ describe('toAscii', () => {
   it('renders a 6-line tab, high e on top, for C-G-Am-F with driving-eighths', () => {
     const columns = renderTab([C, G, AM, F], drivingEighths, [1, 1, 1, 1], standard);
     const bar = (n: string) => Array<string>(8).fill(n).join('-');
+    const rhythmBar = Array<string>(8).fill('e-').join('-');
 
     expect(toAscii(columns)).toBe(
       [
@@ -63,6 +104,7 @@ describe('toAscii', () => {
         `D|-${bar('2')}-${bar('0')}-${bar('2')}-${bar('3')}-|`,
         `A|-${bar('3')}-${bar('2')}-${bar('0')}-${bar('3')}-|`,
         `E|-${bar('x')}-${bar('3')}-${bar('x')}-${bar('1')}-|`,
+        `  |-${rhythmBar}-${rhythmBar}-${rhythmBar}-${rhythmBar}-|`,
       ].join('\n'),
     );
   });

@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { noteName, transpose } from './pitch.ts';
-import { chordName, romanToChord } from './chord.ts';
+import { chordName, chordTones, romanToChord } from './chord.ts';
 
 const DEGREES = [
   { upper: 'I', lower: 'i', semitones: 0 },
@@ -64,5 +64,19 @@ describe('chordName', () => {
         expect(chordName(chord)).toBe(noteName(transpose(keyPc, semitones)));
       }
     }
+  });
+});
+
+describe('chordTones', () => {
+  it('gives the root, third and fifth of a major triad', () => {
+    expect(chordTones({ root: 0, quality: 'maj' })).toEqual([0, 4, 7]);
+  });
+
+  it('gives the root, minor third and fifth of a minor triad', () => {
+    expect(chordTones({ root: 9, quality: 'min' })).toEqual([9, 0, 4]);
+  });
+
+  it('gives just the root and fifth for a power chord', () => {
+    expect(chordTones({ root: 7, quality: '5' })).toEqual([7, 2]);
   });
 });

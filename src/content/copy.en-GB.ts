@@ -129,6 +129,7 @@ export const copy = {
     typeSample: 'Aa',
     fretboard: 'Fretboard',
     transitionCard: 'Transition card',
+    tabLane: 'Tab lane',
   },
   transition: {
     keepOne: 'Keep finger {finger} where it is.',
@@ -160,6 +161,13 @@ export const copy = {
     palmMute: 'P.M.',
     down: '↓',
     up: '↑',
+    accent: '>',
+    ghostWrap: '({value})',
+    header: '{tempo} bpm · {tuning} · capo {capo} · {key}',
+    repeatEnd: ':||',
+    dynamicPiano: 'p',
+    dynamicMezzoForte: 'mf',
+    dynamicForte: 'f',
   },
   fretboard: {
     barre: '{finger} finger barre {fromString} to {toString} string fret {fret}',

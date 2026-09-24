@@ -59,3 +59,19 @@ const QUALITY_SUFFIX: Record<ChordQuality, string> = {
 export function chordName({ root, quality }: ChordSpec): string {
   return `${noteName(root)}${QUALITY_SUFFIX[quality]}`;
 }
+
+const QUALITY_INTERVALS: Record<ChordQuality, number[]> = {
+  maj: [0, 4, 7],
+  min: [0, 3, 7],
+  '5': [0, 7],
+  dim: [0, 3, 6],
+  '7': [0, 4, 7, 10],
+  sus2: [0, 2, 7],
+  sus4: [0, 5, 7],
+  add9: [0, 2, 4, 7],
+  m7: [0, 3, 7, 10],
+};
+
+export function chordTones({ root, quality }: ChordSpec): PitchClass[] {
+  return QUALITY_INTERVALS[quality].map((interval) => transpose(root, interval));
+}
