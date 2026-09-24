@@ -16,6 +16,7 @@ export type Settings = {
   leftHanded: boolean;
   tuning: Tuning;
   capo: number;
+  a4: number;
   level: Level;
   onboardingComplete: boolean;
   robotMode: boolean;
@@ -29,6 +30,7 @@ export type SettingsStore = Settings & {
   setLeftHanded: (leftHanded: boolean) => void;
   setTuning: (tuning: Tuning) => void;
   setCapo: (capo: number) => void;
+  setA4: (a4: number) => void;
   setLevel: (level: Level) => void;
   setOnboardingComplete: (complete: boolean) => void;
   setRobotMode: (robotMode: boolean) => void;
@@ -42,6 +44,7 @@ const defaultSettings: Settings = {
   leftHanded: false,
   tuning: 'standard',
   capo: 0,
+  a4: 440,
   level: 'new',
   onboardingComplete: false,
   robotMode: false,
@@ -71,6 +74,9 @@ export const useSettingsStore = create<SettingsStore>()(
       },
       setCapo: (capo) => {
         set({ capo: Math.min(7, Math.max(0, capo)) });
+      },
+      setA4: (a4) => {
+        set({ a4: Math.min(450, Math.max(430, a4)) });
       },
       setLevel: (level) => {
         set({ level });

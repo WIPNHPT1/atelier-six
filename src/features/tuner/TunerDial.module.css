@@ -1,0 +1,38 @@
+.dial {
+  width: 100%;
+  max-width: 320px;
+  overflow: visible;
+}
+
+.tickMinor {
+  stroke: var(--hairline);
+  stroke-width: 1;
+}
+
+.tickMajor {
+  stroke: var(--bone-dim);
+  stroke-width: 2;
+}
+
+.needle {
+  stroke: var(--brass);
+  stroke-width: 3;
+  stroke-linecap: round;
+  transition-property: x2, y2;
+  transition-timing-function: var(--ease);
+}
+
+.needleInTune {
+  composes: needle;
+  stroke: var(--brass-hi);
+  filter: drop-shadow(0 0 6px var(--brass-hi));
+}
+
+.pivot {
+  fill: var(--bone-dim);
+}
+
+:root[data-motion='off'] .needle,
+:root[data-motion='off'] .needleInTune {
+  transition-duration: 0ms !important;
+}

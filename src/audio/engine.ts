@@ -47,6 +47,8 @@ const MUTED_STRUM_GAIN = 0.55;
 const CHIME_VOLUME_DB = -12;
 const CHIME_NOTES = ['E5', 'B5'];
 const CHIME_SPACING_SECONDS = 0.12;
+const REFERENCE_TONE_SECONDS = 1.5;
+const REFERENCE_TONE_VELOCITY = 0.6;
 
 declare global {
   interface Window {
@@ -250,6 +252,21 @@ export function playEvent(
       ringing.set(hit.string, frequency);
     }
   });
+}
+
+// A single ringing note for the tuner's reference tone, played on the clean guitar voice.
+export function playReferenceTone(midi: number, time = Tone.now()): void {
+  if (graph === null) return;
+  const path = graph.guitar.clean;
+  path.muteFilter.frequency.cancelScheduledValues(time);
+  path.muteFilter.frequency.setValueAtTime(OPEN_FILTER_HZ, time);
+  const frequency = Tone.Frequency(midi, 'midi').toFrequency();
+  path.sampler.triggerAttackRelease(
+    frequency,
+    REFERENCE_TONE_SECONDS,
+    time,
+    REFERENCE_TONE_VELOCITY,
+  );
 }
 
 // After playback stops nothing is ringing any more as far as the next strum is concerned.

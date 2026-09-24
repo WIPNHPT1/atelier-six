@@ -10,13 +10,17 @@ export interface Note {
   cents: number;
 }
 
-export function freqToNote(freq: number, a4 = 440): Note {
-  const exactMidi = MIDI_A4 + SEMITONES_PER_OCTAVE * Math.log2(freq / a4);
-  const midi = Math.round(exactMidi);
-  const cents = (exactMidi - midi) * CENTS_PER_SEMITONE;
+export function midiToNote(midi: number): { name: string; octave: number } {
   const name =
     NOTE_NAMES[((midi % SEMITONES_PER_OCTAVE) + SEMITONES_PER_OCTAVE) % SEMITONES_PER_OCTAVE] ??
     'C';
   const octave = Math.floor(midi / SEMITONES_PER_OCTAVE) - 1;
-  return { midi, name, octave, cents };
+  return { name, octave };
+}
+
+export function freqToNote(freq: number, a4 = 440): Note {
+  const exactMidi = MIDI_A4 + SEMITONES_PER_OCTAVE * Math.log2(freq / a4);
+  const midi = Math.round(exactMidi);
+  const cents = (exactMidi - midi) * CENTS_PER_SEMITONE;
+  return { midi, cents, ...midiToNote(midi) };
 }

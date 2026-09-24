@@ -2,6 +2,10 @@ import { PitchDetector } from 'pitchy';
 
 const CLARITY_THRESHOLD = 0.9;
 const RMS_NOISE_GATE = 0.01;
+// Guides the autocorrelation away from spurious near-DC "pitches" it can lock onto on
+// decaying/non-periodic noise; comfortably covers a guitar from low D to a capo'd high e.
+const MIN_FREQ_HZ = 55;
+const MAX_FREQ_HZ = 1500;
 
 const detectors = new Map<number, PitchDetector<Float32Array>>();
 
@@ -31,5 +35,6 @@ export function detectPitch(buffer: Float32Array, sampleRate: number): PitchResu
   const [freq, clarity] = detector.findPitch(buffer, sampleRate);
 
   if (clarity < CLARITY_THRESHOLD) return null;
+  if (freq < MIN_FREQ_HZ || freq > MAX_FREQ_HZ) return null;
   return { freq, clarity };
 }

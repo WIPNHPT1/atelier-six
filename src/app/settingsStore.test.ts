@@ -11,6 +11,7 @@ function resetStore() {
     leftHanded: false,
     tuning: 'standard',
     capo: 0,
+    a4: 440,
     level: 'new',
     onboardingComplete: false,
     robotMode: false,
@@ -47,6 +48,18 @@ describe('settingsStore', () => {
       useSettingsStore.getState().setCapo(-3);
     });
     expect(useSettingsStore.getState().capo).toBe(0);
+  });
+
+  it('clamps a4 calibration between 430 and 450', () => {
+    act(() => {
+      useSettingsStore.getState().setA4(460);
+    });
+    expect(useSettingsStore.getState().a4).toBe(450);
+
+    act(() => {
+      useSettingsStore.getState().setA4(420);
+    });
+    expect(useSettingsStore.getState().a4).toBe(430);
   });
 
   it('applies settings as data attributes on the html element', () => {

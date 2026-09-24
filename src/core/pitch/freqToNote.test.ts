@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { freqToNote } from './freqToNote';
+import { freqToNote, midiToNote } from './freqToNote';
 
 const A4 = 440;
 
@@ -31,6 +31,11 @@ describe('freqToNote', () => {
   it('computes octave using MIDI 60 = C4', () => {
     expect(freqToNote(freqForMidi(60)).octave).toBe(4);
     expect(freqToNote(freqForMidi(40)).octave).toBe(2);
+  });
+
+  it('midiToNote agrees with freqToNote on name and octave', () => {
+    expect(midiToNote(40)).toEqual({ name: 'E', octave: 2 });
+    expect(midiToNote(45)).toEqual({ name: 'A', octave: 2 });
   });
 
   it('respects a custom A4 calibration', () => {
