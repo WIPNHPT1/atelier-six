@@ -3,7 +3,6 @@
   flex-direction: column;
   gap: var(--s-8);
   padding-top: var(--s-8);
-  background-image: var(--glow), var(--surface-texture);
 }
 
 .hero {
@@ -12,6 +11,7 @@
   align-items: flex-end;
   justify-content: space-between;
   gap: var(--s-6);
+  background-image: var(--glow), var(--surface-texture);
 }
 
 .titleBlock {
@@ -83,13 +83,6 @@
   gap: var(--s-6);
 }
 
-@media (min-width: 1200px) {
-  .columns {
-    grid-template-columns: 3fr 2fr;
-    align-items: start;
-  }
-}
-
 .lessons {
   display: flex;
   flex-direction: column;
@@ -138,15 +131,6 @@
   display: flex;
   flex-direction: column;
   gap: var(--s-4);
-}
-
-/* Below this the aside sits above the lessons list in one column, so pinning it would cover
-   content underneath; only stick it once it's a genuine side column. */
-@media (min-width: 1200px) {
-  .aside {
-    position: sticky;
-    top: var(--s-6);
-  }
 }
 
 .tone {

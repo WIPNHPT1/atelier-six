@@ -3,7 +3,6 @@
   flex-direction: column;
   gap: var(--s-6);
   padding-top: var(--s-8);
-  background-image: var(--glow), var(--surface-texture);
 }
 
 .header {
@@ -12,6 +11,7 @@
   align-items: flex-end;
   justify-content: space-between;
   gap: var(--s-4);
+  background-image: var(--glow), var(--surface-texture);
 }
 
 .titleBlock {

@@ -32,7 +32,7 @@ import { Mono } from '../../ui/Mono';
 import { Panel } from '../../ui/Panel';
 import { Pill } from '../../ui/Pill';
 import { SegmentedControl } from '../../ui/SegmentedControl';
-import { Slider } from '../../ui/Slider';
+import { Stepper } from '../../ui/Stepper';
 import { TabLane } from '../../ui/TabLane/TabLane';
 import { Text } from '../../ui/Text';
 import { Toggle } from '../../ui/Toggle';
@@ -374,11 +374,15 @@ function LessonPlayer({ lesson }: { lesson: BuiltLesson }) {
           {t('lesson.barOf', { bar: barIndex + 1, total: plan.shapes.length })}
         </Mono>
         <div className={styles.tempo}>
-          <Slider
+          <Text size="small">{copy.lesson.tempo}</Text>
+          <Stepper
             label={copy.lesson.tempo}
+            decrementLabel={copy.lesson.tempoSlower}
+            incrementLabel={copy.lesson.tempoFaster}
             value={mix.bpm}
             min={range.min}
             max={range.max}
+            format={(bpm) => t('lesson.tempoValue', { bpm })}
             onChange={(bpm) => {
               setMix({ ...mix, bpm });
               if (!playingThis) return;

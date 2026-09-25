@@ -106,7 +106,10 @@ describe('adaptive tempo in a lesson', () => {
   });
 
   function tempoValue(): number {
-    return Number(screen.getByRole<HTMLInputElement>('slider', { name: copy.lesson.tempo }).value);
+    const group = screen.getByRole('group', { name: copy.lesson.tempo });
+    const match = /\d+/.exec(group.textContent);
+    if (!match) throw new Error('no tempo value found');
+    return Number(match[0]);
   }
 
   it('Clean raises the tempo until the target is reached', async () => {
