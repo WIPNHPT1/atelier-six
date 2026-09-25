@@ -32,7 +32,9 @@ for (const { name, path } of PAGES) {
     await page.clock.install({ time: new Date(FIXED_NOW) });
     await page.goto(path);
     await seedForVisualSnapshot(page, path);
-    await page.locator('#main').waitFor({ state: 'visible' });
+    // #main is always in the DOM — wait for its actual lazy-loaded content, not just the
+    // Suspense fallback, or a fresh/cold CI run can screenshot an empty page (see LESSONS.md).
+    await expect(page.locator('#main h1').first()).toBeVisible();
     await page.evaluate(() => document.fonts.ready);
 
     await expect(page).toHaveScreenshot(`${name}.png`, {
