@@ -18,6 +18,7 @@ import { ShortcutsOverlay } from '../../ui/shortcuts/ShortcutsOverlay';
 import { useVoiceCommands } from '../../features/voice/useVoiceCommands';
 import { Pill } from '../../ui/Pill';
 import { PwaToasts } from '../PwaToasts';
+import { requestTiltPermission } from '../../ui/brassSheen/tiltStore';
 
 export function AppShell() {
   useApplySettings();
@@ -48,6 +49,19 @@ export function AppShell() {
     return () => {
       cancelled = true;
       unregister?.();
+    };
+  }, []);
+
+  // The brass sheen follows device tilt on iOS, but iOS only grants that permission from
+  // inside a tap — ask once, on the app's first tap, so it's never a jarring prompt.
+  useEffect(() => {
+    function handleFirstPointerDown() {
+      void requestTiltPermission();
+      document.removeEventListener('pointerdown', handleFirstPointerDown);
+    }
+    document.addEventListener('pointerdown', handleFirstPointerDown, { once: true });
+    return () => {
+      document.removeEventListener('pointerdown', handleFirstPointerDown);
     };
   }, []);
 

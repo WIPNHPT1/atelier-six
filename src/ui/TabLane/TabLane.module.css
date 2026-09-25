@@ -76,7 +76,16 @@
   background: var(--brass);
   color: var(--ebony);
   border-radius: var(--r-hair);
-  transition: background calc(var(--dur-ui) * var(--motion-scale)) var(--ease);
+  animation: inkBloom calc(300ms * var(--motion-scale)) var(--ease);
+}
+
+@keyframes inkBloom {
+  from {
+    background: var(--brass-hi);
+  }
+  to {
+    background: var(--brass);
+  }
 }
 
 .accent {

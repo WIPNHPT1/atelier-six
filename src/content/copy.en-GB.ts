@@ -524,6 +524,9 @@ export const copy = {
     lessons: '{module} · best tempo',
     noTempo: '—',
     tempo: '{bpm} bpm',
+    engravings: 'Chord engravings',
+    engravingsCaption: 'Shapes you have played clean at their target tempo.',
+    engravingsEmpty: 'Reach a target tempo to earn your first engraving.',
   },
   settings: {
     title: 'Settings',
@@ -612,6 +615,13 @@ export const copy = {
     strummedChord: 'Strummed chord',
     palmMutedRiff: 'Palm-muted riff',
     drumGroove: 'Drum groove',
+    motionEffects: 'Motion',
+    replay: 'Replay',
+    brassSheen: 'Brass sheen',
+    resonanceRipple: 'Resonance ripple',
+    chordEngraving: 'Chord engraving',
+    inkBloomTab: 'Ink-bloom tab',
+    tunerNeedle: 'Tuner needle',
   },
   transition: {
     keepOne: 'Keep finger {finger} where it is.',

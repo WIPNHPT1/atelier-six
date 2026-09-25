@@ -1,4 +1,6 @@
+import { useEffect, useRef, useState } from 'react';
 import { copy, t } from '../../content/copy.en-GB';
+import { BrassSheen } from '../../ui/BrassSheen';
 import { Button } from '../../ui/Button';
 import { Mono } from '../../ui/Mono';
 import { Pill } from '../../ui/Pill';
@@ -11,9 +13,23 @@ export type CleanMissedProps = {
   tempo: AdaptiveTempo;
   targetReached?: boolean;
   easier?: boolean;
+  onClean?: () => void;
 };
 
-export function CleanMissed({ tempo, targetReached = false, easier = false }: CleanMissedProps) {
+export function CleanMissed({
+  tempo,
+  targetReached = false,
+  easier = false,
+  onClean,
+}: CleanMissedProps) {
+  const [sheenKey, setSheenKey] = useState(0);
+  const wasReached = useRef(targetReached);
+
+  useEffect(() => {
+    if (targetReached && !wasReached.current) setSheenKey((key) => key + 1);
+    wasReached.current = targetReached;
+  }, [targetReached]);
+
   return (
     <div className={styles.row} role="group" aria-label={copy.practice.feedback}>
       <Button
@@ -21,6 +37,7 @@ export function CleanMissed({ tempo, targetReached = false, easier = false }: Cl
         aria-keyshortcuts={copy.practice.cleanKey}
         onClick={() => {
           tempo.record(true);
+          onClean?.();
         }}
       >
         {copy.practice.clean}
@@ -42,7 +59,9 @@ export function CleanMissed({ tempo, targetReached = false, easier = false }: Cl
         </Mono>
       )}
       {targetReached ? (
-        <Pill data-testid="target-reached">{copy.practice.targetReached}</Pill>
+        <BrassSheen triggerKey={sheenKey}>
+          <Pill data-testid="target-reached">{copy.practice.targetReached}</Pill>
+        </BrassSheen>
       ) : null}
       {easier ? <Pill>{copy.practice.easier}</Pill> : null}
     </div>

@@ -29,7 +29,6 @@ const TUNINGS: Record<TuningName, Tuning> = { standard, halfDown, dropD };
 const SMOOTH_ALPHA = 0.15;
 const IN_TUNE_CENTS = 5;
 const IN_TUNE_MS = 500;
-const NEEDLE_TRANSITION_MS = 160;
 // A single frame missing a clean reading is normal mid-note (breath noise, a slight dip in
 // clarity); keep showing the last good reading instead of flickering the display blank.
 const HOLD_LAST_READING_MS = 800;
@@ -192,11 +191,7 @@ export default function TunerPage() {
 
         {!calm ? (
           <>
-            <TunerDial
-              cents={displayedCents}
-              inTune={inTune}
-              transitionMs={motionEnabled ? NEEDLE_TRANSITION_MS : 0}
-            />
+            <TunerDial cents={displayedCents} inTune={inTune} />
 
             <div className={styles.readout}>
               <Heading level={2} data-testid="tuner-note" className={styles.note}>

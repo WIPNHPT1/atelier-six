@@ -1,5 +1,7 @@
+import { useState } from 'react';
 import { copy } from '../../content/copy.en-GB';
 import { setLessonCompleted } from '../../core/progress/record';
+import { BrassSheen } from '../../ui/BrassSheen';
 import { Mono } from '../../ui/Mono';
 import { Panel } from '../../ui/Panel';
 import { Text } from '../../ui/Text';
@@ -13,16 +15,20 @@ export function LessonComplete({ id, className }: { id: string; className?: stri
   const data = useProgressData();
   const update = useProgress((s) => s.update);
   const completed = data.lessons[id]?.completed === true;
+  const [sheenKey, setSheenKey] = useState(0);
 
   function toggle(next: boolean) {
     void update((current) => setLessonCompleted(current, id, next, Date.now()));
+    if (next) setSheenKey((key) => key + 1);
   }
 
   return (
     <Panel className={className}>
       <div className={styles.row}>
         <div className={styles.text}>
-          <Mono className={styles.label}>{copy.lesson.markComplete}</Mono>
+          <BrassSheen triggerKey={sheenKey}>
+            <Mono className={styles.label}>{copy.lesson.markComplete}</Mono>
+          </BrassSheen>
           <Text dim size="small">
             {completed ? copy.lesson.completedHint : copy.lesson.markCompleteHint}
           </Text>

@@ -16,34 +16,34 @@ export function Dial({ label, value, displayValue, size = 96 }: DialProps) {
 
   return (
     <div className={styles.wrapper}>
-      <svg
-        width={size}
-        height={size}
-        viewBox={`0 0 ${String(size)} ${String(size)}`}
-        role="progressbar"
-        aria-label={label}
-        aria-valuemin={0}
-        aria-valuemax={100}
-        aria-valuenow={Math.round(clamped * 100)}
-      >
-        <circle
+      <div className={styles.ringBox} style={{ width: size, height: size }}>
+        <div
           className={styles.track}
-          cx={size / 2}
-          cy={size / 2}
-          r={radius}
-          strokeWidth={strokeWidth}
+          data-testid="dial-track"
+          style={{ ['--dial-stroke' as string]: `${String(strokeWidth)}px` }}
         />
-        <circle
-          className={styles.fill}
-          cx={size / 2}
-          cy={size / 2}
-          r={radius}
-          strokeWidth={strokeWidth}
-          strokeDasharray={circumference}
-          strokeDashoffset={offset}
-          transform={`rotate(-90 ${String(size / 2)} ${String(size / 2)})`}
-        />
-      </svg>
+        <svg
+          width={size}
+          height={size}
+          viewBox={`0 0 ${String(size)} ${String(size)}`}
+          role="progressbar"
+          aria-label={label}
+          aria-valuemin={0}
+          aria-valuemax={100}
+          aria-valuenow={Math.round(clamped * 100)}
+        >
+          <circle
+            className={styles.fill}
+            cx={size / 2}
+            cy={size / 2}
+            r={radius}
+            strokeWidth={strokeWidth}
+            strokeDasharray={circumference}
+            strokeDashoffset={offset}
+            transform={`rotate(-90 ${String(size / 2)} ${String(size / 2)})`}
+          />
+        </svg>
+      </div>
       {displayValue ? <span className={styles.label}>{displayValue}</span> : null}
     </div>
   );

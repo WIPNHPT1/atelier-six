@@ -7,6 +7,11 @@
   border-radius: var(--r-hair);
 }
 
+.glide {
+  display: flex;
+  justify-content: center;
+}
+
 .boards {
   display: flex;
   align-items: center;

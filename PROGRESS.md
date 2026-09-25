@@ -1,6 +1,6 @@
 # Progress
 
-Current: 9.2
+Current: 9.3
 Legend: [ ] todo · [x] done · BLOCKED: reason
 Rule: update "Current" and tick the box in the same commit as the step. Unfinished work lives in `RESUME.md`.
 Milestones: v1.0 = Phases 0–10 · v1.1 = 11–15 · v1.2 = 16–17 · v2.0 = 18–22 · v2.x = 23–24 (final).
@@ -111,7 +111,7 @@ Recorded numbers (fill in as you go): LIVE_URL=https://ateliersix.netlify.app ·
 ## Phase 9 — PWA, UI candy, performance
 
 - [x] 9.1 PWA offline + install
-- [ ] 9.2 Motion candy
+- [x] 9.2 Motion candy
 - [ ] 9.3 Living strings
 - [ ] 9.4 Sounds + haptics
 - [ ] 9.5 Budgets, Lighthouse CI, axe

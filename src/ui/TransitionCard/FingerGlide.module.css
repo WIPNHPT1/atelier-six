@@ -1,0 +1,32 @@
+.board {
+  display: block;
+  overflow: visible;
+}
+
+.string {
+  stroke: var(--bone-dim);
+  stroke-width: 1;
+  opacity: 0.4;
+}
+
+.fret {
+  stroke: var(--hairline);
+  stroke-width: 1;
+}
+
+.dot {
+  fill: var(--brass);
+  stroke: none;
+}
+
+.trail {
+  stroke: var(--brass-hi);
+  stroke-width: 1.5;
+  fill: none;
+}
+
+.pulse {
+  fill: none;
+  stroke: var(--brass-hi);
+  stroke-width: 1.5;
+}

@@ -9,6 +9,7 @@ import type { Shape } from '../../core/shapes/types';
 import { Fretboard } from '../Fretboard/Fretboard';
 import { Pill } from '../Pill';
 import { Text } from '../Text';
+import { FingerGlide } from './FingerGlide';
 import {
   ArcIcon,
   ArrowIcon,
@@ -139,6 +140,10 @@ export function TransitionCard({ from, to, transition }: TransitionCardProps) {
 
   return (
     <div className={styles.card}>
+      <div className={styles.glide}>
+        <FingerGlide transition={transition} />
+      </div>
+
       <div className={styles.boards}>
         <Fretboard shape={from} orientation={orientation} />
         <Fretboard shape={to} orientation={orientation} />

@@ -18,8 +18,13 @@ import { Fretboard } from '../../ui/Fretboard/Fretboard';
 import { TransitionCard } from '../../ui/TransitionCard/TransitionCard';
 import { TabLane } from '../../ui/TabLane/TabLane';
 import { PlayIcon } from '../../ui/icons';
+import { BrassSheen } from '../../ui/BrassSheen';
+import { Ripple } from '../../ui/Ripple';
+import { EngravedFretboard } from '../../ui/EngravedFretboard';
+import { TunerDial } from '../tuner/TunerDial';
+import { withFinishMorph } from '../../app/withFinishMorph';
 import { copy } from '../../content/copy.en-GB';
-import { useSettingsStore } from '../../app/settingsStore';
+import { useMotionEnabled, useSettingsStore } from '../../app/settingsStore';
 import { contrastRatio } from '../../core/colorContrast';
 import { analyseTransition } from '../../core/engine/analyseTransition';
 import { getChord, getShapes } from '../../core/shapes/library';
@@ -74,10 +79,13 @@ const SPACING_STEPS = [4, 8, 12, 16, 24, 32, 48, 64];
 export default function DesignPage() {
   const tokens = useLiveTokens();
   const settings = useSettingsStore();
+  const motionEnabled = useMotionEnabled();
   const [sliderValue, setSliderValue] = useState(90);
   const [toggleOn, setToggleOn] = useState(true);
   const [segment, setSegment] = useState('a');
   const [sheetOpen, setSheetOpen] = useState(false);
+  const [motionReplay, setMotionReplay] = useState(0);
+  const [tunerCents, setTunerCents] = useState(-20);
 
   return (
     <PageHeader title={copy.design.title}>
@@ -319,6 +327,61 @@ export default function DesignPage() {
       <Divider />
 
       <section className={styles.section}>
+        <Heading level={2}>{copy.design.motionEffects}</Heading>
+        <Button
+          variant="quiet"
+          onClick={() => {
+            setMotionReplay((key) => key + 1);
+            setTunerCents((cents) => -cents);
+          }}
+        >
+          {copy.design.replay}
+        </Button>
+
+        <div className={styles.controlsRow}>
+          <div className={styles.controlGroup}>
+            <Heading level={3}>{copy.design.brassSheen}</Heading>
+            <BrassSheen triggerKey={motionReplay}>
+              <Button variant="primary">{copy.design.replay}</Button>
+            </BrassSheen>
+          </div>
+
+          <div className={styles.controlGroup}>
+            <Heading level={3}>{copy.design.resonanceRipple}</Heading>
+            <div className={styles.rippleDemo}>
+              {FRETBOARD_C ? <Fretboard shape={FRETBOARD_C} size={96} /> : null}
+              <Ripple pulseKey={motionReplay} />
+            </div>
+          </div>
+
+          <div className={styles.controlGroup}>
+            <Heading level={3}>{copy.design.chordEngraving}</Heading>
+            {TRANSITION_AM ? (
+              <EngravedFretboard key={motionReplay} shape={TRANSITION_AM} animateIn size={96} />
+            ) : null}
+          </div>
+
+          <div className={styles.controlGroup}>
+            <Heading level={3}>{copy.design.tunerNeedle}</Heading>
+            <TunerDial cents={tunerCents} inTune={Math.abs(tunerCents) < 5} />
+          </div>
+        </div>
+
+        <Heading level={3}>{copy.design.inkBloomTab}</Heading>
+        {FRETBOARD_C && TAB_LANE_G ? (
+          <TabLane
+            key={motionReplay}
+            columns={TAB_LANE_COLUMNS}
+            shapes={[FRETBOARD_C, TAB_LANE_G]}
+            tuning={standard}
+            playhead={motionReplay % 2 === 0 ? 0 : 2}
+          />
+        ) : null}
+      </section>
+
+      <Divider />
+
+      <section className={styles.section}>
         <div className={styles.controlsRow}>
           <div className={styles.controlGroup}>
             <Heading level={3}>{copy.design.finish}</Heading>
@@ -326,7 +389,9 @@ export default function DesignPage() {
               label={copy.design.finish}
               value={settings.finish}
               onChange={(value) => {
-                settings.setFinish(value as typeof settings.finish);
+                withFinishMorph(motionEnabled, () => {
+                  settings.setFinish(value as typeof settings.finish);
+                });
               }}
               segments={[
                 { value: 'nitro', label: 'Nitro' },

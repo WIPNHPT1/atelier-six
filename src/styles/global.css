@@ -91,6 +91,13 @@ a {
   animation-duration: 0.001ms !important;
 }
 
+/* Finish morph: cross-fades the whole page (background texture/gradient included) when
+   switching finishes. Scoped to this one marker so it doesn't slow down route transitions. */
+[data-finish-morph]::view-transition-old(root),
+[data-finish-morph]::view-transition-new(root) {
+  animation-duration: calc(600ms * var(--motion-scale));
+}
+
 /* Focus mode (lesson playback): chrome fades after a quiet spell. With motion off the
    blanket transition rule above makes it hide instantly. */
 [data-focus-hide] {

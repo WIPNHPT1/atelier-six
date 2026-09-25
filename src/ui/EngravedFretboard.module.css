@@ -1,0 +1,20 @@
+.board {
+  display: block;
+  overflow: visible;
+}
+
+.line {
+  stroke: var(--bone-dim);
+  stroke-width: 1;
+  fill: none;
+}
+
+.hatchLine {
+  stroke: var(--brass-hi);
+  stroke-width: 1;
+}
+
+.dot {
+  stroke: var(--brass-hi);
+  stroke-width: 1;
+}

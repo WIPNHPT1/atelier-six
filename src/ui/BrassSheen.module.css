@@ -1,0 +1,30 @@
+.wrap {
+  position: relative;
+  display: inline-block;
+}
+
+.sheen {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  background: linear-gradient(
+    var(--sheen-angle, 115deg),
+    transparent 30%,
+    rgba(255, 255, 255, 0.6) 50%,
+    transparent 70%
+  );
+  background-size: 300% 300%;
+  background-position: -60% -60%;
+  mix-blend-mode: overlay;
+  animation: sheenSweep calc(900ms * var(--motion-scale)) var(--ease) forwards;
+}
+
+@keyframes sheenSweep {
+  from {
+    background-position: -60% -60%;
+  }
+  to {
+    background-position: 60% 60%;
+  }
+}

@@ -26,6 +26,7 @@ import { useSettingsStore } from '../../app/settingsStore';
 import { STYLES } from '../../data/styles';
 import { PageHeader } from '../../app/layout/PageHeader';
 import { Button } from '../../ui/Button';
+import { Ripple } from '../../ui/Ripple';
 import { cx } from '../../ui/cx';
 import { Fretboard } from '../../ui/Fretboard/Fretboard';
 import { Heading } from '../../ui/Heading';
@@ -150,6 +151,7 @@ function LessonPlayer({ lesson }: { lesson: BuiltLesson }) {
   const [micSupported] = useState(isMicSupported);
   const [listening, setListening] = useState(false);
   const [selfPacedIndex, setSelfPacedIndex] = useState(0);
+  const [rippleCount, setRippleCount] = useState(0);
 
   useAutoAdvance({
     enabled: listening && !playingThis,
@@ -166,6 +168,7 @@ function LessonPlayer({ lesson }: { lesson: BuiltLesson }) {
         void updateProgress((data) => recordTransition(data, { key, clean: true, now }));
       }
       setSelfPacedIndex(to);
+      setRippleCount((count) => count + 1);
     },
   });
 
@@ -318,7 +321,9 @@ function LessonPlayer({ lesson }: { lesson: BuiltLesson }) {
               {copy.course.modules[lesson.module].title}
             </Link>
             {copy.nav.crumbSeparator}
-            {tune ? copy.lesson.crumbTune : t('lesson.crumbLesson', { number: lessonNumber(lesson) })}
+            {tune
+              ? copy.lesson.crumbTune
+              : t('lesson.crumbLesson', { number: lessonNumber(lesson) })}
           </Mono>
           <Heading level={1} className={styles.title}>
             {lesson.title}
@@ -406,6 +411,9 @@ function LessonPlayer({ lesson }: { lesson: BuiltLesson }) {
             tempo={tempo}
             targetReached={targetReached(mix.bpm, lesson.targetBpm)}
             easier={easier}
+            onClean={() => {
+              setRippleCount((count) => count + 1);
+            }}
           />
           <span className={styles.divider} aria-hidden="true" />
         </div>
@@ -525,6 +533,7 @@ function LessonPlayer({ lesson }: { lesson: BuiltLesson }) {
                 </Text>
               ) : null}
               <Fretboard shape={current} size={200} {...(upcoming ? { ghost: upcoming } : {})} />
+              <Ripple pulseKey={rippleCount} />
             </div>
             {upcoming ? (
               <div className={styles.board}>

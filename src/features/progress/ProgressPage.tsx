@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { PageHeader } from '../../app/layout/PageHeader';
 import { YouTabs } from '../../app/layout/YouTabs';
@@ -9,6 +9,7 @@ import {
   worstFirst,
   type HeatCell,
 } from '../../core/progress/heatmap';
+import { masteredShapes } from '../../core/progress/masteredShapes';
 import {
   chordOfShape,
   localDay,
@@ -19,11 +20,13 @@ import {
 } from '../../core/progress/record';
 import { cx } from '../../ui/cx';
 import { Dial } from '../../ui/Dial';
+import { EngravedFretboard } from '../../ui/EngravedFretboard';
 import { Mono } from '../../ui/Mono';
 import { Panel } from '../../ui/Panel';
 import { Text } from '../../ui/Text';
 import { ProgressRing } from '../course/ProgressRing';
 import { LESSONS, MODULES, lessonsFor } from '../lesson/lessonData';
+import { getSeenMastered, markSeenMastered } from './masteredSeen';
 import styles from './ProgressPage.module.css';
 import { useProgressData } from './store';
 import { bestBpm, moduleProgress } from './summary';
@@ -67,6 +70,12 @@ export default function ProgressPage() {
   const available = MODULES.filter((module) => module.available);
   const doneTotal = available.reduce((sum, m) => sum + moduleProgress(m.id, data).done, 0);
 
+  const mastered = useMemo(() => masteredShapes(LESSONS, data), [data]);
+  const [seen] = useState(getSeenMastered);
+  useEffect(() => {
+    markSeenMastered(mastered.map((m) => m.shape.id));
+  }, [mastered]);
+
   return (
     <>
       <PageHeader
@@ -109,6 +118,24 @@ export default function ProgressPage() {
               );
             })}
           </ul>
+        </Panel>
+
+        <Panel className={styles.engravings}>
+          <Mono className={styles.label}>{copy.progressScreen.engravings}</Mono>
+          <Text dim size="small">
+            {copy.progressScreen.engravingsCaption}
+          </Text>
+          {mastered.length === 0 ? (
+            <Text dim>{copy.progressScreen.engravingsEmpty}</Text>
+          ) : (
+            <ul className={styles.engravingGrid}>
+              {mastered.map((entry) => (
+                <li key={entry.shape.id}>
+                  <EngravedFretboard shape={entry.shape} animateIn={!seen.has(entry.shape.id)} />
+                </li>
+              ))}
+            </ul>
+          )}
         </Panel>
 
         <Panel className={styles.today}>

@@ -9,7 +9,8 @@ import { SegmentedControl } from '../../ui/SegmentedControl';
 import { Slider } from '../../ui/Slider';
 import { Button } from '../../ui/Button';
 import { copy } from '../../content/copy.en-GB';
-import { useSettingsStore } from '../../app/settingsStore';
+import { useMotionEnabled, useSettingsStore } from '../../app/settingsStore';
+import { withFinishMorph } from '../../app/withFinishMorph';
 import { downloadSoundsForOffline } from '../../audio/sampleCache';
 import { isVoiceCommandsSupported } from '../voice/useVoiceCommands';
 import { FootPedalTest } from '../../ui/shortcuts/FootPedalTest';
@@ -21,6 +22,7 @@ type DownloadState = 'idle' | 'downloading' | 'done';
 
 export default function SettingsPage() {
   const settings = useSettingsStore();
+  const motionEnabled = useMotionEnabled();
   const navigate = useNavigate();
   const [downloadState, setDownloadState] = useState<DownloadState>('idle');
   const [voiceSupported] = useState(isVoiceCommandsSupported);
@@ -66,7 +68,9 @@ export default function SettingsPage() {
             label={copy.settings.finish}
             value={settings.finish}
             onChange={(value) => {
-              settings.setFinish(value as typeof settings.finish);
+              withFinishMorph(motionEnabled, () => {
+                settings.setFinish(value as typeof settings.finish);
+              });
             }}
             segments={[
               { value: 'nitro', label: copy.settings.finishNitro },

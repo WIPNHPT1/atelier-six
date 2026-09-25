@@ -5,9 +5,41 @@
   gap: var(--s-2);
 }
 
+.ringBox {
+  position: relative;
+}
+
+.ringBox svg {
+  position: absolute;
+  inset: 0;
+}
+
+/* Brushed-metal track: a conic sweep masked down to a ring the same width as
+   the brass fill stroke, so it reads as a machined dial rather than a flat line. */
 .track {
-  stroke: var(--hairline);
-  fill: none;
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 0deg,
+    var(--hairline),
+    var(--bone) 8%,
+    var(--hairline) 18%,
+    var(--hairline) 40%,
+    var(--bone) 52%,
+    var(--hairline) 62%,
+    var(--hairline) 82%,
+    var(--bone) 92%,
+    var(--hairline) 100%
+  );
+  opacity: 0.5;
+  mask-image: radial-gradient(
+    closest-side,
+    transparent calc(50% - var(--dial-stroke) / 2 - 0.5px),
+    #000 calc(50% - var(--dial-stroke) / 2),
+    #000 calc(50% + var(--dial-stroke) / 2),
+    transparent calc(50% + var(--dial-stroke) / 2 + 0.5px)
+  );
 }
 
 .fill {

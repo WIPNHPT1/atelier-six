@@ -1,4 +1,9 @@
+import { motion } from 'motion/react';
+import { useMotionEnabled } from '../../app/settingsStore';
 import styles from './TunerDial.module.css';
+
+const NEEDLE_SPRING = { type: 'spring', stiffness: 170, damping: 18 } as const;
+const NEEDLE_INSTANT = { duration: 0 } as const;
 
 const CENTS_RANGE = 50;
 const CENTS_RANGE_MIN = -50;
@@ -13,7 +18,6 @@ const TICK_RADIUS_INNER = 82;
 export type TunerDialProps = {
   cents: number;
   inTune: boolean;
-  transitionMs?: number;
 };
 
 function angleForCents(cents: number): number {
@@ -43,7 +47,8 @@ function tickPoints(index: number) {
   };
 }
 
-export function TunerDial({ cents, inTune, transitionMs = 0 }: TunerDialProps) {
+export function TunerDial({ cents, inTune }: TunerDialProps) {
+  const motionEnabled = useMotionEnabled();
   const angle = angleForCents(cents);
   const tip = needleEndpoint(angle);
 
@@ -67,13 +72,13 @@ export function TunerDial({ cents, inTune, transitionMs = 0 }: TunerDialProps) {
           className={tick.major ? styles.tickMajor : styles.tickMinor}
         />
       ))}
-      <line
+      <motion.line
         x1={PIVOT_X}
         y1={PIVOT_Y}
-        x2={tip.x}
-        y2={tip.y}
+        initial={{ x2: tip.x, y2: tip.y }}
+        animate={{ x2: tip.x, y2: tip.y }}
+        transition={motionEnabled ? NEEDLE_SPRING : NEEDLE_INSTANT}
         className={inTune ? styles.needleInTune : styles.needle}
-        style={{ transitionDuration: `${String(transitionMs)}ms` }}
       />
       <circle cx={PIVOT_X} cy={PIVOT_Y} r={5} className={styles.pivot} />
     </svg>

@@ -186,6 +186,7 @@
   flex-direction: column;
   align-items: center;
   gap: var(--s-2);
+  position: relative;
 }
 
 .list {
