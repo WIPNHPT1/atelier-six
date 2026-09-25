@@ -26,5 +26,5 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add tests/e2e/visual.spec.ts-snapshots
           git diff --cached --quiet && echo "No baseline changes." && exit 0
-          git commit -m "test(visual): update snapshot baselines"
+          git commit -m "test(ci): update visual snapshot baselines"
           git push origin HEAD:${{ github.ref_name }}
