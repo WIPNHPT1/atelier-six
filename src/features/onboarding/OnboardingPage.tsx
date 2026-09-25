@@ -56,7 +56,7 @@ export default function OnboardingPage() {
   }
 
   return (
-    <PageHeader title={copy.onboarding.title}>
+    <PageHeader title={copy.onboarding.title} shortTitle={copy.onboarding.titleShort}>
       <div className={styles.page}>
         <Text dim size="small" className={styles.stepLabel}>
           {t('onboarding.stepLabel', { current: step + 1, total: TOTAL_STEPS })}

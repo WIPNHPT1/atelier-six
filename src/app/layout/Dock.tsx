@@ -8,26 +8,20 @@ export function Dock() {
 
   return (
     <nav className={styles.dock} data-focus-hide aria-label="Primary" data-testid="nav-dock">
-      {navItems.map((item) => {
-        const isPractise = item.to === '/practise';
-        return (
-          <NavLink
-            key={item.to}
-            to={item.to}
-            end={item.to === '/'}
-            viewTransition={motionEnabled}
-            aria-label={isPractise ? item.label : undefined}
-            className={({ isActive }) =>
-              [styles.item, isPractise ? styles.play : '', isActive ? styles.active : '']
-                .filter(Boolean)
-                .join(' ')
-            }
-          >
-            <item.icon width={20} height={20} />
-            {isPractise ? null : <span>{item.label}</span>}
-          </NavLink>
-        );
-      })}
+      {navItems.map((item) => (
+        <NavLink
+          key={item.to}
+          to={item.to}
+          end={item.to === '/'}
+          viewTransition={motionEnabled}
+          className={({ isActive }) =>
+            [styles.item, isActive ? styles.active : ''].filter(Boolean).join(' ')
+          }
+        >
+          <item.icon width={20} height={20} />
+          <span>{item.label}</span>
+        </NavLink>
+      ))}
     </nav>
   );
 }

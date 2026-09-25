@@ -24,3 +24,21 @@
 .compact :global(h2) {
   font-size: var(--t-20) !important;
 }
+
+.titleFull {
+  display: none;
+}
+
+.titleShort {
+  display: inline;
+}
+
+@media (min-width: 640px) {
+  .titleFull {
+    display: inline;
+  }
+
+  .titleShort {
+    display: none;
+  }
+}

@@ -49,6 +49,7 @@ export const copy = {
   },
   onboarding: {
     title: 'Welcome to the atelier',
+    titleShort: 'Welcome',
     welcomeBody: 'A calm, focused way to learn guitar.',
     handTitle: 'Which hand do you play with',
     handLeft: 'Left-handed',

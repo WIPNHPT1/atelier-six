@@ -53,18 +53,3 @@
   background: var(--brass-hi);
 }
 
-.play {
-  width: 54px;
-  height: 54px;
-  border-radius: var(--r-pill);
-  background: var(--brass);
-  color: var(--ebony);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: -18px;
-}
-
-.play.active {
-  color: var(--ebony);
-}
