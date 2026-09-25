@@ -1,10 +1,10 @@
 # Progress
 
-Current: 9.3
+Current: 9.4
 Legend: [ ] todo · [x] done · BLOCKED: reason
 Rule: update "Current" and tick the box in the same commit as the step. Unfinished work lives in `RESUME.md`.
 Milestones: v1.0 = Phases 0–10 · v1.1 = 11–15 · v1.2 = 16–17 · v2.0 = 18–22 · v2.x = 23–24 (final).
-Recorded numbers (fill in as you go): LIVE_URL=https://ateliersix.netlify.app · JS_KB=113 · FRAME_MS= · LH= · DETECT_ACC= · CHUNKS= · REC_MB= · MORPH_FRAME_MS= · CAMERA_ACC=
+Recorded numbers (fill in as you go): LIVE_URL=https://ateliersix.netlify.app · JS_KB=113 · FRAME_MS=16.61 · LH= · DETECT_ACC= · CHUNKS= · REC_MB= · MORPH_FRAME_MS= · CAMERA_ACC=
 
 ## Pace log
 
@@ -112,7 +112,7 @@ Recorded numbers (fill in as you go): LIVE_URL=https://ateliersix.netlify.app ·
 
 - [x] 9.1 PWA offline + install
 - [x] 9.2 Motion candy
-- [ ] 9.3 Living strings
+- [x] 9.3 Living strings
 - [ ] 9.4 Sounds + haptics
 - [ ] 9.5 Budgets, Lighthouse CI, axe
 - [ ] 9.6 Visual regression tests

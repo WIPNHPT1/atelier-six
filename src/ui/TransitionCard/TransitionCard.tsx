@@ -1,4 +1,4 @@
-import { useEffect, useState, type ComponentType } from 'react';
+import { type ComponentType } from 'react';
 import { copy, t } from '../../content/copy.en-GB';
 import { transitionCost } from '../../core/engine/cost';
 import { explainTransition, fingerList, fingerWord } from '../../core/engine/explain';
@@ -9,6 +9,7 @@ import type { Shape } from '../../core/shapes/types';
 import { Fretboard } from '../Fretboard/Fretboard';
 import { Pill } from '../Pill';
 import { Text } from '../Text';
+import { useIsWide } from '../useIsWide';
 import { FingerGlide } from './FingerGlide';
 import {
   ArcIcon,
@@ -22,28 +23,9 @@ import {
 import styles from './TransitionCard.module.css';
 
 const STRING_COUNT = 6;
-const WIDE_QUERY = '(min-width: 720px)';
 
 function stringNumber(index: number): number {
   return STRING_COUNT - index;
-}
-
-function useIsWide(): boolean {
-  const [isWide, setIsWide] = useState(() => window.matchMedia(WIDE_QUERY).matches);
-
-  useEffect(() => {
-    const mql = window.matchMedia(WIDE_QUERY);
-    const handler = () => {
-      setIsWide(mql.matches);
-    };
-    handler();
-    mql.addEventListener('change', handler);
-    return () => {
-      mql.removeEventListener('change', handler);
-    };
-  }, []);
-
-  return isWide;
 }
 
 function difficultyLabel(label: ReturnType<typeof labelForAverageCost>): string {

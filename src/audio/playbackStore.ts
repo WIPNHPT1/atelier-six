@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import { secondsToStep } from '../core/schedule/buildSchedule.ts';
+import type { StringHit } from '../core/schedule/buildSchedule.ts';
 import type { LayerSource, PreparedPlay, ScheduleSource } from './transport.ts';
 
 export type StartLessonInput = {
@@ -32,6 +33,16 @@ export type PlaybackState = {
 };
 
 let rafId: number | null = null;
+
+export type ActiveStrum = { strings: StringHit[]; palmMute: boolean; tSincePluck: number };
+let activeStrum: ActiveStrum | null = null;
+
+/** The most recently played strum, and how long ago it started — polled imperatively by the
+ * living-strings canvas loop, kept out of the zustand store so it doesn't cause a re-render
+ * on every animation frame. */
+export function getActiveStrum(): ActiveStrum | null {
+  return activeStrum;
+}
 
 // Where the music is in what you actually hear. Transport.seconds runs ahead: Tone schedules
 // ~0.1 s early, and speakers (Bluetooth most of all) add their own delay, which would show the
@@ -126,6 +137,14 @@ export const usePlaybackStore = create<PlaybackState>((set) => ({
       const current = schedule.filter((event) => event.step <= step).at(-1) ?? schedule[0];
       if (current) {
         usePlaybackStore.setState({ step, bar: current.bar, chordIndex: current.chordIndex });
+        activeStrum =
+          current.kind === 'click' || current.strings.length === 0
+            ? null
+            : {
+                strings: current.strings,
+                palmMute: current.palmMute,
+                tSincePluck: seconds - current.t,
+              };
       }
       rafId = requestAnimationFrame(tick);
     }
@@ -146,6 +165,7 @@ export const usePlaybackStore = create<PlaybackState>((set) => ({
       cancelAnimationFrame(rafId);
       rafId = null;
     }
+    activeStrum = null;
     if (typeof navigator !== 'undefined' && 'mediaSession' in navigator) {
       navigator.mediaSession.playbackState = 'paused';
     }
