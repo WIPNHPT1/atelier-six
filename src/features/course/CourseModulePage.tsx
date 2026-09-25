@@ -6,7 +6,15 @@ import { Mono } from '../../ui/Mono';
 import { Panel } from '../../ui/Panel';
 import { Pill } from '../../ui/Pill';
 import { Text } from '../../ui/Text';
-import { difficultyLabel, getModule, lessonsFor, riffsFor, tuneFor } from '../lesson/lessonData';
+import {
+  difficultyLabel,
+  getModule,
+  lessonsFor,
+  nextModule,
+  prevModule,
+  riffsFor,
+  tuneFor,
+} from '../lesson/lessonData';
 import { RiffCard } from './RiffCard';
 import styles from './CourseModulePage.module.css';
 import { ProgressRing } from './ProgressRing';
@@ -34,6 +42,8 @@ export default function CourseModulePage() {
   const { done } = moduleProgress(module.id, data);
   const next = lessons.find((lesson) => !lessonDone(lesson, data)) ?? lessons[0];
   const finish = copy.course.finishes[module.finish];
+  const prevMod = prevModule(module.id);
+  const nextMod = nextModule(module.id);
 
   return (
     <div className={styles.page} data-finish={module.finish}>
@@ -158,6 +168,21 @@ export default function CourseModulePage() {
       ) : (
         <Text dim>{copy.course.comingSoon}</Text>
       )}
+
+      <nav className={styles.moduleNav} aria-label={copy.course.moduleNav}>
+        {prevMod ? (
+          <Link className={styles.moduleNavLink} to={`/course/${prevMod.id}`}>
+            {t('course.prevModule', { title: copy.course.modules[prevMod.id].title })}
+          </Link>
+        ) : (
+          <span />
+        )}
+        {nextMod ? (
+          <Link className={styles.moduleNavLink} to={`/course/${nextMod.id}`}>
+            {t('course.nextModule', { title: copy.course.modules[nextMod.id].title })}
+          </Link>
+        ) : null}
+      </nav>
     </div>
   );
 }

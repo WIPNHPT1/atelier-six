@@ -31,6 +31,12 @@
 
 .crumb {
   color: var(--brass);
+  text-decoration: none;
+}
+
+.crumb:hover,
+.crumb:focus-visible {
+  text-decoration: underline;
 }
 
 .title {
@@ -265,4 +271,41 @@
 
 .complete {
   grid-area: complete;
+}
+
+.pager {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-3);
+}
+
+.pagerLink {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 var(--s-4);
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-pill);
+  color: var(--bone);
+  text-decoration: none;
+}
+
+.pagerLink:hover,
+.pagerLink:focus-visible {
+  border-color: var(--brass);
+}
+
+.pagerNext {
+  margin-left: auto;
+  background: var(--brass);
+  border-color: var(--brass);
+  color: var(--ebony);
+  font-weight: 500;
+}
+
+.pagerNext:hover,
+.pagerNext:focus-visible {
+  border-color: var(--brass-hi);
 }

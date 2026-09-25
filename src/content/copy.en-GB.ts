@@ -105,6 +105,9 @@ export const copy = {
     skills: 'Skills',
     notFound: 'That module does not exist.',
     backToCourse: 'Back to the course',
+    prevModule: '← {title}',
+    nextModule: '{title} →',
+    moduleNav: 'Module navigation',
     finishes: {
       nitro: 'Nitro',
       xerox: 'Xerox',
@@ -255,6 +258,12 @@ export const copy = {
     finishBody: 'That was the whole tune, start to finish.',
     playAgain: 'Play it again',
     backToModule: 'Back to the module',
+    prevLesson: '← {title}',
+    nextLesson: '{title} →',
+    prevModule: '← Previous module: {title}',
+    nextModule: 'Next module: {title} →',
+    moduleCrumbLabel: 'Go to {module}',
+    pager: 'Lesson navigation',
     tuningNames: {
       standard: 'Standard',
       halfDown: 'Half-step down',

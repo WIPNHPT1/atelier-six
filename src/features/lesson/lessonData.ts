@@ -37,6 +37,18 @@ export function getModule(id: string | undefined): ModuleMeta | undefined {
   return MODULES.find((module) => module.id === id);
 }
 
+// Browsing the whole course roadmap, unlike stepping through a lesson sequence: this
+// walks every module in order, available or not (the module page shows "coming soon").
+export function prevModule(id: string): ModuleMeta | undefined {
+  const index = MODULES.findIndex((module) => module.id === id);
+  return index > 0 ? MODULES[index - 1] : undefined;
+}
+
+export function nextModule(id: string): ModuleMeta | undefined {
+  const index = MODULES.findIndex((module) => module.id === id);
+  return index === -1 ? undefined : MODULES[index + 1];
+}
+
 export function getLesson(id: string | undefined): BuiltLesson | undefined {
   return LESSONS.find((lesson) => lesson.id === id) ?? TUNES.find((tune) => tune.id === id);
 }
@@ -65,4 +77,44 @@ export function recommendedLesson(level: Level): BuiltLesson {
   if (level === 'someChords') return open[0] ?? firstLesson();
   if (level === 'confident') return power[Math.floor(power.length / 2)] ?? firstLesson();
   return power[0] ?? firstLesson();
+}
+
+export type SequenceStep =
+  | { kind: 'lesson'; lesson: BuiltLesson }
+  | { kind: 'module'; module: ModuleMeta };
+
+// A module's sequence is its lessons (gentlest first), then its tune as the capstone.
+function moduleSequence(moduleId: string): BuiltLesson[] {
+  const tune = tuneFor(moduleId);
+  return tune ? [...lessonsFor(moduleId), tune] : lessonsFor(moduleId);
+}
+
+export function nextStep(lesson: BuiltLesson): SequenceStep | null {
+  const sequence = moduleSequence(lesson.module);
+  const index = sequence.findIndex((item) => item.id === lesson.id);
+  if (index === -1) return null;
+  const following = sequence[index + 1];
+  if (following) return { kind: 'lesson', lesson: following };
+
+  const moduleIndex = MODULES.findIndex((module) => module.id === lesson.module);
+  const nextModule = MODULES.slice(moduleIndex + 1).find((module) => module.available);
+  return nextModule ? { kind: 'module', module: nextModule } : null;
+}
+
+// Going back continues into the previous module's last step (its tune, or its last
+// lesson), the same way flipping back a page lands on the end of the prior chapter.
+export function prevStep(lesson: BuiltLesson): SequenceStep | null {
+  const sequence = moduleSequence(lesson.module);
+  const index = sequence.findIndex((item) => item.id === lesson.id);
+  if (index > 0) {
+    const before = sequence[index - 1];
+    return before ? { kind: 'lesson', lesson: before } : null;
+  }
+
+  const moduleIndex = MODULES.findIndex((module) => module.id === lesson.module);
+  const prevModule = [...MODULES.slice(0, moduleIndex)].reverse().find((module) => module.available);
+  if (!prevModule) return null;
+  const prevSequence = moduleSequence(prevModule.id);
+  const last = prevSequence[prevSequence.length - 1];
+  return last ? { kind: 'lesson', lesson: last } : { kind: 'module', module: prevModule };
 }

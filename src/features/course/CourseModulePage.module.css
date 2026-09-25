@@ -197,3 +197,27 @@
   font-family: var(--font-mono);
   font-size: var(--t-12);
 }
+
+.moduleNav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-3);
+}
+
+.moduleNavLink {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 var(--s-4);
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-pill);
+  color: var(--bone);
+  text-decoration: none;
+}
+
+.moduleNavLink:hover,
+.moduleNavLink:focus-visible {
+  border-color: var(--brass);
+}

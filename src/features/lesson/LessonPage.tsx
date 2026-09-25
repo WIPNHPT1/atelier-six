@@ -26,6 +26,7 @@ import { useSettingsStore } from '../../app/settingsStore';
 import { STYLES } from '../../data/styles';
 import { PageHeader } from '../../app/layout/PageHeader';
 import { Button } from '../../ui/Button';
+import { cx } from '../../ui/cx';
 import { Fretboard } from '../../ui/Fretboard/Fretboard';
 import { Heading } from '../../ui/Heading';
 import { Mono } from '../../ui/Mono';
@@ -44,6 +45,8 @@ import {
   getModule,
   isTune,
   lessonNumber,
+  nextStep,
+  prevStep,
 } from './lessonData';
 import { planPerformance, preparePerformance } from './performance';
 import styles from './LessonPage.module.css';
@@ -173,6 +176,8 @@ function LessonPlayer({ lesson }: { lesson: BuiltLesson }) {
   const current = view.shapes[barIndex] as Shape;
   const upcoming = nextChange(view.shapes, barIndex);
   const hardest = hardestTransition(plan.shapes);
+  const previousStep = prevStep(lesson);
+  const followingStep = nextStep(lesson);
 
   function perform(next: Mix) {
     if (performance === null) return;
@@ -305,14 +310,22 @@ function LessonPlayer({ lesson }: { lesson: BuiltLesson }) {
     <div className={styles.page} data-finish={pinnedFinish ? pinnedFinishValue : module?.finish}>
       <header className={styles.header}>
         <div className={styles.titleBlock}>
-          <Mono className={styles.crumb}>
-            {tune
-              ? t('lesson.tuneCrumb', { module: copy.course.modules[lesson.module].title })
-              : t('lesson.crumb', {
-                  module: copy.course.modules[lesson.module].title,
-                  number: lessonNumber(lesson),
-                })}
-          </Mono>
+          <Link
+            className={styles.crumb}
+            to={`/course/${lesson.module}`}
+            aria-label={t('lesson.moduleCrumbLabel', {
+              module: copy.course.modules[lesson.module].title,
+            })}
+          >
+            <Mono>
+              {tune
+                ? t('lesson.tuneCrumb', { module: copy.course.modules[lesson.module].title })
+                : t('lesson.crumb', {
+                    module: copy.course.modules[lesson.module].title,
+                    number: lessonNumber(lesson),
+                  })}
+            </Mono>
+          </Link>
           <Heading level={1} className={styles.title}>
             {lesson.title}
           </Heading>
@@ -590,6 +603,43 @@ function LessonPlayer({ lesson }: { lesson: BuiltLesson }) {
 
         <LessonComplete id={lesson.id} className={styles.complete} />
       </div>
+
+      <nav className={styles.pager} aria-label={copy.lesson.pager}>
+        {previousStep ? (
+          <Link
+            className={styles.pagerLink}
+            to={
+              previousStep.kind === 'lesson'
+                ? `/lesson/${previousStep.lesson.id}`
+                : `/course/${previousStep.module.id}`
+            }
+          >
+            {previousStep.kind === 'lesson'
+              ? t('lesson.prevLesson', { title: previousStep.lesson.title })
+              : t('lesson.prevModule', {
+                  title: copy.course.modules[previousStep.module.id].title,
+                })}
+          </Link>
+        ) : (
+          <span />
+        )}
+        {followingStep ? (
+          <Link
+            className={cx(styles.pagerLink, styles.pagerNext)}
+            to={
+              followingStep.kind === 'lesson'
+                ? `/lesson/${followingStep.lesson.id}`
+                : `/course/${followingStep.module.id}`
+            }
+          >
+            {followingStep.kind === 'lesson'
+              ? t('lesson.nextLesson', { title: followingStep.lesson.title })
+              : t('lesson.nextModule', {
+                  title: copy.course.modules[followingStep.module.id].title,
+                })}
+          </Link>
+        ) : null}
+      </nav>
     </div>
   );
 }
