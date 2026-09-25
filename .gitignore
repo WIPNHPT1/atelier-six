@@ -40,3 +40,6 @@ eval/tmp/
 
 # Coverage
 /coverage/
+
+# Lighthouse CI
+/.lighthouseci/

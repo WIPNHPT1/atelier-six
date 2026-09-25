@@ -81,4 +81,11 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
   },
+  css: {
+    // Vite's default scoped name (`_button_u53f8_1`) keeps the component/class name —
+    // nice in devtools, but it's dead weight in every build: short hashes only.
+    modules: {
+      generateScopedName: '[hash:base64:5]',
+    },
+  },
 });

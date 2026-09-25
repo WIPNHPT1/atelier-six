@@ -1,4 +1,6 @@
 import { expect, type Page } from '@playwright/test';
+import { AxeBuilder } from '@axe-core/playwright';
+import type { Result } from 'axe-core';
 
 export async function completeOnboarding(page: Page) {
   await page.goto('/');
@@ -15,4 +17,11 @@ export async function completeOnboarding(page: Page) {
     dispatchEvent(new PopStateEvent('popstate'));
   });
   await expect.poll(() => new URL(page.url()).pathname).toBe('/');
+}
+
+export async function seriousViolations(page: Page): Promise<Result[]> {
+  const results = await new AxeBuilder({ page }).analyze();
+  return results.violations.filter(
+    (violation: Result) => violation.impact === 'serious' || violation.impact === 'critical',
+  );
 }

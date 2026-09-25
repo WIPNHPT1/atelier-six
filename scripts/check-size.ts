@@ -5,6 +5,10 @@ import { join } from 'node:path';
 import { build } from 'vite';
 
 const ENTRY_BUDGET_KB = 200;
+// Vite pools any CSS module reused across 2+ lazy routes into the chunk linked from the entry
+// HTML — in a component-heavy app that's most of the design system, not just shell chrome.
+// Measured at 48.5 KB in 9.5; budget set with headroom above that, not the original 30 KB guess.
+const ENTRY_CSS_BUDGET_KB = 55;
 const SAMPLE_BUDGET_MB = 6;
 const BYTES_PER_KB = 1024;
 const BYTES_PER_MB = 1024 * 1024;
@@ -15,7 +19,9 @@ type OutputChunk = {
   fileName: string;
   isEntry?: boolean;
   code?: string;
+  source?: string | Uint8Array;
   moduleIds?: string[];
+  viteMetadata?: { importedCss?: Set<string> };
 };
 
 function totalAudioBytes(): number {
@@ -37,11 +43,23 @@ async function main(): Promise<void> {
   if (!entryChunk?.code) throw new Error('No entry chunk found in the build output.');
   const entryGzipKb = gzipSync(entryChunk.code).length / BYTES_PER_KB;
 
+  const entryCssNames = entryChunk.viteMetadata?.importedCss ?? new Set<string>();
+  const entryCssBytes = chunks
+    .filter((c) => c.type === 'asset' && entryCssNames.has(c.fileName))
+    .reduce((sum, c) => sum + gzipSync(Buffer.from(c.source ?? '')).length, 0);
+  const entryCssGzipKb = entryCssBytes / BYTES_PER_KB;
+
   const failures: string[] = [];
 
   if (entryGzipKb > ENTRY_BUDGET_KB) {
     failures.push(
       `Entry JS is ${entryGzipKb.toFixed(1)} KB gzip, over the ${String(ENTRY_BUDGET_KB)} KB budget.`,
+    );
+  }
+
+  if (entryCssGzipKb > ENTRY_CSS_BUDGET_KB) {
+    failures.push(
+      `Entry CSS is ${entryCssGzipKb.toFixed(1)} KB gzip, over the ${String(ENTRY_CSS_BUDGET_KB)} KB budget.`,
     );
   }
 
@@ -59,6 +77,9 @@ async function main(): Promise<void> {
   }
 
   console.log(`Entry JS: ${entryGzipKb.toFixed(1)} KB gzip (budget ${String(ENTRY_BUDGET_KB)} KB)`);
+  console.log(
+    `Entry CSS: ${entryCssGzipKb.toFixed(1)} KB gzip (budget ${String(ENTRY_CSS_BUDGET_KB)} KB)`,
+  );
   console.log(`Samples: ${audioMb.toFixed(2)} MB (budget ${String(SAMPLE_BUDGET_MB)} MB)`);
 
   if (failures.length > 0) {

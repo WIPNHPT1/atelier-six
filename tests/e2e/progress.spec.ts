@@ -1,6 +1,5 @@
-import { expect, test, type Page } from '@playwright/test';
-import { AxeBuilder } from '@axe-core/playwright';
-import type { Result } from 'axe-core';
+import { expect, test } from '@playwright/test';
+import { seriousViolations } from './helpers.ts';
 
 test('a one-minute drill score shows on Progress and survives a reload', async ({ page }) => {
   await page.clock.install();
@@ -19,13 +18,6 @@ test('a one-minute drill score shows on Progress and survives a reload', async (
   await page.reload();
   await expect(page.getByTestId('minute-score')).toContainText('Best 5');
 });
-
-async function seriousViolations(page: Page) {
-  const results = await new AxeBuilder({ page }).analyze();
-  return results.violations.filter(
-    (violation: Result) => violation.impact === 'serious' || violation.impact === 'critical',
-  );
-}
 
 test('progress, course, lesson and drill pages have no serious accessibility violations', async ({
   page,

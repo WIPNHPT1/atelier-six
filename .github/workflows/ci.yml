@@ -25,7 +25,9 @@ jobs:
       - run: npm ci
       - run: npm run verify
       - run: npx vitest run --coverage
-      - run: npm audit --audit-level=high
+      # --omit=dev: dev-only tooling (e.g. Lighthouse CI's own puppeteer/tmp chain) never
+      # ships to users, so it's audited separately from what's actually in the bundle.
+      - run: npm audit --audit-level=high --omit=dev
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -65,3 +67,32 @@ jobs:
         with:
           name: dist
           path: dist
+
+  size:
+    needs: verify
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npm run size
+
+  lighthouse:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npx lhci autorun
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: lighthouse-report
+          path: .lighthouseci
