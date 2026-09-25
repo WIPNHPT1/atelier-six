@@ -538,7 +538,8 @@ export const copy = {
     finishFaded: 'Faded',
     finishStencil: 'Stencil',
     pinnedFinish: 'Pin this finish',
-    pinnedFinishHint: 'Lessons choose their own finish; turn this on to keep the one above instead.',
+    pinnedFinishHint:
+      'Lessons choose their own finish; turn this on to keep the one above instead.',
     motion: 'Motion',
     motionOn: 'On',
     motionOff: 'Off',
@@ -567,6 +568,16 @@ export const copy = {
     voiceCommands: 'Voice commands',
     voiceCommandsHint:
       'Say "play", "stop", "slower", "faster", "loop", "next", "back" or "tempo 90". Some browsers send what you say to a cloud speech service to understand it.',
+    install: 'Install Atelier Six',
+    installHint: 'Add it to your home screen for a full-screen, offline-ready app.',
+    installAction: 'Install',
+    installed: 'Installed',
+    installIosHint: 'In Safari, tap Share, then "Add to Home Screen".',
+  },
+  pwa: {
+    updateAvailable: 'Update available',
+    reload: 'Reload',
+    offlineReady: 'Ready to work offline',
   },
   design: {
     title: 'Design',

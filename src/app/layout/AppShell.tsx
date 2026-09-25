@@ -17,6 +17,7 @@ import { useShortcuts } from '../../ui/shortcuts/useShortcuts';
 import { ShortcutsOverlay } from '../../ui/shortcuts/ShortcutsOverlay';
 import { useVoiceCommands } from '../../features/voice/useVoiceCommands';
 import { Pill } from '../../ui/Pill';
+import { PwaToasts } from '../PwaToasts';
 
 export function AppShell() {
   useApplySettings();
@@ -111,6 +112,7 @@ export function AppShell() {
           <Pill accent>{copy.shortcuts.listeningForCommands}</Pill>
         </div>
       ) : null}
+      <PwaToasts />
     </>
   );
 }

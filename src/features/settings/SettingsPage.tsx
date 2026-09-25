@@ -15,6 +15,7 @@ import { isVoiceCommandsSupported } from '../voice/useVoiceCommands';
 import { FootPedalTest } from '../../ui/shortcuts/FootPedalTest';
 import styles from './SettingsPage.module.css';
 import { ProgressTransfer } from './ProgressTransfer';
+import { InstallButton } from './InstallButton';
 
 type DownloadState = 'idle' | 'downloading' | 'done';
 
@@ -179,6 +180,16 @@ export default function SettingsPage() {
             </Text>
           </div>
           <FootPedalTest />
+        </div>
+
+        <div className={styles.row}>
+          <div className={styles.rowLabel}>
+            <Text>{copy.settings.install}</Text>
+            <Text dim size="small">
+              {copy.settings.installHint}
+            </Text>
+          </div>
+          <InstallButton />
         </div>
 
         <div className={styles.row}>
