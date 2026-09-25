@@ -31,11 +31,14 @@
 
 .crumb {
   color: var(--brass);
+}
+
+.crumbLink {
   text-decoration: none;
 }
 
-.crumb:hover,
-.crumb:focus-visible {
+.crumbLink:hover,
+.crumbLink:focus-visible {
   text-decoration: underline;
 }
 
@@ -96,6 +99,7 @@
   .toolbarRow {
     padding: 0;
     border-top: none;
+    gap: var(--s-4);
   }
 
   .toolbarGroup {
@@ -324,23 +328,28 @@
   grid-area: complete;
 }
 
+/* Mobile: both pager links share the row 50/50 and truncate rather than wrap onto
+   their own line. Desktop sizes each to its content, pinning "next" to the right. */
 .pager {
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between;
   gap: var(--s-3);
 }
 
 .pagerLink {
   display: inline-flex;
+  flex: 1 1 0;
   align-items: center;
+  min-width: 0;
   min-height: 44px;
   padding: 0 var(--s-4);
+  overflow: hidden;
   border: 1px solid var(--hairline);
   border-radius: var(--r-pill);
   color: var(--bone);
   text-decoration: none;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .pagerLink:hover,
@@ -349,11 +358,24 @@
 }
 
 .pagerNext {
-  margin-left: auto;
   background: var(--brass);
   border-color: var(--brass);
   color: var(--ebony);
   font-weight: 500;
+}
+
+@media (min-width: 640px) {
+  .pager {
+    justify-content: space-between;
+  }
+
+  .pagerLink {
+    flex: 0 1 auto;
+  }
+
+  .pagerNext {
+    margin-left: auto;
+  }
 }
 
 .pagerNext:hover,

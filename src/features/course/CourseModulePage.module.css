@@ -32,6 +32,15 @@
   color: var(--brass);
 }
 
+.crumbLink {
+  text-decoration: none;
+}
+
+.crumbLink:hover,
+.crumbLink:focus-visible {
+  text-decoration: underline;
+}
+
 .title {
   font-family: var(--font-display);
 }

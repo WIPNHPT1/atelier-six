@@ -309,22 +309,17 @@ function LessonPlayer({ lesson }: { lesson: BuiltLesson }) {
     <div className={styles.page} data-finish={pinnedFinish ? pinnedFinishValue : module?.finish}>
       <header className={styles.header}>
         <div className={styles.titleBlock}>
-          <Link
-            className={styles.crumb}
-            to={`/course/${lesson.module}`}
-            aria-label={t('lesson.moduleCrumbLabel', {
-              module: copy.course.modules[lesson.module].title,
-            })}
-          >
-            <Mono>
-              {tune
-                ? t('lesson.tuneCrumb', { module: copy.course.modules[lesson.module].title })
-                : t('lesson.crumb', {
-                    module: copy.course.modules[lesson.module].title,
-                    number: lessonNumber(lesson),
-                  })}
-            </Mono>
-          </Link>
+          <Mono className={styles.crumb}>
+            <Link className={styles.crumbLink} to="/course">
+              {copy.nav.learn}
+            </Link>
+            {copy.nav.crumbSeparator}
+            <Link className={styles.crumbLink} to={`/course/${lesson.module}`}>
+              {copy.course.modules[lesson.module].title}
+            </Link>
+            {copy.nav.crumbSeparator}
+            {tune ? copy.lesson.crumbTune : t('lesson.crumbLesson', { number: lessonNumber(lesson) })}
+          </Mono>
           <Heading level={1} className={styles.title}>
             {lesson.title}
           </Heading>

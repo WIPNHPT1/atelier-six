@@ -50,6 +50,10 @@ export default function CourseModulePage() {
       <header className={styles.hero}>
         <div className={styles.titleBlock}>
           <Mono className={styles.crumb}>
+            <Link className={styles.crumbLink} to="/course">
+              {copy.nav.learn}
+            </Link>
+            {copy.nav.crumbSeparator}
             {t('course.moduleCrumb', { number: module.number, finish })}
           </Mono>
           <Heading level={1} className={styles.title}>

@@ -9,6 +9,7 @@ export const copy = {
     tuner: 'Tuner',
     you: 'You',
     search: '⌘K Search',
+    crumbSeparator: ' · ',
   },
   learn: {
     course: 'Course',
@@ -95,7 +96,7 @@ export const copy = {
     stopRiff: 'Stop {title}',
     statusProgress: '{done} of {total}',
     comingSoon: 'Coming in v1.1',
-    moduleCrumb: 'Learn · Module {number} · {finish} finish',
+    moduleCrumb: 'Module {number} · {finish} finish',
     lessonsHeading: 'Lessons · gentlest change first',
     complete: '{done} of {total} complete',
     progressRing: '{done} of {total} lessons complete',
@@ -200,7 +201,7 @@ export const copy = {
     demoTitle: 'C–G–Am–F practice loop',
     play: 'Play',
     stop: 'Stop',
-    crumb: 'Learn · {module} · Lesson {number}',
+    crumbLesson: 'Lesson {number}',
     notFound: 'That lesson does not exist.',
     section: 'Section',
     sectionNames: {
@@ -248,7 +249,7 @@ export const copy = {
       perform: 'Performance',
       practise: 'Practise a section',
     },
-    tuneCrumb: 'Learn · {module} · The tune',
+    crumbTune: 'The tune',
     markComplete: 'Mark complete',
     completed: 'Completed',
     completedHint: 'Shows up as done across the course and your progress.',
@@ -261,7 +262,6 @@ export const copy = {
     nextLesson: '{title} →',
     prevModule: '← Previous module: {title}',
     nextModule: 'Next module: {title} →',
-    moduleCrumbLabel: 'Go to {module}',
     pager: 'Lesson navigation',
     tuningNames: {
       standard: 'Standard',
