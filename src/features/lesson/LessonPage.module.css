@@ -50,24 +50,65 @@
   gap: var(--s-3);
 }
 
+/* Mobile: three deliberate stacked rows, each full-width, separated by a rule.
+   Desktop overrides this to a single row with vertical dividers instead. */
 .toolbar {
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: var(--s-4);
+  flex-direction: column;
+}
+
+.toolbarRow {
+  display: flex;
+  padding: var(--s-3) 0;
+}
+
+.toolbarRow:first-child {
+  padding-top: 0;
+}
+
+.toolbarRow:last-child {
+  padding-bottom: 0;
+}
+
+.toolbarRow:not(:first-child) {
+  border-top: 1px solid var(--hairline);
 }
 
 .toolbarGroup {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: var(--s-4);
+  gap: var(--s-3);
 }
 
 .divider {
-  align-self: stretch;
-  width: 1px;
-  min-height: 28px;
-  background: var(--hairline);
+  display: none;
+}
+
+@media (min-width: 640px) {
+  .toolbar {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--s-4);
+  }
+
+  .toolbarRow {
+    padding: 0;
+    border-top: none;
+  }
+
+  .toolbarGroup {
+    gap: var(--s-4);
+  }
+
+  .divider {
+    display: block;
+    align-self: stretch;
+    width: 1px;
+    min-height: 28px;
+    background: var(--hairline);
+  }
 }
 
 .toggleGroup {

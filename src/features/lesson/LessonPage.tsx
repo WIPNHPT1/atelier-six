@@ -373,93 +373,97 @@ function LessonPlayer({ lesson }: { lesson: BuiltLesson }) {
       </header>
 
       <Panel className={styles.toolbar}>
-        <div className={styles.toolbarGroup}>
-          <Button
-            variant="primary"
-            onClick={() => {
-              if (playingThis) stopPlayback();
-              else play(mix);
-            }}
-          >
-            {playingThis ? copy.lesson.stop : copy.lesson.play}
-          </Button>
-          <Mono className={styles.bar}>
-            {t('lesson.barOf', { bar: barIndex + 1, total: plan.shapes.length })}
-          </Mono>
-          <Stepper
-            label={copy.lesson.tempo}
-            decrementLabel={copy.lesson.tempoSlower}
-            incrementLabel={copy.lesson.tempoFaster}
-            value={mix.bpm}
-            min={range.min}
-            max={range.max}
-            format={(bpm) => t('lesson.tempoValue', { bpm })}
-            onChange={(bpm) => {
-              setMix({ ...mix, bpm });
-              if (!playingThis) return;
-              if (performing) perform({ ...mix, bpm });
-              else setTempo(bpm);
-            }}
-          />
+        <div className={styles.toolbarRow}>
+          <div className={styles.toolbarGroup}>
+            <Button
+              variant="primary"
+              onClick={() => {
+                if (playingThis) stopPlayback();
+                else play(mix);
+              }}
+            >
+              {playingThis ? copy.lesson.stop : copy.lesson.play}
+            </Button>
+            <Mono className={styles.bar}>
+              {t('lesson.barOf', { bar: barIndex + 1, total: plan.shapes.length })}
+            </Mono>
+            <Stepper
+              label={copy.lesson.tempo}
+              decrementLabel={copy.lesson.tempoSlower}
+              incrementLabel={copy.lesson.tempoFaster}
+              value={mix.bpm}
+              min={range.min}
+              max={range.max}
+              format={(bpm) => t('lesson.tempoValue', { bpm })}
+              onChange={(bpm) => {
+                setMix({ ...mix, bpm });
+                if (!playingThis) return;
+                if (performing) perform({ ...mix, bpm });
+                else setTempo(bpm);
+              }}
+            />
+          </div>
+          <span className={styles.divider} aria-hidden="true" />
         </div>
 
-        <span className={styles.divider} aria-hidden="true" />
+        <div className={styles.toolbarRow}>
+          <CleanMissed
+            tempo={tempo}
+            targetReached={targetReached(mix.bpm, lesson.targetBpm)}
+            easier={easier}
+          />
+          <span className={styles.divider} aria-hidden="true" />
+        </div>
 
-        <CleanMissed
-          tempo={tempo}
-          targetReached={targetReached(mix.bpm, lesson.targetBpm)}
-          easier={easier}
-        />
-
-        <span className={styles.divider} aria-hidden="true" />
-
-        <div className={styles.toolbarGroup}>
-          {performing ? null : (
+        <div className={styles.toolbarRow}>
+          <div className={styles.toolbarGroup}>
+            {performing ? null : (
+              <label className={styles.toggleGroup}>
+                <Text size="small">{copy.lesson.loop}</Text>
+                <Toggle
+                  label={copy.lesson.loop}
+                  checked={mix.loop}
+                  onChange={(loop) => {
+                    update({ loop });
+                  }}
+                />
+              </label>
+            )}
             <label className={styles.toggleGroup}>
-              <Text size="small">{copy.lesson.loop}</Text>
+              <Text size="small">{copy.lesson.metronome}</Text>
               <Toggle
-                label={copy.lesson.loop}
-                checked={mix.loop}
-                onChange={(loop) => {
-                  update({ loop });
+                label={copy.lesson.metronome}
+                checked={mix.click}
+                onChange={(click) => {
+                  update({ click });
                 }}
               />
             </label>
-          )}
-          <label className={styles.toggleGroup}>
-            <Text size="small">{copy.lesson.metronome}</Text>
-            <Toggle
-              label={copy.lesson.metronome}
-              checked={mix.click}
-              onChange={(click) => {
-                update({ click });
-              }}
-            />
-          </label>
-          <label className={styles.toggleGroup}>
-            <Text size="small">{copy.lesson.countIn}</Text>
-            <Toggle
-              label={copy.lesson.countIn}
-              checked={mix.countIn}
-              onChange={(countIn) => {
-                update({ countIn });
-              }}
-            />
-          </label>
-          {micSupported ? (
             <label className={styles.toggleGroup}>
-              <Text size="small">{copy.lesson.listen}</Text>
+              <Text size="small">{copy.lesson.countIn}</Text>
               <Toggle
-                label={copy.lesson.listen}
-                checked={listening}
-                onChange={(next) => {
-                  setListening(next);
-                  if (next) setSelfPacedIndex(0);
+                label={copy.lesson.countIn}
+                checked={mix.countIn}
+                onChange={(countIn) => {
+                  update({ countIn });
                 }}
-                disabled={playingThis}
               />
             </label>
-          ) : null}
+            {micSupported ? (
+              <label className={styles.toggleGroup}>
+                <Text size="small">{copy.lesson.listen}</Text>
+                <Toggle
+                  label={copy.lesson.listen}
+                  checked={listening}
+                  onChange={(next) => {
+                    setListening(next);
+                    if (next) setSelfPacedIndex(0);
+                  }}
+                  disabled={playingThis}
+                />
+              </label>
+            ) : null}
+          </div>
         </div>
       </Panel>
 
