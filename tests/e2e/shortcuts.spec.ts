@@ -2,6 +2,8 @@ import { expect, test } from '@playwright/test';
 
 test.use({ launchOptions: { args: ['--autoplay-policy=no-user-gesture-required'] } });
 
+// Playwright requires the fixtures param to be destructured, even when nothing is used from it.
+// eslint-disable-next-line no-empty-pattern
 test.beforeEach(({}, testInfo) => {
   test.skip(testInfo.project.name !== 'desktop', 'Keyboard shortcuts are a desktop input path');
 });
