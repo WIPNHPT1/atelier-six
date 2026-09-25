@@ -1,4 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
+import { useSettingsStore } from '../../app/settingsStore';
+import { vibrate } from '../../audio/haptics';
 import { copy, t } from '../../content/copy.en-GB';
 import { BrassSheen } from '../../ui/BrassSheen';
 import { Button } from '../../ui/Button';
@@ -6,6 +8,8 @@ import { Mono } from '../../ui/Mono';
 import { Pill } from '../../ui/Pill';
 import type { AdaptiveTempo } from './useAdaptiveTempo';
 import styles from './CleanMissed.module.css';
+
+const CLEAN_VIBRATE_MS = 15;
 
 const PERCENT = 100;
 
@@ -38,6 +42,7 @@ export function CleanMissed({
         onClick={() => {
           tempo.record(true);
           onClean?.();
+          if (useSettingsStore.getState().haptics) vibrate(CLEAN_VIBRATE_MS);
         }}
       >
         {copy.practice.clean}

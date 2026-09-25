@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react';
 import { Link, Navigate, useParams } from 'react-router-dom';
 import { usePlayback } from '../../audio/usePlayback';
 import { usePlaybackStore } from '../../audio/playbackStore';
+import { vibrate } from '../../audio/haptics';
 import type { Section } from '../../core/schedule/buildSchedule';
 import { copy, t } from '../../content/copy.en-GB';
 import { analyseTransition } from '../../core/engine/analyseTransition';
@@ -60,6 +61,7 @@ import { usePageShortcuts } from '../../ui/shortcuts/usePageShortcuts';
 const DEMO_LESSON_ID = 'demo';
 // Sections at or above this dynamics level play at full (chorus) strength.
 const LOUD_DYNAMICS = 0.9;
+const CLEAN_VIBRATE_MS = 15;
 
 type Mix = {
   sectionIndex: number;
@@ -172,6 +174,7 @@ function LessonPlayer({ lesson }: { lesson: BuiltLesson }) {
       }
       setSelfPacedIndex(to);
       setRippleCount((count) => count + 1);
+      if (useSettingsStore.getState().haptics) vibrate(CLEAN_VIBRATE_MS);
     },
   });
 
@@ -619,7 +622,11 @@ function LessonPlayer({ lesson }: { lesson: BuiltLesson }) {
           </ul>
         </Panel>
 
-        <LessonComplete id={lesson.id} className={styles.complete} />
+        <LessonComplete
+          id={lesson.id}
+          {...('key' in lesson.progression ? { keyRoot: lesson.progression.key } : {})}
+          className={styles.complete}
+        />
       </div>
 
       <nav className={styles.pager} aria-label={copy.lesson.pager}>

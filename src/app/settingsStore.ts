@@ -22,6 +22,7 @@ export type Settings = {
   robotMode: boolean;
   voiceCommands: boolean;
   pinnedFinish: boolean;
+  haptics: boolean;
 };
 
 export type SettingsStore = Settings & {
@@ -38,6 +39,7 @@ export type SettingsStore = Settings & {
   setRobotMode: (robotMode: boolean) => void;
   setVoiceCommands: (voiceCommands: boolean) => void;
   setPinnedFinish: (pinnedFinish: boolean) => void;
+  setHaptics: (haptics: boolean) => void;
 };
 
 const defaultSettings: Settings = {
@@ -54,6 +56,7 @@ const defaultSettings: Settings = {
   robotMode: false,
   voiceCommands: false,
   pinnedFinish: false,
+  haptics: false,
 };
 
 export const useSettingsStore = create<SettingsStore>()(
@@ -98,6 +101,9 @@ export const useSettingsStore = create<SettingsStore>()(
       },
       setPinnedFinish: (pinnedFinish) => {
         set({ pinnedFinish });
+      },
+      setHaptics: (haptics) => {
+        set({ haptics });
       },
     }),
     { name: 'a6.settings' },

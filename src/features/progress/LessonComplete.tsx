@@ -11,7 +11,15 @@ import { useProgress, useProgressData } from './store';
 
 // Marking a lesson complete is independent of hitting its target tempo (either counts, see
 // lessonDone) and reversible, in case of a mis-tap.
-export function LessonComplete({ id, className }: { id: string; className?: string | undefined }) {
+export function LessonComplete({
+  id,
+  keyRoot,
+  className,
+}: {
+  id: string;
+  keyRoot?: string;
+  className?: string | undefined;
+}) {
   const data = useProgressData();
   const update = useProgress((s) => s.update);
   const completed = data.lessons[id]?.completed === true;
@@ -19,7 +27,12 @@ export function LessonComplete({ id, className }: { id: string; className?: stri
 
   function toggle(next: boolean) {
     void update((current) => setLessonCompleted(current, id, next, Date.now()));
-    if (next) setSheenKey((key) => key + 1);
+    if (next) {
+      setSheenKey((key) => key + 1);
+      void import('../../audio/uiSounds').then(({ playCompletionChime }) => {
+        playCompletionChime(keyRoot);
+      });
+    }
   }
 
   return (

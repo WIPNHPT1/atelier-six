@@ -106,6 +106,20 @@ export default function SettingsPage() {
         </div>
 
         <div className={styles.row}>
+          <div className={styles.rowLabel}>
+            <Text>{copy.settings.haptics}</Text>
+            <Text dim size="small">
+              {copy.settings.hapticsHint}
+            </Text>
+          </div>
+          <Toggle
+            label={copy.settings.haptics}
+            checked={settings.haptics}
+            onChange={settings.setHaptics}
+          />
+        </div>
+
+        <div className={styles.row}>
           <Text>{copy.settings.leftHanded}</Text>
           <Toggle
             label={copy.settings.leftHanded}

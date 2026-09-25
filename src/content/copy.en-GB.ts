@@ -548,6 +548,9 @@ export const copy = {
     motionOff: 'Off',
     motionSystem: 'System',
     sound: 'Sound',
+    haptics: 'Haptics',
+    hapticsHint:
+      'A short buzz on the metronome downbeat and marking a change clean. Off by default.',
     leftHanded: 'Left-handed',
     tuning: 'Tuning',
     tuningStandard: 'Standard',

@@ -1,7 +1,11 @@
 import { create } from 'zustand';
+import { useSettingsStore } from '../app/settingsStore.ts';
 import { secondsToStep } from '../core/schedule/buildSchedule.ts';
 import type { StringHit } from '../core/schedule/buildSchedule.ts';
+import { vibrate } from './haptics.ts';
 import type { LayerSource, PreparedPlay, ScheduleSource } from './transport.ts';
+
+const BEAT_ONE_VIBRATE_MS = 8;
 
 export type StartLessonInput = {
   lessonId: string;
@@ -33,6 +37,7 @@ export type PlaybackState = {
 };
 
 let rafId: number | null = null;
+let lastCheckedBeatStep = -1;
 
 export type ActiveStrum = { strings: StringHit[]; palmMute: boolean; tSincePluck: number };
 let activeStrum: ActiveStrum | null = null;
@@ -110,6 +115,7 @@ export const usePlaybackStore = create<PlaybackState>((set) => ({
       bar: 0,
       chordIndex: 0,
     });
+    lastCheckedBeatStep = -1;
 
     function tick(): void {
       const schedule = transport.getSchedule();
@@ -134,6 +140,18 @@ export const usePlaybackStore = create<PlaybackState>((set) => ({
       const contentElapsed = transport.getContentSeconds(elapsed);
       const seconds = loopSeconds === null ? contentElapsed : contentElapsed % loopSeconds;
       const step = secondsToStep(seconds, transport.getBpm());
+      if (useSettingsStore.getState().haptics) {
+        if (step < lastCheckedBeatStep) lastCheckedBeatStep = -1; // the loop wrapped
+        const crossedBeatOne = schedule.some(
+          (event) =>
+            event.kind === 'click' &&
+            event.accent &&
+            event.step > lastCheckedBeatStep &&
+            event.step <= step,
+        );
+        if (crossedBeatOne) vibrate(BEAT_ONE_VIBRATE_MS);
+        lastCheckedBeatStep = step;
+      }
       const current = schedule.filter((event) => event.step <= step).at(-1) ?? schedule[0];
       if (current) {
         usePlaybackStore.setState({ step, bar: current.bar, chordIndex: current.chordIndex });
