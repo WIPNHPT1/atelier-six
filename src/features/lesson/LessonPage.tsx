@@ -100,7 +100,6 @@ function LessonPlayer({ lesson }: { lesson: BuiltLesson }) {
     muted: {},
     solo: null,
   }));
-  const [copied, setCopied] = useState(false);
   const [easier, setEasier] = useState(false);
   const tune = isTune(lesson);
   const [mode, setMode] = useState<'perform' | 'practise'>(tune ? 'perform' : 'practise');
@@ -462,18 +461,6 @@ function LessonPlayer({ lesson }: { lesson: BuiltLesson }) {
             </label>
           ) : null}
         </div>
-
-        <Button
-          variant="quiet"
-          className={styles.copyTab}
-          onClick={() => {
-            void navigator.clipboard.writeText(ascii).then(() => {
-              setCopied(true);
-            });
-          }}
-        >
-          {copied ? copy.lesson.copied : copy.lesson.copyTab}
-        </Button>
       </Panel>
 
       <HandWarmupOffer lessonId={lesson.id} />

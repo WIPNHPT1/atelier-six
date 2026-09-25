@@ -70,10 +70,6 @@
   background: var(--hairline);
 }
 
-.copyTab {
-  margin-left: auto;
-}
-
 .toggleGroup {
   display: flex;
   align-items: center;

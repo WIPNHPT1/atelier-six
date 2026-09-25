@@ -239,8 +239,6 @@ export const copy = {
     metronome: 'Metronome',
     countIn: 'Count-in',
     listen: 'Listen',
-    copyTab: 'Copy tab',
-    copied: 'Tab copied',
     tips: 'Tips',
     rotateHint: 'Turn your phone sideways to see the tab.',
     barOf: 'Bar {bar} of {total}',
