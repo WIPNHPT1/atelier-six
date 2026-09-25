@@ -1,6 +1,10 @@
 import { expect, test } from '@playwright/test';
 import { seedForVisualSnapshot } from './helpers.ts';
 
+// No service worker: its "Ready to work offline" toast fires non-deterministically (depends
+// on precache timing) and would bleed into the screenshot. offline.spec.ts covers PWA behavior.
+test.use({ serviceWorkers: 'block' });
+
 const FIXED_NOW = '2026-01-15T12:00:00.000Z';
 
 const PAGES = [
@@ -39,7 +43,9 @@ for (const { name, path } of PAGES) {
 
     await expect(page).toHaveScreenshot(`${name}.png`, {
       fullPage: true,
-      mask: [page.locator('[data-playhead-step]')],
+      // [data-playhead-step] is the whole TabLane grid, not the moving marker — masking it
+      // would blank out the entire tab. The actual live bit is the active-column cell.
+      mask: [page.locator('[data-active="true"]')],
       maxDiffPixelRatio: 0.01,
     });
   });
