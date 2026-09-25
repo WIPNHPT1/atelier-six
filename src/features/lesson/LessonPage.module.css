@@ -57,9 +57,21 @@
   gap: var(--s-4);
 }
 
-.tempo {
-  flex: 1 1 200px;
-  min-width: 180px;
+.toolbarGroup {
+  display: flex;
+  align-items: center;
+  gap: var(--s-4);
+}
+
+.divider {
+  align-self: stretch;
+  width: 1px;
+  min-height: 28px;
+  background: var(--hairline);
+}
+
+.copyTab {
+  margin-left: auto;
 }
 
 .toggleGroup {
@@ -67,11 +79,13 @@
   align-items: center;
   gap: var(--s-2);
   cursor: pointer;
+  white-space: nowrap;
 }
 
 .bar {
   color: var(--bone-dim);
   font-size: var(--t-12);
+  white-space: nowrap;
 }
 
 .grid {
