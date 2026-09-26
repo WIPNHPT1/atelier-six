@@ -20,7 +20,7 @@ export function browserName(userAgent: string): string {
   ];
   for (const [pattern, name] of rules) {
     const match = pattern.exec(userAgent);
-    if (match) return `${name} ${match[1] ?? ''}`.trim();
+    if (match) return `${name} ${match.slice(1).join('')}`;
   }
   return 'Unknown browser';
 }
