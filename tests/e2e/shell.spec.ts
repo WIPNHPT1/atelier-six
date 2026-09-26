@@ -14,7 +14,7 @@ const destinations = [
 
 test('navigates every destination via the visible nav and marks the active route', async ({
   page,
-}) => {
+}, testInfo) => {
   await completeOnboarding(page);
   const width = page.viewportSize()?.width ?? 1440;
 
@@ -46,8 +46,15 @@ test('navigates every destination via the visible nav and marks the active route
   }
 
   // Start redirects an already-onboarded profile straight to /today, so it never shows as
-  // the active route itself — just check the link works.
-  await nav.getByRole('link', { name: 'Start' }).click();
+  // the active route itself — just check the link works. On the mobile dock, Playwright's
+  // actionability check reports the click point as covered by unrelated Settings content
+  // even though it visibly isn't (getBoundingClientRect/elementFromPoint agree it's clear
+  // right before the click) — most likely a hit-testing quirk with the dock's
+  // backdrop-filter blur. force: true skips that check; the rail/sidebar don't use
+  // backdrop-filter and don't need it.
+  await nav
+    .getByRole('link', { name: 'Start' })
+    .click({ force: testInfo.project.name === 'mobile' });
   await expectPath(page, '/today');
 });
 

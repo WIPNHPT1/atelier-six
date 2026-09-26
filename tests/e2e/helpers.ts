@@ -9,15 +9,15 @@ export async function completeOnboarding(page: Page) {
   for (let step = 0; step < 4; step++) await page.getByRole('button', { name: 'Next' }).click();
   await expect(page.getByRole('button', { name: 'Play the groove' })).toBeVisible();
   await page.getByRole('button', { name: 'Start' }).click();
-  // Onboarding ends on the recommended first lesson; tests carry on from Today.
+  // Onboarding ends on the recommended first lesson; tests carry on from Today. A full
+  // goto reloads the page, so wait for the shell to be interactive (nav mounted and its
+  // keyboard listeners attached) before handing back to the test — otherwise a test that
+  // immediately sends a keyboard shortcut (e.g. Ctrl+K) can race the reload.
   await expect.poll(() => new URL(page.url()).pathname).toMatch(/^\/lesson\//);
-  // In-app navigation (no reload) so the shell's listeners are already attached. The root
-  // now redirects an already-onboarded profile straight to /today.
-  await page.evaluate(() => {
-    history.pushState({}, '', '/');
-    dispatchEvent(new PopStateEvent('popstate'));
-  });
-  await expect.poll(() => new URL(page.url()).pathname).toBe('/today');
+  await page.goto('/today');
+  // Only one of the dock/rail/sidebar nav variants is visible at a given viewport width
+  // (the others exist in the DOM but are CSS-hidden), so match on visibility directly.
+  await expect(page.locator('[data-testid^="nav-"]:visible').first()).toBeVisible();
 }
 
 export async function seriousViolations(page: Page): Promise<Result[]> {
