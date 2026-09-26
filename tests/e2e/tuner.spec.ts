@@ -1,21 +1,5 @@
-import { fileURLToPath } from 'node:url';
 import { expect, test } from '@playwright/test';
 import { completeOnboarding } from './helpers.ts';
-
-// A clean, sustained tone file: Chromium's synthetic fake audio device produces a hard-clipped
-// click rather than a steady tone once echoCancellation/noiseSuppression/autoGainControl are
-// disabled (as the tuner's mic constraints require), so pitch detection needs a real waveform.
-const FIXTURE_PATH = fileURLToPath(new URL('./fixtures/tone-a3.wav', import.meta.url));
-
-test.use({
-  launchOptions: {
-    args: [
-      '--use-fake-ui-for-media-stream',
-      '--use-fake-device-for-media-stream',
-      `--use-file-for-fake-audio-capture=${FIXTURE_PATH}`,
-    ],
-  },
-});
 
 test('starting the tuner listens for a note, stopping releases the mic', async ({
   page,

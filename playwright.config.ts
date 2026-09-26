@@ -1,4 +1,21 @@
+import { fileURLToPath } from 'node:url';
 import { defineConfig, devices } from '@playwright/test';
+
+// A clean, sustained tone file: Chromium's synthetic fake audio device produces a hard-clipped
+// click rather than a steady tone once echoCancellation/noiseSuppression/autoGainControl are
+// disabled (as the tuner's mic constraints require), so pitch detection needs a real waveform.
+const TONE_FIXTURE = fileURLToPath(new URL('./tests/e2e/fixtures/tone-a3.wav', import.meta.url));
+
+// Chromium-only flags (audio-gesture and fake-mic-device automation). Kept here, not in
+// per-spec test.use(), because Playwright launches the browser for the page fixture before a
+// test's own test.skip(browserName !== 'chromium') runs — WebKit/Firefox reject the unknown
+// arguments outright and the launch failure takes the rest of that worker's queue down with it.
+const CHROMIUM_ONLY_ARGS = [
+  '--autoplay-policy=no-user-gesture-required',
+  '--use-fake-ui-for-media-stream',
+  '--use-fake-device-for-media-stream',
+  `--use-file-for-fake-audio-capture=${TONE_FIXTURE}`,
+];
 
 export default defineConfig({
   testDir: './tests/e2e',
@@ -23,7 +40,7 @@ export default defineConfig({
       name: 'mobile',
       use: {
         ...devices['Pixel 7'],
-        launchOptions: { args: ['--autoplay-policy=no-user-gesture-required'] },
+        launchOptions: { args: CHROMIUM_ONLY_ARGS },
       },
     },
     {
@@ -39,7 +56,7 @@ export default defineConfig({
       use: {
         ...devices['Desktop Chrome'],
         viewport: { width: 1440, height: 900 },
-        launchOptions: { args: ['--autoplay-policy=no-user-gesture-required'] },
+        launchOptions: { args: CHROMIUM_ONLY_ARGS },
       },
     },
     {
