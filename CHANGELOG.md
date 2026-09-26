@@ -15,3 +15,4 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Modules 1–2 course, lesson player with arrangement sections and layers, drills, adaptive tempo, progress and daily planner.
 - Tuner with analog needle and tunings; listen mode that advances when you play the next chord's root.
 - Hands-free control (keys, foot pedals, voice), left-handed mode, tunings, capo and automatic finishes.
+- Installable offline PWA, motion and living-string effects, UI sounds and haptics, performance and accessibility budgets in CI.

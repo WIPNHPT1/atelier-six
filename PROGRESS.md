@@ -1,6 +1,6 @@
 # Progress
 
-Current: Gate 9
+Current: 10.1
 Legend: [ ] todo · [x] done · BLOCKED: reason
 Rule: update "Current" and tick the box in the same commit as the step. Unfinished work lives in `RESUME.md`.
 Milestones: v1.0 = Phases 0–10 · v1.1 = 11–15 · v1.2 = 16–17 · v2.0 = 18–22 · v2.x = 23–24 (final).
@@ -116,7 +116,9 @@ Recorded numbers (fill in as you go): LIVE_URL=https://ateliersix.netlify.app ·
 - [x] 9.4 Sounds + haptics
 - [x] 9.5 Budgets, Lighthouse CI, axe
 - [x] 9.6 Visual regression tests
-- [ ] Gate 9
+- [x] Gate 9
+  - Device check (2026-09-26, user's own devices via `docs/device-checklist.md`): live site
+    installs and runs fully offline ✓ ("it worked").
 
 ## Phase 10 — Showcase and release
 
