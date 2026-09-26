@@ -9,10 +9,11 @@
   gap: var(--s-3);
   padding: var(--s-2) var(--s-3);
   border-radius: var(--r-pill);
-  border: 1px solid var(--hairline);
-  background: var(--rosewood);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid var(--glass-border);
+  background: var(--glass-fill-2);
+  box-shadow: var(--glass-shadow);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
   cursor: pointer;
   font: inherit;
   color: inherit;

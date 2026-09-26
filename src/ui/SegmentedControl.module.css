@@ -2,7 +2,11 @@
   display: inline-flex;
   padding: 2px;
   border-radius: var(--r-hair);
-  background: var(--rosewood);
+  border: 1px solid var(--glass-border);
+  background: var(--glass-fill);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  box-shadow: var(--glass-shadow);
   gap: 2px;
 }
 
@@ -27,6 +31,7 @@
 }
 
 .selected {
-  background: var(--rosewood-2);
+  background: var(--glass-fill-2);
+  box-shadow: var(--glass-shadow);
   color: var(--bone);
 }

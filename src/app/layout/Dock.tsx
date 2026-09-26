@@ -7,7 +7,7 @@ export function Dock() {
   const motionEnabled = useMotionEnabled();
 
   return (
-    <nav className={styles.dock} data-focus-hide aria-label="Primary" data-testid="nav-dock">
+    <nav className={styles.dock} aria-label="Primary" data-testid="nav-dock">
       {navItems.map((item) => (
         <NavLink
           key={item.to}

@@ -35,9 +35,10 @@
 }
 
 .searchInput {
-  background: var(--rosewood);
-  border: 1px solid var(--hairline);
+  background: var(--glass-fill);
+  border: 1px solid var(--glass-border);
   border-radius: var(--r-hair);
+  box-shadow: var(--glass-shadow);
   color: var(--bone);
   font-family: var(--font-ui);
   font-size: var(--t-14);
@@ -56,13 +57,27 @@
   flex-direction: column;
   align-items: center;
   gap: var(--s-2);
-  background: var(--rosewood);
-  border: 1px solid var(--hairline);
-  border-radius: var(--r-hair);
+  background: var(--glass-fill);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--r-card);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  box-shadow: var(--glass-shadow);
   padding: var(--s-3);
   cursor: pointer;
   font: inherit;
   color: inherit;
+  transition:
+    border-color calc(var(--dur-ui) * var(--motion-scale)) var(--ease),
+    box-shadow calc(var(--dur-ui) * var(--motion-scale)) var(--ease),
+    transform calc(var(--dur-ui) * var(--motion-scale)) var(--ease);
+}
+
+.card:hover,
+.card:focus-visible {
+  border-color: var(--brass);
+  box-shadow: var(--glass-shadow-elevated);
+  transform: translateY(-2px);
 }
 
 .sheetBody {

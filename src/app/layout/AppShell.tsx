@@ -93,7 +93,7 @@ export function AppShell() {
       <Dock />
       {/* Wrapper owns position/visibility: a class on IconButton itself loses to
           IconButton's own `display` depending on CSS chunk order. */}
-      <div className={styles.mobileSearch} data-testid="mobile-search" data-focus-hide>
+      <div className={styles.mobileSearch} data-testid="mobile-search">
         <IconButton
           label={copy.commandPalette.search}
           onClick={() => {

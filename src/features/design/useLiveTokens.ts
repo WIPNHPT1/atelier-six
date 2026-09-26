@@ -14,14 +14,17 @@ export type TokenName =
   | 'f4'
   | 'fT';
 
+// rosewood/rosewood-2 are translucent white glass tints in the real tokens (so they
+// work as a border-color and gradient stop too); these are flattened, opaque
+// approximations of that tint over the page background, just for this swatch page.
 const DARK_TOKENS: Record<TokenName, string> = {
-  ebony: '#121110',
-  rosewood: '#2b211d',
-  'rosewood-2': '#3a2d27',
-  bone: '#efeae1',
-  'bone-dim': '#a69e92',
-  brass: '#b8925a',
-  'brass-hi': '#d9b77e',
+  ebony: '#121212',
+  rosewood: '#1e1e1e',
+  'rosewood-2': '#272727',
+  bone: '#f2f2f0',
+  'bone-dim': '#8a8a86',
+  brass: '#f2f2f0',
+  'brass-hi': '#ffffff',
   f1: '#8fa68a',
   f2: '#6f84a0',
   f3: '#c07a5a',
@@ -30,13 +33,13 @@ const DARK_TOKENS: Record<TokenName, string> = {
 };
 
 const LIGHT_TOKENS: Record<TokenName, string> = {
-  ebony: '#efeae1',
-  rosewood: '#e3dccf',
-  'rosewood-2': '#d6cdbb',
+  ebony: '#f2f2f2',
+  rosewood: '#e8e8e8',
+  'rosewood-2': '#e0e0e0',
   bone: '#121110',
   'bone-dim': '#5b5550',
-  brass: '#7a5c37',
-  'brass-hi': '#9b815b',
+  brass: '#121110',
+  'brass-hi': '#000000',
   f1: '#81957c',
   f2: '#647790',
   f3: '#ad6e51',

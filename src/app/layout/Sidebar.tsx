@@ -13,7 +13,7 @@ export function Sidebar({ onOpenPalette }: SidebarProps) {
   const motionEnabled = useMotionEnabled();
 
   return (
-    <nav className={styles.sidebar} data-focus-hide aria-label="Primary" data-testid="nav-sidebar">
+    <nav className={styles.sidebar} aria-label="Primary" data-testid="nav-sidebar">
       <div className={styles.wordmark}>
         <Logo variant="lockup" size={32} />
       </div>

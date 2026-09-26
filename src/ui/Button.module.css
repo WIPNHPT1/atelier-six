@@ -5,7 +5,7 @@
   justify-content: center;
   gap: var(--s-2);
   border: none;
-  border-radius: var(--r-hair);
+  border-radius: var(--r-pill);
   font-family: var(--font-ui);
   font-weight: 500;
   cursor: pointer;
@@ -49,21 +49,29 @@
 }
 
 .primary {
-  background: var(--brass);
-  color: var(--ebony);
+  background: var(--glass-fill-2);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  box-shadow: var(--accent-glow);
+  color: var(--bone);
 }
 
 .primary:hover:not(:disabled) {
-  filter: brightness(1.08);
+  filter: brightness(1.15);
 }
 
 .quiet {
-  background: var(--rosewood);
+  background: var(--glass-fill);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  box-shadow: var(--glass-shadow);
   color: var(--bone);
 }
 
 .quiet:hover:not(:disabled) {
-  background: var(--rosewood-2);
+  background: var(--glass-fill-2);
 }
 
 .ghost {

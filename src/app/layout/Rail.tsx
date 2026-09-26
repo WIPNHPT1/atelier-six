@@ -8,7 +8,7 @@ export function Rail() {
   const motionEnabled = useMotionEnabled();
 
   return (
-    <nav className={styles.rail} data-focus-hide aria-label="Primary" data-testid="nav-rail">
+    <nav className={styles.rail} aria-label="Primary" data-testid="nav-rail">
       <div className={styles.mark}>
         <Logo variant="mark" size={28} />
       </div>

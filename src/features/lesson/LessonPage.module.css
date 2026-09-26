@@ -351,6 +351,20 @@
   text-decoration: none;
   white-space: nowrap;
   text-overflow: ellipsis;
+  transition:
+    filter calc(var(--dur-ui) * var(--motion-scale)) var(--ease),
+    transform calc(120ms * var(--motion-scale)) var(--ease),
+    border-color calc(var(--dur-ui) * var(--motion-scale)) var(--ease);
+}
+
+.pagerLink:active {
+  transform: scale(0.98);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .pagerLink:hover {
+    transform: translateY(-1px);
+  }
 }
 
 .pagerLink:hover,
@@ -359,10 +373,17 @@
 }
 
 .pagerNext {
-  background: var(--brass);
-  border-color: var(--brass);
-  color: var(--ebony);
+  background: var(--glass-fill-2);
+  border-color: var(--glass-border);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  box-shadow: var(--accent-glow);
+  color: var(--bone);
   font-weight: 500;
+}
+
+.pagerNext:hover {
+  filter: brightness(1.15);
 }
 
 @media (min-width: 640px) {

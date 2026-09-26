@@ -125,7 +125,7 @@
   align-items: center;
   justify-content: center;
   min-height: 36px;
-  border-radius: var(--r-hair);
+  border-radius: var(--r-chip);
   font-family: var(--font-mono);
   font-size: var(--t-12);
 }
@@ -174,7 +174,7 @@
 .swatch {
   width: 14px;
   height: 10px;
-  border-radius: var(--r-hair);
+  border-radius: var(--r-chip);
 }
 
 .drill,
@@ -188,16 +188,44 @@
   font-size: var(--t-14);
   font-weight: 500;
   text-decoration: none;
+  transition:
+    filter calc(var(--dur-ui) * var(--motion-scale)) var(--ease),
+    transform calc(120ms * var(--motion-scale)) var(--ease),
+    border-color calc(var(--dur-ui) * var(--motion-scale)) var(--ease);
+}
+
+.drill:active,
+.drillSmall:active {
+  transform: scale(0.98);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .drill:hover,
+  .drillSmall:hover {
+    transform: translateY(-1px);
+  }
 }
 
 .drill {
-  background: var(--brass);
-  color: var(--ebony);
+  background: var(--glass-fill-2);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  box-shadow: var(--accent-glow);
+  color: var(--bone);
+}
+
+.drill:hover {
+  filter: brightness(1.15);
 }
 
 .drillSmall {
   border: 1px solid var(--hairline);
   color: var(--bone);
+}
+
+.drillSmall:hover {
+  border-color: var(--brass);
 }
 
 .worstList {

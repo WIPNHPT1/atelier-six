@@ -21,6 +21,9 @@
   height: 20px;
   border-radius: 50%;
   background: var(--bone);
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.18),
+    0 1px 3px rgba(0, 0, 0, 0.4);
   transform: translateX(0);
   transition: transform calc(var(--dur-ui) * var(--motion-scale)) var(--ease);
 }

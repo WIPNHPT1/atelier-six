@@ -66,9 +66,13 @@
   margin: var(--s-4) 0 0;
   padding: 0;
   list-style: none;
-  border: 1px solid var(--hairline);
-  border-radius: var(--r-hair);
-  background: var(--rosewood);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--r-card);
+  background: var(--glass-fill);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  box-shadow: var(--glass-shadow);
+  overflow: hidden;
 }
 
 .listRow {
@@ -96,6 +100,22 @@
   font-size: var(--t-14);
   font-weight: 500;
   text-decoration: none;
+  transition:
+    filter calc(var(--dur-ui) * var(--motion-scale)) var(--ease),
+    transform calc(120ms * var(--motion-scale)) var(--ease),
+    border-color calc(var(--dur-ui) * var(--motion-scale)) var(--ease);
+}
+
+.link:active,
+.primaryLink:active {
+  transform: scale(0.98);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .link:hover,
+  .primaryLink:hover {
+    transform: translateY(-1px);
+  }
 }
 
 .link {
@@ -103,9 +123,21 @@
   color: var(--bone);
 }
 
+.link:hover {
+  border-color: var(--brass);
+}
+
 .primaryLink {
-  background: var(--brass);
-  color: var(--ebony);
+  background: var(--glass-fill-2);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  box-shadow: var(--accent-glow);
+  color: var(--bone);
+}
+
+.primaryLink:hover {
+  filter: brightness(1.15);
 }
 
 .drawing {

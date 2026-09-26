@@ -4,9 +4,12 @@
   align-items: flex-end;
   gap: var(--s-3);
   padding: var(--s-3);
-  background: var(--rosewood);
-  border: 1px solid var(--hairline);
-  border-radius: var(--r-hair);
+  background: var(--glass-fill);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--r-card);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  box-shadow: var(--glass-shadow);
 }
 
 .field {
@@ -21,8 +24,8 @@
 }
 
 .input {
-  background: var(--rosewood-2);
-  border: 1px solid var(--hairline);
+  background: var(--glass-fill-2);
+  border: 1px solid var(--glass-border);
   border-radius: var(--r-hair);
   color: var(--bone);
   font-family: var(--font-ui);

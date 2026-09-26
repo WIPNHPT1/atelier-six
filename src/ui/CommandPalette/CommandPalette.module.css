@@ -17,10 +17,12 @@
   max-height: 70vh;
   display: flex;
   flex-direction: column;
-  background: var(--rosewood);
-  border: 1px solid var(--hairline);
+  background: var(--glass-fill-2);
+  border: 1px solid var(--glass-border);
   border-radius: 12px;
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  box-shadow: var(--glass-shadow-elevated);
   overflow: hidden;
 }
 

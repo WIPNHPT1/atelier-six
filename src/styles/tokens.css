@@ -1,13 +1,27 @@
 :root {
   /* Colour — dark (default) */
-  --ebony: #121110;
-  --rosewood: #2b211d;
-  --rosewood-2: #3a2d27;
-  --bone: #efeae1;
-  --bone-dim: #a69e92;
-  --hairline: rgba(239, 234, 225, 0.12);
-  --brass: #b8925a;
-  --brass-hi: #d9b77e;
+  --ebony: #121212;
+  --rosewood: rgba(255, 255, 255, 0.05);
+  --rosewood-2: rgba(255, 255, 255, 0.09);
+  --bone: #f2f2f0;
+  --bone-dim: #8a8a86;
+  --hairline: rgba(255, 255, 255, 0.1);
+  --brass: #f2f2f0;
+  --brass-hi: #ffffff;
+
+  /* Glassy-black surfaces (cards, sheets, overlays) */
+  --glass-fill: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02));
+  --glass-fill-2: linear-gradient(180deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.03));
+  --glass-border: rgba(255, 255, 255, 0.14);
+  --glass-blur: 20px;
+  --glass-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+  --glass-shadow-elevated: 0 20px 45px rgba(0, 0, 0, 0.6), 0 0 14px rgba(255, 255, 255, 0.35);
+  --ambient-glow: radial-gradient(
+    1100px 560px at 28% -10%,
+    rgba(255, 255, 255, 0.07),
+    transparent 60%
+  );
+  --accent-glow: 0 0 14px rgba(255, 255, 255, 0.35);
 
   /* Finger colours */
   --f1: #8fa68a;
@@ -40,6 +54,8 @@
 
   /* Radius */
   --r-hair: 2px;
+  --r-chip: 8px;
+  --r-card: 14px;
   --r-pill: 999px;
 
   /* Motion */
@@ -54,14 +70,26 @@
 }
 
 [data-mode='light'] {
-  --ebony: #efeae1;
-  --rosewood: #e3dccf;
-  --rosewood-2: #d6cdbb;
+  --ebony: #f2f2f2;
+  --rosewood: rgba(18, 17, 16, 0.045);
+  --rosewood-2: rgba(18, 17, 16, 0.08);
   --bone: #121110;
   --bone-dim: #5b5550;
   --hairline: rgba(18, 17, 16, 0.12);
-  --brass: #7a5c37;
-  --brass-hi: #9b815b;
+  --brass: #121110;
+  --brass-hi: #000000;
+
+  --glass-fill: linear-gradient(180deg, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0.15));
+  --glass-fill-2: linear-gradient(180deg, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.25));
+  --glass-border: rgba(18, 17, 16, 0.12);
+  --glass-shadow: 0 12px 24px rgba(18, 17, 16, 0.08);
+  --glass-shadow-elevated: 0 16px 32px rgba(18, 17, 16, 0.12);
+  --ambient-glow: radial-gradient(
+    1100px 560px at 28% -10%,
+    rgba(18, 17, 16, 0.04),
+    transparent 60%
+  );
+  --accent-glow: 0 4px 14px rgba(18, 17, 16, 0.18);
 
   --f1: #81957c;
   --f2: #647790;

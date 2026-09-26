@@ -41,7 +41,7 @@ export function LivingStrings({ size }: LivingStringsProps) {
       const strum = getActiveStrum();
       if (!strum) return;
       const paths = computeStringPaths(strum, gridSpan, pad, amplitude);
-      ctx.strokeStyle = stroke || '#d9b77e';
+      ctx.strokeStyle = stroke || '#ffffff';
       ctx.lineWidth = 1.5;
       for (const path of paths) {
         const y0 = pad + ((STRING_COUNT - 1 - path.stringIndex) * gridSpan) / (STRING_COUNT - 1);

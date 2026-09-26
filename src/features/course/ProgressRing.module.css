@@ -3,6 +3,7 @@
   display: inline-grid;
   place-items: center;
   flex: none;
+  filter: drop-shadow(var(--accent-glow));
 }
 
 .ring svg {
