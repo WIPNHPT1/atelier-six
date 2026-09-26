@@ -1,4 +1,4 @@
-import { Suspense, useEffect, useState } from 'react';
+import { Suspense, lazy, useEffect, useState } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 import styles from './AppShell.module.css';
 import { Dock } from './Dock';
@@ -20,7 +20,12 @@ import { Pill } from '../../ui/Pill';
 import { PwaToasts } from '../PwaToasts';
 import { requestTiltPermission } from '../../ui/brassSheen/tiltStore';
 
+const DemoRunner = lazy(() => import('../../features/demo/DemoRunner'));
+
 export function AppShell() {
+  const [demoRequested] = useState(
+    () => new URLSearchParams(window.location.search).get('demo') === '1',
+  );
   useApplySettings();
   const navigate = useNavigate();
   const [paletteOpen, setPaletteOpen] = useState(false);
@@ -127,6 +132,11 @@ export function AppShell() {
         </div>
       ) : null}
       <PwaToasts />
+      {demoRequested ? (
+        <Suspense fallback={null}>
+          <DemoRunner />
+        </Suspense>
+      ) : null}
     </>
   );
 }

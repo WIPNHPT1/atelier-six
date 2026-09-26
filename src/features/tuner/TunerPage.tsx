@@ -22,6 +22,8 @@ import { Heading } from '../../ui/Heading';
 import { SegmentedControl } from '../../ui/SegmentedControl';
 import { Slider } from '../../ui/Slider';
 import { TunerDial } from './TunerDial';
+import { useDemoStore } from '../demo/demoStore';
+import { settleCents, SETTLE_MS } from '../demo/script';
 import styles from './TunerPage.module.css';
 
 const TUNINGS: Record<TuningName, Tuning> = { standard, halfDown, dropD };
@@ -50,6 +52,24 @@ export default function TunerPage() {
   const [displayedCents, setDisplayedCents] = useState(0);
   const [inTune, setInTune] = useState(false);
   const [debug, setDebug] = useState({ rms: 0, freq: 0, clarity: 0 });
+  const demoActive = useDemoStore((s) => s.active);
+
+  // Demo tour: no mic, just a needle easing in from sharp to dead centre.
+  useEffect(() => {
+    if (!demoActive) return;
+    const start = performance.now();
+    const id = window.setInterval(() => {
+      const elapsed = performance.now() - start;
+      setDisplayedCents(settleCents(elapsed));
+      if (elapsed >= SETTLE_MS) {
+        setInTune(true);
+        window.clearInterval(id);
+      }
+    }, 50);
+    return () => {
+      window.clearInterval(id);
+    };
+  }, [demoActive]);
 
   const tuningArray = TUNINGS[settings.tuning];
   const settingsRef = useRef(settings);

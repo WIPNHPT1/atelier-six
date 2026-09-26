@@ -722,6 +722,10 @@ export const copy = {
     notAffiliated:
       'Atelier Six is not affiliated with or endorsed by any guitar maker, artist or label.',
   },
+  demo: {
+    intro: 'A 20-second tour of Atelier Six. Press any key or tap to stop it.',
+    start: 'Start the tour',
+  },
   commandPalette: {
     title: 'Command palette',
     placeholder: 'Search lessons, chords, drills, settings…',
