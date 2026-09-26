@@ -18,8 +18,6 @@ drills you on the hard ones.
 **[Live demo → ateliersix.netlify.app](https://ateliersix.netlify.app)** ·
 [How it's built](https://ateliersix.netlify.app/about)
 
-![Atelier Six demo](docs/demo.gif)
-
 ## Why
 
 Chords are easy; changes are hard. Any chart shows you where to put your fingers for one

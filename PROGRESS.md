@@ -1,6 +1,6 @@
 # Progress
 
-Current: 10.2
+Current: 10.3
 Legend: [ ] todo · [x] done · BLOCKED: reason
 Rule: update "Current" and tick the box in the same commit as the step. Unfinished work lives in `RESUME.md`.
 Milestones: v1.0 = Phases 0–10 · v1.1 = 11–15 · v1.2 = 16–17 · v2.0 = 18–22 · v2.x = 23–24 (final).
@@ -123,7 +123,7 @@ Recorded numbers (fill in as you go): LIVE_URL=https://ateliersix.netlify.app ·
 ## Phase 10 — Showcase and release
 
 - [x] 10.1 README + docs + ADRs
-- [ ] 10.2 Demo mode (USER ACTION: record GIF)
+- [x] 10.2 Demo mode (USER ACTION: record GIF) — GIF skipped by the user; demo mode live at /?demo=1
 - [ ] 10.3 Beta with guitarists (USER ACTION)
 - [ ] 10.4 Release v1.0.0
 - [ ] Gate 10
