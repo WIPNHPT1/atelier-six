@@ -3,6 +3,7 @@ import { createBrowserRouter } from 'react-router-dom';
 import { AppShell } from './layout/AppShell';
 
 const TodayPage = lazy(() => import('../features/today/TodayPage'));
+const StartPage = lazy(() => import('../features/onboarding/StartPage'));
 const OnboardingPage = lazy(() => import('../features/onboarding/OnboardingPage'));
 const CoursePage = lazy(() => import('../features/course/CoursePage'));
 const CourseModulePage = lazy(() => import('../features/course/CourseModulePage'));
@@ -21,7 +22,8 @@ export const routeObjects = [
   {
     element: <AppShell />,
     children: [
-      { path: '/', element: <TodayPage /> },
+      { path: '/', element: <StartPage /> },
+      { path: '/today', element: <TodayPage /> },
       { path: '/onboarding', element: <OnboardingPage /> },
       { path: '/course', element: <CoursePage /> },
       { path: '/course/:module', element: <CourseModulePage /> },

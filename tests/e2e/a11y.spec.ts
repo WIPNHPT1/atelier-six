@@ -2,7 +2,7 @@ import { expect, test } from '@playwright/test';
 import { completeOnboarding, seriousViolations } from './helpers.ts';
 
 const ROUTES = [
-  '/',
+  '/today',
   '/course',
   '/course/power',
   '/library',

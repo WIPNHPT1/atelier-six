@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import { PageHeader } from '../../app/layout/PageHeader';
-import { LearnTabs } from '../../app/layout/LearnTabs';
 import { copy, t } from '../../content/copy.en-GB';
 import { Heading } from '../../ui/Heading';
 import { Mono } from '../../ui/Mono';
@@ -20,12 +19,9 @@ export default function CoursePage() {
   return (
     <>
       <PageHeader title={copy.course.learnTitle}>
-        <div className={styles.headerRow}>
-          <Text dim className={styles.intro}>
-            {copy.course.intro}
-          </Text>
-          <LearnTabs />
-        </div>
+        <Text dim className={styles.intro}>
+          {copy.course.intro}
+        </Text>
       </PageHeader>
       <ul className={styles.cards}>
         <li>

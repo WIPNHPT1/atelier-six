@@ -3,22 +3,15 @@ export const copy = {
     name: 'Atelier Six',
   },
   nav: {
+    start: 'Start',
     today: 'Today',
     learn: 'Learn',
+    chords: 'Chords',
     practise: 'Practise',
     tuner: 'Tuner',
-    you: 'You',
+    settings: 'Settings',
     search: '⌘K Search',
     crumbSeparator: ' · ',
-  },
-  learn: {
-    course: 'Course',
-    chords: 'Chords',
-  },
-  you: {
-    progress: 'Progress',
-    settings: 'Settings',
-    tabs: 'You',
   },
   today: {
     title: 'Today',

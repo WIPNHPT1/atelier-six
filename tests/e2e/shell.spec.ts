@@ -6,11 +6,10 @@ async function expectPath(page: Page, path: string) {
 }
 
 const destinations = [
-  { name: 'Today', path: '/' },
   { name: 'Learn', path: '/course' },
-  { name: 'Practise', path: '/practise' },
+  { name: 'Chords', path: '/library' },
   { name: 'Tuner', path: '/tuner' },
-  { name: 'You', path: '/progress' },
+  { name: 'Settings', path: '/settings' },
 ];
 
 test('navigates every destination via the visible nav and marks the active route', async ({
@@ -45,6 +44,11 @@ test('navigates every destination via the visible nav and marks the active route
       'page',
     );
   }
+
+  // Start redirects an already-onboarded profile straight to /today, so it never shows as
+  // the active route itself — just check the link works.
+  await nav.getByRole('link', { name: 'Start' }).click();
+  await expectPath(page, '/today');
 });
 
 test('toggling Motion off sets data-motion on the html element', async ({ page }) => {

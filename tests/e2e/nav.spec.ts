@@ -24,7 +24,7 @@ test('onboarding appears once on a fresh profile and not after reload', async ({
   await completeOnboarding(page);
 
   await page.reload();
-  await expect.poll(() => new URL(page.url()).pathname).toBe('/');
+  await expect.poll(() => new URL(page.url()).pathname).toBe('/today');
 });
 
 test('route changes cause no layout shift', async ({ page, browserName }) => {
@@ -36,8 +36,8 @@ test('route changes cause no layout shift', async ({ page, browserName }) => {
   // the lazy-load Suspense fallback, which is a separate, expected concern
   await visibleNav(page).getByRole('link', { name: 'Tuner' }).click();
   await expect.poll(() => new URL(page.url()).pathname).toBe('/tuner');
-  await visibleNav(page).getByRole('link', { name: 'Today' }).click();
-  await expect.poll(() => new URL(page.url()).pathname).toBe('/');
+  await visibleNav(page).getByRole('link', { name: 'Start' }).click();
+  await expect.poll(() => new URL(page.url()).pathname).toBe('/today');
 
   await page.evaluate(() => {
     const win = window as unknown as { __cls: number };

@@ -8,7 +8,7 @@ test.use({ serviceWorkers: 'block' });
 const FIXED_NOW = '2026-01-15T12:00:00.000Z';
 
 const PAGES = [
-  { name: 'today', path: '/' },
+  { name: 'today', path: '/today' },
   { name: 'course', path: '/course' },
   { name: 'course-module', path: '/course/power' },
   { name: 'lesson', path: '/lesson/power-vi-iv-i-v-d' },

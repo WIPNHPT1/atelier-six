@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { PageHeader } from '../../app/layout/PageHeader';
-import { YouTabs } from '../../app/layout/YouTabs';
 import { copy, t } from '../../content/copy.en-GB';
 import {
   buildHeatmap,
@@ -81,9 +80,7 @@ export default function ProgressPage() {
       <PageHeader
         title={copy.progressScreen.title}
         breadcrumb={t('progressScreen.week', { minutes: Math.round(minutesThisWeek(data, now)) })}
-      >
-        <YouTabs />
-      </PageHeader>
+      />
       <div className={styles.grid}>
         <Panel className={styles.modules}>
           <div className={styles.panelHead}>

@@ -3,11 +3,19 @@ import { copy } from '../../content/copy.en-GB';
 
 export const defaultCommands: Command[] = [
   {
+    id: 'nav-start',
+    group: 'Actions',
+    label: copy.nav.start,
+    run: ({ navigate }) => {
+      void navigate('/');
+    },
+  },
+  {
     id: 'nav-today',
     group: 'Actions',
     label: copy.nav.today,
     run: ({ navigate }) => {
-      void navigate('/');
+      void navigate('/today');
     },
   },
   {
@@ -38,7 +46,7 @@ export const defaultCommands: Command[] = [
   {
     id: 'nav-progress',
     group: 'Actions',
-    label: copy.nav.you,
+    label: copy.progressScreen.title,
     run: ({ navigate }) => {
       void navigate('/progress');
     },

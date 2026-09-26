@@ -35,8 +35,13 @@ export default function OnboardingPage() {
 
   function finish() {
     if (grooving) stopPlayback();
-    settings.setOnboardingComplete(true);
     void navigate(`/lesson/${recommendedLesson(settings.level).id}`);
+    // Deferred: zustand notifies subscribers synchronously, and StartPage (mounted at "/")
+    // redirects to /today the instant onboardingComplete flips true — set it only once the
+    // navigation above has actually taken effect, so that race can't happen.
+    window.setTimeout(() => {
+      settings.setOnboardingComplete(true);
+    }, 0);
   }
 
   function skip() {
