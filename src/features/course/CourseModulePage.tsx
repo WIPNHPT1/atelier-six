@@ -41,7 +41,6 @@ export default function CourseModulePage() {
   const riffs = riffsFor(module.id);
   const { done } = moduleProgress(module.id, data);
   const next = lessons.find((lesson) => !lessonDone(lesson, data)) ?? lessons[0];
-  const finish = copy.course.finishes[module.finish];
   const prevMod = prevModule(module.id);
   const nextMod = nextModule(module.id);
 
@@ -54,7 +53,7 @@ export default function CourseModulePage() {
               {copy.nav.learn}
             </Link>
             {copy.nav.crumbSeparator}
-            {t('course.moduleCrumb', { number: module.number, finish })}
+            {t('course.moduleCrumb', { number: module.number, style: meta.style })}
           </Mono>
           <Heading level={1} className={styles.title}>
             {meta.title}

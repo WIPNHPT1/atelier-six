@@ -49,9 +49,7 @@ export default function CoursePage() {
             <li key={module.id}>
               <Link to={`/course/${module.id}`} className={styles.card} data-finish={module.finish}>
                 <div className={styles.cardTop}>
-                  <Mono className={styles.finish}>
-                    {t('course.finishLabel', { finish: copy.course.finishes[module.finish] })}
-                  </Mono>
+                  <Mono className={styles.finish}>{meta.style}</Mono>
                   <ProgressRing
                     done={done}
                     total={lessons.length}
@@ -62,7 +60,7 @@ export default function CoursePage() {
                   {meta.title}
                 </Heading>
                 <Text dim size="small">
-                  {meta.style}
+                  {meta.description}
                 </Text>
                 <div className={styles.pills}>
                   {module.available ? (

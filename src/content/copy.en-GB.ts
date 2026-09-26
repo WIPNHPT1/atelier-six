@@ -70,7 +70,6 @@ export const copy = {
     learnTitle: 'Learn',
     intro:
       'Five styles, one idea: chords are easy, changes are hard. Each module orders its lessons from the gentlest change to the most demanding.',
-    finishLabel: '{finish} finish',
     lessonCount: '{count} lessons',
     statusNew: 'New',
     statusStarted: 'Started',
@@ -89,7 +88,7 @@ export const copy = {
     stopRiff: 'Stop {title}',
     statusProgress: '{done} of {total}',
     comingSoon: 'Coming in v1.1',
-    moduleCrumb: 'Module {number} · {finish} finish',
+    moduleCrumb: 'Module {number} · {style}',
     lessonsHeading: 'Lessons · gentlest change first',
     complete: '{done} of {total} complete',
     progressRing: '{done} of {total} lessons complete',
@@ -103,17 +102,12 @@ export const copy = {
     prevModule: '← {title}',
     nextModule: '{title} →',
     moduleNav: 'Module navigation',
-    finishes: {
-      nitro: 'Nitro',
-      xerox: 'Xerox',
-      sunburst: 'Sunburst',
-      faded: 'Faded',
-      stencil: 'Stencil',
-    },
     modules: {
       power: {
         title: 'Power chords',
         style: 'Pop punk',
+        description:
+          'Locked power-chord shapes, downpicking stamina and palm muting: the engine room for pop punk rhythm guitar.',
         tone: 'Gain 7 · Bass 6 · Mid 4 · Treble 6',
         toneNote: 'Bridge humbucker, palm-muted verse, open chorus.',
         skill1: 'Locked shapes',
@@ -124,6 +118,8 @@ export const copy = {
       open: {
         title: 'Open chords',
         style: 'Britpop',
+        description:
+          'Anchor-finger open chords, a driving sixteenth strum and capo work, for bright, ringing Britpop rhythm guitar.',
         tone: 'Clean · Bass 5 · Mid 6 · Treble 7',
         toneNote: 'Acoustic or clean electric, capo on, let the top strings ring.',
         skill1: 'Anchor fingers',
@@ -134,6 +130,8 @@ export const copy = {
       lead: {
         title: 'Lead',
         style: 'Grunge-melodic lead',
+        description:
+          'Bends, slides and vibrato strung into melodic solos, grunge-tinged lead playing over a steady rhythm bed.',
         tone: '',
         toneNote: '',
         skill1: 'Bends',
@@ -144,6 +142,8 @@ export const copy = {
       thumb: {
         title: 'Thumb-over',
         style: 'Thumb-over funk',
+        description:
+          'Thumb-over triads, ghost notes and hammer-ons: the syncopated pocket behind thumb-over funk.',
         tone: '',
         toneNote: '',
         skill1: 'Thumb-over triads',
@@ -154,6 +154,8 @@ export const copy = {
       whammy: {
         title: 'Whammy',
         style: 'Rap-rock Whammy',
+        description:
+          'Drop D power and killswitch chops, call-and-response riffing with the whammy bar in hand.',
         tone: '',
         toneNote: '',
         skill1: 'Drop D',
