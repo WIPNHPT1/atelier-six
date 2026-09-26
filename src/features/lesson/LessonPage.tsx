@@ -23,14 +23,11 @@ import { TUNINGS } from '../../core/style/riffBuilder';
 import type { StyleSheet } from '../../core/style/types';
 import { renderTab, toAscii } from '../../core/tab/renderTab';
 import { soundingChordName } from '../../core/theory/capo';
-import { useMotionEnabled, useSettingsStore } from '../../app/settingsStore';
+import { useSettingsStore } from '../../app/settingsStore';
 import { STYLES } from '../../data/styles';
 import { PageHeader } from '../../app/layout/PageHeader';
 import { Button } from '../../ui/Button';
 import { Ripple } from '../../ui/Ripple';
-import { useIsWide } from '../../ui/useIsWide';
-import { LivingStrings } from '../../ui/livingStrings/LivingStrings';
-import { useStrumHighlight } from '../../ui/livingStrings/useStrumHighlight';
 import { cx } from '../../ui/cx';
 import { Fretboard } from '../../ui/Fretboard/Fretboard';
 import { Heading } from '../../ui/Heading';
@@ -182,10 +179,6 @@ function LessonPlayer({ lesson }: { lesson: BuiltLesson }) {
     ? Math.max(0, playback.chordIndex) % view.shapes.length
     : selfPacedIndex % view.shapes.length;
   const current = view.shapes[barIndex] as Shape;
-  const isWide = useIsWide();
-  const motionEnabled = useMotionEnabled();
-  const livingStrings = isWide && playingThis;
-  const highlightStrings = useStrumHighlight(livingStrings && !motionEnabled);
   const upcoming = nextChange(view.shapes, barIndex);
   const hardest = hardestTransition(plan.shapes);
   const previousStep = prevStep(lesson);
@@ -542,14 +535,7 @@ function LessonPlayer({ lesson }: { lesson: BuiltLesson }) {
                   })}
                 </Text>
               ) : null}
-              <Fretboard
-                shape={current}
-                size={200}
-                orientation={isWide ? 'neck' : 'box'}
-                highlightStrings={highlightStrings}
-                {...(upcoming ? { ghost: upcoming } : {})}
-              />
-              {livingStrings && motionEnabled ? <LivingStrings size={200} /> : null}
+              <Fretboard shape={current} size={200} {...(upcoming ? { ghost: upcoming } : {})} />
               <Ripple pulseKey={rippleCount} />
             </div>
             {upcoming ? (
@@ -562,7 +548,7 @@ function LessonPlayer({ lesson }: { lesson: BuiltLesson }) {
           </div>
         </Panel>
 
-        <Panel className={styles.change} data-focus-hide>
+        <Panel className={styles.change}>
           <Mono className={styles.label}>{copy.lesson.theChange}</Mono>
           {upcoming ? (
             <TransitionCard
@@ -583,7 +569,7 @@ function LessonPlayer({ lesson }: { lesson: BuiltLesson }) {
           ) : null}
         </Panel>
 
-        <Panel className={styles.layers} data-focus-hide>
+        <Panel className={styles.layers}>
           <Mono className={styles.label}>{copy.lesson.layers}</Mono>
           <ul className={styles.list}>
             {section.layers.map((layer) => {
@@ -611,7 +597,7 @@ function LessonPlayer({ lesson }: { lesson: BuiltLesson }) {
           </ul>
         </Panel>
 
-        <Panel className={styles.tips} data-focus-hide>
+        <Panel className={styles.tips}>
           <Mono className={styles.label}>{copy.lesson.tips}</Mono>
           <ul className={styles.list}>
             {lesson.tips.map((tip) => (
