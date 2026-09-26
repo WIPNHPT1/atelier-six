@@ -1,0 +1,75 @@
+name: Beta feedback
+description: Two minutes to tell us how Atelier Six felt to play with
+title: 'Beta feedback: '
+labels: [beta]
+body:
+  - type: input
+    id: device
+    attributes:
+      label: Device and browser
+      placeholder: 'e.g. iPhone 15, Safari'
+    validations:
+      required: true
+  - type: dropdown
+    id: level
+    attributes:
+      label: Your guitar level
+      options:
+        - Beginner (under a year)
+        - Improver (1–3 years)
+        - Experienced (3+ years)
+    validations:
+      required: true
+  - type: dropdown
+    id: module
+    attributes:
+      label: Which module did you mostly use?
+      options:
+        - Power (pop punk)
+        - Open (Britpop)
+        - Both
+    validations:
+      required: true
+  - type: textarea
+    id: great
+    attributes:
+      label: What felt great?
+  - type: textarea
+    id: confusing
+    attributes:
+      label: What was confusing?
+  - type: textarea
+    id: broke
+    attributes:
+      label: What broke? (what you did, what happened)
+  - type: dropdown
+    id: score-playable
+    attributes:
+      label: Playable — could you actually play along? (out of 5)
+      options: ['1', '2', '3', '4', '5']
+    validations:
+      required: true
+  - type: dropdown
+    id: score-style
+    attributes:
+      label: Sounds like the style (out of 5)
+      options: ['1', '2', '3', '4', '5']
+    validations:
+      required: true
+  - type: dropdown
+    id: score-fun
+    attributes:
+      label: Fun (out of 5)
+      options: ['1', '2', '3', '4', '5']
+    validations:
+      required: true
+  - type: dropdown
+    id: keep-using
+    attributes:
+      label: Would you keep using it?
+      options:
+        - 'Yes'
+        - Maybe
+        - 'No'
+    validations:
+      required: true
