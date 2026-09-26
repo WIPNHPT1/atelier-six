@@ -1,10 +1,13 @@
-import { defineConfig, devices } from '@playwright/test'
+import { defineConfig, devices } from '@playwright/test';
 
 export default defineConfig({
   testDir: './tests/e2e',
   testIgnore: '**/._*',
   fullyParallel: true,
   retries: process.env.CI ? 1 : 0,
+  // GitHub-hosted runners have 2 CPUs — full parallelism across 6 projects (now heavier with
+  // the visual and a11y suites) was crashing WebKit under resource pressure.
+  workers: process.env.CI ? 2 : undefined,
   reporter: 'line',
   webServer: {
     command: 'npm run build && npm run preview -- --port 4173',
@@ -18,7 +21,10 @@ export default defineConfig({
   projects: [
     {
       name: 'mobile',
-      use: { ...devices['Pixel 7'] },
+      use: {
+        ...devices['Pixel 7'],
+        launchOptions: { args: ['--autoplay-policy=no-user-gesture-required'] },
+      },
     },
     {
       name: 'mobile-safari',
@@ -30,7 +36,11 @@ export default defineConfig({
     },
     {
       name: 'desktop',
-      use: { ...devices['Desktop Chrome'], viewport: { width: 1440, height: 900 } },
+      use: {
+        ...devices['Desktop Chrome'],
+        viewport: { width: 1440, height: 900 },
+        launchOptions: { args: ['--autoplay-policy=no-user-gesture-required'] },
+      },
     },
     {
       name: 'desktop-safari',
@@ -41,4 +51,4 @@ export default defineConfig({
       use: { ...devices['Desktop Firefox'], viewport: { width: 1440, height: 900 } },
     },
   ],
-})
+});

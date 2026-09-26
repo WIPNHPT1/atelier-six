@@ -20,6 +20,9 @@ const ROUTES = [
 ];
 
 test('every route has zero serious or critical accessibility violations', async ({ page }) => {
+  // 15 routes × (navigate + axe scan) comfortably clears the default 30s on a fast local
+  // Chromium run, but not on a slower/loaded CI worker, especially WebKit.
+  test.setTimeout(120_000);
   await completeOnboarding(page);
 
   for (const route of ROUTES) {

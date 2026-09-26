@@ -1,7 +1,5 @@
 import { expect, test } from '@playwright/test';
 
-test.use({ launchOptions: { args: ['--autoplay-policy=no-user-gesture-required'] } });
-
 test('Play advances the playhead and Stop freezes it', async ({ page, browserName }) => {
   test.skip(browserName !== 'chromium', 'audio gesture policy is Chromium-only in CI');
 

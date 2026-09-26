@@ -1,7 +1,5 @@
 import { expect, test } from '@playwright/test';
 
-test.use({ launchOptions: { args: ['--autoplay-policy=no-user-gesture-required'] } });
-
 test('works fully offline after the service worker installs', async ({
   page,
   context,

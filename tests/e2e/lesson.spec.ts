@@ -1,7 +1,5 @@
 import { expect, test } from '@playwright/test';
 
-test.use({ launchOptions: { args: ['--autoplay-policy=no-user-gesture-required'] } });
-
 async function openFirstOpenLesson(page: import('@playwright/test').Page) {
   await page.goto('/course/open');
   await page
