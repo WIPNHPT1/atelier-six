@@ -1,10 +1,10 @@
 # Progress
 
-Current: Gate 10
+Current: 11.1
 Legend: [ ] todo · [x] done · BLOCKED: reason
 Rule: update "Current" and tick the box in the same commit as the step. Unfinished work lives in `RESUME.md`.
 Milestones: v1.0 = Phases 0–10 · v1.1 = 11–15 · v1.2 = 16–17 · v2.0 = 18–22 · v2.x = 23–24 (final).
-Recorded numbers (fill in as you go): LIVE_URL=https://ateliersix.netlify.app · JS_KB=113 · ENTRY_CSS_KB=48.5 · FRAME_MS=16.61 · LH=0.81/0.98/1.0 · DETECT_ACC= · CHUNKS= · REC_MB= · MORPH_FRAME_MS= · CAMERA_ACC=
+Recorded numbers (fill in as you go): LIVE_URL=https://ateliersix.netlify.app · JS_KB=115 · ENTRY_CSS_KB=48.9 · FRAME_MS=16.61 · LH=0.81/0.98/1.0 · DETECT_ACC= · CHUNKS= · REC_MB= · MORPH_FRAME_MS= · CAMERA_ACC=
 
 ## Pace log
 
@@ -126,7 +126,7 @@ Recorded numbers (fill in as you go): LIVE_URL=https://ateliersix.netlify.app ·
 - [x] 10.2 Demo mode (USER ACTION: record GIF) — GIF skipped by the user; demo mode live at /?demo=1
 - [x] 10.3 Beta with guitarists (USER ACTION) — beta skipped by the user; form kept for later
 - [x] 10.4 Release v1.0.0
-- [ ] Gate 10
+- [x] Gate 10
 
 ---
 

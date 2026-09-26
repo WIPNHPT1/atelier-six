@@ -710,7 +710,7 @@ export const copy = {
     qualityCoverage: '100% unit-test coverage of the core logic',
     qualityE2e: '43 end-to-end tests on phone, tablet and desktop, in 3 browsers',
     qualityLighthouse: 'Lighthouse: performance 81, accessibility 98, best practices 100',
-    qualityEntry: 'Entry bundle 113 KB gzip (budget 200 KB)',
+    qualityEntry: 'Entry bundle 115 KB gzip (budget 200 KB)',
     qualityFrame: '16.61 ms per frame during playback (60 fps)',
     privacyHeading: 'Privacy',
     privacy:

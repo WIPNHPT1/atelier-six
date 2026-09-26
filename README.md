@@ -88,7 +88,7 @@ More detail: [docs/architecture.md](docs/architecture.md) and the decision recor
   WebKit and Firefox, plus visual regression snapshots.
 - **Lighthouse**: performance 81, accessibility 98, best practices 100.
 - **Accessibility**: axe scans on every route; 4.5:1 contrast checked from the design tokens.
-- **Size budgets**: entry JS 113 KB gzip (budget 200 KB), entry CSS 48.5 KB gzip.
+- **Size budgets**: entry JS 115 KB gzip (budget 200 KB), entry CSS 48.9 KB gzip.
 - **Frame time**: 16.61 ms average during playback (60 fps).
 
 ## Getting started
