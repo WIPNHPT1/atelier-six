@@ -10,7 +10,7 @@ A one-week beta of the live site with 3–5 guitarists of mixed levels, before v
 
 ## Feedback
 
-_Waiting for responses._
+_Beta skipped before v1.0 (user's decision, 2026-09-26). The form stays open for later feedback._
 
 | #   | From (level) | Type | Feedback | Scores (P/S/F) | What was done |
 | --- | ------------ | ---- | -------- | -------------- | ------------- |
