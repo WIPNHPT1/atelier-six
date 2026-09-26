@@ -23,7 +23,8 @@
     "e2e": "playwright test --reporter=line",
     "prepare": "husky",
     "lint:style": "tsx scripts/lint-style.ts",
-    "data:lessons": "tsx scripts/data/build-lessons.ts"
+    "data:lessons": "tsx scripts/data/build-lessons.ts",
+    "check:links": "tsx scripts/check-links.ts"
   },
   "dependencies": {
     "@fontsource/geist": "^5.3.0",

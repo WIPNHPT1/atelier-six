@@ -1,5 +1,6 @@
 import type { Command } from './registerCommands';
 import { copy } from '../../content/copy.en-GB';
+import { openReportProblem } from '../../app/reportProblem';
 
 export const defaultCommands: Command[] = [
   {
@@ -73,6 +74,24 @@ export const defaultCommands: Command[] = [
     label: copy.drills.title,
     run: ({ navigate }) => {
       void navigate('/drills');
+    },
+  },
+  {
+    id: 'report-problem',
+    group: 'Settings',
+    label: copy.commandPalette.reportProblem,
+    keywords: ['bug', 'issue', 'feedback'],
+    run: () => {
+      openReportProblem();
+    },
+  },
+  {
+    id: 'nav-about',
+    group: 'Settings',
+    label: copy.commandPalette.about,
+    keywords: ['about', 'privacy', 'how it works'],
+    run: ({ navigate }) => {
+      void navigate('/about');
     },
   },
 ];

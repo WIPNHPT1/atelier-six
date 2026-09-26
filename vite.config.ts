@@ -1,3 +1,4 @@
+import { readFileSync } from 'node:fs';
 import { fileURLToPath, URL } from 'node:url';
 import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vite';
@@ -7,8 +8,15 @@ import { VitePWA } from 'vite-plugin-pwa';
 // tokens.css: the manifest can't read a CSS custom property.
 const brandDark = '#121110';
 
+const { version } = JSON.parse(
+  readFileSync(fileURLToPath(new URL('./package.json', import.meta.url)), 'utf8'),
+) as { version: string };
+
 // https://vite.dev/config/
 export default defineConfig({
+  define: {
+    __APP_VERSION__: JSON.stringify(version),
+  },
   plugins: [
     react(),
     VitePWA({

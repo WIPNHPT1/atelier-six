@@ -1,0 +1,123 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-12);
+  max-width: 720px;
+}
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+}
+
+.lede {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--t-40);
+  line-height: 1.1;
+  color: var(--bone);
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+}
+
+.figure {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s-2);
+}
+
+.demo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+}
+
+.pickers {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+}
+
+.lattice {
+  width: 100%;
+  max-width: 420px;
+  height: auto;
+  align-self: center;
+}
+
+.edge {
+  stroke: var(--hairline);
+  stroke-width: 1.5;
+}
+
+.edgeChosen {
+  stroke: var(--brass-hi);
+  stroke-width: 3;
+}
+
+.node {
+  fill: var(--bone);
+}
+
+.nodeLabel {
+  fill: var(--bone-dim);
+  font-family: var(--font-mono);
+  font-size: var(--t-12);
+}
+
+.pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.screens {
+  display: flex;
+  gap: var(--s-4);
+  align-items: flex-start;
+}
+
+.screenMobile {
+  width: 28%;
+  height: auto;
+  border-radius: var(--r-card);
+  border: 1px solid var(--hairline);
+}
+
+.screenDesktop {
+  width: 68%;
+  height: auto;
+  border-radius: var(--r-card);
+  border: 1px solid var(--hairline);
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+  margin: 0;
+  padding-left: var(--s-6);
+}
+
+.link {
+  color: var(--bone);
+  font-family: var(--font-ui);
+  font-size: var(--t-14);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.link:focus-visible {
+  outline: 2px solid var(--brass-hi);
+  outline-offset: 2px;
+}

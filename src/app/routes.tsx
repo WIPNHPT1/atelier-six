@@ -16,6 +16,7 @@ const TunerPage = lazy(() => import('../features/tuner/TunerPage'));
 const ProgressPage = lazy(() => import('../features/progress/ProgressPage'));
 const SettingsPage = lazy(() => import('../features/settings/SettingsPage'));
 const DesignPage = lazy(() => import('../features/design/DesignPage'));
+const AboutPage = lazy(() => import('../features/about/AboutPage'));
 const FoundationsPage = lazy(() => import('../features/foundations/FoundationsPage'));
 
 export const routeObjects = [
@@ -38,6 +39,7 @@ export const routeObjects = [
       { path: '/progress', element: <ProgressPage /> },
       { path: '/settings', element: <SettingsPage /> },
       { path: '/design', element: <DesignPage /> },
+      { path: '/about', element: <AboutPage /> },
     ],
   },
 ];

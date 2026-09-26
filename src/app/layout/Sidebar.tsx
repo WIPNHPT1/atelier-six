@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import styles from './Sidebar.module.css';
 import { navItems } from './navItems';
 import { copy } from '../../content/copy.en-GB';
@@ -34,6 +34,9 @@ export function Sidebar({ onOpenPalette }: SidebarProps) {
       <button type="button" className={styles.search} onClick={onOpenPalette}>
         {copy.nav.search}
       </button>
+      <Link to="/about" viewTransition={motionEnabled} className={styles.footerLink}>
+        {copy.nav.about}
+      </Link>
     </nav>
   );
 }

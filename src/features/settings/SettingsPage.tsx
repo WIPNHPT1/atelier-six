@@ -17,6 +17,7 @@ import { FootPedalTest } from '../../ui/shortcuts/FootPedalTest';
 import styles from './SettingsPage.module.css';
 import { ProgressTransfer } from './ProgressTransfer';
 import { InstallButton } from './InstallButton';
+import { openReportProblem } from '../../app/reportProblem';
 
 type DownloadState = 'idle' | 'downloading' | 'done';
 
@@ -239,6 +240,35 @@ export default function SettingsPage() {
             }}
           >
             {copy.onboarding.restart}
+          </Button>
+        </div>
+
+        <div className={styles.row}>
+          <div className={styles.rowLabel}>
+            <Text>{copy.settings.about}</Text>
+            <Text dim size="small">
+              {copy.settings.aboutHint}
+            </Text>
+          </div>
+          <Button
+            variant="quiet"
+            onClick={() => {
+              void navigate('/about');
+            }}
+          >
+            {copy.settings.aboutAction}
+          </Button>
+        </div>
+
+        <div className={styles.row}>
+          <div className={styles.rowLabel}>
+            <Text>{copy.settings.reportProblem}</Text>
+            <Text dim size="small">
+              {copy.settings.reportProblemHint}
+            </Text>
+          </div>
+          <Button variant="quiet" onClick={openReportProblem}>
+            {copy.settings.reportProblemAction}
           </Button>
         </div>
       </Panel>
